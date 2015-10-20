@@ -66,6 +66,18 @@ top=25mm, bottom=25mm, outer=25mm, inner=25mm]{geometry}
 % Write "References" instead of "Bibliography"
 \renewcommand\bibname{References}
 
+% Define ToDo notes
+\usepackage{todonotes} 
+\setlength{\marginparwidth}{5cm}
+\newcommand{\comment}[2]{\todo[color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+\newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+\newcommand{\fixme}[2]{\todo[color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
+\newcommand{\lfixme}[2]{\todo[inline,color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
+\newcommand{\snippet}[1]{\textcolor{black!20}{#1}}
+\newcommand{\addref}{\todo[color=green!40]{Add a reference.}}
+\newcommand{\addrefs}{\todo[color=green!40]{Add references.}}
+
+
 % Includes personal command definitions
 %\input{cmd}
 
@@ -101,12 +113,12 @@ top=25mm, bottom=25mm, outer=25mm, inner=25mm]{geometry}
 
 %\bibliographystyle{plain}	% A standard citation style
 %\bibliographystyle{unsrt}	% A standard citation style
-%\bibliographystyle{ieeetr}	% IEEE citation style
+\bibliographystyle{ieeetr}	% IEEE citation style
 %\bibliographystyle{verbose}	% Local verbose citation style
 %\bibliographystyle{thesis}	% Local citation style for use in thesis
 %\bibliographystyle{PoPstyle}	% PoP citation style thesis
 
-%\input{bibl.tex}
+\bibliography{references}
 
 \newpage \
 \end{document}
