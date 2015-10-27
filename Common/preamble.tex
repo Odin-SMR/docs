@@ -1,0 +1,39 @@
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
+\usepackage[dvips]{graphicx}	% Using eps figures
+\usepackage{amsmath}
+
+% Set the margins
+\usepackage[margin=3cm]{geometry}
+
+% Set headers and footers
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyfoot[CE,CO]{\thepage}
+\fancyfoot[RE,RO]{ \scriptsize ATBD Odin SMR \\ Level 2 Document}
+\fancyfoot[LE,LO]{\scriptsize Chalmers University of  Technology \\ Department of Earth and \\ Space Sciences}
+\renewcommand{\footrulewidth}{1pt}
+\pagestyle{fancy}
+
+% Set the bibliography style
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\setcitestyle{braces=round}
+
+% Sets the hyperlinking inside document
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Define ToDo notes
+\usepackage{todonotes} 
+\setlength{\marginparwidth}{5cm}
+\newcommand{\comment}[2]{\todo[color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+\newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+\newcommand{\fixme}[2]{\todo[color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
+\newcommand{\lfixme}[2]{\todo[inline,color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
+\newcommand{\snippet}[1]{\textcolor{black!20}{#1}}
+\newcommand{\addref}{\todo[color=green!40]{Add a reference.}}
+\newcommand{\addrefs}{\todo[color=green!40]{Add references.}}
