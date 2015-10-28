@@ -3,6 +3,7 @@
 
 \usepackage[dvips]{graphicx}	% Using eps figures
 \usepackage{amsmath}
+\usepackage[T1]{fontenc}
 
 % Set the margins
 \usepackage[margin=3cm]{geometry}
@@ -18,8 +19,17 @@
 \renewcommand{\footrulewidth}{1pt}
 \pagestyle{fancy}
 
+% Chapter and section heading style
+\setcounter{secnumdepth}{4}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray50}{gray}{0.5}
+\newcommand{\hsp}{\hspace{10pt}}
+\newcommand{\chapterhead}{Chapter}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\chapterhead\ \thechapter\hsp\textcolor{gray50}{|}\hsp}{0pt}{\Huge\bfseries}
+
 % ToC
 \usepackage[titletoc]{appendix}
+\setcounter{tocdepth}{1}   % Include just down to \section
 
 % Set the bibliography style
 \usepackage{natbib}
@@ -32,11 +42,11 @@
 
 % Define ToDo notes
 \usepackage{todonotes} 
-\setlength{\marginparwidth}{5cm}
+\setlength{\marginparwidth}{2.7cm}
 \newcommand{\comment}[2]{\todo[color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
 \newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
-\newcommand{\fixme}[2]{\todo[color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
-\newcommand{\lfixme}[2]{\todo[inline,color=orange!40]{\textbf{FIXME({#1}): }{#2}}}
+\newcommand{\fixme}[1]{\todo[color=orange!40]{#1}}
+\newcommand{\lfixme}[1]{\todo[inline,color=orange!40]{#1}}
 \newcommand{\snippet}[1]{\textcolor{black!20}{#1}}
 \newcommand{\addref}{\todo[color=green!40]{Add a reference.}}
 \newcommand{\addrefs}{\todo[color=green!40]{Add references.}}

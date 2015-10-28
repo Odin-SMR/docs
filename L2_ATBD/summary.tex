@@ -2,7 +2,29 @@
 \label{chapter:summary}
 
 
-\dots Make a ``FAQ''
+\lcomment{PE}{Keep text short. Mainly make a ``FAQ'', as sketched below.}
+
+\dots\\
+
+\noindent
+Some key issues that should be considered when examining or applying Odin-SMR
+L2 data:
+\begin{itemize}
+\item The main atmospheric vertical coordinate is pressure, i.e.\ \VMR and
+  temperature profiles are retrieved as a function of pressure. The L2 data
+  contain also an estimate of the geometrical altitudes\fixme{Correct?}\
+  matching the profiles values, but this information shall be considered as
+  secondary.
+\item L2 data are the best estimate at each pressure level\fixme{Does L2
+    contain anything else than profiles?}. To obtain the value at other
+  pressure levels, apply a linear interpolation using the logarithm of pressure
+  as independent variable.
+\item A single geographical position is assigned to the L2 data, that matches
+  \dots \lcomment{PE}{Geo-position set how?} However, the data are far from
+  point estimates, they represent averages of several 100\,km along the
+  viewing direction of Odin-SMR, and not even the centre position of the
+  averages is necessarily not found at the stated position. 
+\end{itemize}
 
 
 
