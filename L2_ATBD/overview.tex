@@ -2,38 +2,157 @@
 \label{chapter:overview}
 
 
-\section{Retrieval, L2 and diagnostics data}
-\label{sec:l2}
+\section{Terminology and data products}
+\label{sec:terminology}
 %
-\dots
+As mentioned in the Introduction, the topic of this document is the extraction
+of geophysical data from observed spectra. This calculation step is normally
+denoted as the retrieval or the inversion, where mainly the first term is used
+in this document. The objective of \smr\ is to estimate various atmospheric
+quantities, mainly the concentration of different gases, and these variables
+are accordingly the main target of the retrieval. These data, together with
+auxiliary information, form the L2 data. That is, the data that are made
+available for the general scientific community. The format of the L2 data
+treated by this document is described in Appendix~\ref{app:l2format}. The L2
+data are public available, visit \url{odin.rss.chalmers.se} for registration
+and download instructions.
+
+Besides geophysical variables, the retrieval must consider a number of
+instrumental variables to avoid that e.g.\ pointing errors cause unnecessary
+large retrieval errors. The result of this part of the retrieval can be seen as
+diagnostics data. Some of the quality fields of the L2 data are based on the
+diagnostics data, and these data are stored internally for further analysis, to
+e.g.\ detect instrumental drifts. 
+
+The retrieval can also include atmospheric state variables that influence the
+measurement, but the accuracy of the retrieval is not sufficiently high to
+justify inclusion in the L2 data. Regarding atmospheric gases, the ones
+included in the L2 data are denoted as target species, while other retrieved
+gases are called secondary species.
+\lcomment{PE}{Revise later to check if all fit with L2 format.}
+
 
 
 \section{Theoretical formalism}
 \label{sec:formalism}
 %
-\dots
+The retrievals are presented and discussed using the formalism presented in
+\citet[][Ch.~3]{rodgers:00}. The data to be inverted are appended to form the
+measurement vector, \MsrVct. This vector is related to other variables as
+\begin{equation}
+  \label{eq:fmodel1}
+  \MsrVct = \FrwMdl(\SttVct,\FrwMdlVct) + \MsrErrVct_n,
+\end{equation}
+where \FrwMdl\ is denoted as the forward model, \SttVct\ is the state vector,
+\FrwMdlVct\ is the vector of forward model parameters and \MsrErrVct\
+represents measurement noise. The distinction between the two arguments of the
+forward model is that all variables that we want to retrieve form \SttVct,
+while all other quantities that is required of the forward model are found in
+\FrwMdlVct. 
+
+The forward model treated explicitly in this document is the software used to
+model atmospheric radiative transfer and sensor responses. This is a model
+operating with discrete quantities, while the ``true'', hypothetical, forward
+model, \trueFrwMdl, consisting of the actual physical mechanisms in the
+atmosphere and the instrument, must be seen as a continuous function. If
+\FrwMdl\ is constructed and used carefully, the discrete representation should
+not cause any fundamental problems, and it is here assumed that all deviations
+between \trueFrwMdl\ and \FrwMdl\ can be treated as imperfect values in
+\FrwMdlVct. That is, $\trueFrwMdl=\FrwMdl(\SttVct,\FrwMdlVct)$, but the exact
+values of \FrwMdlVct\ are unknown and all we can do is to use best possible
+estimate, \FrwMdlVctHat. That is:
+\begin{equation}
+  \label{eq:fmodel2}
+  \MsrVct = \FrwMdl(\SttVct,\FrwMdlVctHat) + \MsrErrVct_b + \MsrErrVct_n,
+\end{equation}
+where 
+\begin{equation}
+  \label{eq:buncert}
+  \MsrErrVct_b = \trueFrwMdl - \FrwMdl(\SttVct,\FrwMdlVctHat).
+\end{equation}
+This difference ($\MsrErrVct_b$), is below denoted as the forward model
+uncertainty. 
+
+The retrieval process is also expressed as a general inverse model, \InvMdl:
+\begin{equation}
+  \label{eq:imodel}
+   \RtrVct = \InvMdl(\MsrVct,\aSttVct{a},\FrwMdlVctHat,\InvMdlVct),
+\end{equation}
+where \RtrVct\ is the retrieved state vector and \InvMdlVct\ covers all
+variables additional variables used only by the inverse model. The exact nature
+of the vector \aSttVct{a}\ varies between retrieval approaches, but it 
+represents in general the a priori estimate of \SttVct.
+
+From this point it is assumed that the retrieval problem is not strongly
+non-linear, and a local linear analysis is possible. Or expressed differently,
+that derivatives of the forward and inverse models are approximately valid over a
+significant range. A first example is the partial derivative of \FrwMdl\ with
+respect to \SttVct:
+\begin{equation}
+  \label{eq:kx}
+  \aWfnMtr{\SttVct} = \frac{\PartD\FrwMdl}{\PartD\SttVct}.
+\end{equation}
+This quantity is called the Jacobian, or the weighting function matrix. In the
+same manner, we define \aWfnMtr{\FrwMdlVct} as
+\begin{equation}
+  \label{eq:kb}
+  \aWfnMtr{\FrwMdlVct} = \frac{\PartD\FrwMdl}{\PartD\FrwMdlVct}.
+\end{equation}
+The contribution function matrix, \CtrFncMtr, is defined as the partial
+derivative of the inverse model with respect to the measurement vector:
+\begin{equation}
+  \label{eq:dy}
+  \CtrFncMtr = \frac{\PartD\InvMdl}{\PartD\MsrVct}.
+\end{equation}
+Having these partial derivatives at hand, the retrieval error can be related
+to the fundamental uncertainties. As a first step, the forward model is
+linearised around (\aSttVct{a},\FrwMdlVctHat):
+\begin{equation}
+  \label{eq:fmodel3}
+  \MsrVct = \FrwMdl(\aSttVct{a},\FrwMdlVctHat) + 
+  \aWfnMtr{\SttVct}\left(\SttVct-\aSttVct{a}\right) +
+  \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
+  \MsrErrVct_n
+\end{equation}
+On the conditions given, we have now a second way to calculate the forward
+model uncertainty:
+\begin{equation}
+  \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
+\end{equation}
+By combining the equations above and rearranging the terms, we can finally
+derive an expression for the total retrieval error
+\begin{equation}
+  \label{eq:delta}
+  \RtrErr = \RtrVct - \SttVct =  \left(\AvrKrnMtr-\IdnMtr\right)
+    \left(\SttVct-\aSttVct{a}\right) + 
+    \CtrFncMtr\aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
+    \CtrFncMtr\MsrErrVct_n
+\end{equation}
+The terms on the right hand side are denoted as smoothing error, forward model
+error and thermal noise error, respectively. These error components are
+discussed further in Chapter~\ref{chapter:characterisation}.
 
 
 \section{Selected set-up}
 \label{sec:setup}
+
+\subsection{Retrieval method}
+\label{sec:setup:inverse}
+%
+
+
+
+
+
+\section{Non-standard retrievals}
+\label{sec:nonstandard}
 %
 \dots
 
 
-\section{Data products}
-\label{sec:products}
 
 
-\subsection{Open access data}
-\label{sec:opendata}
-%
-\dots
 
-
-\subsection{Other data}
-\label{sec:otherdata}
-%
-\dots
 
 
 

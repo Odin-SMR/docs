@@ -41,7 +41,7 @@
 % matrix       Mtr
 % measurement  Msr
 % model        Mdl
-% partial      Prt
+% partial    Prt
 % population   Ppl
 % pressure     Prs
 % radius       Rds
@@ -186,8 +186,12 @@
 % Retrieved state vector
 \newcommand{\RtrVct}           {\ensuremath{\hat{\SttVct}}}
 
+% Retrieval error
+\newcommand{\RtrErr}           {\ensuremath{\delta}}
+
 % Forward model parameter vector
 \newcommand{\FrwMdlVct}        {\VctStl{b}}  
+\newcommand{\FrwMdlVctHat}     {\ensuremath{\hat{\FrwMdlVct}}}
 
 % A priori forward model parameter vector 
 \newcommand{\AprFrwMdlVct}     {\FrwMdlVct\AprSmb}
