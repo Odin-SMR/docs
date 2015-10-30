@@ -209,7 +209,7 @@
 \newcommand{\aWfnMtrTrp}[1]    {\WfnMtr\ensuremath{_{#1}\Trp}}
 
 % Contribution function matrix
-\newcommand{\CtrFncMtr}        {\MtrStl{D_y}}  
+\newcommand{\CtrFncMtr}        {\MtrStl{D}\ensuremath{_{y}}}  
 
 % Averaging kernel matrix
 \newcommand{\AvrKrnMtr}        {\MtrStl{A}}  
@@ -224,6 +224,10 @@
 
 % Covariance matrix
 \newcommand{\CvrMtr}           {\MtrStl{S}}
+\newcommand{\aCvrMtr}[1]       {\CvrMtr\ensuremath{_{#1}}}
+
+% OEM cost function
+\newcommand{\CstFnc}           {\ensuremath{C}}
 
 
 % --- Special functions ------------------------------------------------------

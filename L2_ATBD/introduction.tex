@@ -9,18 +9,29 @@
 \section{Aim and scope of this document}
 \label{sec:aim}
 %
-\smr\ performs passive measurements of the atmosphere at wavelengths around
-0.6\,mm. The basic observation of \smr\ is spectra in different frequency
-bands. After calibration the spectra are denoted as L1b data, and are grouped
-into limb scans for further processing. The overall aim of this document is to
-describe the software and algorithms used for the L2 processing, that is, the
-step of extracting geophysical data from the L1b. The aim includes also to
-motivate the different decisions involved, such as what instrumental parameters
-that shall be retrieved in parallel to the geophysical data to provide best
-possible L2 data product. The document describes the retrieval process and
-related questions in a general manner, while details and information
-that varies between frequency bands are found elsewhere (see
+\smr\ performs passive measurements of the atmosphere, mainly at wavelengths of
+$\approx$ 0.6\,mm. The basic observation of \smr\ is spectra in different
+frequency bands. After calibration the spectra are denoted as L1b data, and are
+grouped into limb scans for further processing. The overall aim of this
+document is to describe the software and algorithms used for the L2 processing,
+that is, the step of extracting geophysical data from the L1b. The aim includes
+also to motivate the different decisions involved, such as what instrumental
+parameters that shall be retrieved in parallel to the geophysical data to
+provide best possible L2 data product. The document describes the retrieval
+process and related questions in a general manner, while details and
+information that varies between frequency bands are found elsewhere (see
 Sec.~\ref{sec:reading}).
+
+The document covers only the ``operational'' \smr\ L2 products. These products
+are based on measurements confined to the meso- and stratosphere, down to a few
+kilometres above the tropopause\todo{How and where will we set this limit?}, to
+allow that scattering can be neglected in the simulations of atmospheric
+radiative transfer. Observations that can be affected by scattering (due to
+tropospheric clouds) are treated separately, and the same applies to data
+measured when Odin has been performed special scanning sequences (see further
+Sec.~\ref{sec:nonstandard}). The result of these retrievals are formally also
+L2 products, but inside this document the term ``L2'' refers only to the
+operational products.
 
 A much more in-depth overview of the \smr\ L2 processing is found Chapter~2.
 The software tool that handles the tasks directly associated with atmospheric
@@ -34,7 +45,7 @@ A list of used acronyms is found directly after the table of contents.
 
 
 
-\section{Odin-SMR}
+\section{\smr}
 \label{sec:odin}
 %
 \subsection{The Odin satellite}
@@ -63,11 +74,18 @@ front-end, depending on configuration. In the configuration applied for
 atmospheric sounding, the channels of the ACs have a spacing of 1\,MHz, while
 the frequency resolution is only 2\,MHz. To cover all molecular transitions of
 interest, a number of ``observation modes'' has been defined. Each observation
-mode makes use of two or three frequency bands.
+mode makes use of two or three frequency bands. Single sideband operation is
+obtained by tunable Martin-Pupplet interferometers. The nominal sideband
+suppression is better than 19\,dB across the image band.
 
-Single sideband operation is obtained by tunable Martin-Pupplet
-interferometers. The nominal sideband suppression is better than 19\,dB across
-the image band. The main reflector of \smr\ has a diameter of 1.1\,m, giving a
+\smr\ has also a receiver chain around the 118\,GHz oxygen transition. This
+receiver was heavily used during Odin's astronomy mission. For the atmospheric
+mission, this front-end was planned to be used for retrieving temperature
+profiles, but a technical problem (drifting LO frequency) and the fact that the
+analyses requires treatment of Zeeman effects have given these data low
+priority and are not yet processed properly.
+
+The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
 of the two instruments' line-of-sigh is achieved by a rotation of the satellite
 platform, with a rate matching a vertical speed of the tangent altitude of

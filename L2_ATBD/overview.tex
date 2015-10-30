@@ -8,14 +8,13 @@
 As mentioned in the Introduction, the topic of this document is the extraction
 of geophysical data from observed spectra. This calculation step is normally
 denoted as the retrieval or the inversion, where mainly the first term is used
-in this document. The objective of \smr\ is to estimate various atmospheric
-quantities, mainly the concentration of different gases, and these variables
-are accordingly the main target of the retrieval. These data, together with
-auxiliary information, form the L2 data. That is, the data that are made
-available for the general scientific community. The format of the L2 data
-treated by this document is described in Appendix~\ref{app:l2format}. The L2
-data are public available, visit \url{odin.rss.chalmers.se} for registration
-and download instructions.
+in this document. The objective of \smr\ is to estimate atmospheric quantities,
+mainly the concentration of different gases, and these variables are
+accordingly the main target of the retrieval, and, together with auxiliary
+information, they form the L2 data. That is, the data that are made available
+for the general scientific community. The format of the \smr\ L2 data is
+described in Appendix~\ref{app:l2format}. The L2 data are public available,
+visit \url{odin.rss.chalmers.se} for registration and downloading instructions.
 
 Besides geophysical variables, the retrieval must consider a number of
 instrumental variables to avoid that e.g.\ pointing errors cause unnecessary
@@ -35,19 +34,21 @@ gases are called secondary species.
 
 \section{Theoretical formalism}
 \label{sec:formalism}
+
+\subsection{Forward and inverse models}
 %
 The retrievals are presented and discussed using the formalism presented in
-\citet[][Ch.~3]{rodgers:00}. The data to be inverted are appended to form the
-measurement vector, \MsrVct. This vector is related to other variables as
+Chapter~3 of \citet{rodgers:00}. The data to be inverted are appended to create
+the measurement vector, \MsrVct. This vector is related to other variables as
 \begin{equation}
   \label{eq:fmodel1}
   \MsrVct = \FrwMdl(\SttVct,\FrwMdlVct) + \MsrErrVct_n,
 \end{equation}
 where \FrwMdl\ is denoted as the forward model, \SttVct\ is the state vector,
-\FrwMdlVct\ is the vector of forward model parameters and \MsrErrVct\
+\FrwMdlVct\ is the vector of forward model parameters and $\MsrErrVct_n$
 represents measurement noise. The distinction between the two arguments of the
 forward model is that all variables that we want to retrieve form \SttVct,
-while all other quantities that is required of the forward model are found in
+while all other quantities that is required of the forward model are placed in
 \FrwMdlVct. 
 
 The forward model treated explicitly in this document is the software used to
@@ -67,33 +68,35 @@ estimate, \FrwMdlVctHat. That is:
 \end{equation}
 where 
 \begin{equation}
-  \label{eq:buncert}
+  \label{eq:eps_b}
   \MsrErrVct_b = \trueFrwMdl - \FrwMdl(\SttVct,\FrwMdlVctHat).
 \end{equation}
 This difference ($\MsrErrVct_b$), is below denoted as the forward model
 uncertainty. 
 
-The retrieval process is also expressed as a general inverse model, \InvMdl:
+The retrieval process is expressed as the inverse model, \InvMdl:
 \begin{equation}
   \label{eq:imodel}
    \RtrVct = \InvMdl(\MsrVct,\aSttVct{a},\FrwMdlVctHat,\InvMdlVct),
 \end{equation}
 where \RtrVct\ is the retrieved state vector and \InvMdlVct\ covers all
-variables additional variables used only by the inverse model. The exact nature
+additional variables introduced by the inverse model. The exact nature
 of the vector \aSttVct{a}\ varies between retrieval approaches, but it 
 represents in general the a priori estimate of \SttVct.
 
+
+\subsection{Linearisation}
+%
 From this point it is assumed that the retrieval problem is not strongly
 non-linear, and a local linear analysis is possible. Or expressed differently,
-that derivatives of the forward and inverse models are approximately valid over a
-significant range. A first example is the partial derivative of \FrwMdl\ with
-respect to \SttVct:
+that derivatives of the forward and inverse models are approximately valid over
+a significant range. The Jacobian, or the weighting function matrix, is the
+partial derivative of \FrwMdl\ with respect to \SttVct:
 \begin{equation}
   \label{eq:kx}
   \aWfnMtr{\SttVct} = \frac{\PartD\FrwMdl}{\PartD\SttVct}.
 \end{equation}
-This quantity is called the Jacobian, or the weighting function matrix. In the
-same manner, we define \aWfnMtr{\FrwMdlVct} as
+In the same manner, we define \aWfnMtr{\FrwMdlVct} as
 \begin{equation}
   \label{eq:kb}
   \aWfnMtr{\FrwMdlVct} = \frac{\PartD\FrwMdl}{\PartD\FrwMdlVct}.
@@ -120,17 +123,64 @@ model uncertainty:
   \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
 \end{equation}
 By combining the equations above and rearranging the terms, we can finally
-derive an expression for the total retrieval error
+derive an expression for the total retrieval error,
 \begin{equation}
   \label{eq:delta}
   \RtrErr = \RtrVct - \SttVct =  \left(\AvrKrnMtr-\IdnMtr\right)
     \left(\SttVct-\aSttVct{a}\right) + 
     \CtrFncMtr\aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
-    \CtrFncMtr\MsrErrVct_n
+    \CtrFncMtr\MsrErrVct_n,
 \end{equation}
-The terms on the right hand side are denoted as smoothing error, forward model
-error and thermal noise error, respectively. These error components are
-discussed further in Chapter~\ref{chapter:characterisation}.
+where \IdnMtr\ is the identity matrix and
+\begin{equation}
+  \label{eq:A}
+  \AvrKrnMtr = \CtrFncMtr\aWfnMtr{\SttVct},
+\end{equation}
+is the averaging kernel matrix. The terms on the right hand side of
+Eq.~\ref{eq:delta} are denoted as smoothing error, forward model error and
+thermal noise error, respectively. These error components are discussed further
+in Chapter~\ref{chapter:characterisation}.
+
+
+\subsection{Calculation of retrieval error}
+%
+Despite Eq.~\ref{eq:delta} gives an expression for the retrieval error it can
+not be used in practice, for the simple reason that \SttVct\ and \FrwMdlVct\
+are not known. The retrieval error can only evaluated in a statistical sense,
+and for this purpose uncertainties and errors are described as
+variance-covariance matrices (\CvrMtr). See e.g.\
+\url{en.wikipedia.org/wiki/Covariance_matrix} for a description of this type of
+matrices, as well as the basic calculation rules needed to understand the error
+propagation. The statistical correspondence to Eq.~\ref{eq:delta} is
+\begin{equation}
+  \label{eq:Sdelta1}
+  \aCvrMtr{\RtrErr} = \left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}
+  \left(\AvrKrnMtr-\IdnMtr\right)^T + 
+  \CtrFncMtr\aWfnMtr{\FrwMdlVct}\aCvrMtr{\FrwMdlVct}
+  \aWfnMtr{\FrwMdlVct}^T\CtrFncMtr^T + 
+  \CtrFncMtr\aCvrMtr{\MsrErrVct_n}\CtrFncMtr^T.
+\end{equation}
+The combination of the instrument and the forward model can be seen as
+the ``observation system'', then having an uncertainty of
+\begin{equation}
+  \label{eq:eps_o}
+  \MsrErrVct_o = \MsrErrVct_b + \MsrErrVct_n. 
+\end{equation}
+The covariance matrix of the observation system uncertainty is 
+\begin{equation}
+  \label{eq:So}
+  \aCvrMtr{\MsrErrVct_o} = \aWfnMtr{\FrwMdlVct}\aCvrMtr{\FrwMdlVct}
+  \aWfnMtr{\FrwMdlVct}^T + \aCvrMtr{\MsrErrVct_n}.
+\end{equation}
+Using the definition of $\aCvrMtr{\MsrErrVct_o}$, Eq.~\ref{eq:Sdelta1}
+can be written in a somewhat more compact form:
+\begin{equation}
+  \label{eq:Sdelta2}
+  \aCvrMtr{\RtrErr} = \left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}
+  \left(\AvrKrnMtr-\IdnMtr\right)^T + \CtrFncMtr\aCvrMtr{\MsrErrVct_o}\CtrFncMtr^T.
+\end{equation}
+
+
 
 
 \section{Selected set-up}
@@ -139,15 +189,178 @@ discussed further in Chapter~\ref{chapter:characterisation}.
 \subsection{Retrieval method}
 \label{sec:setup:inverse}
 %
+In short, the task of the retrieval method is to derive \RtrVct\ from \MsrVct.
+It turns out that the mapping from \MsrVct\ to \RtrVct\ is not unique. That is,
+there exist a basically infinite set of $\SttVct$-vectors that result in a fit
+with the measurement, considering the measurement noise
+($\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat)=O(\MsrErrVct_n)$\todo{Is this correct
+  nomenclature?}). Instead, some ``optimal'' state must be selected, among this
+set of possible solutions.
+
+If we for a moment assume that the retrieval problem can be treated as fully
+linear around (\aSttVct{a},\FrwMdlVctHat), we
+have that $\aWfnMtr{\SttVct}\left(\SttVct-\aSttVct{a}\right)\approx \MsrVct
+-\FrwMdl(\aSttVct{a},\FrwMdlVctHat)$ and the solution can be written as
+\begin{equation}
+  \label{eq:linretrieval}
+  \RtrVct = \aSttVct{a} + \CtrFncMtr(\MsrVct-\FrwMdl(\aSttVct{a},\FrwMdlVctHat)).
+\end{equation}
+It is clear that \CtrFncMtr, at least roughly, represents an inverse of
+\aWfnMtr{\SttVct}, but to use the standard inverse of \aWfnMtr{\SttVct} (only
+possible if \aWfnMtr{\SttVct} is square) or to apply the least squares method
+($\CtrFncMtr=(\aWfnMtrTrp{\SttVct}\aWfnMtr{\SttVct})^{-1}\aWfnMtr{\SttVct}$)
+will result in extremely high sensitivity to noise. The retrieval problem at
+hand, which is the normal situation for passive atmospheric sounding, is said
+to be ill-posed.
+
+The standard way to tackle ill-posed problems of this type is
+``regularisation'', where some constrain on the solution is introduced. In
+passive atmospheric sounding, using statistical makes the
+basic simulation task relatively simple. In fact, when it comes to atmospheric
+radiative transfer, the simulations boil down to summing up the emission along
+the propagation path, weighted with the transmission between the point of
+emission and \smr. This task must be handled by all forward models for passive
+microwave measurements (but it should be noted that limb sounding requires that
+refraction and Earth's spherical shape are considered, which excludes all
+``plane-parallel'' models). On the other hand, the analysis of some data
+requires non-standard forward model features: the 118\,GHz oxygen measurements
+rise a demand for treatment of Zeeman effects and l information as basis for the
+regularisation has become the standard approach, and it is also selected for
+\smr. The method is probably most widely known as the optimal estimation method
+(OEM), and is the name selected for this document. The method can be seen as an
+application of Bayes theorem under certain conditions, and another possible
+name of the method the maximum a posteriori solution, see further
+\citet{rodgers:00}.
+
+As discussed in \citet{rodgers:00}, OEM can be derived in several ways. The
+aspect of ``statistical regularisation'' is probably most clearly seen by
+considering that OEM minimises a ``cost function'':
+\begin{equation}
+  \label{eq:costfun}
+  \CstFnc(\SttVct) = (\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat))^T\aCvrMtr{o}^{-1}
+  (\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat)) +
+  (\SttVct-\aSttVct{a})^T\aCvrMtr{a}^{-1}(\SttVct-\aSttVct{a}),
+\end{equation}
+that is,
+\begin{equation}
+  \RtrVct = \min\limits_{\SttVct}(\CstFnc(\SttVct)).
+\end{equation}
+The cost function \CstFnc\ can be seen as the sum of the two penalty terms. The
+first term weights how well the solution corresponds to the measurement. If
+\CstFnc\ would be set to only contain this term, the standard least squares
+solution would be obtained. The regularisation is introduced by the second
+term, the evaluates the probability of \SttVct\ based on a priori
+information.
+
+Formally, \aCvrMtr{a} shall be set to \aCvrMtr{\SttVct}, that is, a description
+of the natural variability (including correlations) of the elements in \SttVct,
+but this rule is not always obeyed. First of all, normally there is no manner
+in which an exact \aCvrMtr{\SttVct} can be derived, and this matrix is set in
+some parametric way loosely based on measurements and general knowledge on
+atmospheric physics. It could also be the case that \aCvrMtr{a}\ partly is used
+as a ``tuning parameter''. The most common example is that the variances in
+\aCvrMtr{a}\ are set with some margin to the true values, to maintain
+measurement information as far as possible, or expressed differently, not to
+constrain the solution more than necessary. Further, it is likely that there is
+some difference between \aSttVct{a}\ and the true mean mean value of \SttVct,
+and also this systematic should be represented in \aCvrMtr{a}
+\citep{eriksson:analy:00}.
+
+The formally correct choice for \aCvrMtr{a} is \aCvrMtr{\MsrErrVct_o}
+\citep{eriksson:analy:00,rodgers:00}, but again this theoretical guideline is
+seldom followed exactly. The normal choice is to set
+$\aCvrMtr{a}=\aCvrMtr{\MsrErrVct_n}$. One important practical consideration is
+that the inverse of \aCvrMtr{\MsrErrVct_o}\ must be calculated and this is a
+highly costly operation in the general case, but \aCvrMtr{\MsrErrVct_n}\ is in
+general a pure diagonal matrix and the inverse can be determined with a minimal
+calculation cost. Further, if any elements in \FrwMdlVct\ cause significant
+random retrieval errors, the corresponding variables should rather instead be
+part of \SttVct. This last topic, and other considerations around \aCvrMtr{o}
+and \aCvrMtr{a}, are further discussed in Chapter~\ref{chapter:retrieval}.
+
+If the retrieval problem is linear around (\aSttVct{a},\FrwMdlVctHat), \RtrVct\
+can be calculated using Eq.~\ref{eq:linretrieval}, with
+\begin{equation}
+  \label{eq:lindy}
+  \CtrFncMtr = (\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}\aWfnMtr{\SttVct}
+  +\aCvrMtr{a}^{-1})^{-1}\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}.
+\end{equation}
+However, the inversion of \smr\ measurements result in a (moderately)
+non-linear problem and an iterative process is required to find the minimum of
+\CstFnc, see Sec.~\ref{sec:ml}.
 
 
+\subsection{Forward model}
+\label{sec:setup:forward}
+%
+The most basic demand on the forward model is that it shall handle all relevant
+aspects of atmospheric radiative transfer. As long as the lowest altitude of
+the line-of-sight, the tangent point, is some kilometres above the tropopause,
+scattering can safely be neglected as \smr\ measures at wavelengths
+$>$\,0.5\,mm. This restriction in altitude is made for the operational \smr\
+retrievals. Further, another advantage of using microwaves is that local
+thermodynamic equilibrium can be assumed by the forward model. This makes the
+basic simulation task relatively simple. In fact, when it comes to atmospheric
+radiative transfer, the simulations boil down to summing up the emission along
+the propagation path, weighted with the transmission between the point of
+emission and \smr. This task must be handled by all forward models for passive
+microwave measurements (but it should be noted that limb sounding requires that
+refraction and Earth's spherical shape are considered, which excludes all
+``plane-parallel'' models). On the other hand, the analysis of some data
+requires non-standard forward model features: the 118\,GHz oxygen measurements
+rise a demand for treatment of Zeeman effects and Doppler effects due to winds
+could have a significant impact on mesospheric spectra. 
+
+Less obvious, but equally important, is that the forward model can incorporate
+effects of sensor characteristics. For the \smr\ radiometer package the
+relevant sensor effects are antenna angular response, sideband response and
+frequency response of each spectrometer channel. A first order compensation of
+the Doppler shift due to the satellite's movement is part of the L1b
+processing.
+
+A further requirement is that the forward model can deliver the Jacobian
+(\aWfnMtrTrp{\SttVct}), a demand that should be clear from Eq.~\ref{eq:lindy}.
+This task must be handled for all quantities that can be part of the state
+vector. That is, the Jacobian is not only needed for the relevant atmospheric
+variables (VMRs, temperature and winds), but also fitting of various sensor
+imperfections must be handled (pointing off-set, frequency off-set and baseline
+fit), see further Sec.~\ref{sec:x}.
+
+In contrast to many other satellite missions, no \smr\ specific forward model
+has been developed. Instead, \ARTS, the Atmospheric radiative transfer
+simulator \citep{buehler:artst:05,eriksson:arts2:11} has been used for \smr\ L2
+processing. Earlier operational L2 processing made use of the first \ARTS\
+version \citep{urban:odins:05-b}, while for the retrievals described in this
+document are based on the latest version. At this point it is just noted that
+the more recent \ARTS\ versions comply fully with the demands listed above (and
+can also handle e.g.\ scattering), and the description of \ARTS\ is continued in
+Chapter~\ref{chapter:arts}.
 
 
 
 \section{Non-standard retrievals}
 \label{sec:nonstandard}
 %
-\dots
+As mentioned already in Sec.~\ref{sec:aim}, the operational retrievals do not
+handle all \smr\ measurements. Most importantly, scattering is not activated in
+the forward model simulations and special retrievals have been developed to
+extract information from spectra containing information on the troposphere.
+This retrieval scheme was introduced by \citet{rydberg:nonga:09} and latest
+results are found in \citep{eriksson:overw:14}. However, the method
+\citet{rydberg:nonga:09} is only applicable for tangent altitudes below 9\,km
+and latitudes between 30$^\circ$S and 30$^\circ$N. This leaves a gap between
+the operational and the tropical-tropospheric retrievals, and there are
+still \smr\ spectra that are not part of any inversion. 
+
+The operational processing is of 1D character (Sec.~\ref{sec:arts:config}), as
+the standard limb scanning pattern of \smr\ does not provide a basis for
+resolving along-track features. However, Odin has during some shorter periods
+made measurements dedicated to polar mesospheric clouds. During these
+measurement campaigns, Odin has just scanned over a narrow altitude region in
+order to enhance the along-track resolution. Accordingly, to maintain the
+measurement information of these special observations, 2D (or tomographic)
+retrievals were needed. These retrievals were also made by combing \OEM\ and
+\ARTS\ but are presented separately, in \citet{christensen:tomog:15}.
 
 
 
