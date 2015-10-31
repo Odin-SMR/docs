@@ -9,38 +9,38 @@
 \section{Aim and scope of this document}
 \label{sec:aim}
 %
-\smr\ performs passive measurements of the atmosphere, mainly at wavelengths of
-$\approx$ 0.6\,mm. The basic observation of \smr\ is spectra in different
-frequency bands. After calibration the spectra are denoted as L1b data, and are
-grouped into limb scans for further processing. The overall aim of this
-document is to describe the software and algorithms used for the L2 processing,
-that is, the step of extracting geophysical data from the L1b. The aim includes
-also to motivate the different decisions involved, such as what instrumental
-parameters that shall be retrieved in parallel to the geophysical data to
-provide best possible L2 data product. The document describes the retrieval
-process and related questions in a general manner, while details and
-information that varies between frequency bands are found elsewhere (see
+\smr\ performs passive measurements of the atmosphere, mainly at wavelengths
+around 0.6\,mm. The basic output of \smr\ is spectra in different frequency
+bands. After calibration the spectra are denoted as L1b data, and are grouped
+into limb scans for further processing. The overall aim of this document is to
+describe the software and algorithms used for the L2 processing, that is, the
+step of extracting geophysical data from L1b data. The aim includes also to
+motivate the different decisions involved, such as what instrumental parameters
+that shall be retrieved in parallel to the geophysical data to provide best
+possible L2 data product. The document describes the retrieval process and
+related questions in a general manner, while details and information that
+varies between frequency bands are found elsewhere (see
 Sec.~\ref{sec:reading}).
 
 The document covers only the ``operational'' \smr\ L2 products. These products
-are based on measurements confined to the meso- and stratosphere, down to a few
-kilometres above the tropopause\todo{How and where will we set this limit?}, to
+are based on measurements confined to tangent altitudes above the tropopause,
+with a margin of a few kilometres\todo{How will we set this limit?}, to
 allow that scattering can be neglected in the simulations of atmospheric
 radiative transfer. Observations that can be affected by scattering (due to
 tropospheric clouds) are treated separately, and the same applies to data
-measured when Odin has been performed special scanning sequences (see further
+measured when Odin has been performed a special scanning sequence (see further
 Sec.~\ref{sec:nonstandard}). The result of these retrievals are formally also
 L2 products, but inside this document the term ``L2'' refers only to the
 operational products.
 
-A much more in-depth overview of the \smr\ L2 processing is found Chapter~2.
-The software tool that handles the tasks directly associated with atmospheric
-radiative transfer and sensor modelling is described in Chapter~3, while the
-actual data extraction step is covered by Chapter~4. No L2 data are complete
-without a careful characterisation of spatial resolution and errors, which is
-the topic of Chapter~5. Finally, Chapter 6 gives a summary, with focus on the
-most important points to correctly understand and apply the \smr\ L2 data.
-A list of used acronyms is found directly after the table of contents.
+An overview of the \smr\ L2 processing is found Chapter~2. The software tool
+that handles the tasks directly associated with atmospheric radiative transfer
+and sensor modelling is described in Chapter~3, while the actual data
+extraction step is covered by Chapter~4. The L2 data are not complete without a
+careful characterisation of spatial resolution and errors, which is the topic
+of Chapter~5. Finally, Chapter 6 gives a summary, with focus on the most
+important points to correctly understand the \smr\ L2 data. A list of used
+acronyms is found directly after the table of contents.
 
 
 
@@ -78,12 +78,12 @@ mode makes use of two or three frequency bands. Single sideband operation is
 obtained by tunable Martin-Pupplet interferometers. The nominal sideband
 suppression is better than 19\,dB across the image band.
 
-\smr\ has also a receiver chain around the 118\,GHz oxygen transition. This
-receiver was heavily used during Odin's astronomy mission. For the atmospheric
-mission, this front-end was planned to be used for retrieving temperature
-profiles, but a technical problem (drifting LO frequency) and the fact that the
-analyses requires treatment of Zeeman effects have given these data low
-priority and are not yet processed properly.
+\smr\ has also a receiver chain around the 118\,GHz oxygen transition, that was
+heavily used during Odin's astronomy mission. For the atmospheric mission, this
+front-end was planned to be used for retrieving temperature profiles, but a
+technical problem (drifting LO frequency) and the fact that the analyses
+requires treatment of Zeeman effects have given these data low priority and are
+not yet processed properly.
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
@@ -91,7 +91,7 @@ of the two instruments' line-of-sigh is achieved by a rotation of the satellite
 platform, with a rate matching a vertical speed of the tangent altitude of
 750\,m/s. Measurements are performed during both upward and downward scanning.
 The lower end of the scan is typically at about 7\,km, the upper end varies
-between 70\,km and 110\,km, depending on observation mode. In correspondence,
+between 70 and 110\,km, depending on observation mode. In correspondence,
 the horizontal sampling ranges from 1 scan per 600 km to 1 scan per 1000 km.
 Measurements are in general performed along the orbit plane, providing a
 latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
@@ -106,14 +106,15 @@ The receiver noise temperature of \smr\ differs between the front-ends, varying
 between ? and ?\,K\todo{Add values}. This makes thermal noise an important
 error source. The pointing of Odin can be reconstructed to an accuracy matching
 ?\,m in tangent altitude, and observed frequencies can be controlled with an
-accuracy better than 2\,MHz. The retrieval process includes further estimation
-of pointing and frequency, but there will be some remaining errors.
+accuracy better than 2\,MHz\todo{Or will we skip Hanning?}. The retrieval
+process includes both a pointing and frequency correction, but there will
+be some remaining errors.
 
 The three error sources discussed above basically follow nominal performance
 and are well characterised, but there are also features that are not yet
 understood. First of all, it is clear that the sideband suppression does not
 reach the nominal value of 19\,dB in all frequency bands. Ongoing tests and
-investigations aim to set better constrains on the actual suppression achieved.
+investigations aim to obtain better knowledge on the actual suppression achieved.
 Further, the sub-bands of the ACs are not always overlapping perfectly, and
 some degree of non-linear response can not be ruled out. Both these issues are
 most problematic when measuring spectral features giving a high range of
@@ -121,14 +122,14 @@ brightness temperatures over the frequency band.
 
 There are also non-nominal features that are handled, or characterised, fairly
 well. Reflections inside the receiver give rise to ``baseline ripple'', but
-these ripples are largely removed as part of the L1b processing. The
+these ripples are largely removed as part of the L1b processing\addref. The
 calibration uncertainty increases linearly with measured brightness
-temperature, and is presently estimated to not exceed 2\,K at 220\,K. \smr\
-applies Dicke switching with respect to ``cold sky'' but there is some
-remaining impact of gain variations. These variations give rise to a constant
-shift of the brightness temperatures across the band (that is, it can be seen
-as a flat baseline ripple), where the shift has a standard deviation of about
-2\,K and is uncorrelated between tangent altitudes (and front-ends). The
+temperature, and is presently estimated to not exceed 2\,K\todo{Correct?}\ at
+220\,K. \smr\ applies Dicke switching with respect to ``cold sky'' but there is
+some remaining impact of gain variations. These variations give rise to a
+constant shift of the brightness temperatures across the band (that is, it can
+be seen as a flat baseline ripple), where the shift has a standard deviation of
+about 2\,K and is uncorrelated between tangent altitudes (and front-ends). The
 retrieval can remove these shifts with marginal impact on the retrievals as
 long as some part of the measured spectrum corresponds to cosmic background
 radiation (that is, high tangent altitudes), but this is a main error source
@@ -139,15 +140,15 @@ for other situations.
 \section{Further reading}
 \label{sec:reading}
 %
-\citep{murtagh:anove:02} give an overview of the Odin aeronomy mission, as well
+\citet{murtagh:anove:02} give an overview of the Odin aeronomy mission, as well
 as some technical details of \smr. Further technical information is found in
 e.g.\ \citet{eriksson:studi:02}, and a more detailed description of the
-observation modes is provided by \citet{merino:studi:02}.
+observation modes is provided by \citet{merino:studi:02}.\todo{Missed something?}
 
 The input to this L2 processing is the L1b data described in ?\addref. The
 exact settings applied and the general characteristics of the L2 data, that
 both vary between the frequency bands, are described in ?\addref.
-
+\lcomment{PE}{Probably m ore to say here ...}
 
 
 
