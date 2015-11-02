@@ -31,6 +31,47 @@ gases are called secondary species.
 
 
 
+\section{Radiative transfer aspects}
+\label{sec:rt}
+%
+A full review of radiative transfer theory is out of the scope of this document
+and only some main considerations are discussed here. For a more detailed
+discussion, targeting \smr, the reader is referred to \citet{eriksson:studi:02}.
+
+A strong advantage of using microwaves is that local thermodynamic equilibrium
+(LTE) can be assumed, even for the mesosphere and lower thermosphere. Further,
+as long as the lowest altitude of the line-of-sight, the tangent point, is some
+kilometres above the tropopause, scattering can safely be neglected as \smr\
+operates at wavelengths $>$\,0.5\,mm. This restriction in altitude is made for
+the operational \smr\ retrievals. This restriction in tangent altitude
+signifies also that there no impact of scattering and reflection by the Earth's
+surface.
+
+The combination of LTE and no scattering makes the basic simulation task
+relatively simple. In fact, when it comes to atmospheric radiative transfer,
+the required simulations boil down to summing up emission along the propagation
+path, weighted with the transmission between \smr\ and the point of emission.
+That is, the expression for radiative transfer to handle is:
+\begin{equation}
+  \label{eq:rteq}
+     I(\nu) = I_0(\nu)e^{-\int^l_0{k(s,\nu)ds}} + 
+     \int^l_0{k(s,\nu)B(T(s),\nu) e^{-\int^l_0{k(s',\nu)ds'}} ds},
+\end{equation}
+where $I$ is radiance, $I_0$ is the radiance along the line-of-sight (LOS) at
+the start of the propagation path through the atmosphere, $l$ is the length of
+this propagation path, $k$ is the absorption coefficient, $s$ is the distance
+along the propgataion path, and $B$ is the Planck function giving the emission
+of a blackbody at temperature $T$ and frequency $\nu$. Eq.~\ref{eq:rteq}
+assumes that the gaseous absorption is unpolarised. This is a valid assumption
+in the microwave region for all species, besides oxygen that is affected by the
+Zeeman effect. That is, Earth's magnetic field induces polarised absorption and
+emission, and a matrix-vector equivalent to Eq.~\ref{eq:rteq} is required to
+handle oxygen.
+
+
+
+
+
 \section{Theoretical formalism}
 \label{sec:formalism}
 
@@ -178,7 +219,6 @@ can be written in a somewhat more compact form:
   \aCvrMtr{\RtrErr} = \left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}
   \left(\AvrKrnMtr-\IdnMtr\right)^T + \CtrFncMtr\aCvrMtr{\MsrErrVct_o}\CtrFncMtr^T.
 \end{equation}
-
 
 
 

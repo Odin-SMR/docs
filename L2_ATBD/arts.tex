@@ -4,14 +4,134 @@
 
 \section{General features}
 \label{sec:arts:features}
+
+\subsection{Main features}
 %
-\dots
+\ARTS, the Atmospheric radiative transfer simulator, is a publicly available
+software that is both developed and maintained as an open source project. The
+programming language used is C++. The software was initiated 1999, and the
+first official version was released some years later \citep{buehler:artst:05}.
+The main novelty of this first version was the fact that \ARTS\ behaves more or
+less as a scripting language, in contrast to most other forward models that are
+controlled by fixed set of keywords. The control file was introduced to meet
+the design goal of high modularity, that was judged needed to provide users
+with a flexible simulation platform and to facilitate for developers to add new
+features. When defining a \ARTS\ control file, the user can operate with a high
+number of workspace methods and variables. Regarding physical mechanisms
+covered, \ARTS\ v1 did not stand out in any way, but despite this the software
+found a number of applications, including operational \SMR\ processing
+(Sec.~\ref{sec:setup:forward}).
+
+Already before the first version was released, a development branch was started
+with the aim of adding more advanced features to \ARTS. At the time, treatment
+of scattering and going beyond horizontally homogeneous atmospheres (1D) were
+the main aims. This development resulted in a second main version \ARTS\
+\citep{eriksson:arts2:11}, and further additions have also been made more
+recently. Today \ARTS\ can handle several observation techniques, and also
+simulations for other planets are possible, but only aspects relevant for
+\smr\ are discussed below. \smr\ measures thermal emission in a limb sounding
+geometry and, in this context, the most important features of \ARTS\ are:
+\begin{itemize}
+\item The full polarisation state of radiation is described, by the Stokes
+  formalism.
+\item Atmospheric fields can be defined to vary in one dimension (1D,
+  pressure), two dimensions (2D, pressure and angle along the orbit) or three
+  dimensions (3D, pressure, latitude and longitude).
+\item The planet's overall shape is spherical (also spheroidal allowed for 2D
+  and 3D), there are no assumptions on a ``flat Earth''.
+\item Gaseous absorption can be calculated based on several spectroscopic
+  databases and a high number of absorption parameterisations.
+\item There is extensive support to incorporate sensor characteristics.
+\item Scattering can be incorporated by two different algorithms, called DOIT
+  \citep{emde:apoli:04} and MC \citep{davisetal:04}.
+\item The impact of the magnetic field on oxygen absorption due to the Zeeman
+  effect can be considered \citep{larsson:zeema:14}.
+\end{itemize}
+
+
+
+\subsection{Access and documentation}
+%
+The \ARTS\ website has the address: \url{www.radiativetransfer.org}. Version 1
+is declared obsolete and is now not public available, while how most recent
+public releases and the development branch can be obtained is described at
+\url{www.radiativetransfer.org/getarts}. Some external packages are needed,
+generally or for special features, and these are listed at
+\url{www.radiativetransfer.org/tools}.
+
+To obtain an overview of \ARTS, the primary reading should be the articles
+\citet{buehler:artst:05} and \citet{eriksson:arts2:11}. The \ARTS\ software is
+described more in detail by the ``ARTS user guide''. Some background theory is
+found in ``ARTS theory'' (but this shall not be taken as a complete treatment
+of atmospheric radiative transfer), and some parts of \ARTS\ are even described
+by dedicated journal articles (see references throughout this chapter).
+
+The best introduction to the actual practical usage of \ARTS\ is probably the
+test and demonstration control files distributed with the software. However,
+the core documentation of \ARTS\ is the built-in description of workspace
+methods and variables. This is the main information source for more experienced
+users and this documentation for the present stable version can be browsed
+here: \url{www.radiativetransfer.org/docserver-stable}. For further details and
+links to the ARTS user guide and other documents, see
+\url{www.radiativetransfer.org/docs}.
+
+
+
+\subsection{Validation and quality assurance}
+%
+\ARTS\ has been compared to other forward models by
+\citet{melsheimer:inter:05}, \citet{buehler2006radiative} and
+\citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as by other less well
+documented efforts. A number of test cases has been defined for \ARTS, targeting
+either a special part of \ARTS\ or a complete calculation of some type. These
+tests are run at each new commit of code to the software repository, in order
+to catch bugs and unexpected side-effects of code changes as early as possible.
+As \ARTS\ is a very flexible tool, it is impossible to design a complete set of
+tests, but standard applications of \ARTS\ should be fairly well covered by the
+tests. Some of the tests include comparison to a stored set of reference
+values, to test that not only the code runs but also that the actual simulation
+results have not changed above some specified tolerance. 
+
+\lcomment{PE}{One of the present tests mimic \smr, but it should be updated and
+  make use of reference values, to ensure safety when updating to a new \ARTS\
+  version for the operational processing. Also the L2 processing chain should
+  have an internal quality check. How?}
 
 
 \section{Configuration used}
 \label{sec:arts:config}
+
+
+\subsection{\ARTS\ version and compilation options}
 %
-\dots
+The processing chain contains a check that a specific version of \ARTS\ is used.
+The presently used version is ARTS 2.3.?\todo{Add number}. \ARTS\ is configured
+for compilation using \texttt{cmake}, in the following manner:
+\begin{verbatim}
+  cmake ???
+\end{verbatim}
+\lcomment{PE}{Finish this section later. During the developemnt phase we should
+just use latest version of the development branch. Later we should select a
+specific version and add check in the code that exactly this version is used.
+The executable should be minimal ARTS (no DISORT, T-Matrix ...). What level
+optimisation should be used? Shall asserts be turned off?}
+
+
+\subsection{Atmospheric radiative transfer}
+%
+
+$I_0$
+
+\subsection{Gaseous absorption}
+%
+
+
+\subsection{Sensor characteristics and calibration}
+%
+
+
+
+
 
 
 \section{Important aspects}
