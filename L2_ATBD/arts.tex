@@ -12,12 +12,12 @@ software that is both developed and maintained as an open source project. The
 software was initiated 1999, and the first official version was released some
 years later \citep{buehler:artst:05}. The main novelty of this version was the
 fact that \ARTS\ behaves more or less as a scripting language, in contrast to
-most other forward models that are controlled by fixed set of keywords. The
-control file was introduced to meet the design goal of high modularity. When
-defining a \ARTS\ control file, the user can select between a high number of
-workspace methods and variables. Regarding physical mechanisms covered, \ARTS\
-v1 did not stand out in any way, but despite this the software found a number
-of applications, including operational \SMR\ processing
+most (or all?) other forward models that are controlled by a fixed set of
+keywords. The control file was introduced to meet the design goal of high
+modularity. When defining a \ARTS\ control file, the user can select between a
+high number of workspace methods and variables. Regarding physical mechanisms
+covered, \ARTS\ v1 did not stand out in any way, but despite this the software
+found a number of applications, including operational \SMR\ processing
 (Sec.~\ref{sec:setup:forward}).
 
 Already before the first version was released, a development branch was started
@@ -30,7 +30,7 @@ for other planets, but only aspects relevant for \smr\ are discussed below.
 \smr\ measures thermal emission in a limb sounding geometry and, in this
 context, the most important features of \ARTS\ are:
 \begin{itemize}
-\item The full polarisation state of radiation is described, by the Stokes
+\item The full polarisation state of radiation can by described, by the Stokes
   formalism.
 \item Atmospheric fields can be defined to vary in one dimension (1D;
   pressure), two dimensions (2D; pressure and angle along the orbit) or three
@@ -44,7 +44,7 @@ context, the most important features of \ARTS\ are:
 \item Refraction can be considered.
 \item There is extensive support to incorporate sensor characteristics.
 \item The Jacobian can be obtained for a high number of atmospheric and sensor
-  variables, in general with limited additional calculation time (only valid
+  variables, in general with limited additional calculation time (but only
   for non-scattering calculations).
 \item Scattering can be incorporated by two different algorithms, denoted as DOIT
   \citep{emde:apoli:04} and MC \citep{davisetal:04}.
@@ -54,8 +54,8 @@ context, the most important features of \ARTS\ are:
 
 \subsection{Access and documentation}
 %
-The \ARTS\ website has the address: \url{www.radiativetransfer.org}. Version 1
-has been declared obsolete and is now limited to internal use, while download
+The \ARTS\ website is \url{www.radiativetransfer.org}. Version 1
+has been declared obsolete and is now limited to internal use, while downloading
 instructions for recent public releases and the development branch are found
 at \url{www.radiativetransfer.org/getarts}. Some external packages are needed,
 generally or for special features, and these are listed at
@@ -64,18 +64,16 @@ generally or for special features, and these are listed at
 To obtain an overview of \ARTS\ as a forward model, the primary reading should
 be \citet{buehler:artst:05} and \citet{eriksson:arts2:11}. A more practically
 inclined introduction to \ARTS\ is provided by the ``ARTS user guide'' (AUG).
-Some background theory is found in ``ARTS theory'' (but this shall not be taken
-as a complete treatment of atmospheric radiative transfer), and some parts of
-\ARTS\ are even described by dedicated journal articles (see references
-throughout this chapter). However, the core documentation of \ARTS\ is the
-built-in description of workspace methods and variables. This is the main
-information source for more experienced users and this documentation for the
-present stable version can be browsed here:
-\url{www.radiativetransfer.org/docserver-stable}. Finally, the best way to get
-started with practical calculations is to copy and modify some of the test and
-demonstration control files distributed with the software. For further details
-and links to the ARTS user guide and other documents, see
-\url{www.radiativetransfer.org/docs}.
+Some background theory is found in ``ARTS theory'', and some parts of \ARTS\
+are even described by dedicated journal articles (see references throughout
+this chapter). However, the core documentation of \ARTS\ is the built-in
+description of workspace methods and variables. This is the main information
+source for more experienced users and this documentation for the present stable
+version can be browsed at: \url{www.radiativetransfer.org/docserver-stable}.
+Finally, the best way to get started with practical calculations is to copy and
+modify some of the test and demonstration control files distributed with the
+software. For further details and links to the ARTS user guide and other
+documents, see \url{www.radiativetransfer.org/docs}.
 
 
 
@@ -83,17 +81,16 @@ and links to the ARTS user guide and other documents, see
 %
 \ARTS\ has been compared to other forward models by
 \citet{melsheimer:inter:05}, \citet{buehler2006radiative} and
-\citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as in other ways
-lacking official documentation. A number of test cases has been defined for
-\ARTS, targeting either a special part of \ARTS\ or a complete calculation of
-some type. These tests are run at each new commit of code to the software
-repository, in order to catch bugs and unexpected side-effects of code changes
-as early as possible. As \ARTS\ is a very flexible tool, it is impossible to
-design a complete set of tests, but standard applications of \ARTS\ should be
-fairly well covered by the tests. Some of the tests include comparison to a
-stored set of reference values, to test that not only the code runs but also
-that the actual simulation results have not changed above some specified
-tolerance. 
+\citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as in more informal
+manners. A number of test cases has been defined for \ARTS, targeting either a
+special part of \ARTS\ or a complete calculation of some type. These tests are
+run at each new commit of code to the software repository, in order to catch
+bugs and unexpected side-effects of code changes as early as possible. As
+\ARTS\ is a very flexible tool, it is impossible to design a comprehensive set
+of tests, but standard applications of \ARTS\ should be fairly well covered by
+the tests. Some of the tests include comparison to a stored set of reference
+values, to test that not only the code runs but also that the actual simulation
+results have not changed above some specified tolerance.
 
 \lcomment{PE}{One of the present tests mimic \smr, but it should be updated and
   make use of reference values, to ensure safety when updating to a new \ARTS\
@@ -108,7 +105,7 @@ tolerance.
 %
 The processing chain contains a check that a specific version of \ARTS\ is
 used. The version used presently is ARTS 2.3.?\todo{Add number later.}. \ARTS\
-is written in C++, and a compilation for each platform is needed. The
+is written in C++, and a compilation for each platform architecture is needed. The
 \texttt{cmake} build system is used to set up the compilation of \ARTS. A
 minimal version of \ARTS\ is created, using the following options:
 \begin{verbatim}
@@ -125,14 +122,14 @@ optimisation should be used? Shall asserts be turned off?}
 %
 The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
 function of pressure, and are implicitly treated as constant in the latitude
-and longitude dimensions. A 1D atmosphere implies a spherical reference geoid,
-and the radius of the this geoid is set ?\todo{Fixed or as curvature radius?}.
-The upper limit of the model atmosphere is in \ARTS\ defined by the lowest
-value in the pressure grid. The range of this grid varies, see Sec.~?. The
-lower limit of the atmosphere is determined by the planet's surface, and \ARTS\
-demands that a surface is always defined. The altitude of the surface is for
-these simulations set to ?\,km\todo{Add number}, and regarding radiative
-properties it is set to behave as a blackbody.
+and longitude dimensions. A 1D atmosphere implies further a spherical reference
+geoid, and the radius of the this geoid is set to ?\todo{Fixed or as curvature
+  radius?}. The upper limit of the model atmosphere is in \ARTS\ defined by the
+lowest value in the user defined pressure grid. The range of this grid varies,
+see Sec.~?. The lower limit of the atmosphere is determined by the planet's
+surface, and \ARTS\ demands that a surface is always defined. The altitude of
+the surface is for these simulations set to ?\,km\todo{Add number}, and
+regarding radiative properties it is set to behave as a blackbody.
 
 It is possible to use a ``dummy'' surface for the following reason. Even if
 data with (bore-sight) tangent altitudes below the tropopause are rejected, the
@@ -161,7 +158,6 @@ final values are obtained by interpolation. It is throughout assumed that the
 absorption cross-section does not vary with the mixing ratio of the gas, and
 there is no ``non-linear'' species in the absorption table (this option is
 required for water vapour in the lower troposphere).
-
 \ARTS' absorption look-up table system is described in detail by
 \citet{buehler:absor:11}. The spectroscopic data used to produce the look-up
 tables are discussed in Sec.~?.
@@ -193,7 +189,7 @@ be considered. First of all, a matrix-vector version Eq.~\ref{eq:rteq} must be
 applied \citep{larsson:zeema:14}, where the full Stokes vector is calculated.
 Further, absorption must be calculated ``on-the-fly'' as the look-up table
 approach does not handle polarised absorption. However, even with an extension
-of the lookup-tables, the ``on-the-fly'' option would be to preferred as in
+of the lookup-tables, the ``on-the-fly'' option would still be to prefer as in
 this case only the 118\,GHz transition itself must be considered (in contrast
 to the 0.6\,mm frequency bands where hundredths of transitions must be summed
 up) and a full calculation turns out to be faster than performing a
@@ -217,22 +213,19 @@ response matrix obtained, \SnsMtr, is applied as:
 \end{equation}
 where \aMsrVct{\FrwMdl}\ is the measurement vector produced by the forward
 model and \MpiVct\ is all monochromatic pencil beam radiances compiled into a
-vector. The vector \MpiVct\ must contain sufficient values to represent the
-radiation field, as a function of frequency and zenith angle, with sufficient
-accuracy. The methods setting up \SnsMtr\ assumes that both radiances and
-sensor responses vary linear between the points were data are at
-hand.\todo{Will the FillGrid method be used?}
-
-The frequency and zenith angles for which radiative transfer is performed are
-controlled by two calculation grids, as well as the sensor responses that are
-incorporated in \SnsMtr, are discussed further in Sec.~?.
+vector. The vector \MpiVct\ must contain a certain number of values to
+represent the radiation field, as a function of frequency and zenith angle,
+with sufficient accuracy. The methods setting up \SnsMtr\ assumes that both
+radiances and sensor responses vary linear between the points were data are at
+hand.\todo{Will the FillGrid method be used?}\ The variables controlling
+\SnsMtr\ and \MpiVct\  are discussed in Sec.~?.
 
 
 
 \section{Important aspects}
 \label{sec:arts:aspects}
 %
-Some of the definitions applied in \ARTS\ have noticeable implications for the
+Some of the definitions of \ARTS\ have noticeable implications for the
 L2 processing:
 \begin{itemize}
 \item The basic vertical coordinate in \ARTS\ is pressure. This has the

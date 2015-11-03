@@ -59,10 +59,10 @@ e.g.][Eq.~50]{chandrasekhar:60}:
      \int^l_0{k(s,\nu)B(T(s),\nu) e^{-\int^l_0{k(s',\nu)ds'}} ds},
 \end{equation}
 where $I$ is radiance, $I_0$ is the radiance along the line-of-sight (LOS) at
-the top of the atmosphere, along the propagation path through the atmosphere,
-$l$ is the length of this propagation path, $k$ is the absorption coefficient,
-$s$ is the distance along the propagation path, and $B$ is the Planck function
-giving the emission of a blackbody at temperature $T$ and frequency $\nu$.
+the top of the atmosphere, where the propagation path starts, $l$ is the length
+of this propagation path, $k$ is the absorption coefficient, $s$ is the
+distance along the propagation path, and $B$ is the Planck function giving the
+emission of a blackbody at temperature $T$ and frequency $\nu$.
 Eq.~\ref{eq:rteq} assumes that the gaseous absorption is unpolarised. This is a
 valid assumption in the microwave region for all species, besides oxygen that
 is affected by the Zeeman effect. That is, Earth's magnetic field induces
@@ -163,7 +163,7 @@ linearised around (\aSttVct{a},\FrwMdlVctHat):
   \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
   \MsrErrVct_n
 \end{equation}
-On the conditions given, we have now a second way to calculate the forward
+On the conditions given, we have now a second way to express the forward
 model uncertainty:
 \begin{equation}
   \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
@@ -256,7 +256,7 @@ possible if \aWfnMtr{\SttVct} is square) or to apply the least squares method
 ($\CtrFncMtr=(\aWfnMtrTrp{\SttVct}\aWfnMtr{\SttVct})^{-1}\aWfnMtr{\SttVct}$)
 will result in extremely high sensitivity to noise. The retrieval problem at
 hand is said to be ill-posed, which is the standard situation for passive
-atmospheric sounding,
+atmospheric sounding.
 
 The standard way to tackle ill-posed problems of this type is
 ``regularisation'', where some constrain on the solution is introduced. In
@@ -287,18 +287,18 @@ solution would be obtained. The regularisation is introduced by the second
 term, the evaluates the probability of \SttVct\ based on a priori
 information.
 
-Formally, \aCvrMtr{a} shall be set to \aCvrMtr{\SttVct} \citet{rodgers:00},
+Formally, \aCvrMtr{a} shall be set to \aCvrMtr{\SttVct} \citep{rodgers:00},
 that is, a description of the natural variability (including correlations) of
 the elements in \SttVct, but this rule is not always obeyed. First of all,
 normally there is no manner in which an exact \aCvrMtr{\SttVct} can be derived,
-and this matrix is set in some parametric way loosely based on measurements and
-general knowledge on atmospheric physics. It could also be the case that
-\aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common example
-is that the variances in \aCvrMtr{a}\ are set with some margin to the true
-values, to maintain measurement information as far as possible, or expressed
-differently, not to constrain the solution more than necessary. Further, it is
-likely that there is some difference between \aSttVct{a}\ and the true mean
-mean value of \SttVct, and also this systematic should be represented in
+and this matrix is set in some parametric way, loosely based on measurements
+and general knowledge on atmospheric physics\addref. It could also be the case
+that \aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common
+example is that the variances in \aCvrMtr{a}\ are set with some margin to the
+true values, to maintain measurement information as far as possible, or
+expressed differently, not to constrain the solution more than necessary.
+Further, it is likely that \aSttVct{a}\ differs from the true mean mean value
+of \SttVct, and also this systematic deviation should be represented in
 \aCvrMtr{a} \citep{eriksson:analy:00}.
 
 The formally correct choice for \aCvrMtr{a} is \aCvrMtr{\MsrErrVct_o}
@@ -331,7 +331,7 @@ non-linear problem and an iterative process is required to find the minimum of
 %
 Some basic demands on the forward model were introduced in Sec.~\ref{sec:rt}.
 The simulation problem to be tackled is basically the simplest possible,
-Eq.~\ref{eq:rteq} must be handled by all forward models for passive microwave
+Eq.~\ref{eq:rteq} should be handled by all forward models for passive microwave
 measurements (but limb sounding requires that refraction and Earth's spherical
 shape are considered when determining the propagation path, which excludes all
 ``plane-parallel'' models). On the other hand, the analysis of some data
@@ -355,15 +355,14 @@ imperfections must be handled (pointing off-set, frequency off-set and baseline
 fit), see further Sec.~\ref{sec:x}.
 
 In contrast to many other satellite missions \citep[e.g.][]{read2006clear}, no
-\smr\ specific forward model has been developed. Instead, \ARTS, the
-Atmospheric radiative transfer simulator
-\citep{buehler:artst:05,eriksson:arts2:11} is used for \smr\ L2 processing.
-Earlier operational L2 processing \citep{urban:odins:05-b} made use of the
-first \ARTS\ version (and also the Moliere forward model
+\smr\ specific forward model has been developed. Instead, the general forward
+model \ARTS\ (the Atmospheric radiative transfer simulator) is used for \smr\
+L2 processing. Earlier operational L2 processing \citep{urban:odins:05-b} made
+use of the first \ARTS\ version (and also the Moliere forward model
 \citep{urban2004moliere}), while the retrievals described in this document are
 based on the latest version. At this point it is just noted that \ARTS\ comply
-fully with the demands listed above, and the description of \ARTS\ is continued
-in Chapter~\ref{chapter:arts}.
+fully with the demands listed above, and the presentation of \ARTS\ is
+continued in Chapter~\ref{chapter:arts}.
 
 
 
