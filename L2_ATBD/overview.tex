@@ -1,4 +1,4 @@
-\chapter{Overview}
+\chapter{Theory and overview}
 \label{chapter:overview}
 
 
@@ -34,14 +34,14 @@ gases are called secondary species.
 \section{Radiative transfer basics}
 \label{sec:rt}
 %
-There is no ATBD dedicated to radiative transfer, as a general software is used
+There is no \ATBD\ dedicated to radiative transfer, as a general software is used
 to handle this task (Sec.~\ref{sec:setup:forward}). Instead the main
-considerations around radiative transfer are covered by this ATBD. For a
+considerations around radiative transfer are commnted inside this \ATBD. For a
 more detailed discussion, targeting \smr, the reader is referred to
 \citet{eriksson:studi:02}.
 
 A strong advantage of using microwaves is that local thermodynamic equilibrium
-(LTE) can be assumed, even for raditaive transfer in the mesosphere and lower
+(LTE) can be assumed, even for radiative transfer in the mesosphere and lower
 thermosphere. Further, as long as the lowest altitude of the line-of-sight, the
 tangent point, is some kilometres above the tropopause, scattering can safely
 be neglected as \smr\ operates at wavelengths $>$\,0.5\,mm. This restriction in
@@ -59,18 +59,19 @@ e.g.][Eq.~50]{chandrasekhar:60}:
      \int^l_0{k(s,\nu)B(T(s),\nu) e^{-\int^l_0{k(s',\nu)ds'}} ds},
 \end{equation}
 where $I$ is radiance, $I_0$ is the radiance along the line-of-sight (LOS) at
-the start of the propagation path through the atmosphere, $l$ is the length of
-this propagation path, $k$ is the absorption coefficient, $s$ is the distance
-along the propgataion path, and $B$ is the Planck function giving the emission
-of a blackbody at temperature $T$ and frequency $\nu$. Eq.~\ref{eq:rteq}
-assumes that the gaseous absorption is unpolarised. This is a valid assumption
-in the microwave region for all species, besides oxygen as this molecule is
-affected by the Zeeman effect. That is, Earth's magnetic field induces
+the top of the atmosphere, along the propagation path through the atmosphere,
+$l$ is the length of this propagation path, $k$ is the absorption coefficient,
+$s$ is the distance along the propagation path, and $B$ is the Planck function
+giving the emission of a blackbody at temperature $T$ and frequency $\nu$.
+Eq.~\ref{eq:rteq} assumes that the gaseous absorption is unpolarised. This is a
+valid assumption in the microwave region for all species, besides oxygen that
+is affected by the Zeeman effect. That is, Earth's magnetic field induces
 polarised absorption and emission, and a matrix-vector equivalent to
-Eq.~\ref{eq:rteq} is required to handle oxygen \citep[see e.g.][]{larsson:zeema:14}.
+Eq.~\ref{eq:rteq} is required to handle oxygen \citep[see
+e.g.][]{larsson:zeema:14}.
 
 Evaluation of Eq.~\ref{eq:rteq} gives the monochromatic intensity (radiance)
-along pencil-beam propgation paths, matching infinite frequency and angular
+along pencil-beam propagation paths, matching infinite frequency and angular
 resolution. Accordingly, Eq.~\ref{eq:rteq} must be solved for a set of
 frequencies and propagation paths, to make it possible to incorporate the
 antenna pattern, channel frequency response and other characteristics of the

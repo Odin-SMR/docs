@@ -13,7 +13,7 @@
 around 0.6\,mm. The basic output of \smr\ is spectra in different frequency
 bands. After calibration the spectra are denoted as L1b data, and are grouped
 into limb scans for further processing. The overall aim of this document is to
-describe the software and algorithms used for the L2 processing, that is, the
+describe the software and algorithms used in this L2 processing, that is, the
 step of extracting geophysical data from L1b data. The aim includes also to
 motivate the different decisions involved, such as what instrumental parameters
 that shall be retrieved in parallel to the geophysical data to provide best
@@ -33,14 +33,14 @@ Sec.~\ref{sec:nonstandard}). The result of these retrievals are formally also
 L2 products, but inside this document the term ``L2'' refers only to the
 operational products.
 
-An overview of the \smr\ L2 processing is found Chapter~2. The software tool
-that handles the tasks directly associated with atmospheric radiative transfer
-and sensor modelling is described in Chapter~3, while the actual data
-extraction step is covered by Chapter~4. The L2 data are not complete without a
-careful characterisation of spatial resolution and errors, which is the topic
-of Chapter~5. Finally, Chapter 6 gives a summary, with focus on the most
-important points to correctly understand the \smr\ L2 data. A list of used
-acronyms is found directly after the table of contents.
+Background theory and nn overview of the \smr\ L2 processing is found
+Chapter~2. The software tool that handles the tasks directly associated with
+atmospheric radiative transfer and sensor modelling is described in Chapter~3,
+while the actual data extraction step is covered by Chapter~4. The L2 data are
+not complete without a careful characterisation of spatial resolution and
+errors, which is the topic of Chapter~5. Finally, Chapter 6 gives a summary,
+with focus on the most important points to correctly understand the \smr\ L2
+data. A list of used acronyms is found directly after the table of contents.
 
 
 
@@ -72,18 +72,20 @@ ACs can be coupled to any of the four front-ends, but only two or three
 front-ends are used simultaneously. The ACs cover 400 or 800\,MHz per
 front-end, depending on configuration. In the configuration applied for
 atmospheric sounding, the channels of the ACs have a spacing of 1\,MHz, while
-the frequency resolution is only 2\,MHz. To cover all molecular transitions of
-interest, a number of ``observation modes'' has been defined. Each observation
-mode makes use of two or three frequency bands. Single sideband operation is
-obtained by tunable Martin-Pupplet interferometers. The nominal sideband
-suppression is better than 19\,dB across the image band.
+the frequency resolution is only 2\,MHz\todo{Or will we skip Hanning?}. To
+cover all molecular transitions of interest, a number of ``observation modes''
+has been defined. Each observation mode makes use of two or three frequency
+bands. Single sideband operation is obtained by tunable Martin-Pupplet
+interferometers. The nominal sideband suppression is better than 19\,dB across
+the image band.
 
 \smr\ has also a receiver chain around the 118\,GHz oxygen transition, that was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
 front-end was planned to be used for retrieving temperature profiles, but a
 technical problem (drifting LO frequency) and the fact that the analyses
-requires treatment of Zeeman effects have given these data low priority and are
-not yet processed properly.
+requires treatment of Zeeman effects have given these data low priority. This
+\ATBD\ focuses on the processing of the sub-millimetre data but comments on the
+adoptions required to also handle the 118\,GHz data are given
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
@@ -106,7 +108,7 @@ The receiver noise temperature of \smr\ differs between the front-ends, varying
 between ? and ?\,K\todo{Add values}. This makes thermal noise an important
 error source. The pointing of Odin can be reconstructed to an accuracy matching
 ?\,m in tangent altitude, and observed frequencies can be controlled with an
-accuracy better than 2\,MHz\todo{Or will we skip Hanning?}. The retrieval
+accuracy better than ?\,MHz\todo{Add value.}. The retrieval
 process includes both a pointing and frequency correction, but there will
 be some remaining errors.
 
@@ -124,7 +126,7 @@ There are also non-nominal features that are handled, or characterised, fairly
 well. Reflections inside the receiver give rise to ``baseline ripple'', but
 these ripples are largely removed as part of the L1b processing\addref. The
 calibration uncertainty increases linearly with measured brightness
-temperature, and is presently estimated to not exceed 2\,K\todo{Correct?}\ at
+temperature, and is presently estimated to not exceed ?\,K\todo{Add value.}\ at
 220\,K. \smr\ applies Dicke switching with respect to ``cold sky'' but there is
 some remaining impact of gain variations. These variations give rise to a
 constant shift of the brightness temperatures across the band (that is, it can
@@ -141,7 +143,7 @@ for other situations.
 \label{sec:reading}
 %
 \citet{murtagh:anove:02} give an overview of the Odin aeronomy mission, as well
-as the general technical details of \smr. Somew further technical information
+as the general technical details of \smr. Some further technical information
 is found in e.g.\ \citet{eriksson:studi:02}, and a more detailed description of
 the observation modes is provided by \citet{merino:studi:02}.\todo{Missed
   something?}
