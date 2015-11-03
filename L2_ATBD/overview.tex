@@ -31,27 +31,28 @@ gases are called secondary species.
 
 
 
-\section{Radiative transfer aspects}
+\section{Radiative transfer basics}
 \label{sec:rt}
 %
-A full review of radiative transfer theory is out of the scope of this document
-and only some main considerations are discussed here. For a more detailed
-discussion, targeting \smr, the reader is referred to \citet{eriksson:studi:02}.
+There is no ATBD dedicated to radiative transfer, as a general software is used
+to handle this task (Sec.~\ref{sec:setup:forward}). Instead the main
+considerations around radiative transfer are covered by this ATBD. For a
+more detailed discussion, targeting \smr, the reader is referred to
+\citet{eriksson:studi:02}.
 
 A strong advantage of using microwaves is that local thermodynamic equilibrium
-(LTE) can be assumed, even for the mesosphere and lower thermosphere. Further,
-as long as the lowest altitude of the line-of-sight, the tangent point, is some
-kilometres above the tropopause, scattering can safely be neglected as \smr\
-operates at wavelengths $>$\,0.5\,mm. This restriction in altitude is made for
-the operational \smr\ retrievals. This restriction in tangent altitude
-signifies also that there no impact of scattering and reflection by the Earth's
-surface.
+(LTE) can be assumed, even for raditaive transfer in the mesosphere and lower
+thermosphere. Further, as long as the lowest altitude of the line-of-sight, the
+tangent point, is some kilometres above the tropopause, scattering can safely
+be neglected as \smr\ operates at wavelengths $>$\,0.5\,mm. This restriction in
+tangent altitudes is made for the operational \smr\ retrievals. 
 
 The combination of LTE and no scattering makes the basic simulation task
 relatively simple. In fact, when it comes to atmospheric radiative transfer,
 the required simulations boil down to summing up emission along the propagation
 path, weighted with the transmission between \smr\ and the point of emission.
-That is, the expression for radiative transfer to handle is:
+That is, the expression for radiative transfer to handle is \citep[see
+e.g.][Eq.~50]{chandrasekhar:60}:
 \begin{equation}
   \label{eq:rteq}
      I(\nu) = I_0(\nu)e^{-\int^l_0{k(s,\nu)ds}} + 
@@ -63,13 +64,17 @@ this propagation path, $k$ is the absorption coefficient, $s$ is the distance
 along the propgataion path, and $B$ is the Planck function giving the emission
 of a blackbody at temperature $T$ and frequency $\nu$. Eq.~\ref{eq:rteq}
 assumes that the gaseous absorption is unpolarised. This is a valid assumption
-in the microwave region for all species, besides oxygen that is affected by the
-Zeeman effect. That is, Earth's magnetic field induces polarised absorption and
-emission, and a matrix-vector equivalent to Eq.~\ref{eq:rteq} is required to
-handle oxygen.
+in the microwave region for all species, besides oxygen as this molecule is
+affected by the Zeeman effect. That is, Earth's magnetic field induces
+polarised absorption and emission, and a matrix-vector equivalent to
+Eq.~\ref{eq:rteq} is required to handle oxygen \citep[see e.g.][]{larsson:zeema:14}.
 
-
-
+Evaluation of Eq.~\ref{eq:rteq} gives the monochromatic intensity (radiance)
+along pencil-beam propgation paths, matching infinite frequency and angular
+resolution. Accordingly, Eq.~\ref{eq:rteq} must be solved for a set of
+frequencies and propagation paths, to make it possible to incorporate the
+antenna pattern, channel frequency response and other characteristics of the
+sensor in the simulations \citep[see e.g.][]{eriksson:studi:02,read2006clear}.
 
 
 \section{Theoretical formalism}
@@ -323,31 +328,22 @@ non-linear problem and an iterative process is required to find the minimum of
 \subsection{Forward model}
 \label{sec:setup:forward}
 %
-The most basic demand on the forward model is that it shall handle all relevant
-aspects of atmospheric radiative transfer. As long as the lowest altitude of
-the line-of-sight, the tangent point, is some kilometres above the tropopause,
-scattering can safely be neglected as \smr\ operates at wavelengths
-$>$\,0.5\,mm. This restriction in altitude is made for the operational \smr\
-retrievals. Further, another advantage of using microwaves is that local
-thermodynamic equilibrium can be assumed by the forward model, even for the
-mesosphere and lower thermosphere. This makes the basic simulation task
-relatively simple. In fact, when it comes to atmospheric radiative transfer,
-the simulations boil down to summing up emission along the propagation path,
-weighted with the transmission between the point of emission and \smr. This
-task must be handled by all forward models for passive microwave measurements
-(but it should be noted that limb sounding requires that refraction and Earth's
-spherical shape are considered, which excludes all ``plane-parallel'' models).
-On the other hand, the analysis of some data requires non-standard forward
-model features: the 118\,GHz oxygen measurements rise a demand for treatment of
-Zeeman effects and Doppler effects due to winds could have a significant impact
-on mesospheric spectra.
+Some basic demands on the forward model were introduced in Sec.~\ref{sec:rt}.
+The simulation problem to be tackled is basically the simplest possible,
+Eq.~\ref{eq:rteq} must be handled by all forward models for passive microwave
+measurements (but limb sounding requires that refraction and Earth's spherical
+shape are considered when determining the propagation path, which excludes all
+``plane-parallel'' models). On the other hand, the analysis of some data
+requires non-standard forward model features: the 118\,GHz oxygen measurements
+rise a demand for treatment of Zeeman effects and Doppler effects due to winds
+could have a significant impact on mesospheric spectra.
 
-Less obvious, but equally important, is that the forward model can incorporate
-effects of sensor characteristics. For the \smr\ radiometer package the sensor
-features needing consideration are antenna angular response, mixer, sideband
-filtering and frequency response of each spectrometer channel. A first order
-compensation of the Doppler shift due to the satellite's movement is part of
-the L1b processing.
+Beside the atmospheric radiative transfer, the second main task of the forward
+model is to incorporate effects of sensor characteristics. For the \smr\
+radiometer package the sensor features needing consideration are antenna
+angular response, mixer, sideband filtering and frequency response of each
+spectrometer channel. A first order compensation of the Doppler shift due to
+the satellite's movement is part of the L1b processing.
 
 A further requirement is that the forward model can deliver the Jacobian
 (\aWfnMtr{\SttVct}), a demand that should be clear from Eq.~\ref{eq:lindy}.
@@ -365,8 +361,8 @@ Earlier operational L2 processing \citep{urban:odins:05-b} made use of the
 first \ARTS\ version (and also the Moliere forward model
 \citep{urban2004moliere}), while the retrievals described in this document are
 based on the latest version. At this point it is just noted that \ARTS\ comply
-fully with the demands listed above (and can also handle e.g.\ scattering), and
-the description of \ARTS\ is continued in Chapter~\ref{chapter:arts}.
+fully with the demands listed above, and the description of \ARTS\ is continued
+in Chapter~\ref{chapter:arts}.
 
 
 

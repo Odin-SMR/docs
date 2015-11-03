@@ -9,43 +9,45 @@
 %
 \ARTS, the Atmospheric radiative transfer simulator, is a publicly available
 software that is both developed and maintained as an open source project. The
-programming language used is C++. The software was initiated 1999, and the
-first official version was released some years later \citep{buehler:artst:05}.
-The main novelty of this first version was the fact that \ARTS\ behaves more or
-less as a scripting language, in contrast to most other forward models that are
-controlled by fixed set of keywords. The control file was introduced to meet
-the design goal of high modularity, that was judged needed to provide users
-with a flexible simulation platform and to facilitate for developers to add new
-features. When defining a \ARTS\ control file, the user can operate with a high
-number of workspace methods and variables. Regarding physical mechanisms
-covered, \ARTS\ v1 did not stand out in any way, but despite this the software
-found a number of applications, including operational \SMR\ processing
+software was initiated 1999, and the first official version was released some
+years later \citep{buehler:artst:05}. The main novelty of this version was the
+fact that \ARTS\ behaves more or less as a scripting language, in contrast to
+most other forward models that are controlled by fixed set of keywords. The
+control file was introduced to meet the design goal of high modularity. When
+defining a \ARTS\ control file, the user can select between a high number of
+workspace methods and variables. Regarding physical mechanisms covered, \ARTS\
+v1 did not stand out in any way, but despite this the software found a number
+of applications, including operational \SMR\ processing
 (Sec.~\ref{sec:setup:forward}).
 
 Already before the first version was released, a development branch was started
 with the aim of adding more advanced features to \ARTS. At the time, treatment
-of scattering and going beyond horizontally homogeneous atmospheres (1D) were
+of scattering and going beyond horizontally homogeneous atmospheres (1D), were
 the main aims. This development resulted in a second main version \ARTS\
-\citep{eriksson:arts2:11}, and further additions have also been made more
-recently. Today \ARTS\ can handle several observation techniques, and also
-simulations for other planets are possible, but only aspects relevant for
-\smr\ are discussed below. \smr\ measures thermal emission in a limb sounding
-geometry and, in this context, the most important features of \ARTS\ are:
+\citep{eriksson:arts2:11}, and further extensions have been made more recently.
+\ARTS\ can today handle several observation techniques, as well as simulations
+for other planets, but only aspects relevant for \smr\ are discussed below.
+\smr\ measures thermal emission in a limb sounding geometry and, in this
+context, the most important features of \ARTS\ are:
 \begin{itemize}
 \item The full polarisation state of radiation is described, by the Stokes
   formalism.
-\item Atmospheric fields can be defined to vary in one dimension (1D,
-  pressure), two dimensions (2D, pressure and angle along the orbit) or three
-  dimensions (3D, pressure, latitude and longitude).
+\item Atmospheric fields can be defined to vary in one dimension (1D;
+  pressure), two dimensions (2D; pressure and angle along the orbit) or three
+  dimensions (3D; pressure, latitude and longitude).
 \item The planet's overall shape is spherical (also spheroidal allowed for 2D
   and 3D), there are no assumptions on a ``flat Earth''.
 \item Gaseous absorption can be calculated based on several spectroscopic
   databases and a high number of absorption parameterisations.
-\item There is extensive support to incorporate sensor characteristics.
-\item Scattering can be incorporated by two different algorithms, called DOIT
-  \citep{emde:apoli:04} and MC \citep{davisetal:04}.
 \item The impact of the magnetic field on oxygen absorption due to the Zeeman
   effect can be considered \citep{larsson:zeema:14}.
+\item Refraction can be considered.
+\item There is extensive support to incorporate sensor characteristics.
+\item The Jacobian can be obtained for a high number of atmospheric and sensor
+  variables, in general with limited additional calculation time (only valid
+  for non-scattering calculations).
+\item Scattering can be incorporated by two different algorithms, denoted as DOIT
+  \citep{emde:apoli:04} and MC \citep{davisetal:04}.
 \end{itemize}
 
 
@@ -53,27 +55,26 @@ geometry and, in this context, the most important features of \ARTS\ are:
 \subsection{Access and documentation}
 %
 The \ARTS\ website has the address: \url{www.radiativetransfer.org}. Version 1
-is declared obsolete and is now not public available, while how most recent
-public releases and the development branch can be obtained is described at
-\url{www.radiativetransfer.org/getarts}. Some external packages are needed,
+has been declared obsolete and is now limited to internal use, while download
+instructions for recent public releases and the development branch are found
+at \url{www.radiativetransfer.org/getarts}. Some external packages are needed,
 generally or for special features, and these are listed at
 \url{www.radiativetransfer.org/tools}.
 
-To obtain an overview of \ARTS, the primary reading should be the articles
-\citet{buehler:artst:05} and \citet{eriksson:arts2:11}. The \ARTS\ software is
-described more in detail by the ``ARTS user guide''. Some background theory is
-found in ``ARTS theory'' (but this shall not be taken as a complete treatment
-of atmospheric radiative transfer), and some parts of \ARTS\ are even described
-by dedicated journal articles (see references throughout this chapter).
-
-The best introduction to the actual practical usage of \ARTS\ is probably the
-test and demonstration control files distributed with the software. However,
-the core documentation of \ARTS\ is the built-in description of workspace
-methods and variables. This is the main information source for more experienced
-users and this documentation for the present stable version can be browsed
-here: \url{www.radiativetransfer.org/docserver-stable}. For further details and
-links to the ARTS user guide and other documents, see
-\url{www.radiativetransfer.org/docs}.
+To obtain an overview of \ARTS\ as a forward model, the primary reading should
+be \citet{buehler:artst:05} and \citet{eriksson:arts2:11}. A more practically
+inclined introduction to \ARTS\ is provided by the ``ARTS user guide''. Some
+background theory is found in ``ARTS theory'' (but this shall not be taken as a
+complete treatment of atmospheric radiative transfer), and some parts of \ARTS\
+are even described by dedicated journal articles (see references throughout
+this chapter). However, the core documentation of \ARTS\ is the built-in
+description of workspace methods and variables. This is the main information
+source for more experienced users and this documentation for the present stable
+version can be browsed here: \url{www.radiativetransfer.org/docserver-stable}.
+Finally, the best way to get started with practical calculations is to copy and
+modify some of the test and demonstration control files distributed with the
+software. For further details and links to the ARTS user guide and other
+documents, see \url{www.radiativetransfer.org/docs}.
 
 
 
@@ -81,16 +82,17 @@ links to the ARTS user guide and other documents, see
 %
 \ARTS\ has been compared to other forward models by
 \citet{melsheimer:inter:05}, \citet{buehler2006radiative} and
-\citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as by other less well
-documented efforts. A number of test cases has been defined for \ARTS, targeting
-either a special part of \ARTS\ or a complete calculation of some type. These
-tests are run at each new commit of code to the software repository, in order
-to catch bugs and unexpected side-effects of code changes as early as possible.
-As \ARTS\ is a very flexible tool, it is impossible to design a complete set of
-tests, but standard applications of \ARTS\ should be fairly well covered by the
-tests. Some of the tests include comparison to a stored set of reference
-values, to test that not only the code runs but also that the actual simulation
-results have not changed above some specified tolerance. 
+\citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as in other ways
+lacking official documentation. A number of test cases has been defined for
+\ARTS, targeting either a special part of \ARTS\ or a complete calculation of
+some type. These tests are run at each new commit of code to the software
+repository, in order to catch bugs and unexpected side-effects of code changes
+as early as possible. As \ARTS\ is a very flexible tool, it is impossible to
+design a complete set of tests, but standard applications of \ARTS\ should be
+fairly well covered by the tests. Some of the tests include comparison to a
+stored set of reference values, to test that not only the code runs but also
+that the actual simulation results have not changed above some specified
+tolerance. 
 
 \lcomment{PE}{One of the present tests mimic \smr, but it should be updated and
   make use of reference values, to ensure safety when updating to a new \ARTS\
@@ -101,30 +103,65 @@ results have not changed above some specified tolerance.
 \section{Configuration used}
 \label{sec:arts:config}
 
-
 \subsection{\ARTS\ version and compilation options}
 %
-The processing chain contains a check that a specific version of \ARTS\ is used.
-The presently used version is ARTS 2.3.?\todo{Add number}. \ARTS\ is configured
-for compilation using \texttt{cmake}, in the following manner:
+The processing chain contains a check that a specific version of \ARTS\ is
+used. The presently used version is ARTS 2.3.?\todo{Add number later.}. \ARTS\
+is written in C++, and a compilation for each platform is needed. The
+\texttt{cmake} build system is used to set up the compilation of \ARTS. A
+minimal version of \ARTS\ is created, using the following options:
 \begin{verbatim}
-  cmake ???
+  cmake -DCMAKE_BUILD_TYPE=Release -DNO_NETCDF=1 -DNO_DOCSERVER=1 ..
 \end{verbatim}
-\lcomment{PE}{Finish this section later. During the developemnt phase we should
+\lcomment{PE}{Finish this section later. During the development phase we should
 just use latest version of the development branch. Later we should select a
 specific version and add check in the code that exactly this version is used.
 The executable should be minimal ARTS (no DISORT, T-Matrix ...). What level
 optimisation should be used? Shall asserts be turned off?}
 
 
-\subsection{Atmospheric radiative transfer}
+\subsection{Basic settings\todo{Add all missing section refs.}}
 %
+The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
+function of pressure, and are treated as constant in the latitude and longitude
+dimensions. A 1D atmosphere implies a speherical reference geoid, and the
+radius of the this geiod is set ?\todo{Fixed or as curvature radius?}. The
+upper limit of the model atmosphere is in \ARTS\ defined by the lowest value in
+the pressure grid. The range of this grid varies, see Sec.~?. The lower limit
+of the atmosphere is determined by the planet's surface, and \ARTS\ demands
+that a surface is always defined. The altitude of the surface is for these
+simulations set to ?\,km\todo{Add number}, and regarding radiative properties
+it is set to behave as a blackbody.
 
-$I_0$
+It is possible to use a ``dummy'' surface for the following reason. Even if
+data with (bore-sight) tangent altitudes below the tropopause are rejected, the
+outer parts of the antenna pattern can result in propgation paths that
+theoretically intersect with the surface, but the net impact of the surface is
+still zero. This is the case due to the very high optical thickness of the
+middle and lower troposphere at frequencies around 500\,GHz
+\citep{ekstrom:first:07}. Even for tangent altitudes around 0\,km\ only
+altitudes above $\sim$8\,km effectively contributes to measured radiance.
+
+The atmosphere is assumed to not cause scattering, which is a valid assumption
+for the wavelengths of \smr\ and tangent altitudes some kilometres above the
+tropopause. 
+
 
 \subsection{Gaseous absorption}
 %
+In lack of scattering and assuming LTE, the local radiative properties of the
+atmosphere is solely determined by the absorption coefficient. Molecular
+absorption cross-sections are pre-calculated and stored in so called absorption
+look-up tables. One table is created for each frequency band. The tables
+contain absorption cross-sections for combinations aof pressure and
+temperature, and final values are obtained by interpolation, all following
 
+\citet{buehler:absor:11}.
+
+
+\subsection{Radiative transfer}
+
+Eq.~\ref{eq:rteq}  stokes
 
 \subsection{Sensor characteristics and calibration}
 %
