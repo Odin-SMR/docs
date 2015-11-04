@@ -4,7 +4,7 @@
 \section{The optimal estimation method}
 \label{sec:oem}
 %
-The optimal estimation method (\OEM) is introduced in
+The optimal estimation method (\OEM) is introduced generally in
 Sec.~\ref{sec:setup:inverse}, while details more specific for the \smr\ L2
 processing are treated in this section.
 
@@ -12,11 +12,10 @@ processing are treated in this section.
 \label{sec:oem.m}
 %
 \lcomment{PE}{How and where is the complete data flow described? Shall this
-  sub-section be placed elsewhere?}
-%
-The \smr\ retrievals are performed by a Matlab implementation of \OEM, found as
-part of the Atmlab package. This package is avaliable through the \ARTS\ site,
-at \url{www.radiativetransfer.org/tools}. The implementation of \OEM\ in Atmlab
+  sub-section be placed elsewhere?}%
+The \smr\ retrievals are performed by a Matlab implementation of \OEM,, that is
+part of the Atmlab package. This package is available through the \ARTS\ site,
+at \url{www.radiativetransfer.org/tools}. The implementation of \OEM\ in Atmlab,
 \texttt{oem.m}, aims at being generic, that is, it shall be possible to couple
 the function to different forward models. The Atmlab package contains the
 required functions to interface \texttt{oem.m} with \ARTS. This functionality
@@ -26,14 +25,15 @@ several groups operating ground-based microwave radiometers
 \citep[e.g.][]{acp-15-5099-2015}. The function \texttt{oem.m} was coupled to a lidar
 forward model by \citet{sica2015retrieval}.
 
-To be clear, earlier L2 processing was based on the Qpack system (version
-1), but this is not longer the case to allow an optimisation for \smr. Instead,
-the core functionality, on which Qpack2 is based, is used to set up a retrieval
-system targeting the needs raised by \smr. The main components taken from
-Atmlab are \texttt{oem.m}, functions to read/write \ARTS\ output/input files,
-functions to interpolate data of climatology character (denoted as ``atmdata''
-inside Atmlab) and functions to create parametric variance-covariance matrices.
-All these functions are also used by Qpack2 and, hence, are well tested.
+To be clear, earlier L2 processing made direct use of the Qpack system (version
+1), but this is not longer the case, to allow a higher degree of optimisation
+with respect to \smr. Instead, the core functionality, on which Qpack2 is
+based, is used to set up a retrieval system targeting the needs raised by \smr.
+The main components taken from Atmlab are \texttt{oem.m}, functions to
+read/write \ARTS\ output/input files, functions to interpolate data of
+climatology character (denoted as ``atmdata'' inside Atmlab) and functions to
+create parametric variance-covariance matrices. All these functions are also
+used by Qpack2 and, hence, are well tested.
 
 
 \subsection{Iteration scheme}
@@ -42,22 +42,22 @@ All these functions are also used by Qpack2 and, hence, are well tested.
 The \smr\ processing offers a non-linear retrieval problem and an iterative
 procedure is required to determine the solution (Eq.~\ref{eq:mincost}). A
 number of iteration schemes has been suggested. The simplest version is
-Gauss-Newton \citep[see][Sec.~?]{rodgers:00}. This iteration scheme assumes a
+Gauss-Newton \citep[see][Sec.~5.3]{rodgers:00}. This iteration scheme assumes a
 robust decrease of the cost function (\CstFnc, Eq.~\ref{eq:costfun}) during the
 iterations, but this is seldom the case in practical retrievals and
-Gauss-Newton can result in iterations where the cost instead is increasing. The
-standard choice among iteration approaches, including a manner to enforce a
-decrease of the cost function at each step, is the Levenberg\,-\,Marquardt 
+Gauss-Newton can result in that \CstFnc\ instead is increasing while iterating.
+The standard choice among iteration approaches including a manner to enforce a
+decrease of the cost function at each step, is the Levenberg\,-\,Marquardt
 method (LM), and it is also selected for these retrievals.
 
 \LM\ operates with a parameter $\gamma$. With $\gamma=0$, \LM\ becomes equal to
-Gauss-Newton iteration. Each iteration step is then ?. For large values
-$\gamma$, \LM\ instead behaves as a steepest descent method. This results in a
-relatively small change in \SttVct, and then also a slow convergence rate, but
-the change in \SttVct\ results more likely in a decrease of \CstFnc. See
-\citep[see][Sec.~?]{rodgers:00} for a more detailed presentation of \LM.
-
+Gauss-Newton iteration. For large values $\gamma$, \LM\ instead behaves as a
+steepest descent method. The later results in a relatively small change in
+\SttVct, and then also a slow convergence rate, but \SttVct\ is updated in a
+direction that is close to optimal for ensuring a decrease of \CstFnc. See
+\citet[][Sec.~5.7]{rodgers:00} for a more detailed presentation of \LM.
 There exists different versions of \LM. The version applied here is
+\citep[][Eq.~5.36]{rodgers:00}
 \begin{equation}
   \label{eq:ml}
   \RtrVct_c = \RtrVct_i + 
@@ -66,48 +66,63 @@ There exists different versions of \LM. The version applied here is
   \left[ \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}(\MsrVct-\FrwMdl(\RtrVct_i,\FrwMdlVctHat)) -
          \aCvrMtr{a}^{-1}(\RtrVct_i-\aSttVct{a})\right]
 \end{equation}
-where $\RtrVct_t$ is the candidate solution for iteration $i+1$, $\RtrVct_i$ is
+where $\RtrVct_c$ is the candidate solution for iteration $i+1$, $\RtrVct_i$ is
 the (final) solution after iteration $i$, and \aWfnMtr{i}\ is the Jacobian
 (\aWfnMtr{\SttVct}) using $(\RtrVct_i,\FrwMdlVctHat)$ as linearisation point.
 Other variables are introduced in Sec.~\ref{sec:formalism}. The iteration is
 started by setting $\RtrVct_0 = \aSttVct{a}$, and $\RtrVct_c$ becomes
 $\RtrVct_{i+1}$ if $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$.
 
-The scheme for updating $\gamma$, that must consider both succesful
+The scheme for updating $\gamma$, that must consider both successful
 $(\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i))$ and
-unsuccesful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations, is:
+unsuccessful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations. It also
+needed to handle problematic cases by e.g.\ setting a limit for the number of
+iterations to perform. The overall iteration scheme applied is:
 \begin{itemize}
-\item[0] $\gamma$ is set to a start value, $\gamma=\gamma_0$.
-\item[1] Calculate $\RtrVct_c$ by Eq.~\ref{eq:ml}.
-\item[2] If $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$:
+\item[0] Set start values: $\RtrVct_0 = \aSttVct{a}$, $i=0$ and $\gamma=\gamma_0$.
+\item[1] If max iterations reached, $i=i_\mathrm{max}$, jump to 5. 
+\item[2] Calculate $\RtrVct_c$ by Eq.~\ref{eq:ml}.
+\item[3] If $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$:
   \begin{itemize}
-  \item[2a] Set $\RtrVct_{i+1}=\RtrVct_c$.
-  \item[2b] If convergence has reached (see Sec.~\ref{sec:conv}), set
-    $\RtrVct=\RtrVct_{i+1}$ and jump to 4.
-  \item[2c] Decrease $\gamma$ with a factor $f_s$. That is, $\gamma$ is updated
+  \item[3a] Set $\RtrVct_{i+1}=\RtrVct_c$.
+  \item[3b] If convergence has reached (see Sec.~\ref{sec:conv}), set
+    $\RtrVct=\RtrVct_{i+1}$ and jump to 5.
+  \item[3c] Decrease $\gamma$ with a factor $f_s$. That is, $\gamma$ is updated
     as $\gamma\leftarrow\gamma/f_s$. 
-  \item[2d] If $\gamma$ becomes smaller than a lower
-    treshold value, $\gamma<\gamma_\mathrm{min}$, set $\gamma=0$.
-  \item[2e] Continue iterations by jumping to 1.
+  \item[3d] If $\gamma$ becomes smaller than a 
+    threshold value, $\gamma<\gamma_\mathrm{min}$, set $\gamma=0$.
+  \item[3e] Continue iterations by jumping to 1.
   \end{itemize}
-\item[3] If $\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i)$:
+\item[4] If $\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i)$:
   \begin{itemize}
-  \item[3a] Increase $\gamma$ with a factor $f_u$. That is, $\gamma$ is updated
-    as $\gamma\leftarrow f_u\cdot\gamma$.
-  \item[3b] If $\gamma$ becomes larger than a upper treshold value,
-    $\gamma>\gamma_\mathrm{max}$, set $\RtrVct=\RtrVct_i$ and jump to 4.
-  \item[3c] Re-do the iteration with new $\gamma$ by moving to 1.
+  \item[4a] Increase $\gamma$. If $\gamma=0$, set $\gamma=\gamma_\mathrm{min}$.
+    Otherwise, updated as $\gamma\leftarrow f_u\cdot\gamma$.
+  \item[4b] If $\gamma$ becomes larger than a threshold value,
+    $\gamma>\gamma_\mathrm{max}$, set $\RtrVct=\RtrVct_i$ and jump to 5.
+  \item[4c] Re-do the iteration with new $\gamma$ by moving to 1.
   \end{itemize}
-\item[4] Perform retrieval characterisation
+\item[5] Perform retrieval characterisation
   (Chapter~\ref{chapter:characterisation}), using $\aWfnMtr{\SttVct}=\aWfnMtr{i}$.
 \end{itemize}
+The values of $\gamma_0$, $f_s$, $f_u$, $\gamma_\mathrm{min}$,
+$\gamma_\mathrm{max}$ and $i_\mathrm{max}$ vary between the retrieval of the
+different frequency bands. Actual values are listed in ?\todo{Where?}.
+\\
+\lcomment{PE}{Shall optical thickness be used to stabilise convergence? That
+  is, only channels with low optical thickness are considered in the first
+  iteration, and gradually higher optical thicknesses are introduced during the
+  iterations.}
 
 
-
-\subsection{Convergence criteria}
+\subsection{Convergence tests}
 \label{sec:conv}
 %
-
+\subsubsection{Stop criterion}
+There are different aspects related to convergence. A first question is the
+criterion for halting the iterations. This issue is discussed carefully in
+Sec.~5.6.3 of \citet{rodgers:00} and the details are not repeated here. The
+stop criterion applied is obtained by combining Eqs.~5.29 and 5.30 in the
+book section cited:
 \begin{equation}
   \label{eq:stopcrit}
   \left( \RtrVct_{i+1} - \RtrVct_i \right)^T
@@ -115,15 +130,129 @@ unsuccesful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations, is:
          \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}\aWfnMtr{i} \right)
   \left( \RtrVct_{i+1} - \RtrVct_i \right) < \Delta\SttVct_\mathrm{stop} \cdot n
 \end{equation}
+where $n$ is the length of the vector \SttVct\ and
+$\Delta\SttVct_\mathrm{stop}$ is the variable controlling the wanted
+strictness. The value $\Delta\SttVct_\mathrm{stop}=?$\todo{Select value}\ is
+applied for all frequency bands. 
 
+If Eq.~\ref{eq:stopcrit} becomes fulfilled, it is considered that basic
+convergence has been achieved. There are two exceptions, resulting in
+non-convergence status, that either the iteration number limit
+$(i_\mathrm{max})$ has been reached or that $\gamma$ has reached its upper
+threshold $(\gamma_\mathrm{max})$.
+\\
+\lcomment{PE}{Describe here how the overall convergence flag is set. We should
+  also consider the history of $\gamma$, but how? }
+
+
+\subsubsection{Normalised cost values}
+%
+For these \smr\ retrievals, the length of \MsrVct, $m$, is always much higher
+than $n$ (length of \SttVct). In this situation, the final cost value, defined
+according to Eq.~\ref{eq:costfun}, should be approximately $m$ at correct
+convergence. As $m$ can vary from retrieval to retrieval, even for a single
+frequency band, a normalised cost, $\CstFnc'$, is defined to make it simpler to
+compare cost value from different retrievals. The normalised cost is
+defined as:
+\begin{eqnarray}
+  \label{eq:scaledc}
+  \CstFnc' &=& \CstFnc_y' + \CstFnc_x', \\
+  \CstFnc_y' &=& \frac{(\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat))^T\aCvrMtr{o}^{-1}
+  (\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat))}{m},\\
+  \CstFnc_x' &=& \frac{(\SttVct-\aSttVct{a})^T\aCvrMtr{a}^{-1}(\SttVct-\aSttVct{a})}{m}.\\
+\end{eqnarray}
+The L2 data contain $\CstFnc'$, as well as $\CstFnc_y'$ to provide information
+on how the final cost is distributed between the two penalty terms.
+
+
+\subsubsection{Correct convergence}
+%
+Eq.~\ref{eq:stopcrit} evaluates only if the iterations has reached a stable end
+point. If the found solution actually corresponds to a global minimum of the
+cost function is another question, and a problematic one. To ensure a globally
+optimal solution a more advanced approach than \LM\ is required, but all
+such methods are computationally very demanding. A simplistic approach is to
+restart the iteration with other start conditions, where $\RtrVct_0$ and/or
+$\gamma=\gamma_0$ are/is given other initial value. Such tests have been
+performed on a number of cases for each frequency bands, to validate the
+iteration settings, but is not performed on a regular basis.\todo{Do this!}
+
+The final cost value can be used for rough testing of incorrect convergence,
+but it is hard to give a general critical value. Theoretically, it is expected
+that $\CstFnc'\approx1$, but this is only true on the condition that
+\aCvrMtr{o}\ gives a correct estimate of the observation uncertainties. For
+simplicity, we only consider thermal noise, that is
+$\aCvrMtr{0}=\aCvrMtr{\MsrErrVct_n}$. If then the magnitude of thermal noise is
+over-estimated in \aCvrMtr{0}, on purpose or by mistake, obtained values of
+$\CstFnc'$  on average be below 1 (assuming good convergence). However, for
+practical retrievals, $\CstFnc'$ tend instead to be $>1$ due to artefacts in
+the spectra, simplifications in the retrieval set-up and other reasons
+resulting in that the residual:
+\begin{equation}
+  \label{eq:dy}
+  \delta\MsrVct = \MsrVct-\FrwMdl(\RtrVct,\FrwMdlVctHat),
+\end{equation}
+contains features besides thermal noise. So called baseline ripple is a common
+reason to an excess size of the residual.
+
+For these reasons, a suitable upper limit on $\CstFnc'$ varies between the
+frequency bands. Suggested limits for quality filtering for each band are found
+?\todo{Where?}. 
+
+The discussion above hints that the value of $\CstFnc'$ depends on the data
+quality, and this aspect should not be forgotten. A high final
+cost can be caused by both bad input data and that the iteration procedure
+ended up at a local minimum. Without a detailed analysis it is impossible to say
+which of the two potential problems that is the cause to suspiciously high end
+value of $\CstFnc'$.  
+\\
+\lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
+  help to disentangle things?}
 
 
 \subsection{Some notes on the matrix operations}
 \label{sec:matrixops}
 %
-\dots Normalisation, matrix inverses
+As mentioned above, $m>n$ for these \smr\ retrievals. In the terminology of 
+\citet{rodgers:00}, the $n$-form of equations should then be used for lowest
+calculation burden, and this guideline is strictly followed.
 
+The matrix algebra is throughout performed by Matlab's internal functions. To
+explicitly calculate matrix inverses is avoided as far as possible. For
+example, Eq.~\ref{eq:ml} is evaluated, schematically, as
+\begin{displaymath}
+  \RtrVct_c = \RtrVct_i + 
+  \left[ (1+\gamma)\aCvrMtr{a}^{-1} + 
+          \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}\aWfnMtr{i} \right] \backslash
+  \left[ \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}(\MsrVct-\FrwMdl(\RtrVct_i,\FrwMdlVctHat)) -
+         \aCvrMtr{a}^{-1}(\RtrVct_i-\aSttVct{a})\right]  
+\end{displaymath}
+where $\backslash$ represents Matlab's left matrix divide operator (for
+details, see Matlab documentation). By using this operator, the inverse
+of $\left[ (1+\gamma)\aCvrMtr{a}^{-1} +
+  \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}\aWfnMtr{i} \right]$ is not calculated, instead
+$\RtrVct_c - \RtrVct_i$ is found by solving an equation system (by QR
+decomposition). This option is more numerically efficient, than calculating the
+actual inverse.
 
+However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} can
+not be avoided. These calculations take advantage of the block-diagonal
+structure (see Sec.~?), where each sub-matrix is inverted separately. Further,
+in some situations the matrix invers can be obtained in an analytic manner.
+This is possible for purely diagonal matrices, and for the combination of
+constant variance and exponentially declining correlation
+\citep[][Sec.~10.3.2.2]{rodgers:00}.
+
+The size of the elements in \SttVct\ can differ hugely. For example, VMR values
+go down to at least ppb level ($10^{-9}$), while frequency off-sets can reach
+1\,MHz. Variances follow the magnitude of elements squared and the span of
+values in \aCvrMtr{a}\ is accordingly even higher. Without any action, the
+matrix algebra will be pushed towards, or beyond, the numerical accuracy. To
+avoid numerical problems (at least due to the reason considered), an internal
+re-scaling of \SttVct\ is applied. The re-scaling is done in such way that the
+variances of \aCvrMtr{a}, matching the transformed \SttVct, all are unity. That
+is, the elements in \SttVct\ are scaled with the square root of the
+corresponding variance in \aCvrMtr{a}.
 
 
 \section{The measurement vector}
@@ -151,7 +280,7 @@ unsuccesful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations, is:
 
 
 
-\section{Forward model paramaters}
+\section{Forward model parameters}
 \label{sec:b}
 
 
