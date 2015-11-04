@@ -1,22 +1,121 @@
 \chapter{Retrieval set-up}
 \label{chapter:retrieval}
 
-\section{OEM}
+\section{The optimal estimation method}
 \label{sec:oem}
 %
-\dots
+The optimal estimation method (\OEM) is introduced in
+Sec.~\ref{sec:setup:inverse}, while details more specific for the \smr\ L2
+processing are treated in this section.
 
 \subsection{Implementation}
 \label{sec:oem.m}
 %
-\lcomment{PE}{What must be said in this ATBD about the overall organisation of
-  the calculations? Where is the comple data flow described?}
+\lcomment{PE}{How and where is the complete data flow described? Shall this
+  sub-section be placed elsewhere?}
+%
+The \smr\ retrievals are performed by a Matlab implementation of \OEM, found as
+part of the Atmlab package. This package is avaliable through the \ARTS\ site,
+at \url{www.radiativetransfer.org/tools}. The implementation of \OEM\ in Atmlab
+\texttt{oem.m}, aims at being generic, that is, it shall be possible to couple
+the function to different forward models. The Atmlab package contains the
+required functions to interface \texttt{oem.m} with \ARTS. This functionality
+has been used to create the second version of the Qpack
+\citep{eriksson:qpack:05} inversion system. This version, Qpack2, is used by
+several groups operating ground-based microwave radiometers
+\citep[e.g.][]{acp-15-5099-2015}. The function \texttt{oem.m} was coupled to a lidar
+forward model by \citet{sica2015retrieval}.
+
+To be clear, earlier L2 processing was based on the Qpack system (version
+1), but this is not longer the case to allow an optimisation for \smr. Instead,
+the core functionality, on which Qpack2 is based, is used to set up a retrieval
+system targeting the needs raised by \smr. The main components taken from
+Atmlab are \texttt{oem.m}, functions to read/write \ARTS\ output/input files,
+functions to interpolate data of climatology character (denoted as ``atmdata''
+inside Atmlab) and functions to create parametric variance-covariance matrices.
+All these functions are also used by Qpack2 and, hence, are well tested.
 
 
 \subsection{Iteration scheme}
 \label{sec:ml}
 %
-\dots
+The \smr\ processing offers a non-linear retrieval problem and an iterative
+procedure is required to determine the solution (Eq.~\ref{eq:mincost}). A
+number of iteration schemes has been suggested. The simplest version is
+Gauss-Newton \citep[see][Sec.~?]{rodgers:00}. This iteration scheme assumes a
+robust decrease of the cost function (\CstFnc, Eq.~\ref{eq:costfun}) during the
+iterations, but this is seldom the case in practical retrievals and
+Gauss-Newton can result in iterations where the cost instead is increasing. The
+standard choice among iteration approaches, including a manner to enforce a
+decrease of the cost function at each step, is the Levenberg\,-\,Marquardt 
+method (LM), and it is also selected for these retrievals.
+
+\LM\ operates with a parameter $\gamma$. With $\gamma=0$, \LM\ becomes equal to
+Gauss-Newton iteration. Each iteration step is then ?. For large values
+$\gamma$, \LM\ instead behaves as a steepest descent method. This results in a
+relatively small change in \SttVct, and then also a slow convergence rate, but
+the change in \SttVct\ results more likely in a decrease of \CstFnc. See
+\citep[see][Sec.~?]{rodgers:00} for a more detailed presentation of \LM.
+
+There exists different versions of \LM. The version applied here is
+\begin{equation}
+  \label{eq:ml}
+  \RtrVct_c = \RtrVct_i + 
+  \left[ (1+\gamma)\aCvrMtr{a}^{-1} + 
+          \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}\aWfnMtr{i} \right]^{-1}
+  \left[ \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}(\MsrVct-\FrwMdl(\RtrVct_i,\FrwMdlVctHat)) -
+         \aCvrMtr{a}^{-1}(\RtrVct_i-\aSttVct{a})\right]
+\end{equation}
+where $\RtrVct_t$ is the candidate solution for iteration $i+1$, $\RtrVct_i$ is
+the (final) solution after iteration $i$, and \aWfnMtr{i}\ is the Jacobian
+(\aWfnMtr{\SttVct}) using $(\RtrVct_i,\FrwMdlVctHat)$ as linearisation point.
+Other variables are introduced in Sec.~\ref{sec:formalism}. The iteration is
+started by setting $\RtrVct_0 = \aSttVct{a}$, and $\RtrVct_c$ becomes
+$\RtrVct_{i+1}$ if $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$.
+
+The scheme for updating $\gamma$, that must consider both succesful
+$(\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i))$ and
+unsuccesful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations, is:
+\begin{itemize}
+\item[0] $\gamma$ is set to a start value, $\gamma=\gamma_0$.
+\item[1] Calculate $\RtrVct_c$ by Eq.~\ref{eq:ml}.
+\item[2] If $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$:
+  \begin{itemize}
+  \item[2a] Set $\RtrVct_{i+1}=\RtrVct_c$.
+  \item[2b] If convergence has reached (see Sec.~\ref{sec:conv}), set
+    $\RtrVct=\RtrVct_{i+1}$ and jump to 4.
+  \item[2c] Decrease $\gamma$ with a factor $f_s$. That is, $\gamma$ is updated
+    as $\gamma\leftarrow\gamma/f_s$. 
+  \item[2d] If $\gamma$ becomes smaller than a lower
+    treshold value, $\gamma<\gamma_\mathrm{min}$, set $\gamma=0$.
+  \item[2e] Continue iterations by jumping to 1.
+  \end{itemize}
+\item[3] If $\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i)$:
+  \begin{itemize}
+  \item[3a] Increase $\gamma$ with a factor $f_u$. That is, $\gamma$ is updated
+    as $\gamma\leftarrow f_u\cdot\gamma$.
+  \item[3b] If $\gamma$ becomes larger than a upper treshold value,
+    $\gamma>\gamma_\mathrm{max}$, set $\RtrVct=\RtrVct_i$ and jump to 4.
+  \item[3c] Re-do the iteration with new $\gamma$ by moving to 1.
+  \end{itemize}
+\item[4] Perform retrieval characterisation
+  (Chapter~\ref{chapter:characterisation}), using $\aWfnMtr{\SttVct}=\aWfnMtr{i}$.
+\end{itemize}
+
+
+
+\subsection{Convergence criteria}
+\label{sec:conv}
+%
+
+\begin{equation}
+  \label{eq:stopcrit}
+  \left( \RtrVct_{i+1} - \RtrVct_i \right)^T
+  \left( \aCvrMtr{a}^{-1} + 
+         \aWfnMtrTrp{i}\aCvrMtr{o}^{-1}\aWfnMtr{i} \right)
+  \left( \RtrVct_{i+1} - \RtrVct_i \right) < \Delta\SttVct_\mathrm{stop} \cdot n
+\end{equation}
+
 
 
 \subsection{Some notes on the matrix operations}

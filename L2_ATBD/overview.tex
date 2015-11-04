@@ -278,6 +278,7 @@ identified by noting that OEM minimises the following ``cost function'':
 \end{equation}
 that is,
 \begin{equation}
+  \label{eq:mincost}
   \RtrVct = \min\limits_{\SttVct}(\CstFnc(\SttVct)).
 \end{equation}
 The cost function \CstFnc\ can be seen as the sum of the two penalty terms. The
@@ -292,14 +293,14 @@ that is, a description of the natural variability (including correlations) of
 the elements in \SttVct, but this rule is not always obeyed. First of all,
 normally there is no manner in which an exact \aCvrMtr{\SttVct} can be derived,
 and this matrix is set in some parametric way, loosely based on measurements
-and general knowledge on atmospheric physics\addref. It could also be the case
-that \aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common
-example is that the variances in \aCvrMtr{a}\ are set with some margin to the
-true values, to maintain measurement information as far as possible, or
-expressed differently, not to constrain the solution more than necessary.
-Further, it is likely that \aSttVct{a}\ differs from the true mean mean value
-of \SttVct, and also this systematic deviation should be represented in
-\aCvrMtr{a} \citep{eriksson:analy:00}.
+and general knowledge on atmospheric physics. It could also be the case that
+\aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common example
+is that the variances in \aCvrMtr{a}\ are set with some margin to the true
+values, to maintain measurement information as far as possible, or expressed
+differently, not to constrain the solution more than necessary. Further, it is
+likely that \aSttVct{a}\ differs from the true mean mean value of \SttVct, and
+also this systematic deviation should be represented in \aCvrMtr{a}
+\citep{eriksson:analy:00}.
 
 The formally correct choice for \aCvrMtr{a} is \aCvrMtr{\MsrErrVct_o}
 \citep{eriksson:analy:00,rodgers:00}, but again this theoretical guideline is
