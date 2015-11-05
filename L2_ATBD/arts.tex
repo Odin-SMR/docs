@@ -118,7 +118,7 @@ The executable should be minimal ARTS (no DISORT, T-Matrix ...). What level
 optimisation should be used? Shall asserts be turned off?}
 
 
-\subsection{Basic settings\todo{Add all missing section refs.}}
+\subsection{Basic settings}
 %
 The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
 function of pressure, and are implicitly treated as constant in the latitude
@@ -126,10 +126,10 @@ and longitude dimensions. A 1D atmosphere implies further a spherical reference
 geoid, and the radius of the this geoid is set to ?\todo{Fixed or as curvature
   radius?}. The upper limit of the model atmosphere is in \ARTS\ defined by the
 lowest value in the user defined pressure grid. The range of this grid varies,
-see Sec.~?. The lower limit of the atmosphere is determined by the planet's
-surface, and \ARTS\ demands that a surface is always defined. The altitude of
-the surface is for these simulations set to ?\,km\todo{Add number}, and
-regarding radiative properties it is set to behave as a blackbody.
+see Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by
+the planet's surface, and \ARTS\ demands that a surface is always defined. The
+altitude of the surface is for these simulations set to ?\,km\todo{Add number},
+and regarding radiative properties it is set to behave as a blackbody.
 
 It is possible to use a ``dummy'' surface for the following reason. Even if
 data with (bore-sight) tangent altitudes below the tropopause are rejected, the
@@ -160,7 +160,7 @@ there is no ``non-linear'' species in the absorption table (this option is
 required for water vapour in the lower troposphere).
 \ARTS' absorption look-up table system is described in detail by
 \citet{buehler:absor:11}. The spectroscopic data used to produce the look-up
-tables are discussed in Sec.~?.
+tables are discussed in Sec.~\ref{sec:b:absdata}).
 
 
 \subsection{Radiative transfer}
@@ -169,16 +169,16 @@ In general, the simulations mimic Eq.~\ref{eq:rteq}. Solving this equation
 requires two main steps, to determine the propagation path and to perform the
 integration along the found path. Refraction must be considered for \smr\
 \citep{eriksson:studi:02}, which is achieved by a simple ray tracing scheme
-(see AUG). The maximum step length of the ray tracing is set to ?\,km, which is
-estimated to give a tangent point accuracy better than ?\,m for tangent
-altitudes above 15\,km\todo{Perform test}. The propagation path used when
-evaluating Eq.~\ref{eq:rteq} is defined by a set of points. A point is added at
-each crossing of the path crosses with a pressure levels (that is, the
-pressures defining the vertical grid). Additional points are inserted to ensure
-that the distance along the path does not exceed an user defined threshold.
-This threshold is set to ?\,km\todo{Create test for this.}. Only the first
-element of the Stokes vector is calculated (remaining three elements are zero
-for assumed conditions).
+(see AUG). The maximum step length of the ray tracing is set to ?\,km\todo{Add
+  value}, which is estimated to give a tangent point accuracy better than
+?\,m\todo{Add value}\ for tangent altitudes above 15\,km\todo{Perform test}.
+The propagation path used when evaluating Eq.~\ref{eq:rteq} is defined by a set
+of points. A point is added at each crossing of the path crosses with a
+pressure levels (that is, the pressures defining the vertical grid). Additional
+points are inserted to ensure that the distance along the path does not exceed
+an user defined threshold. This threshold is set to ?\,km\todo{Create test for
+  this.}. Only the first element of the Stokes vector is calculated (remaining
+three elements are zero for assumed conditions).
 
 
 \subsection{118\,GHz}
@@ -218,7 +218,7 @@ represent the radiation field, as a function of frequency and zenith angle,
 with sufficient accuracy. The methods setting up \SnsMtr\ assumes that both
 radiances and sensor responses vary linear between the points were data are at
 hand.\todo{Will the FillGrid method be used?}\ The variables controlling
-\SnsMtr\ and \MpiVct\  are discussed in Sec.~?.
+\SnsMtr\ and \MpiVct\ are discussed in Sec.~?\todo{Add value}.
 
 
 
