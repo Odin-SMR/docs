@@ -6,37 +6,178 @@ directly or indirectly. The presentation follows the formalism presented in
 Sec.~\ref{sec:formalism}.
 
 
-\section{The measurement vector}
+\section{Basic variable choices}
+\label{sec:retr:basics}
+%
+\smr\ performs measurements in several frequency bands simultaneously
+(Sec.~\ref{sec:smr:details}). The set of frequency bands differs between observation
+modes\addref. The altitude range scanned by \smr\ is not fixed, and a a \smr\
+``scan'' is simply defined as the spectra recorded between two adjacent turning
+points in altitude of the limb scanning\addref. The retrievals covered by this
+\ATBD\ operate only on one scan, from one frequency band, at the time. Each
+combination of scan and frequency band is inverted separately, no information
+is carried between different retrievals.
+
+There is no strict division line between thye state and forwamd model parameter
+vectors (\SttVct\ and \FrwMdlVct). Obviously, \SttVct\ shall contain a
+representation of the quantities targeted by the measurements, that for \smr\
+are gas species concentrations and atmospheric temperatures.\todo{Finish thsi
+  discussion.}
+
+
+
+\section{The measurement vector, \MsrVct}
 \label{sec:y}
 %
-\dots 
+The measurement vector contains solely \smr\ brightness temperature values,
+with spectra from different tangent altitudes appended. That is,
+\begin{equation}
+  \label{eq:y}
+  \MsrVct =
+  \begin{bmatrix}
+    \MsrVct_1\\ 
+    \MsrVct_2\\ 
+    \vdots\\ 
+    \MsrVct_s
+  \end{bmatrix},
+\end{equation}
+where $\MsrVct_1$/$\MsrVct_x$ is the spectrum from the highest/lowest tangent
+altitude etc. 
+
+As mentioned, each retrieval does only contain data from a single scan, but
+not necessary the complete scan. For each mode an upper and lower tangent
+altitude limit is defined, that determines which spectra of a scan that will be
+part of \MsrVct. The altitude limits are defined using geometrical tangent
+altitudes (that is, refraction neglected) as those are the tangent altitudes
+found in the L1b data.
+
+The tangent altitude range is allowed to vary as a function of latitude, an
+example is given in Fig.~?\todo{Make figure}. These tangent altitude masks are
+throughout defined at 90\degree S, \dots\todo{Add values}\ and 90\degree N,
+with linear interpolation applied between these latitudes. The altitude limits
+for each frequency band are found ?\todo{Where?}.
 
 
-\section{The state vector}
+
+\section{Observation uncertainty covariance matrix, \aCvrMtr{o}}
+\label{sec:So}
+%
+\lcomment{PE}{Write this section later, as details are not yet clear. Can the
+  L1b data be used to calculate thermal noise level? Exactly what expression to
+  use? Do we consider the noise correlation between channels? With Hanning the
+  correlation is significant, while without Hanning a pure diagonal matrix is a
+  better approximation.}
+
+
+\section{The state vector, \SttVct}
 \label{sec:x}
+%
+The state vector contains a mix of quantities. Besides the 118\,GHz band, the
+quantities always present are: gas species profiles $(\VctStl{v})$, the
+temperature profile $(\VctStl{t})$, a set of brightness temeprature off-sets
+$(\Delta\VctStl{o})$, a pointing off-set $(\Delta\theta)$ and a frequency
+off-set $(\Delta\nu)$\todo{Correct?}. With just these quantities retrieved, and
+a case involving two gas species, the state vector becomes:
+\begin{equation}
+  \label{eq:measvec}
+  \SttVct =
+  \begin{bmatrix}
+    \VctStl{v}_1\\ 
+    \VctStl{v}_2\\ 
+    \VctStl{t}\\ 
+    \VctStl{\Delta\VctStl{o}}\\ 
+    \Delta\theta\\ 
+    \Delta\nu 
+  \end{bmatrix}.
+\end{equation}
+For 118\,GHz the state vector contains no species profiles as only oxygen,
+having a known VMR, has to be considered.
+
+A species or temperature ``profile'' is a set of values describing the vertical
+variation, at a set of specified pressures, that is, the retrieval grid (see
+also Sec.~\ref{sec:arts:aspects}). Such retrieval grids are discussed further
+in Sec.~\ref{sec:b:pgrid}, together with the basic pressure grid of the forward
+model. Temperatures are given in Kelvin.
+\\
+\lcomment{PE}{We go for log-retrievals for species? Discuss basic aspects of
+  the log conversion here.}
+
+As discussed in Sec.~\ref{sec:smr:errors}, there is not a perfect compensation
+for gain variations, causing an off-set in brightness temperatures. This
+off-set has been found to be flat over the frequency bands, but differ from one
+tangent altitude to next. The vector \VctStl{\Delta\VctStl{o}} contains one
+brightness temeprature off-set for each included spectrum, to compensate for
+the ``baseline shift''. That is, a correction of the brightness temperatures is
+estimated, and corrected spectra can be expreessed as
+\begin{equation}
+  \label{eq:retr:baseline}
+  \hat{T}_b^{ij} = T_b^{ij} + \Delta\VctStl{o}_i
+\end{equation}
+where $T_b^{ij}$ is brightness temperature oc channel $j$ and tangent altitude
+$i$ and $\Delta\VctStl{o}_i$ is element $i$ of $\Delta\VctStl{o}$.
+
+
+The pointing and frequency off-sets are scalar values. This implies that these
+correction factors are valid for the complete scan. In \ARTS\ the viewing
+direction, of each \LOS, is specified as the angle from zenith. These angles can
+not be determined perfectly, but the error has been judged to be constant
+during a scan and a single correction value should be sufficient. Hence, the
+retrieved zenith angles are
+\begin{equation}
+  \label{eq:retr:point}
+  \hat{\theta_i} = \theta_i + \Delta\theta,  
+\end{equation}
+where $\theta_i$ is the L1b zenith angle of tangent altitude $i$. A positive 
+$\Delta\theta$ means that the retrieval estimated lower tangent altitudes than
+obtained by the attitude data. As a rule of thumb, $\Delta\theta=\pm0.01\degree$
+matches about $\mp550$\,m in tangent altitude.
+
+There is a similar uncertainty in the exact frequencies observed. This
+uncertainty originates in the \LO-signal. Already pre-launch tests hows that
+\LO-frequency varies somewhat with temperature. A correction table was created,
+but some frequency error remains and there seems also to be some ageing on the
+\LO-chain affecting the final frequencies. The final frequency uncertainty is
+totally correlated between the backend channels inside each frequency band. As
+long as the \LO-signal is phase-locked, it is judged that the frequency off-set
+is constant during a limb scan. However, the phase-locking of the 118 and
+575\,GHz front-ends have been failing basically throughout the mission, and the
+assumption of a constant frequency off-set is more uncertain for these receiver
+chains. The switch from version 1 to 2 of \ARTS\ enables the retrieval of a
+non-constant frequency off-set, but this possibility will just be actived later
+if found necessary. The retrieved frequency of channel $i$ is
+\begin{equation}
+  \label{eq:retr:freq}
+  \hat{\nu_j} = \nu_j + \Delta\nu,  
+\end{equation}
+where $\nu_j$ is the frequency found given by L1b data.
+
+
+
+
+\section{The a priori vector, \aSttVct{a}}
+\label{sec:xa}
 %
 \dots
 
 
-\section{The a priori vector}
-\label{sec:x}
-%
-\dots
-
-
-\section{Covariance matrices}
-\label{sec:x}
+\section{A priori uncertainty covariance matrix, \aCvrMtr{a}}
+\label{sec:Sa}
 %
 \dots
 
 
 
-\section{Forward model parameters}
+\section{Forward model parameters, \FrwMdlVct}
 \label{sec:b}
-
+%
+Please note that some/all\todo{Should it be some or all here?}\ static forward
+model settings, that are common for all simulations, are introduced already in
+Sec.~\ref{sec:arts:config}.
 
 \subsection{Pressure grids}
 \label{sec:b:pgrid}
+%
+\dots (also retrieval grids)
 
 
 \subsection{Spectroscopic data and absorption continua}
@@ -52,13 +193,18 @@ Sec.~\ref{sec:formalism}.
 
 
 
-
-
-
-\subsection{???}
-\label{sec:b:???}
+\subsection{Radiative transfer}
+\label{sec:b:rt}
 %
-$I_0$
+The propagation path used when evaluating Eq.~\ref{eq:rteq} is defined by a set
+of points. A point is added at each crossing of the path crosses with a
+pressure levels (that is, the pressures defining the vertical grid). Additional
+points are inserted to ensure that the distance along the path does not exceed
+an user defined threshold. This threshold is denoted $l_\mathrm{max}$ in the
+tables of ?\todo{WHere?}.
+\\
+\lcomment{PE}{What about $I_0$?. Is this a static variable? That is, hEq.~\ref{eq:rteq}ow do we
+  handle moon in LOS?}
 
 
 

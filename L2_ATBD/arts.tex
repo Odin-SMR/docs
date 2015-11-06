@@ -165,20 +165,17 @@ tables are discussed in Sec.~\ref{sec:b:absdata}).
 
 \subsection{Radiative transfer}
 %
-In general, the simulations mimic Eq.~\ref{eq:rteq}. Solving this equation
-requires two main steps, to determine the propagation path and to perform the
-integration along the found path. Refraction must be considered for \smr\
-\citep{eriksson:studi:02}, which is achieved by a simple ray tracing scheme
-(see AUG). The maximum step length of the ray tracing is set to ?\,km\todo{Add
-  value}, which is estimated to give a tangent point accuracy better than
-?\,m\todo{Add value}\ for tangent altitudes above 15\,km\todo{Perform test}.
-The propagation path used when evaluating Eq.~\ref{eq:rteq} is defined by a set
-of points. A point is added at each crossing of the path crosses with a
-pressure levels (that is, the pressures defining the vertical grid). Additional
-points are inserted to ensure that the distance along the path does not exceed
-an user defined threshold. This threshold is set to ?\,km\todo{Create test for
-  this.}. Only the first element of the Stokes vector is calculated (remaining
-three elements are zero for assumed conditions).
+In general, the simulations mimic Eq.~\ref{eq:rteq}. Only the first element of
+the Stokes vector is calculated (remaining three elements are zero for assumed
+conditions).
+
+Solving equation Eq.~\ref{eq:rteq} requires two main steps, to determine the
+propagation path and to perform the integration along the found path.
+Refraction must be considered for \smr\ \citep{eriksson:studi:02}, which is
+achieved by a simple ray tracing scheme (see AUG). The maximum step length of
+the ray tracing is set to ?\,km\todo{Add value}, which is estimated to give a
+tangent point accuracy better than ?\,m\todo{Add value}\ for tangent altitudes
+above 15\,km\todo{Perform test}.
 
 
 \subsection{118\,GHz}
@@ -220,6 +217,16 @@ radiances and sensor responses vary linear between the points were data are at
 hand.\todo{Will the FillGrid method be used?}\ The variables controlling
 \SnsMtr\ and \MpiVct\ are discussed in Sec.~?\todo{Add value}.
 
+The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
+must also be mimicked by the forward model. The radiances ($I$,
+W/(m$^2\cdot$Hz$\cdot$sr)) given by the atmospheric radiative transfer part are
+converted to following the Rayleigh-Jeans approximation of the Planck function:
+\begin{equation}
+  \label{eq:i2tb}
+  T_b = \frac{c^2}{2\nu k_B} I,
+\end{equation}
+where $c$ is the speed of light and $k_B$ is the Boltzmann constant. This
+conversion is made before the sensor responses are applied.
 
 
 \section{Important aspects}
