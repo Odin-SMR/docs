@@ -4,6 +4,13 @@
 The optimal estimation method (\OEM) is introduced generally in
 Sec.~\ref{sec:setup:inverse}, while details more specific for the \smr\ L2
 processing are treated in this section.
+\\
+\lcomment{PE}{It is for the moment assumed that the general \OEM\ function of
+  Atmlab will be used. If the \OEM-part is found to be bottle-neck in the
+  calculations, some optimisation could be achieved by making a stand-alone
+  function and e.g.\ use the conjugate gradient scheme during the iterations.
+  Or maybe this option will be added to \texttt{oem.m}.}
+
 
 \section{Software}
 \label{sec:oem.m}

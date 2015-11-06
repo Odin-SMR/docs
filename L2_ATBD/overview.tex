@@ -150,7 +150,7 @@ In the same manner, we define \aWfnMtr{\FrwMdlVct} as
 The contribution function matrix, \CtrFncMtr, is defined as the partial
 derivative of the inverse model with respect to the measurement vector:
 \begin{equation}
-  \label{eq:dy}
+  \label{eq:g}
   \CtrFncMtr = \frac{\PartD\InvMdl}{\PartD\MsrVct}.
 \end{equation}
 Having these partial derivatives at hand, the retrieval error can be related
@@ -288,7 +288,7 @@ solution would be obtained. The regularisation is introduced by the second
 term, the evaluates the probability of \SttVct\ based on a priori
 information.
 
-Formally, \aCvrMtr{a} shall be set to \aCvrMtr{\SttVct} \citep{rodgers:00},
+Formally, \aCvrMtr{a}\ shall be set to \aCvrMtr{\SttVct}\ \citep{rodgers:00},
 that is, a description of the natural variability (including correlations) of
 the elements in \SttVct, but this rule is not always obeyed. First of all,
 normally there is no manner in which an exact \aCvrMtr{\SttVct} can be derived,
@@ -299,8 +299,11 @@ is that the variances in \aCvrMtr{a}\ are set with some margin to the true
 values, to maintain measurement information as far as possible, or expressed
 differently, not to constrain the solution more than necessary. Further, it is
 likely that \aSttVct{a}\ differs from the true mean mean value of \SttVct, and
-also this systematic deviation should be represented in \aCvrMtr{a}
-\citep{eriksson:analy:00}.
+also this systematic deviation should be represented in \aCvrMtr{a}\
+\citep{eriksson:analy:00}. For a continued discussion, and comments on the
+relationship between \aCvrMtr{a}\ and the corresponding regularisation matrix
+used in ``Tikhonov regularisation'', see, for example,
+\citet{eriksson:analy:00} and \citet{ungermann2011tomographic}.
 
 The formally correct choice for \aCvrMtr{o} is \aCvrMtr{\MsrErrVct_o}
 \citep{eriksson:analy:00,rodgers:00}, but again this theoretical guideline is
