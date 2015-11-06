@@ -10,19 +10,23 @@ Sec.~\ref{sec:formalism}.
 \label{sec:retr:basics}
 %
 \smr\ performs measurements in several frequency bands simultaneously
-(Sec.~\ref{sec:smr:details}). The set of frequency bands differs between observation
-modes\addref. The altitude range scanned by \smr\ is not fixed, and a a \smr\
-``scan'' is simply defined as the spectra recorded between two adjacent turning
-points in altitude of the limb scanning\addref. The retrievals covered by this
-\ATBD\ operate only on one scan, from one frequency band, at the time. Each
-combination of scan and frequency band is inverted separately, no information
-is carried between different retrievals.
+(Sec.~\ref{sec:smr:details}). The set of frequency bands differs between
+observation modes\addref. The altitude range scanned by \smr\ is not fixed, and
+a \smr\ ``scan'' is simply defined as the spectra recorded between two adjacent
+turning points, in altitude, of the limb scanning\addref. The retrievals covered
+by this \ATBD\ operate only on one scan and spectra from a single frequency
+band at the time. Each combination of scan and frequency band is treated
+separately, no information is carried between different retrievals.
 
-There is no strict division line between thye state and forwamd model parameter
-vectors (\SttVct\ and \FrwMdlVct). Obviously, \SttVct\ shall contain a
-representation of the quantities targeted by the measurements, that for \smr\
-are gas species concentrations and atmospheric temperatures.\todo{Finish thsi
-  discussion.}
+Following the discussion in Sec.~\ref{sec:setup:inverse:xb}, the state vector
+does not only contain the quantities targeted directly by the \smr\
+measurements, that is, gas species concentrations and atmospheric temperatures,
+but also a number of other variables are part of \SttVct\ (Sec.~\ref{sec:x}).
+These variables are either instrument correction factors or describe some
+interfering atmospheric effect. However, a restriction to effects of random
+nature is made, no fixed forward model variables (such as, spectroscopic data)
+are placed in \SttVct. That is, variables causing systematic retrieval errors
+are not included in \SttVct\ (and neither in \aCvrMtr{o}, Sec.~\ref{sec:So}).
 
 
 
@@ -44,40 +48,51 @@ with spectra from different tangent altitudes appended. That is,
 where $\MsrVct_1$/$\MsrVct_x$ is the spectrum from the highest/lowest tangent
 altitude etc. 
 
-As mentioned, each retrieval does only contain data from a single scan, but
-not necessary the complete scan. For each mode an upper and lower tangent
-altitude limit is defined, that determines which spectra of a scan that will be
-part of \MsrVct. The altitude limits are defined using geometrical tangent
-altitudes (that is, refraction neglected) as those are the tangent altitudes
-found in the L1b data.
+Each retrieval does only contain data from a single scan, as mentioned, but all
+spectra of the scan are not included. For each mode an upper and lower
+tangent altitude limit are defined, that determine which spectra of a scan that
+will be part of \MsrVct. The altitude limits are defined using geometrical
+tangent altitudes (that is, refraction neglected) as those are the tangent
+altitudes found in the L1b data.
 
-The tangent altitude range is allowed to vary as a function of latitude, an
+The tangent altitude limits are allowed to vary as a function of latitude, an
 example is given in Fig.~?\todo{Make figure}. These tangent altitude masks are
 throughout defined at 90\degree S, \dots\todo{Add values}\ and 90\degree N,
 with linear interpolation applied between these latitudes. The altitude limits
-for each frequency band are found ?\todo{Where?}.
+applied for each frequency band are found ?\todo{Where?}.
 
 
 
 \section{Observation uncertainty covariance matrix, \aCvrMtr{o}}
 \label{sec:So}
 %
-\lcomment{PE}{Write this section later, as details are not yet clear. Can the
-  L1b data be used to calculate thermal noise level? Exactly what expression to
-  use? Do we consider the noise correlation between channels? With Hanning the
-  correlation is significant, while without Hanning a pure diagonal matrix is a
-  better approximation.}
+All variables of random nature that have a significant impact on the
+measurements, including indirect effects through the forward model, are part of
+the state vector (Secs.~\ref{sec:retr:basics} and \ref{sec:x}). This means that
+the term $\aWfnMtr{\FrwMdlVct}\aCvrMtr{\FrwMdlVct} \aWfnMtr{\FrwMdlVct}^T$ in
+Eq.~\ref{eq:So} should give a relatively small contribution (ignoring
+systematic components) to $\aCvrMtr{\MsrErrVct_o}$. Accordingly, \aCvrMtr{o} is
+set to only represent thermal noise:
+\begin{equation}
+  \aCvrMtr{o} = \aCvrMtr{\MsrErrVct_n}.
+\end{equation}
+\\
+\lcomment{PE}{Exactly what expression to use for converting L1b data to thermal
+  noise standard deviation? Do we consider the noise correlation between
+  channels? With Hanning the correlation is significant, while without Hanning
+  a pure diagonal matrix is a better approximation.}
 
 
 \section{The state vector, \SttVct}
 \label{sec:x}
 %
-The state vector contains a mix of quantities. Besides the 118\,GHz band, the
-quantities always present are: gas species profiles $(\VctStl{v})$, the
-temperature profile $(\VctStl{t})$, a set of brightness temeprature off-sets
-$(\Delta\VctStl{o})$, a pointing off-set $(\Delta\theta)$ and a frequency
-off-set $(\Delta\nu)$\todo{Correct?}. With just these quantities retrieved, and
-a case involving two gas species, the state vector becomes:
+The state vector contains a mix of quantities (Sec.~\ref{sec:retr:basics}).
+Besides the 118\,GHz band, the quantities always present are: gas species
+profiles $(\VctStl{v})$, the temperature profile $(\VctStl{t})$, a set of
+brightness temperature off-sets $(\Delta\VctStl{o})$, a pointing off-set
+$(\Delta\theta)$ and a frequency off-set $(\Delta\nu)$\todo{Correct?}. With
+just these quantities retrieved, and a case involving two gas species, the
+state vector becomes:
 \begin{equation}
   \label{eq:measvec}
   \SttVct =
@@ -91,7 +106,7 @@ a case involving two gas species, the state vector becomes:
   \end{bmatrix}.
 \end{equation}
 For 118\,GHz the state vector contains no species profiles as only oxygen,
-having a known VMR, has to be considered.
+having a known VMR, has to be considered for this frequency band.
 
 A species or temperature ``profile'' is a set of values describing the vertical
 variation, at a set of specified pressures, that is, the retrieval grid (see
@@ -99,30 +114,29 @@ also Sec.~\ref{sec:arts:aspects}). Such retrieval grids are discussed further
 in Sec.~\ref{sec:b:pgrid}, together with the basic pressure grid of the forward
 model. Temperatures are given in Kelvin.
 \\
-\lcomment{PE}{We go for log-retrievals for species? Discuss basic aspects of
+\lcomment{PE}{Do we go for log-retrievals for species? Discuss basic aspects of
   the log conversion here.}
 
 As discussed in Sec.~\ref{sec:smr:errors}, there is not a perfect compensation
 for gain variations, causing an off-set in brightness temperatures. This
 off-set has been found to be flat over the frequency bands, but differ from one
 tangent altitude to next. The vector \VctStl{\Delta\VctStl{o}} contains one
-brightness temeprature off-set for each included spectrum, to compensate for
+brightness temperature off-set for each included spectrum, to compensate for
 the ``baseline shift''. That is, a correction of the brightness temperatures is
-estimated, and corrected spectra can be expreessed as
+estimated, and corrected spectra can be expressed as
 \begin{equation}
   \label{eq:retr:baseline}
   \hat{T}_b^{ij} = T_b^{ij} + \Delta\VctStl{o}_i
 \end{equation}
-where $T_b^{ij}$ is brightness temperature oc channel $j$ and tangent altitude
+where $T_b^{ij}$ is brightness temperature of channel $j$ and tangent altitude
 $i$ and $\Delta\VctStl{o}_i$ is element $i$ of $\Delta\VctStl{o}$.
-
 
 The pointing and frequency off-sets are scalar values. This implies that these
 correction factors are valid for the complete scan. In \ARTS\ the viewing
-direction, of each \LOS, is specified as the angle from zenith. These angles can
-not be determined perfectly, but the error has been judged to be constant
-during a scan and a single correction value should be sufficient. Hence, the
-retrieved zenith angles are
+direction, of each \LOS, is specified as the angle from zenith. These angles
+can not be determined perfectly from attitude data, but the error has been
+judged to be constant during a scan and a single correction value should be
+sufficient. Hence, the retrieved zenith angles are
 \begin{equation}
   \label{eq:retr:point}
   \hat{\theta_i} = \theta_i + \Delta\theta,  
@@ -143,21 +157,34 @@ is constant during a limb scan. However, the phase-locking of the 118 and
 575\,GHz front-ends have been failing basically throughout the mission, and the
 assumption of a constant frequency off-set is more uncertain for these receiver
 chains. The switch from version 1 to 2 of \ARTS\ enables the retrieval of a
-non-constant frequency off-set, but this possibility will just be actived later
+non-constant frequency off-set, but this possibility will just be activated later
 if found necessary. The retrieved frequency of channel $i$ is
 \begin{equation}
   \label{eq:retr:freq}
   \hat{\nu_j} = \nu_j + \Delta\nu,  
 \end{equation}
-where $\nu_j$ is the frequency found given by L1b data.
-
-
+where $\nu_j$ is the frequency found given by L1b data.\\
+\\
+\lcomment{PE}{The plan is to activate winds for frequency bands containing
+  strong mesospheric lines, but no tests have yet performed. Describe the wid
+  retrieval here, if activated. Otherwise revise text above, we have the always
+  same set of variables in \SttVct?}
 
 
 \section{The a priori vector, \aSttVct{a}}
 \label{sec:xa}
 %
-\dots
+\lcomment{PE}{Write later. For species we need to decide if we go for the old a
+  a proiri database, originally from Bordeaux. Or can we get a better, and much
+  newer, alternative? The MIPAS climatology, or from any of all ongoing
+  projects?}
+\lcomment{PE}{For temperature we need to decide if ECMWF-operational or
+  ERA-Interim shall be used as source. And how exactly the transition to MSIS
+  is made.}
+
+All sensor correction terms are assumed on average to be zero. Accordingly, the
+a priori value of $\Delta\VctStl{o}$, $\Delta\theta$
+and $\Delta\nu$ is throughout set to zero.
 
 
 \section{A priori uncertainty covariance matrix, \aCvrMtr{a}}
@@ -165,14 +192,27 @@ where $\nu_j$ is the frequency found given by L1b data.
 %
 \dots
 
+\begin{equation}
+  \label{eq:sa}
+  \aCvrMtr{a} =
+  \begin{bmatrix}
+    \aCvrMtr{\VctStl{v}_1} & 0 & 0 & 0 & 0 & 0 \\
+    0 & \aCvrMtr{\VctStl{v}_2} & 0 & 0 & 0 & 0 \\
+    0 & 0 & \aCvrMtr{\VctStl{t}} & 0 & 0 & 0 \\
+    0 & 0 & 0 & \aCvrMtr{\VctStl{\Delta\VctStl{o}}} & 0 & 0 \\
+    0 & 0 & 0 & 0 & \aCvrMtr{\Delta\theta} & 0 \\
+    0 & 0 & 0 & 0 & 0 & \aCvrMtr{\Delta\nu} \\
+  \end{bmatrix}.
+\end{equation}
+
 
 
 \section{Forward model parameters, \FrwMdlVct}
 \label{sec:b}
 %
-Please note that some/all\todo{Should it be some or all here?}\ static forward
-model settings, that are common for all simulations, are introduced already in
-Sec.~\ref{sec:arts:config}.
+Please note that static forward model settings, this is, common for all
+simulations, are presented already in Sec.~\ref{sec:arts:config}.
+
 
 \subsection{Pressure grids}
 \label{sec:b:pgrid}
@@ -201,9 +241,9 @@ of points. A point is added at each crossing of the path crosses with a
 pressure levels (that is, the pressures defining the vertical grid). Additional
 points are inserted to ensure that the distance along the path does not exceed
 an user defined threshold. This threshold is denoted $l_\mathrm{max}$ in the
-tables of ?\todo{WHere?}.
+tables of ?\todo{Where?}.
 \\
-\lcomment{PE}{What about $I_0$?. Is this a static variable? That is, hEq.~\ref{eq:rteq}ow do we
+\lcomment{PE}{What about $I_0$?. Is this a static variable? That is, how do we
   handle moon in LOS?}
 
 

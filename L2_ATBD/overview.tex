@@ -234,6 +234,10 @@ can be written in a somewhat more compact form:
 \subsection{Retrieval method}
 \label{sec:setup:inverse}
 %
+
+\subsubsection{The need of regularisation}
+\label{sec:setup:inverse:reg}
+%
 In short, the task of the retrieval method is to derive \RtrVct\ from \MsrVct.
 It turns out that the mapping from \MsrVct\ to \RtrVct\ is not unique. That is,
 there exist an infinite set of $\SttVct$-vectors that result in a fit with the
@@ -258,6 +262,10 @@ will result in extremely high sensitivity to noise. The retrieval problem at
 hand is said to be ill-posed, which is the standard situation for passive
 atmospheric sounding.
 
+
+\subsubsection{The optimal estimation method}
+\label{sec:setup:inverse:oem}
+%
 The standard way to tackle ill-posed problems of this type is
 ``regularisation'', where some constrain on the solution is introduced. In
 passive atmospheric sounding, using statistical information as basis for the
@@ -288,6 +296,22 @@ solution would be obtained. The regularisation is introduced by the second
 term, the evaluates the probability of \SttVct\ based on a priori
 information.
 
+If the retrieval problem is linear around (\aSttVct{a},\FrwMdlVctHat), \RtrVct\
+can be calculated using Eq.~\ref{eq:linretrieval}, with
+\citep[][Eq.~4.5]{rodgers:00}
+\begin{equation}
+  \label{eq:lindy}
+  \CtrFncMtr = (\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}\aWfnMtr{\SttVct}
+  +\aCvrMtr{a}^{-1})^{-1}\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}.
+\end{equation}
+However, the inversion of \smr\ measurements result in a (moderately)
+non-linear problem and an iterative process is required to find the minimum of
+\CstFnc, see Sec.~\ref{sec:ml}.
+
+
+\subsubsection{Considerations around \SttVct\ and \FrwMdlVct}
+\label{sec:setup:inverse:xb}
+%
 Formally, \aCvrMtr{a}\ shall be set to \aCvrMtr{\SttVct}\ \citep{rodgers:00},
 that is, a description of the natural variability (including correlations) of
 the elements in \SttVct, but this rule is not always obeyed. First of all,
@@ -312,22 +336,26 @@ $\aCvrMtr{o}=\aCvrMtr{\MsrErrVct_n}$. One important practical consideration is
 that the inverse of \aCvrMtr{\MsrErrVct_o}\ must be calculated and this is a
 highly costly operation in the general case, but \aCvrMtr{\MsrErrVct_n}\ is in
 general a pure diagonal matrix and the inverse can be determined with a minimal
-calculation cost. Further, if any elements in \FrwMdlVct\ cause significant
-random retrieval errors, the corresponding variables should instead rather be
-part of \SttVct. This last topic, and other considerations around \aCvrMtr{o}
-and \aCvrMtr{a}, are discussed further in Chapter~\ref{chapter:retvars}.
+calculation cost. 
 
-If the retrieval problem is linear around (\aSttVct{a},\FrwMdlVctHat), \RtrVct\
-can be calculated using Eq.~\ref{eq:linretrieval}, with
-\citep[][Eq.~4.5]{rodgers:00}
-\begin{equation}
-  \label{eq:lindy}
-  \CtrFncMtr = (\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}\aWfnMtr{\SttVct}
-  +\aCvrMtr{a}^{-1})^{-1}\aWfnMtrTrp{\SttVct}\aCvrMtr{o}^{-1}.
-\end{equation}
-However, the inversion of \smr\ measurements result in a (moderately)
-non-linear problem and an iterative process is required to find the minimum of
-\CstFnc, see Sec.~\ref{sec:ml}.
+Further, the setting of \aCvrMtr{o}\ is influenced by the exact choice if
+variables included in \SttVct. As discussed in Sec.~4.1.2 of \citet{rodgers:00}
+there is no strict division line between \SttVct\ and \FrwMdlVct. Obviously,
+\SttVct\ must contain a representation of the quantities targeted by the
+measurements, but for variables of interfering character (e.g.\ frequency
+off-set) there is a choice to make. For a perfect linear retrieval case, exact
+the same result will be obtained for the target quantities, independently if
+interfering factors are covered by \SttVct\ or \FrwMdlVct. However, inclusion
+in \SttVct\ is to prefer as this result in that values describing the
+interfering effects are obtained, which can be important diagnostic
+information (e.g.\ to detect instrumental changes). In addition, in a
+non-linear situation a more optimal solution is obtained by placing interfering
+factors in \SttVct, as it is likely that \aWfnMtr{\FrwMdlVct}, and then also
+\aCvrMtr{\MsrErrVct_o} (cf.\ Eq.~\ref{eq:So}), vary with \SttVct. That is,
+the description of observation uncertainties is likely to deteriorate with
+difference between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
+of \SttVct, such non-linear effects will be taken care of by the reevaluation of 
+\aWfnMtr{\SttVct}.
 
 
 \subsection{Forward model}
@@ -393,12 +421,6 @@ order to enhance the along-track resolution. Accordingly, to maintain the
 measurement information of these special observations, 2D (or tomographic)
 retrievals were needed. These retrievals were also made by combing \OEM\ and
 \ARTS\ but are presented separately, in \citet{christensen:tomog:15}.
-
-
-
-
-
-
 
 
 
