@@ -229,6 +229,23 @@ where $c$ is the speed of light and $k_B$ is the Boltzmann constant. This
 conversion is made before the sensor responses are applied.
 
 
+
+\section{\ARTS\ and weighting functions}
+\label{sec:arts:wfuns}
+%
+\lcomment{PE}{The Jacobian probably deserves special attention, as it is the
+  least well established part among forward models. Discuss how ARTS calculates
+  weighting functions. First of all, this is done quite efficiently, less than
+  doubling of the calculation time compared to a just calculating \MsrVct. This
+  due to analytic expressions and \SnsMtr. With absorption look-up table, the
+  derivative of absorption with respect to temperature is done by perturbation.
+  And temperature Jacobian does not consider non-local effects due to
+  refraction and hydrostatic equilibrium. The pointing Jacobian could be used
+  to make a first order correction for these simplifications, but this not yet
+  tested.}
+
+
+
 \section{Important aspects}
 \label{sec:arts:aspects}
 %
