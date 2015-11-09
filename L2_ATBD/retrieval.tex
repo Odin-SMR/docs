@@ -28,6 +28,12 @@ nature is made, no fixed forward model variables (such as, spectroscopic data)
 are placed in \SttVct. That is, variables causing systematic retrieval errors
 are not included in \SttVct\ (and neither in \aCvrMtr{o}, Sec.~\ref{sec:So}).
 
+Covariance matrices are implemented as sparse matrices, while all other
+variables are stored as full vectors or matrices. For the retrieval problem at
+hand, $\aWfnMtrTrp{\SttVct}$ is relatively dense and the overhead related with
+a sparse representation results in better performance keeping
+$\aWfnMtrTrp{\SttVct}$ as a full matrix
+
 
 
 \section{The measurement vector, \MsrVct}
@@ -94,7 +100,7 @@ $(\Delta\theta)$ and a frequency off-set $(\Delta\nu)$\todo{Correct?}. With
 just these quantities retrieved, and a case involving two gas species, the
 state vector becomes:
 \begin{equation}
-  \label{eq:measvec}
+  \label{eq:x:example}
   \SttVct =
   \begin{bmatrix}
     \VctStl{v}_1\\ 
@@ -183,15 +189,62 @@ where $\nu_j$ is the frequency found given by L1b data.\\
   is made.}
 
 All sensor correction terms are assumed on average to be zero. Accordingly, the
-a priori value of $\Delta\VctStl{o}$, $\Delta\theta$
-and $\Delta\nu$ is throughout set to zero.
+a priori value of $\Delta\VctStl{o}$, $\Delta\theta$ and $\Delta\nu$ is
+throughout set to zero.
 
 
 \section{A priori uncertainty covariance matrix, \aCvrMtr{a}}
 \label{sec:Sa}
 %
-\dots
+The setting of \aCvrMtr{a}\ is the most contreversial part of \OEM, see
+Sec.~\ref{sec:setup:inverse:xb} for some comments. This subject is not
+elaborated further, it is just noticed that in general there exist no direct
+measurement on which the sub-covariance matrices can be based and ad hoc values
+are applied to a large extend. In addition, the values selected results in that
+\aCvrMtr{a}\ in general should over-estimate variability. Accordingly, \OEM\ is
+not used in a strict sense, but the retrievals can still be classified is
+regularisation \citep{ungermann2011tomographic} and close to optimal result
+should be obtained as long as \aCvrMtr{a}\ is given ``reasonable'' values
+\citep{eriksson:analy:00}.
+\\
+\lcomment{PE}{Species: Details here depends on retrieval unit selected, and
+  text must be written latter. But likely, we use a $\sim$50\% variability,
+  with a constrain of a minimum variability defined in \VMR (converted to
+  relative values).} \lcomment{PE}{Temperature: For altitudes up to about
+  45\,km, a the standard deviation should be $\approx$2\,K. For higher
+  altitudes, use fixed values, or does CIRA or MSIS contain tables on natural
+  variability that can be used?}
 
+The atmosphere exhibits vertical correlation, see \citet{eriksson:stati:02} for
+examples on ozone and temperature correlations. In lack of direct measurements
+covering all altitudes, vertical correlations are modelled by parametric
+expressions, using a correlation length $l_c$. The correlation is modelled to
+follow a Gaussian function,
+\begin{equation}
+  \label{eq:corr:gau}
+  \rho(z_1,z_2) = exp\left(-4[(z_1-z_2)/(l_c(z_1)+l_c(z_2))]^2\right),
+\end{equation}
+or an exponential one,
+\begin{equation}
+  \label{eq:corr:exp}
+  \rho(z_1,z_2) = exp\left(-2\left|z_1-z_2\right|/(l_c(z_1)+l_c(z_2))\right),
+\end{equation}
+where $\rho(z_1,z_2)$ is the correlation coefficient between altitudes $z_1$
+and $z_2$. Note that the mean of the correlation length at $z_1$ and $z_2$ is
+used, that is,  $(l_c(z_1)+l_c(z_2))/2$.\todo{Where do we report $l_c$ used?}
+
+The frequency and pointing off-sets are scalar values, and only a standard
+deviation ($\sigma$) for each quantity must be specified. These standard deviations
+are set to $\sigma_{\Delta\nu}=?$\,MHz and $\sigma_{\Delta\theta}=?^\circ$, respectively.
+The brightness temperature off-sets have been found to be uncorrelated between
+spectra, and the variation to have no variation with altitude. This results in
+that the covariance matric for $\VctStl{\Delta\VctStl{o}}$ can be written as 
+$\sigma_{\VctStl{\Delta\VctStl{o}}}^2\IdnMtr$. The standard deviation of
+brightness temperature off-sets is throughout set to ?\,K\todo{Set value for
+  all $\sigma$.}.
+
+Any correlations between the different quantities in \SttVct\ are fully
+ignored. That is, the total covariance matrix becomes:
 \begin{equation}
   \label{eq:sa}
   \aCvrMtr{a} =
@@ -199,11 +252,27 @@ and $\Delta\nu$ is throughout set to zero.
     \aCvrMtr{\VctStl{v}_1} & 0 & 0 & 0 & 0 & 0 \\
     0 & \aCvrMtr{\VctStl{v}_2} & 0 & 0 & 0 & 0 \\
     0 & 0 & \aCvrMtr{\VctStl{t}} & 0 & 0 & 0 \\
-    0 & 0 & 0 & \aCvrMtr{\VctStl{\Delta\VctStl{o}}} & 0 & 0 \\
-    0 & 0 & 0 & 0 & \aCvrMtr{\Delta\theta} & 0 \\
-    0 & 0 & 0 & 0 & 0 & \aCvrMtr{\Delta\nu} \\
+    0 & 0 & 0 & \sigma_{\VctStl{\Delta\VctStl{o}}}^2\IdnMtr & 0 & 0 \\
+    0 & 0 & 0 & 0 & \sigma_{\Delta\theta}^2 & 0 \\
+    0 & 0 & 0 & 0 & 0 & \sigma_{\Delta\nu}^2 \\
   \end{bmatrix}.
 \end{equation}
+The inverse of a block-diagonal matrix of this type is also a block-diagonal
+matrix, consisting of the inverse of the individual matrices, and the inverse
+of \aCvrMtr{a}\ is calculated in the following manner:
+\begin{equation}
+  \label{eq:sa}
+  \aCvrMtr{a}^{-1} =
+  \begin{bmatrix}
+    \aCvrMtr{\VctStl{v}_1}^{-1} & 0 & 0 & 0 & 0 & 0 \\
+    0 & \aCvrMtr{\VctStl{v}_2}^{-1} & 0 & 0 & 0 & 0 \\
+    0 & 0 & \aCvrMtr{\VctStl{t}}^{-1} & 0 & 0 & 0 \\
+    0 & 0 & 0 & \sigma_{\VctStl{\Delta\VctStl{o}}}^{-2}\IdnMtr & 0 & 0 \\
+    0 & 0 & 0 & 0 & \sigma_{\Delta\theta}^{-2} & 0 \\
+    0 & 0 & 0 & 0 & 0 & \sigma_{\Delta\nu}^{-2} \\
+  \end{bmatrix}.
+\end{equation}
+
 
 
 
