@@ -198,14 +198,17 @@ throughout set to zero.
 %
 The setting of \aCvrMtr{a}\ is the most contreversial part of \OEM, see
 Sec.~\ref{sec:setup:inverse:xb} for some comments. This subject is not
-elaborated further, it is just noticed that in general there exist no direct
-measurement on which the sub-covariance matrices can be based and ad hoc values
-are applied to a large extend. In addition, the values selected results in that
-\aCvrMtr{a}\ in general should over-estimate variability. Accordingly, \OEM\ is
-not used in a strict sense, but the retrievals can still be classified is
-regularisation \citep{ungermann2011tomographic} and close to optimal result
-should be obtained as long as \aCvrMtr{a}\ is given ``reasonable'' values
-\citep{eriksson:analy:00}.
+elaborated further, it is just noticed that for VMR and atmospheric
+temperature, in general, there exist no direct measurement on which the
+sub-covariance matrices can be based and ad hoc values are applied to a large
+extend. In addition, the values selected results in that \aCvrMtr{a}\ in
+general should over-estimate variability. Accordingly, \OEM\ is not used in a
+strict sense, but the retrievals can still be classified is regularisation
+\citep{ungermann2011tomographic} and close to optimal result should be obtained
+as long as \aCvrMtr{a}\ is given ``reasonable'' values
+\citep{eriksson:analy:00}. On the other hand, the uncertainties of the
+instrumental variables are known fairly well and the corresponding parts of
+\aCvrMtr{a}\ should be quite accurate.
 \\
 \lcomment{PE}{Species: Details here depends on retrieval unit selected, and
   text must be written latter. But likely, we use a $\sim$50\% variability,
@@ -261,7 +264,7 @@ The inverse of a block-diagonal matrix of this type is also a block-diagonal
 matrix, consisting of the inverse of the individual matrices, and the inverse
 of \aCvrMtr{a}\ is calculated in the following manner:
 \begin{equation}
-  \label{eq:sa}
+  \label{eq:sainv}
   \aCvrMtr{a}^{-1} =
   \begin{bmatrix}
     \aCvrMtr{\VctStl{v}_1}^{-1} & 0 & 0 & 0 & 0 & 0 \\

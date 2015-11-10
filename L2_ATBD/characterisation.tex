@@ -2,38 +2,38 @@
 \label{chapter:characterisation}
 %
 A full retrieval characterisation is only given for a set of representative
-cases. This despite that such a characterisation is largely performed
+cases. This despite that such a characterisation anyhow is largely performed
 internally for each retrieved scan, but to store the full averaging kernel and
 error covariance matrices would increase the size of the L2 data files with
 about two orders of magnitude and such detailed information is anyhow normally
-not required. Instead, only some key, all-embracing, quantities are included in
-the L2 data, and full characterisations are provided separately. The background
-theory of this chapter is found in Sec.~\ref{sec:formalism}.
+not required. Instead, only some all-embracing quantities are included in the
+L2 data, and full characterisations are provided separately. The theory
+background of this chapter is found in Sec.~\ref{sec:formalism}.
  
 
 
 \section{Interpretation of errors}
+\label{sec:char:interpret}
 %
 The full retrieval error is given by Eq.~\ref{eq:Sdelta1}, where the total
 retrieval error is presented as the sum of three terms. The calculation and
 interpretation of the forward model parameter and thermal noise retrieval
 errors are quite straightforward, while the smoothing error term,
 $\left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}\left(\AvrKrnMtr-\IdnMtr\right)^T$,
-is more problematic and frequenctly causes confusion. The aim of this section
-is to clarify some aspects around smoothing errors and how this error term is
+is more problematic and frequently causes confusion. The aim of this section
+is to clarify some aspects of smoothing error and how this error term is
 handled in the \smr\ L2 data. The averaging kernel matrix has a central
-position for this discussion and it is defined by Eq.~\ref{eq:A}.
+role for this discussion and it is defined by Eq.~\ref{eq:A}.
 
 
 \subsection*{The case of a single species profile}
 %
-For pedagogical reasons, let us start with a simplified example, that the state
-vector just contains the vertical profile of a single species. For such a
-retrieval case, a row of \AvrKrnMtr\ shows how changes throughout the true
-profile contribute to the retrieved value at the altitude of concern.
-Accordingly the term ``averaging kernels'' refers to the rows of \AvrKrnMtr.
-The columns \AvrKrnMtr\ give the impact of a delta-type perturbance in \SttVct\
-\citep{rodgers:00}.
+Let us start with a simplified example, that the state vector just contains the
+vertical profile of a single species. For such a retrieval case, a row of
+\AvrKrnMtr\ shows how changes throughout the true profile contribute to the
+retrieved value at the altitude of concern. Accordingly the term ``averaging
+kernels'' refers to the rows of \AvrKrnMtr. The columns \AvrKrnMtr\ give the
+impact of a delta-type perturbance in \SttVct\ \citep{rodgers:00}.
 
 The characterisation makes no attempt to estimate this smoothing error (the one
 internal for a retrieval quantity), for the simple reason that a sufficient
@@ -44,7 +44,7 @@ in general be over-estimated, considering how \aCvrMtr{\SttVct}\ is constructed
 (Sec.~\ref{sec:Sa}). A smoothing error is present when $\AvrKrnMtr\neq\IdnMtr$.
 The averaging kernel matrix deviates from the identity matrix due to impact of
 a priori information, that roughly can be separated into two main aspects:
-limited resolution (see Sec.~\ref{sec:mresp}) and non-perfect measurement
+limited resolution (see Sec.~\ref{sec:vertres}) and non-perfect measurement
 response (see Sec.~\ref{sec:mresp}).
 
 If the smoothing error is not included in the retrieval error, how should then
@@ -65,23 +65,20 @@ That is, the forward model parameter and retrieval noise errors give the
 difference between the retrieved state and a smoothed version of the true state
 $(\AvrKrnMtr\SttVct)$. However, as \SttVct\ is unknown, and then also
 $\AvrKrnMtr\SttVct$, a somewhat different view must be used in practice.
-Retrieved profile shall be interpreted as a running averages of the true
-profiles, and errors refer to these averages. The vertcial resolution gives the
+Retrieved profile are running averages of the true profiles, and errors refer
+to the accuracy of these averages. The vertical resolution gives the
 approximate averaging length. The condition
 $\AvrKrnMtr\aSttVct{a}\approx\aSttVct{a}$ is roughly fulfilled as long as the
 measurement response is around 1.
 
-For situations where the measurement provides no information at all, the values
-in both \CtrFncMtr\ and \AvrKrnMtr\ become zero. This results in $\RtrVct -
-\aSttVct{a} = 0$. That is, the solution equals the a priori state. A pitfall
-emerges here, the errors reported also become zero, but this only reflects that
-neither thermal noise or forward model parameters have had any impact on the
-solution. The total retrieval error equals the smoothing error.
+For situations where the measurement provides no information at all, a zero
+measurement response, the values in both \CtrFncMtr\ and \AvrKrnMtr\ become
+zero. This results in $\RtrVct - \aSttVct{a} = 0$. That is, the solution equals
+the a priori state. A pitfall emerges here, the errors reported also become
+zero, but this only reflects that neither thermal noise or forward model
+parameters have had any impact on the solution. The total retrieval error
+equals the smoothing error, that is not provided.
 
-In summary, reported errors provide useful information only when the
-measurement response is relatively high. However, retrieved data with low
-measurement response shall anyhow not be used for a scientific analysis, see
-further ?\todo{Where do we discuss this?}.
 
 
 \subsection*{Multiple retrieval quantities}
@@ -118,18 +115,18 @@ The sub-matrices along the diagonal, such as $\AvrKrnMtr_{\VctStl{v}_2}$, can
 be interpreted exactly as in the simplified example above. In case of scalar
 quantities, such as $\AvrKrnMtr_{\Delta\nu}$, these sub-matrices have size 1\,x\,1.
 
-The off-diagonal sub-matrices show how the different quantities affect each
-other. For example, one row of the sub-matrix
+The off-diagonal sub-matrices show how the different quantities interfere with
+each other. For example, one row of the sub-matrix
 $\AvrKrnMtr_{\VctStl{v}_1,\VctStl{t}}$ gives how the corresponding value in gas
 species profile 1 is affected by variations in the temperature profile, while a
 row in $\AvrKrnMtr_{\VctStl{t},\VctStl{v}_1}$ gives how one temperature profile
-value is influenced by changes in of gas species 1.
+value is influenced by changes in gas species 1.
 
-The retrieval will in general not be able to make a perfect seperation between
+The retrieval will in general not be able to make a perfect separation between
 changes in the different retrieval quantities, for example, variations in the
 atmospheric temperature profile will cause errors in a ozone profile retrieval,
 even if the temperature profile is part of \SttVct. This influence across the
-retrieval quantities emerges as an additional smoothing error. To exemplify
+retrieval quantities causes an additional smoothing error. To exemplify
 this, let us continue to use a combined ozone and temperature retrieval:
 \begin{displaymath}
   \AvrKrnMtr=  
@@ -177,22 +174,59 @@ where $\dots$ indicates matrix elements left out, for brevity reasons. If we
 focus on the upper left sub-matrix, covering the ozone profile smoothing error,
 the term $(\AvrKrnMtr_{\VctStl{v}}-\IdnMtr)\aCvrMtr{\VctStl{v}}
 (\AvrKrnMtr_{\VctStl{v}}-\IdnMtr)^T$ covers the smoothing error that is
-internal for the ozone profile, while
+internal for the ozone profile, while the second term,
 $\AvrKrnMtr_{\VctStl{v},\VctStl{t}}\aCvrMtr{\VctStl{t}}\AvrKrnMtr_{\VctStl{v},\VctStl{t}}^T$
-is the smoothing error induced by atmospheric temperatures in the retrieval of
-ozoze. The last term is new compared to the singel profile case. Interestingly,
-this new term is identical the expression to be used if temperature had been a
-forward model parameter, compare \dots
+is the smoothing error induced by atmospheric temperatures in the retrieved
+ozone profile. The last term is new compared to the single profile case.
 
+Not surprisingly, this new term is identical the expression to be used if
+temperature had been a forward model parameter. If
+$\AvrKrnMtr_{\VctStl{v},\VctStl{t}}$ is expanded, we get that ozone retrieval
+error due to temperature interference is
+\begin{displaymath}
+  \RtrErr_{\VctStl{v}}^{\VctStl{t}} =
+  \CtrFncMtr_{\VctStl{v}}\aWfnMtr{\VctStl{t}}\aCvrMtr{\VctStl{t}}
+   \aWfnMtr{\VctStl{t}}^T\CtrFncMtr_{\VctStl{v}}^T.
+\end{displaymath}
+This expression gives exactly the same result, as treating temperature as a
+forward model uncertainty and following Eq.~\ref{eq:So} for the error
+calculation. This is consistent with the discussion in
+Sec.~\ref{sec:setup:inverse:xb}, that for a linear case exactly the same result
+is obtained when moving an interfering quantity from \FrwMdlVct\ to \SttVct.
+This implies that the total error remains constant, but the corresponding error
+term is moved from being a forward model parameter error to being a smoothing
+error.
+
+The interference between retrieval quantities is included in the error
+provided. The calculation of these errors also requires \aCvrMtr{\SttVct}, but
+the accuracy of this matrix is here less important, compared to the estimation
+of the internal smoothing error. The largest uncertainties of
+\aCvrMtr{\SttVct}\ are found for gas species and temperature, but the
+interference between these quantities is limited and, hence, it does not give
+rise to any dominating retrieval error. The interference of instrumental
+quantities on \VMR\ retrievals can be substantial, but \aCvrMtr{\SttVct}\ can be
+set quite accurately for the parts corresponding to instrumental uncertainties.\\
+
+\noindent
+In summary, the smoothing error internal to each retrieval quantity is not part
+of the error given. Accordingly, the error refers to the accuracy of the
+retrieved profile considered as a running average of the true profile. The
+interference between different retrieval quantities is included. The errors are
+valid on the constraint of that the measurement response is relatively high. If
+the measurement response is low, there is a systematic bias towards the a
+priori state, that is not captured by the errors provided, but data with
+low measurement response shall anyhow not be used for a scientific analysis
+without special treatment (see Sec.~? of \citet{rodgers:00}).
 
 
 
 \section{Full characterisation}
 %
-\lcomment{PE}{How do we distribute the full characterisations?}
+\lcomment{PE}{How do we distribute the full characterisations? Take the stuff
+  below just as some brainstorming around how we shall do this.}
 
 
-\subsection{Appraoch and reference cases}
+\subsection{Approach and reference cases}
 \label{sec:fullchar:select}
 %
 The full characterisation does not involve any measurement data. Instead a
@@ -205,8 +239,8 @@ position of the hypothetical measurement, and the characterisation is made for
 That is, a linear analysis around a priori is performed.
 \\
 \lcomment{PE}{How do we define the database of full characteristics?
-  Combinations of monts (middle of every second?) and latitudes (-80 to 80 in
-  steps of 20\degree?). The databse should cover all frequency bands.}
+  Combinations of months (middle of every second?) and latitudes (-80 to 80 in
+  steps of 20\degree?). The database should cover all frequency bands.}
 
 
 \subsection{Averaging kernel matrix, \AvrKrnMtr}
@@ -215,30 +249,45 @@ That is, a linear analysis around a priori is performed.
 The full characterisation reports the complete averaging kernel matrix,
 together with the positions inside the state vector each retrieval quantity
 occupies. Each sub-matrix of \AvrKrnMtr\ can be extracted if these positions
-are known.
+are known. 
 \\
-\lcomment{PE}{Or do we just report the sub-matrices along the diagonal?}
+\lcomment{PE}{Or do we just report the sub-matrices along the diagonal? We
+  include the interference error between the quantities, and to
+  estimate/compensate for internal smoothing error, only the diagonal
+  sub-matrices should suffice.}
 
 
-\subsection{Retrieval noise covariance matrix, \aCvrMtr{n}}
+\subsection{Observation error covariance matrix, \aCvrMtr{\RtrErr_o}}
 \label{sec:Sreterr}
 %
-This error covariance matrix equals the last term of Eq.~\ref{eq:Sdelta1}:
+The ``observation retrieval error'' is defined as the total retrieval error
+(Eq.~\ref{eq:Sdelta1}) with the internal smoothing error subtracted. The
+covariance matrix of this error is schematically calculated as
 \begin{equation}
-  \label{eq:Sn}
-  \aCvrMtr{n} = \CtrFncMtr\aCvrMtr{\MsrErrVct_n}\CtrFncMtr^T.
+  \label{eq:Sdeltao}
+  \aCvrMtr{\RtrErr_o} = \left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}
+  \left(\AvrKrnMtr-\IdnMtr\right)^T -
+  \begin{bmatrix}
+  \CvrMtr_\mathrm{is}^1 & 0 & \dots & 0 \\
+  0 & \CvrMtr_\mathrm{is}^2 & \dots & 0 \\
+  0 & \vdots & \ddots & 0 \\
+  0 & 0 & 0 &  \CvrMtr_\mathrm{is}^q
+  \end{bmatrix} 
+  + \CtrFncMtr\aCvrMtr{\MsrErrVct_n}\CtrFncMtr^T,
 \end{equation}
-This covariance matrix can be divided into sub-matrices exactly as the
-averaging kernel matrix, where off-diagonal sub-matrices give information on
-the error correlation between the different retrieval quantities. As any
-covariance matrix, \aCvrMtr{n}\ is symmetric (which is not the case for
-\AvrKrnMtr!), and corresponding sub-matrices above and below the diagonal provide
-redundant information.
-
-At a first glance, Eq.~\ref{eq:Sn}\ could give the impression that \aCvrMtr{n}\
-only covers the error caused by thermal noise, but in the set-up selected,
-\aCvrMtr{n}\ should cover all main random error sources. This is the
-case as \dots\todo{Explain this}.
+where $q$ is the number of retrieval quantities and $\CvrMtr_\mathrm{is}^i$ is
+the internal smoothing error of quantity $i$, that using the nomenclature of
+Sec.~\ref{sec:char:interpret} is
+\begin{displaymath}
+  \CvrMtr_\mathrm{is}^i = (\AvrKrnMtr_{\VctStl{i}}-\IdnMtr)\aCvrMtr{\VctStl{i}}
+(\AvrKrnMtr_{\VctStl{i}}-\IdnMtr)^T.
+\end{displaymath}
+The \aCvrMtr{\RtrErr_o}\ covariance matrix can be divided into sub-matrices
+exactly as the averaging kernel matrix, where off-diagonal sub-matrices give
+information on the error correlation between the different retrieval
+quantities. As any covariance matrix, \aCvrMtr{n}\ is symmetric (which is not
+the case for \AvrKrnMtr!), and corresponding sub-matrices above and below the
+diagonal provide redundant information.
 \\
 \lcomment{PE}{Do we make use of the symmetry of \aCvrMtr{n}\ and only store the
   upper part of the matrix?}
@@ -247,9 +296,18 @@ case as \dots\todo{Explain this}.
 \subsection{Random errors}
 \label{sec:erand}
 %
-\lcomment{PE}{The standard deviation of the different random errors separately.
-  How best calculated?}
-
+These errors show how the different sources contribute to the total random
+error. That is, the error due to thermal noise and all interfering smoothing
+errors are reported individually. Only standard deviations $(\sigma)$ are
+given. The total error $\sigma_\mathrm{tot}$, is related to the individual
+error components as
+\begin{equation}
+  \label{eq:randerr:sigma}
+  \sigma_\mathrm{tot}^2 = \sigma_\mathrm{n}^2 + \sum_{i=1}^{q-1} \sigma_{i}^2
+\end{equation}
+where $\sigma_\mathrm{n}$ is the error due to thermal noise, and $\sigma_{i}$
+is an interference error. The matching value along the diagonal of
+$\aCvrMtr{\RtrErr_o}$ equals $\sigma_\mathrm{tot}^2$.
 
 
 \subsection{Systematic errors}
@@ -257,35 +315,56 @@ case as \dots\todo{Explain this}.
 %
 \lcomment{PE}{Write this section later as we hopefully can make use of some
   ongoing \ARTS\ development here. The most important systematic errors should
-  be due to spectrospcopic data, such as pressure broading parameters. These
+  be due to spectroscopic data, such as pressure broadening parameters. These
   errors are normally determined by perturbing the spectroscopic data, but this
   is slow and requires a rather intricate set-up. \ARTS\ is right now extended
   to provide weighting functions
-  for spectroscopic varaibles, which makes this process both faster and simpler.\\
+  for spectroscopic variables, which makes this process both faster and simpler.\\
   Any other systematic error source to consider?}
 
 
 
 \section{L2 data fields}
 %
+The L2 data contain only some key characteristics, but these are calculated
+specifically for each retrieval\todo{Polish section when L2 format set.}.
+
 
 \subsection{Measurement response}
 \label{sec:mresp}
 %
-The averaging kernel matrix is in the L2 data summerised by two measures, where
-the measurement response is one. The concept 
+The averaging kernel matrix is in the L2 data summarised by three measures,
+where the measurement response is one. The measurement response is defined as
+the row sum of the averaging kernel matrix \citep{baron:studi:02}, but
+following the treatment of smoothing errors, the summing is here only made
+inside each sub-matrix along the diagonal. That is, only the measurement
+response inside each retrieval quantity is considered.
 
 
-\subsection{Vertical resolution}
-\label{sec:mresp}
+\subsection{Vertical placement and resolution}
+\label{sec:vertres}
 %
-\dots
+Also these measures is based on the diagonal sub-matrices, and not the
+complete \AvrKrnMtr. The vertical resolution is reported as the full width at
+half maximum (\FWHM) of the averaging kernels. An averaging kernel is not
+necessarily centred around the nominal retrieval altitude. The vertical
+placement of the averaging kernel is given as the mean of altitude:
+\begin{equation}
+  \label{eq:zmean}
+  z_m = \frac{\int z a(z_0,z)\, \DiffD z}{\int a(z)\,\DiffD z}
+\end{equation}
+where $z$ is altitude and $a(z)$ is the averaging kernel for the nominal
+altitude of $z_0$\todo{Or give $z_m-z_0$?}.
+\\
+\lcomment{PE}{\FWHM is a quite optimistic value, especially for averaging
+  kernels of the shape given by \OEM. Also include spread?}
 
 
-\subsection{Retrieval noise}
+\subsection{Random retrieval error}
 \label{sec:reterr}
 %
-\dots
+The total random error, $\sigma_\mathrm{tot}$, is given following
+Eq.~\ref{eq:randerr:sigma}.
 
 
 

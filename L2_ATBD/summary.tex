@@ -7,25 +7,32 @@
 \dots\\
 
 \noindent
-Some key issues that should be considered when examining or applying Odin-SMR
+Some key issues that should be considered when examining or applying \smr\
 L2 data:
 \begin{itemize}
-\item The retrievals assume a horizontally homogeneous (1D) atmosphere, that
-  local thermodynamic equilibrium applies and there is no scattering.
-\item The main atmospheric vertical coordinate is pressure, i.e.\ \VMR and
-  temperature profiles are retrieved as a function of pressure. The L2 data
+\item The retrievals assume a horizontally homogeneous (1D), non-scattering,
+  atmosphere.
+\item The main atmospheric vertical coordinate is pressure, i.e.\ \VMR\ and
+  temperatures are retrieved as a function of pressure. The L2 data
   contain also an estimate of the geometrical altitudes\fixme{Correct?}\
   matching the profiles values, but this information shall be considered as
   secondary.
-\item L2 data are the best estimate at each pressure level\fixme{Does L2
-    contain anything else than profiles?}. To obtain the value at other
+\item Retrieved profiles shall be considered as running average estimates of
+  the true profile, with an averaging length roughly given by the vertical
+  resolution.
+\item Errors refer to the accuracy of running averages, and are only valid on
+  the constrain of high measurement response. Using data with low measurement
+  response requires consideration of smoothing effects.
+\item The retrievals are best estimates at each pressure level\fixme{Does L2
+    contain anything else than profiles?}. To obtain values at other
   pressure levels, apply a linear interpolation using the logarithm of pressure
   as independent variable.
 \item A single geographical position is assigned to the L2 data, that matches
   \dots \lcomment{PE}{Geo-position set how?} However, the data are far from
-  point estimates, they represent averages of several 100\,km along the
-  viewing direction of Odin-SMR, and not even the centre position of the
-  averages is necessarily not found at the stated position. 
+  point estimates in the horizontal direction, they represent averages of
+  several 100\,km along the viewing direction of \smr, and not even the
+  centre position of the averages is necessarily not found at the stated
+  position.
 \end{itemize}
 
 
