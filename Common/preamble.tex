@@ -44,7 +44,8 @@
 \usepackage{todonotes} 
 \setlength{\marginparwidth}{2.4cm}
 \newcommand{\comment}[2]{\todo[color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
-\newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+%\newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{\textbf{{#1} says: }{#2}}}
+\newcommand{\lcomment}[2]{\todo[inline,color=yellow!30,linecolor=black]{#2}}
 \newcommand{\fixme}[1]{\todo[color=orange!40]{#1}}
 \newcommand{\lfixme}[1]{\todo[inline,color=orange!40]{#1}}
 \newcommand{\snippet}[1]{\textcolor{black!20}{#1}}

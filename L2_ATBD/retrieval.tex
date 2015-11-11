@@ -12,11 +12,11 @@ Sec.~\ref{sec:formalism}.
 \smr\ performs measurements in several frequency bands simultaneously
 (Sec.~\ref{sec:smr:details}). The set of frequency bands differs between
 observation modes\addref. The altitude range scanned by \smr\ is not fixed, and
-a \smr\ ``scan'' is simply defined as the spectra recorded between two adjacent
-turning points, in altitude, of the limb scanning\addref. The retrievals covered
-by this \ATBD\ operate only on one scan and spectra from a single frequency
-band at the time. Each combination of scan and frequency band is treated
-separately, no information is carried between different retrievals.
+a \smr\ limb ``scan'' is simply defined as the spectra recorded between two
+adjacent turning points, in altitude, of the limb scanning\addref. The
+retrievals covered by this \ATBD\ operate only on one scan and spectra from a
+single frequency band at the time. Each combination of scan and frequency band
+is treated separately, no information is carried between different retrievals.
 
 Following the discussion in Sec.~\ref{sec:setup:inverse:xb}, the state vector
 does not only contain the quantities targeted directly by the \smr\
@@ -30,9 +30,9 @@ are not included in \SttVct\ (and neither in \aCvrMtr{o}, Sec.~\ref{sec:So}).
 
 Covariance matrices are implemented as sparse matrices, while all other
 variables are stored as full vectors or matrices. For the retrieval problem at
-hand, $\aWfnMtrTrp{\SttVct}$ is relatively dense and the overhead related with
+hand, $\aWfnMtr{\SttVct}$ is relatively dense and the overhead related with
 a sparse representation results in better performance keeping
-$\aWfnMtrTrp{\SttVct}$ as a full matrix
+$\aWfnMtr{\SttVct}$ as a full matrix
 
 
 
@@ -55,11 +55,12 @@ where $\MsrVct_1$/$\MsrVct_x$ is the spectrum from the highest/lowest tangent
 altitude etc. 
 
 Each retrieval does only contain data from a single scan, as mentioned, but all
-spectra of the scan are not included. For each mode an upper and lower
-tangent altitude limit are defined, that determine which spectra of a scan that
-will be part of \MsrVct. The altitude limits are defined using geometrical
-tangent altitudes (that is, refraction neglected) as those are the tangent
-altitudes found in the L1b data.
+spectra of the scan are not included. For each mode an upper and lower tangent
+altitude limit are defined, that determine which spectra of a scan that will be
+part of \MsrVct. The altitude limits are defined using geometrical tangent
+altitudes (that is, refraction neglected) as those are the tangent altitudes
+found in the L1b data. A minimum scan range is defined in the same manner; no
+retrieval is made if a limb scan does not cover this minimum range.
 
 The tangent altitude limits are allowed to vary as a function of latitude, an
 example is given in Fig.~?\todo{Make figure}. These tangent altitude masks are
@@ -118,7 +119,9 @@ A species or temperature ``profile'' is a set of values describing the vertical
 variation, at a set of specified pressures, that is, the retrieval grid (see
 also Sec.~\ref{sec:arts:aspects}). Such retrieval grids are discussed further
 in Sec.~\ref{sec:b:pgrid}, together with the basic pressure grid of the forward
-model. Temperatures are given in Kelvin.
+model. Atmospheric temperatures are in Kelvin. Gas species are reported as the
+\VMR\ in the L2 data, but inside the retrieval process the unit applied for gas
+species is \dots.
 \\
 \lcomment{PE}{Do we go for log-retrievals for species? Discuss basic aspects of
   the log conversion here.}
@@ -153,17 +156,17 @@ obtained by the attitude data. As a rule of thumb, $\Delta\theta=\pm0.01\degree$
 matches about $\mp550$\,m in tangent altitude.
 
 There is a similar uncertainty in the exact frequencies observed. This
-uncertainty originates in the \LO-signal. Already pre-launch tests hows that
-\LO-frequency varies somewhat with temperature. A correction table was created,
+uncertainty originates in the \LO-signal. Already pre-launch tests showed that
+\LO-frequencies vary somewhat with temperature. A correction table was created,
 but some frequency error remains and there seems also to be some ageing on the
-\LO-chain affecting the final frequencies. The final frequency uncertainty is
+\LO-chain affecting final frequencies. The resulting frequency uncertainty is
 totally correlated between the backend channels inside each frequency band. As
 long as the \LO-signal is phase-locked, it is judged that the frequency off-set
 is constant during a limb scan. However, the phase-locking of the 118 and
 575\,GHz front-ends have been failing basically throughout the mission, and the
 assumption of a constant frequency off-set is more uncertain for these receiver
 chains. The switch from version 1 to 2 of \ARTS\ enables the retrieval of a
-non-constant frequency off-set, but this possibility will just be activated later
+non-constant frequency off-set, but this possibility will only be activated later
 if found necessary. The retrieved frequency of channel $i$ is
 \begin{equation}
   \label{eq:retr:freq}
@@ -172,23 +175,23 @@ if found necessary. The retrieved frequency of channel $i$ is
 where $\nu_j$ is the frequency found given by L1b data.\\
 \\
 \lcomment{PE}{The plan is to activate winds for frequency bands containing
-  strong mesospheric lines, but no tests have yet performed. Describe the wid
-  retrieval here, if activated. Otherwise revise text above, we have the always
-  same set of variables in \SttVct?}
+  strong mesospheric lines, but no tests have yet performed. Describe the wind
+  retrieval here, if activated. Otherwise revise text, we have then always
+  the same set of variables in \SttVct?}
 
 
 \section{The a priori vector, \aSttVct{a}}
 \label{sec:xa}
 %
-\lcomment{PE}{Write later. For species we need to decide if we go for the old a
-  a proiri database, originally from Bordeaux. Or can we get a better, and much
+\lcomment{PE}{Write later. For species we need to decide if we go for the old
+  a priori database, originally from Bordeaux. Or can we get a better, and much
   newer, alternative? The MIPAS climatology, or from any of all ongoing
   projects?}
 \lcomment{PE}{For temperature we need to decide if ECMWF-operational or
   ERA-Interim shall be used as source. And how exactly the transition to MSIS
   is made.}
 
-All sensor correction terms are assumed on average to be zero. Accordingly, the
+All sensor correction terms are assumed to have an average of zero. Accordingly, the
 a priori value of $\Delta\VctStl{o}$, $\Delta\theta$ and $\Delta\nu$ is
 throughout set to zero.
 
@@ -196,11 +199,11 @@ throughout set to zero.
 \section{A priori uncertainty covariance matrix, \aCvrMtr{a}}
 \label{sec:Sa}
 %
-The setting of \aCvrMtr{a}\ is the most contreversial part of \OEM, see
+The setting of \aCvrMtr{a}\ is the most controversial part of \OEM, see
 Sec.~\ref{sec:setup:inverse:xb} for some comments. This subject is not
 elaborated further, it is just noticed that for VMR and atmospheric
-temperature, in general, there exist no direct measurement on which the
-sub-covariance matrices can be based and ad hoc values are applied to a large
+temperature, in general, there exist no direct measurement on which total
+covariance matrices can be based and ad hoc values are applied to a large
 extend. In addition, the values selected results in that \aCvrMtr{a}\ in
 general should over-estimate variability. Accordingly, \OEM\ is not used in a
 strict sense, but the retrievals can still be classified is regularisation
@@ -212,9 +215,9 @@ instrumental variables are known fairly well and the corresponding parts of
 \\
 \lcomment{PE}{Species: Details here depends on retrieval unit selected, and
   text must be written latter. But likely, we use a $\sim$50\% variability,
-  with a constrain of a minimum variability defined in \VMR (converted to
+  with a constrain of a minimum variability defined in \VMR\ (converted to
   relative values).} \lcomment{PE}{Temperature: For altitudes up to about
-  45\,km, a the standard deviation should be $\approx$2\,K. For higher
+  45\,km, the standard deviation should be $\approx$2\,K. For higher
   altitudes, use fixed values, or does CIRA or MSIS contain tables on natural
   variability that can be used?}
 
@@ -234,14 +237,14 @@ or an exponential one,
 \end{equation}
 where $\rho(z_1,z_2)$ is the correlation coefficient between altitudes $z_1$
 and $z_2$. Note that the mean of the correlation length at $z_1$ and $z_2$ is
-used, that is,  $(l_c(z_1)+l_c(z_2))/2$.\todo{Where do we report $l_c$ used?}
+used, that is,  $l_c(z_1)/2+l_c(z_2)/2$.\todo{Where do we report $l_c$ used?}
 
 The frequency and pointing off-sets are scalar values, and only a standard
 deviation ($\sigma$) for each quantity must be specified. These standard deviations
 are set to $\sigma_{\Delta\nu}=?$\,MHz and $\sigma_{\Delta\theta}=?^\circ$, respectively.
 The brightness temperature off-sets have been found to be uncorrelated between
 spectra, and the variation to have no variation with altitude. This results in
-that the covariance matric for $\VctStl{\Delta\VctStl{o}}$ can be written as 
+that the covariance matrix for $\VctStl{\Delta\VctStl{o}}$ can be written as 
 $\sigma_{\VctStl{\Delta\VctStl{o}}}^2\IdnMtr$. The standard deviation of
 brightness temperature off-sets is throughout set to ?\,K\todo{Set value for
   all $\sigma$.}.
@@ -275,7 +278,9 @@ of \aCvrMtr{a}\ is calculated in the following manner:
     0 & 0 & 0 & 0 & 0 & \sigma_{\Delta\nu}^{-2} \\
   \end{bmatrix}.
 \end{equation}
-
+\lcomment{PE}{Do we invert any \CvrMtr\ in an analytic manner? If yes, this
+  must be clarified and the algorithm should be added to
+  Sec.~\ref{sec:matrixops}.}
 
 
 
@@ -284,24 +289,53 @@ of \aCvrMtr{a}\ is calculated in the following manner:
 %
 Please note that static forward model settings, this is, common for all
 simulations, are presented already in Sec.~\ref{sec:arts:config}.
+\\
+\lcomment{PE}{A first version of everything below exists, but all details
+  should be revised/optimised further. Write each section below, when later
+  looking at each part.}
 
 
 \subsection{Pressure grids}
 \label{sec:b:pgrid}
 %
-\dots (also retrieval grids)
+\lcomment{PE}{Describe how pressure grids are set, including retrieval ones. We
+  operate with a fixed set of pressure where integer pressure decades always
+  are included (e.g.\ 100 and 1\,hPa). The spacing is given as number of points
+  per pressure decade, as also done for MLS. Retrieval grids always contain a
+  sub-set of the forward model pressure grid.}
+
+
+\subsection{Monochromatic frequency grids}
+\label{sec:b:fgrid}
+%
+\lcomment{PE}{Describe the role of these grids, and how they are handled inside
+  \ARTS, resulting in a need to have a more dense spacing around transitions.
+  Make an illustrative figure. Describe algorithm to set these grids. Test how
+  the calculation time scales with the number of frequencies. Is it close to
+  linear? If yes, then we should try to improve the existing algorithm to set
+  the grids. The most obvious choice if to use the Ffill option, but that
+  requires careful testing to check that there are no caveats.}
 
 
 \subsection{Spectroscopic data and absorption continua}
 \label{sec:b:absdata}
 %
-\dots
+\lcomment{PE}{The bulk of the data are taken from latest HITRAN. A literature
+  review will be performed to hand-pick values for our most important
+  transitions. The hand-picked data will be put in tables, that can be used to
+  replace the corresponding value in HITRAN by \ARTS. The nitrogen and water
+  vapour continua should be set as done for the tropospheric retrievals. For
+  nitrogen this means the expression from MPM93 multiplied with 1.34
+  following some references in the literature. Details given later.}
+
 
 
 \subsection{Absorption look-up tables}
 \label{sec:b:abstable}
 %
-\dots
+\lcomment{PE}{Describe how absorption tables are generated, basically just what
+  reference atmosphere that is used, and what pressure and temperature grids
+  that are used. And also state what interpolation orders that are applied.}
 
 
 
@@ -314,9 +348,7 @@ pressure levels (that is, the pressures defining the vertical grid). Additional
 points are inserted to ensure that the distance along the path does not exceed
 an user defined threshold. This threshold is denoted $l_\mathrm{max}$ in the
 tables of ?\todo{Where?}.
-\\
-\lcomment{PE}{What about $I_0$?. Is this a static variable? That is, how do we
-  handle moon in LOS?}
+
 
 
 

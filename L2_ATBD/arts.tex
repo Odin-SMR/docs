@@ -165,9 +165,9 @@ tables are discussed in Sec.~\ref{sec:b:absdata}).
 
 \subsection{Radiative transfer}
 %
-In general, the simulations mimic Eq.~\ref{eq:rteq}. Only the first element of
-the Stokes vector is calculated (remaining three elements are zero for assumed
-conditions).
+Besdies for 118\,GHz (see below), the simulations follow Eq.~\ref{eq:rteq}. Only
+the first element of the Stokes vector is calculated (remaining three elements
+are zero for assumed conditions).
 
 Solving equation Eq.~\ref{eq:rteq} requires two main steps, to determine the
 propagation path and to perform the integration along the found path.
@@ -176,6 +176,13 @@ achieved by a simple ray tracing scheme (see AUG). The maximum step length of
 the ray tracing is set to ?\,km\todo{Add value}, which is estimated to give a
 tangent point accuracy better than ?\,m\todo{Add value}\ for tangent altitudes
 above 15\,km\todo{Perform test}.
+
+The radiance at the top of the atmosphere, $I_0$ is set to mimic cosmic
+background radiation. There is no attempt to model situations when the moon is
+found in the LOS, the retrieval reject such spectra\todo{Correct?}. The
+combination of Odin orbit and keeping the LOS close to the orbit plane results
+in that there is never a need to consider the Sun.
+
 
 
 \subsection{118\,GHz}
