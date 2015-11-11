@@ -1,9 +1,16 @@
 \documentclass[a4paper,11pt]{report}
 
+\usepackage[
+singlelinecheck=false % <-- important
+]{caption}
+
 % Define cover page
-\def\CoverTitle{Algorithms Theoretical Basis Document - Level 1 data}
-\def\FooterDocTitle{ATBD\,-\,L1}
-\def\Authors{Bengt Rydberg}
+\def\CoverTitle{Level 1 Review: Technical Note}
+\def\FooterDocTitle{L1 Rev TN}
+\def\Authors{Bengt Rydberg, PE, DM, JK, JM, JR, ...}
+\def\Contact{Bengt Rydberg <bengt.rydberg@molflow.com>}
+\def\Version{0.0.0}
+\def\ReleaseDate{2015-11-06}
 
 % Page numbering
 \pagenumbering{roman}
@@ -16,6 +23,7 @@
 % Import math symbol commands
 \input{../Common/symbol_defs}
 
+
 % Import acronyms
 \input{../Common/acronyms_all}
 
@@ -25,11 +33,28 @@
 \input{../Common/coverpage}
 
 \addcontentsline{toc}{chapter}{Contents}
-%\renewcommand{\contentsname}{Table of Contents}
 \tableofcontents
 
 
-%Just a start of this document. When continue, use L2_ATBD.tex as template.
+\input{introduction}
+
+\input{calibration}
+
+\chapter*{}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+%\bibliography{../Common/references}
+
+
+\begin{appendices}
+ 
+  \renewcommand{\chapterhead}{Appendix}
+ 
+  \input{appendices}
+
+
+\end{appendices}
+
 
 
 \end{document}
