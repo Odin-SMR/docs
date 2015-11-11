@@ -1,5 +1,6 @@
 
 
+
 \chapter{Calibration procedure}
 \label{chapter:calibration}
 
@@ -355,14 +356,7 @@ level1b-product.
 
 
 
-
-
-
-
-
-
 \subsection{Radiometric performance and accuracy}
-
 
 
 \begin{table}
@@ -443,6 +437,92 @@ level1b-product.
 \end{tabular}
 \end{table}
 
+\subsection*{Accuracy}
+
+The accuracy of calibrated \smr\ spectra, in terms of intensity, is affected by the following
+
+\begin{itemize}
+
+\item calibration target temperature uncertainty: 0.2 K ?
+
+\item baffle temperature uncertainty: 0.3 K ?
+
+\item standing waves: 1 K ?
+
+\item sideband suppression uncertainty ? \lcomment{BR}{is this relevant here?}
+
+\end{itemize}
+
+The most efficient way to determine the accuracy of calibrated \smr\ spectra
+is probably to compare calibrated spectra with forward model measurement
+simulations. For some conditions, this comparison can be a very valuable
+tool for this purpose.
+When the observed signal comes from a known source such as an isotherm
+region,  ( e.g. observations with low tangent point at high latitudes 
+and with low tropospheric temperature gradient),
+the measurement can be simulated accurately.
+From comparison for such conditions the accuracy of calibrated
+\smr\ spectra has been determined to be better than x\,K.
+ 
+
+
+\subsection*{Precision}
+
+The noise on an individual channel, \(\Delta T\) , is commonly represented by
+\begin{equation}
+\Delta T = \frac{T_{total}}{\sqrt{B\tau + \left( \frac{\Delta g}{g} \right)^2}}
+\end{equation}
+where \(T_{total}\) total is the combination of receiver system temperature and 
+scene radiance, \(B\) is the channel bandwidth, 
+\(\tau\) is the integration time of each measurement, and \(\frac{\Delta g}{g}\) 
+is a gain variation term. The \(B\tau\)  component is commonly referred to as
+radiometer noise, and is uncorrelated between channels.
+The gain variation term is more likely to be correlated between channels.
+For \smr\, this gain variation has been estimated to give rise to a constant 
+shift in the brightness temperature across the band (that is, it can 
+be seen as a flat baseline ripple), where the shift
+has a standard deviation of about 2 K and is uncorrelated 
+between tangent altitudes, and front-ends.
+\lcomment{BR}{Add reference or show figure}
+
+\(T_{rec}\) and obtained random un-correlated noise level is estimated within the 
+calibration processing for each scan.
+This random noise level is estimated, as an effective integration time
+(\(\tau_{eff}\)), from calibrated spectra of the upper part of a scan 
+(with a blank background). Each spectrum of a scan is given an effective
+integration time, but it is determined from all spectra within a time
+window of \(\pm\)45\,minutes. 
+
+Within, the calibration algorithm, the noise of each sub-band a of
+considered spectrum is calculated as the root mean square diffence between
+the actual brightness temperature and average brightness temperature of the band, i.e.
+\begin{equation}
+\Delta T^{2} = E( (Tb-E(Tb))^{2} ).
+\end{equation}
+An efficency factor \(\eta\), for each sub-band, is then calculated (from radiometric noise equation) as
+\begin{equation}
+\eta = \frac{T_{rec}^2}{B\Delta T^{2}\tau}.
+\end{equation}
+
+An efficiency factor for the scan is then determined from the sub-band
+with the highest average efficiency factor. The alternative option
+to use the result from the sub-band with lowest efficiency factor
+is not wise. The reason is that even for spectra of the upper part
+of the scan, some sub-bands may contain the signature of an emission 
+line, that here would be treated as noise.
+
+The effective integration time associated with a given spectrum
+in the Level1B data, should then be treated as 
+variable that can be plug into the radiometer noise equation
+to obtain a measure of the noise level of the spectrum
+(and \(B\) should be set to 100\,MHz, even though this is not
+the resolution of a channel is 200\,MHz).
+
+The obtained un-correlated random noise level of calibrated \smr\
+spectrum is more or less consistent with the expected values
+given that the sub-mm receivers has a noise temperature
+of \(\sim\)3000\,K.	    
+
 
 \section{Frequency calibration}
 
@@ -460,11 +540,95 @@ text ...
 
 \section{Data format}
 
-text ...
+\smr\ Level0 and Level1B data are stored in tables
+in a calibration database at the Dept. of Earth and Space
+Sciences at Chalmers University of Technology (CTH) in Gothenburg.
+There are several ways to access the data, but the recommendation is to use a web 
+interface to access the data, and description of how to access the data
+is given on the Odin web-page. Below is given a description of the
+Odin scan data format.
+
+
+\begin{longtable}{| p{.20\textwidth} | p{.80\textwidth} |} 
+\hline
+  \textbf{Variable} & \textbf{Description} \\
+  \hline
+  'Version'         & \\ \hline
+  'Level'           & \\ \hline
+     'Quality'         & \\ \hline
+     'STW'             & \\ \hline
+     'MJD'             & \\ \hline
+     'Orbit'           & \\ \hline
+     'LST'             & \\ \hline
+     'Source'          & \\ \hline
+     'Discipline'      & \\ \hline
+     'Topic'          & \\ \hline
+     'Spectrum'        & \\    \hline
+     'ObsMode'        & \\ \hline
+     'Type'            & \\ \hline
+     'Frontend'       & \\ \hline
+     'Backend'       & \\ \hline
+     'SkyBeamHit'      & \\ \hline
+     'RA2000'        & \\ \hline
+     'Dec2000'        & \\ \hline
+     'VSource'         & \\ \hline
+     'Longitude'    & \\ \hline
+     'Latitude'        & \\ \hline
+     'Altitude'        & \\ \hline
+     'Qtarget'       & \\ \hline
+     'Qachieved'      & \\ \hline
+     'Qerror'         & \\ \hline
+     'GPSpos'          & \\ \hline
+     'GPSvel'         & \\ \hline
+     'SunPos'          & \\ \hline
+     'MoonPos'        & \\ \hline
+     'SunZD'           & \\ \hline
+     'Vgeo'           & \\ \hline
+     'Vlsr'            & \\ \hline
+     'Tcal'          & \\ \hline
+     'Tsys'           & \\ \hline
+     'SBpath'          & \\ \hline
+     'LOFreq'          & \\ \hline
+     'SkyFreq'        & \\ \hline
+     'RestFreq'      & \\ \hline
+     'MaxSuppression' & \\ \hline
+     'AttitudeVersion' & \\  \hline
+     'FreqRes'        & \\ \hline
+     'FreqCal'         & \\ \hline
+     'IntMode'       & \\ \hline
+     'IntTime'         & \\ \hline
+     'EffTime'         & \\ \hline
+     'Channels'       & \\ \hline
+     'FreqMode'       & \\ \hline
+     'TSpill'         & \\ \hline
+     'ScanID'         & \\ \hline
+     'Frequency'      & \\ \hline
+\hline
+\caption{ Odin scan data format}
+\label{table:dataformat}
+\end{longtable}
+
+
 
 \section{Quality flags}
 
-text ...
+Quality related to a scan:\\
+    1. check Tspill  - outside of valid range \\
+    2. check Trec    - outside of valid range \\
+    3. check Int     - corrupt integration time \\
+    4. check Noise   - outside of valid range \\
+    5. check Hotload - temperature data missing or out of range \\        
+    6. check Scan    - corrupt scanning (tangent altitude is not  
+                            decreasing or increasing as expected) \\ 
+    7. check nr of atmospheric spectra \\
+    8. check observation sequence \\
+
+Quality related to individual spectrum:\\
+    1. Tb        - outside of valid range (-x -- 300\,K) or strange pattern \\
+    2. Ref       - "time" to surrounding references \\
+    3. Attitude  - high pointing error (maybe not relevant as error describes 
+                   difference bteween target and achieved ) \\
+
 
 
 \section{Trends and artefacts in data}

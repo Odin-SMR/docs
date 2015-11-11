@@ -75,6 +75,13 @@ in Stockholm.
 
 \subsection{The \SMR\ instrument}
 
+\begin{figure}[t]
+\includegraphics[width=14cm]{Odin_Auto2.jpg}
+\caption{\smr\ block diagram.}
+\label{fig:blockdiagram}
+\end{figure}
+
+
 
 \begin{table}
 \caption{ \smr\ frontend and backend frequency specification}
@@ -124,13 +131,27 @@ in Stockholm.
 \end{table}
 
 
+%Key elements of
+%SMR are a 1.1 m telescope and four tunable single-sideband
+%Schottky-diode heterodyne receivers that passively measure
+%the limb thermal emission in the spectral range of 486–
+%581 GHz, as well as two high-resolution auto-correlator
+%spectrometer
+
 
 The \smr\ package is highly tunable and flexible \citep{frisk:theod:03}.
 \smr\ is equipped with one mm and four sub-mm receivers.
 The four main sub-mm receiver chains can be tuned to cover
 frequencies in the ranges 486\,--\,504\,GHz and 541\,--\,581\,GHz.
 Table~\ref{table:config} lists the receivers single sideband (SSB) tuning ranges.
-
+Martin-Pulpett interferometers are employed to provide SSB filtering 
+(with a nominal sideband suppression better than 19\,dB across
+the image band) and injection into the Schottky mixers.
+The local oscillators are varactor-tuned Gunn diodes followed by
+doubler and tripler stages. The mixers and IF amplifiers are inside a cryostat and
+cooled to approximately 130 K by a 80 K Stirling cycle cooler. The receiver
+noise temperatures are around 3000 K for
+the sub-millimetre channels and 600 K for the millimetre channel.
 
 The receivers form two groups, A1+A2 and B1+B2+C, where each group shares
 a common path through the beam optics. 
@@ -154,6 +175,9 @@ due to the fact that a Hanning smoothing is applied in data processing).
 To cover all molecular transitions of interest, a 
 number of ``observation modes'' has been defined. Each observation mode makes
 use of two or three frequency bands. 
+On the regular observation days it is operated in the so-called basic stratospheric 
+mode with target gases \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}},
+at frequncy bands around 501 and 544\,GHz.
 Definition of frequency modes are found in Tables~\ref{table:config2}, 
 ~\ref{table:config3}, and~\ref{table:config4}, in Appendix A.
 Single sideband operation is obtained by tunable Martin-Pupplet
@@ -168,7 +192,13 @@ requires treatment of Zeeman splitting have given these data low priority.
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. 
 The vertical scanning is achieved by a rotation of the satellite
-platform. Measurements are in general performed along the orbit plane, providing a
+platform, by an advanced attitude control system (ACS). 
+The ACS uses star trackers as the main sensors with backup from gyros, 
+magnetometers, and Sun sensors. Reaction wheels and magnetic coils serve as 
+actuators. The ACS pointing accuracy, in limb-scanning mode, is 5\(^{'}\) in
+real time knowledge, and better than 1\(^{'}\) in reconstructed knowledge
+(which translates to a \(\sim\)200\,m accuracy in tangent point).
+Measurements are in general performed along the orbit plane, providing a
 latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
 2004 Odin is also pointing off-track during certain periods, e.g.\ during the
 austral summer season, allowing the latitudinal coverage to be extended towards
@@ -196,7 +226,10 @@ separated by 28$^{\circ}$. In aeronmoy mode the beam pointing
 away from the Earth is used. The separation from the main beam
 amounts to 42$^{\circ}$.
 The selection mirror may also direct the beam towards an internal
-load at ambient temperature.
+load at ambient temperature, made out of carbon loaded polyethylene 
+tiles, optimised for 500 GHz reflecting less than -30 dB. 
+The temperature of the material is known better than 0.2 K using 
+redundant integrated temperature sensors.
 
 In nominal operation every other recorded signal comes from an
 unfocused cold sky beam, except around the lower and upper turning
@@ -204,7 +237,6 @@ points of the scan where the reference beam is directed towards
 the internal load (typically three consecutive load spectra are recorded).
 The load acts as a blackbody emitter at
 an ambient temperature of around 285 K.
-
 
 
 \section{Further reading}
