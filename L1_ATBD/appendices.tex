@@ -170,9 +170,69 @@ and the sub-mm frontends (FM = frequency mode)}
 \chapter{Coverage in time}
 
 \chapter{Time series of Level0 and Level1B data}
+
+\begin{figure}
+\includegraphics[width=14cm]{tspill_trend3.png}
+\caption{Trends in level0/level1b parameters. Upper panel shows load temper-
+ature, second panel receiver noise temperature, third panel shows Tspill temperature,
+and bottom panel shows calibrated brightness temperatures from stratospheric FM1
+and FM2 measurements (explained more in text) during 2002 - 2014. Each datapoint
+in the figure represents a 10 day average.\lcomment{BR}{produce better looking figures} }
+\label{fig:tbtrend}
+\end{figure}
+
+
+Figure~\ref{fig:tbtrend} displays trends in level0/level1b parameters, including brightness 
+temperature from stratospheric FM 1 and 2. Tb501w and Tb544w represent the average
+Tb within frequency range (-) and (-), respectively. Tb544line represent Tb around the
+strong ozone transition at 544.x GHz. The figure only contain data from measurements
+that corresponds to low tangent points (below 9 km) within the tropical region.
+
+
+
+
    
 \chapter{Comparison of data from different calibration versions}
 
+The current operational \smr\ level2 processing at CTH is based on 
+Level1B calibration version 7 (L1B-v7) data. 
+The L1B-v7 is known to have some issues, and a new calibration version
+(L1B-v8) has been developed. The L1B-v8 builds upon the the L1B-v7 algorithm,
+but some changes have been applied, with the natural aim to reduce these issues.  
+
+\begin{itemize}
+
+\item L1B-v7 algorithm is orbit based, in the sense that some calibration parameters \(T_{rec}\)
+and \(T_{sp}\)) are common for all scans from a given orbit and frequency mode.
+L1B-v8 is scan based, as desribed in Chapter 2.
+ 
+\item L1B-v8 is more strict when it comes to selecting which reference measurements to use.
+The movement of an internal mirror can affect the reference measurements when switching
+towards the internal load,  with a negative impact on final atmospheric
+spectra. A more adequate and standardised removal of spectra that are possibly 
+affected by the mirror movement is performed in L1B-v8 compared to L1B-v7. 
+
+\item L1B-v8 also make sures that the instruments settings are the identical
+for all spectra that will be calibrated with shared parameters. For most data
+this was not issue with L1B-v7, as the instruments settings are most often
+only changed when switching observation mode.   
+
+
+\item L1B-v8 aims for removing ripple seen in calibrated measurements in the
+upper part of the scan (see Figure~\ref{fig:ripple}).
+
+\end{itemize}
+
+
+\begin{figure}
+\includegraphics[width=14cm]{ripple_v7and8_FM2_may2009.png}
+\caption{Upper panel shows an averaged of calibrated spectra (verison 8) from measurements
+with tangent altitudes above 60\,km for one of the most used frequency mode (FM 2) for May 2009.
+The colorcoding/legend corresponds to the ambient temperature or load temperature.
+The lower panel shows corresponding data, but for calibration version 7 data.
+\lcomment{BR}{produce better looking figures} }
+\label{fig:ripple}
+\end{figure}
 
 
 
