@@ -14,7 +14,7 @@ years later \citep{buehler:artst:05}. The main novelty of this version was the
 fact that \ARTS\ behaves more or less as a scripting language, in contrast to
 most (or all?) other forward models that are controlled by a fixed set of
 keywords. The control file was introduced to meet the design goal of high
-modularity. When defining a \ARTS\ control file, the user can select between a
+modularity. When defining an \ARTS\ control file, the user can select between a
 high number of workspace methods and variables. Regarding physical mechanisms
 covered, \ARTS\ v1 did not stand out in any way, but despite this the software
 found a number of applications, including operational \SMR\ processing
@@ -149,14 +149,14 @@ tropopause.
 %
 In lack of scattering and assuming LTE, the local radiative properties of the
 atmosphere is solely determined by the absorption coefficient. \ARTS\ has two
-main ways to calculate absorption, ``on-the-fly'' or by look-up tables, where
+main ways of calculating absorption, ``on-the-fly'' or by look-up tables, where
 the latter option is by far the most efficient for simulations of \smr. That
 is, molecular absorption cross-sections are pre-calculated and stored in
 tables. One table is created for each frequency band. The tables contain
 absorption cross-sections for combinations of pressure and temperature, and
 final values are obtained by interpolation. It is throughout assumed that the
-absorption cross-section does not vary with the mixing ratio of the gas, and
-there is no ``non-linear'' species in the absorption table (this option is
+absorption cross-sections do not vary with the mixing ratio of the gas, and that
+there are no ``non-linear'' species in the absorption table (this option is
 required for water vapour in the lower troposphere).
 \ARTS' absorption look-up table system is described in detail by
 \citet{buehler:absor:11}. The spectroscopic data used to produce the look-up
@@ -165,7 +165,7 @@ tables are discussed in Sec.~\ref{sec:b:absdata}).
 
 \subsection{Radiative transfer}
 %
-Besdies for 118\,GHz (see below), the simulations follow Eq.~\ref{eq:rteq}. Only
+Besides for 118\,GHz (see below), the simulations follow Eq.~\ref{eq:rteq}. Only
 the first element of the Stokes vector is calculated (remaining three elements
 are zero for assumed conditions).
 
@@ -187,7 +187,7 @@ in that there is never a need to consider the Sun.
 
 \subsection{118\,GHz}
 %
-The standard absorption and radiative transfer settings can not be used for
+The standard absorption and radiative transfer settings cannot be used for
 simulations targeting the 118\,GHz oxygen transition, as the Zeeman effect must
 be considered. First of all, a matrix-vector version Eq.~\ref{eq:rteq} must be
 applied \citep{larsson:zeema:14}, where the full Stokes vector is calculated.
@@ -195,7 +195,7 @@ Further, absorption must be calculated ``on-the-fly'' as the look-up table
 approach does not handle polarised absorption. However, even with an extension
 of the lookup-tables, the ``on-the-fly'' option would still be to prefer as in
 this case only the 118\,GHz transition itself must be considered (in contrast
-to the 0.6\,mm frequency bands where hundredths of transitions must be summed
+to the 0.6\,mm frequency bands where hundreds of transitions must be summed
 up) and a full calculation turns out to be faster than performing a
 multi-dimensional interpolation.
 
@@ -220,14 +220,13 @@ model and \MpiVct\ is all monochromatic pencil beam radiances compiled into a
 vector. The vector \MpiVct\ must contain a certain number of values to
 represent the radiation field, as a function of frequency and zenith angle,
 with sufficient accuracy. The methods setting up \SnsMtr\ assumes that both
-radiances and sensor responses vary linear between the points were data are at
-hand.\todo{Will the FillGrid method be used?}\ The variables controlling
+radiances and sensor responses vary linearly between the points were data are is available.\todo{Will the FillGrid method be used?}\ The variables controlling
 \SnsMtr\ and \MpiVct\ are discussed in Sec.~?\todo{Add value}.
 
 The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
 must also be mimicked by the forward model. The radiances ($I$,
 W/(m$^2\cdot$Hz$\cdot$sr)) given by the atmospheric radiative transfer part are
-converted to following the Rayleigh-Jeans approximation of the Planck function:
+converted to follow the Rayleigh-Jeans approximation of the Planck function:
 \begin{equation}
   \label{eq:i2tb}
   T_b = \frac{c^2}{2\nu k_B} I,
@@ -263,7 +262,7 @@ L2 processing:
   consequence that the retrieval grid for atmospheric quantities is a set of
   pressures, and that retrieved profiles are functions of pressure.
 \item With some exceptions of no concern here, \ARTS\ assumes data to vary
-  linear between grid points. This applies to everything from sensor responses
+  linearly between grid points. This applies to everything from sensor responses
   (such as the input antenna pattern file) to how retrieved data shall be
   interpreted. However, for the pressure dimension the variation is assumed to
   be linear in the logarithm of the pressure. That is, if a retrieved

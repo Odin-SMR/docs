@@ -48,8 +48,8 @@ procedure is required to determine the solution (Eq.~\ref{eq:mincost}). A
 number of iteration schemes has been suggested. The simplest version is
 Gauss-Newton \citep[see][Sec.~5.3]{rodgers:00}. This iteration scheme assumes a
 robust decrease of the cost function (\CstFnc, Eq.~\ref{eq:costfun}) during the
-iterations, but this is seldom the case in practical retrievals and
-Gauss-Newton can result in that \CstFnc\ instead is increasing while iterating.
+iterations, but this is seldom the case in practical retrievals and instead
+Gauss-Newton can result in that \CstFnc\ is increasing while iterating.
 The standard choice among iteration approaches including a manner to enforce a
 decrease of the cost function at each step, is the Levenberg\,-\,Marquardt
 method (LM), and it is also selected for these retrievals.
@@ -58,7 +58,7 @@ method (LM), and it is also selected for these retrievals.
 Gauss-Newton iteration. For large values $\gamma$, \LM\ instead behaves as a
 steepest descent method. The later results in a relatively small change in
 \SttVct, and then also a slow convergence rate, but \SttVct\ is updated in a
-direction that is close to optimal for ensuring a decrease of \CstFnc. See
+direction that is close to optimal to ensure a decrease of \CstFnc. See
 \citet[][Sec.~5.7]{rodgers:00} for a more detailed presentation of \LM.
 There exists different versions of \LM. The version applied here is
 \citep[][Eq.~5.36]{rodgers:00}
@@ -77,10 +77,10 @@ Other variables are introduced in Sec.~\ref{sec:formalism}. The iteration is
 started by setting $\RtrVct_0 = \aSttVct{a}$, and $\RtrVct_c$ becomes
 $\RtrVct_{i+1}$ if $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$.
 
-The scheme for updating $\gamma$, that must consider both successful
+The scheme for updating $\gamma$ must consider both successful
 $(\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i))$ and
 unsuccessful $(\CstFnc(\RtrVct_c) \geq \CstFnc(\RtrVct_i))$ iterations. It also
-needed to handle problematic cases by e.g.\ setting a limit for the number of
+needs to handle problematic cases by e.g.\ setting a limit on the number of
 iterations to perform. The overall iteration scheme applied is:
 \begin{itemize}
 \item[0] Set start values: $\RtrVct_0 = \aSttVct{a}$, $i=0$ and $\gamma=\gamma_0$.
@@ -89,7 +89,7 @@ iterations to perform. The overall iteration scheme applied is:
 \item[3] If $\CstFnc(\RtrVct_c) < \CstFnc(\RtrVct_i)$:
   \begin{itemize}
   \item[3a] Set $\RtrVct_{i+1}=\RtrVct_c$.
-  \item[3b] If convergence has reached (see Sec.~\ref{sec:conv}), set
+  \item[3b] If convergence is reached (see Sec.~\ref{sec:conv}), set
     $\RtrVct=\RtrVct_{i+1}$ and jump to 5.
   \item[3c] Decrease $\gamma$ with a factor $f_s$. That is, $\gamma$ is updated
     as $\gamma\leftarrow\gamma/f_s$. 
@@ -156,7 +156,7 @@ than $n$ (length of \SttVct). In this situation, the final cost value, defined
 according to Eq.~\ref{eq:costfun}, should be approximately $m$ at correct
 convergence. As $m$ can vary from retrieval to retrieval, even for a single
 frequency band, a normalised cost, $\CstFnc'$, is defined to make it simpler to
-compare cost value from different retrievals. The normalised cost is
+compare cost values from different retrievals. The normalised cost is
 defined as:
 \begin{eqnarray}
   \label{eq:scaledc}
@@ -171,7 +171,7 @@ on how the final cost is distributed between the two penalty terms.
 
 \subsection{Correct convergence}
 %
-Eq.~\ref{eq:stopcrit} evaluates only if the iterations has reached a stable end
+Eq.~\ref{eq:stopcrit} evaluates only if the iteration has reached a stable end
 point. If the found solution actually corresponds to a global minimum of the
 cost function is another question, and a problematic one. To ensure a globally
 optimal solution a more advanced approach than \LM\ is required, but all
@@ -188,7 +188,7 @@ that $\CstFnc'\approx1$, but this is only true on the condition that
 simplicity, we only consider thermal noise, that is
 $\aCvrMtr{0}=\aCvrMtr{\MsrErrVct_n}$. If then the magnitude of thermal noise is
 over-estimated in \aCvrMtr{0}, on purpose or by mistake, obtained values of
-$\CstFnc'$  on average be below 1 (assuming good convergence). However, for
+$\CstFnc'$  will on average be below 1 (assuming good convergence). However, for
 practical retrievals, $\CstFnc'$ tend instead to be $>1$ due to artefacts in
 the spectra, simplifications in the retrieval set-up and other reasons
 resulting in that the residual:
@@ -196,8 +196,8 @@ resulting in that the residual:
   \label{eq:dy}
   \delta\MsrVct = \MsrVct-\FrwMdl(\RtrVct,\FrwMdlVctHat),
 \end{equation}
-contains features besides thermal noise. So called baseline ripple is a common
-reason to an excess size of the residual.
+contains features besides thermal noise. The so called baseline ripple is a common
+cause for an excess size of the residual.
 
 For these reasons, a suitable upper limit on $\CstFnc'$ varies between the
 frequency bands. Suggested limits for quality filtering for each band are found
@@ -207,7 +207,7 @@ The discussion above hints that the value of $\CstFnc'$ depends on the data
 quality, and this aspect should not be forgotten. A high final
 cost can be caused by both bad input data and that the iteration procedure
 ended up at a local minimum. Without a detailed analysis it is impossible to say
-which of the two potential problems that is the cause to suspiciously high end
+which of the two potential problems that is the cause behind a suspiciously high end
 value of $\CstFnc'$.  
 \\
 \lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
@@ -221,8 +221,7 @@ As mentioned above, $m>n$ for these \smr\ retrievals. In the terminology of
 \citet{rodgers:00}, the $n$-form of equations should then be used for lowest
 calculation burden, and this guideline is strictly followed.
 
-The matrix algebra is throughout performed by Matlab's internal functions. To
-explicitly calculate matrix inverses is avoided as far as possible. For
+The matrix algebra is throughout performed by Matlab's internal functions. Explicitly calculating matrix inverses is avoided as far as possible. For
 example, Eq.~\ref{eq:ml} is evaluated, schematically, as
 \begin{displaymath}
   \RtrVct_c = \RtrVct_i + 
@@ -239,15 +238,14 @@ $\RtrVct_c - \RtrVct_i$ is found by solving an equation system (by QR
 decomposition). This option is more numerically efficient, than calculating the
 actual inverse.
 
-However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} can
-not be avoided. These calculations take advantage of the block-diagonal
-structure (see Sec.~?), where each sub-matrix is inverted separately. Further,
-in some situations the matrix invers can be obtained in an analytic manner.
+However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} cannot be avoided. These calculations take advantage of the block-diagonal
+structure (see Sec.~?) \todo{Which section?}, where each sub-matrix is inverted separately. Further,
+in some situations the matrix inverse can be obtained in an analytic manner.
 This is possible for purely diagonal matrices, and for the combination of
 constant variance and exponentially declining correlation
 \citep[][Sec.~10.3.2.2]{rodgers:00}.\todo{Revise paragraph later.}
 
-The size of the elements in \SttVct\ can differ hugely. For example, VMR values
+The size of the elements in \SttVct\ can differ widely. For example, VMR values
 go down to at least ppb level ($10^{-9}$), while frequency off-sets can reach
 1\,MHz. Variances follow the magnitude of elements squared and the span of
 values in \aCvrMtr{a}\ is accordingly even higher. Without any action, the

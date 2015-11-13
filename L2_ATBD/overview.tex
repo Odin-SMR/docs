@@ -12,7 +12,7 @@ is used in this document. The objective of \smr\ is to estimate atmospheric
 quantities, mainly the concentration of different gases, and these variables
 are accordingly the main target of the retrieval, and, together with auxiliary
 information, they form the official L2 data. The format of the \smr\ L2 data is
-described in Appendix~\ref{app:l2format}. The L2 data are public available,
+described in Appendix~\ref{app:l2format}. The L2 data are publicly available,
 visit \url{odin.rss.chalmers.se} for registration and downloading instructions.
 
 Besides geophysical variables, the retrieval must consider a number of
@@ -65,7 +65,7 @@ distance along the propagation path, and $B$ is the Planck function giving the
 emission of a blackbody at temperature $T$ and frequency $\nu$.
 Eq.~\ref{eq:rteq} assumes that the gaseous absorption is unpolarised. This is a
 valid assumption in the microwave region for all species, besides oxygen that
-is affected by the Zeeman effect. That is, Earth's magnetic field induces
+is affected by the Zeeman effect \todo{Should this not be "for all species, except for oxygen which is affected by the Zeeman effect"?}. That is, Earth's magnetic field induces
 polarised absorption and emission, and a matrix-vector equivalent to
 Eq.~\ref{eq:rteq} is required to handle oxygen \citep[see
 e.g.][]{larsson:zeema:14}.
@@ -106,7 +106,7 @@ constructed and used carefully, the discrete representation should not cause
 any fundamental problems, and it is here assumed that all deviations between
 \trueFrwMdl\ and \FrwMdl\ can be treated as imperfect values in \FrwMdlVct.
 That is, $\trueFrwMdl=\FrwMdl(\SttVct,\FrwMdlVct)$, but the exact values of
-\FrwMdlVct\ are unknown and all we can do is to use best possible estimate,
+\FrwMdlVct\ are unknown and all we can do is to use the best possible estimate,
 \FrwMdlVctHat. That is:
 \begin{equation}
   \label{eq:fmodel2}
@@ -127,8 +127,8 @@ The retrieval process is formalised in the inverse model, \InvMdl:
 \end{equation}
 where \RtrVct\ is the retrieved state vector and \InvMdlVct\ covers all
 additional variables introduced by the inverse model. The exact nature
-of the vector \aSttVct{a}\ varies between retrieval approaches, but it 
-represents in general an a priori estimate of \SttVct.
+of the vector \aSttVct{a}\ varies between retrieval approaches, but in general it 
+represents an a priori estimate of \SttVct.
 
 
 \subsection{Linearisation}
@@ -164,7 +164,7 @@ linearised around (\aSttVct{a},\FrwMdlVctHat):
   \MsrErrVct_n
 \end{equation}
 On the conditions given, we have now a second way to express the forward
-model uncertainty:
+model uncertainty \todo{Consider changing frasing to "Under these assumptions, we now have a second ..."}:
 \begin{equation}
   \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
 \end{equation}
@@ -190,8 +190,7 @@ components are discussed further in Chapter~\ref{chapter:characterisation}.
 
 \subsection{Calculation of retrieval error}
 %
-Despite Eq.~\ref{eq:delta} gives an expression for the retrieval error it can
-not be used in practice, for the simple reason that \SttVct\ and \FrwMdlVct\
+Despite that Eq.~\ref{eq:delta} gives an expression for the retrieval error it cannot be used in practice, for the simple reason that \SttVct\ and \FrwMdlVct\
 are not known. The retrieval error can only evaluated in a statistical sense,
 and for this purpose uncertainties and errors are described by
 covariance matrices (\CvrMtr). See e.g.\
@@ -235,12 +234,12 @@ can be written in a somewhat more compact form:
 \label{sec:setup:inverse}
 %
 
-\subsubsection{The need of regularisation}
+\subsubsection{The need for regularisation}
 \label{sec:setup:inverse:reg}
 %
 In short, the task of the retrieval method is to derive \RtrVct\ from \MsrVct.
 It turns out that the mapping from \MsrVct\ to \RtrVct\ is not unique. That is,
-there exist an infinite set of $\SttVct$-vectors that result in a fit with the
+there exists an infinite set of $\SttVct$-vectors that result in a fit with the
 measurement, considering the measurement noise
 ($\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat)=O(\MsrErrVct_n)$\todo{Is this correct
   nomenclature?}). Instead, some ``optimal'' state must be selected, among this
@@ -258,7 +257,7 @@ It is clear that \CtrFncMtr, at least roughly, represents an inverse of
 \aWfnMtr{\SttVct}, but to use the standard inverse of \aWfnMtr{\SttVct} (only
 possible if \aWfnMtr{\SttVct} is square) or to apply the least squares method
 ($\CtrFncMtr=(\aWfnMtrTrp{\SttVct}\aWfnMtr{\SttVct})^{-1}\aWfnMtr{\SttVct}$)
-will result in extremely high sensitivity to noise. The retrieval problem at
+will result in an extremely high sensitivity to noise. The retrieval problem at
 hand is said to be ill-posed, which is the standard situation for passive
 atmospheric sounding.
 
@@ -293,7 +292,7 @@ The cost function \CstFnc\ can be seen as the sum of the two penalty terms. The
 first term weights how well the solution corresponds to the measurement. If
 \CstFnc\ would be set to only contain this term, the standard least squares
 solution would be obtained. The regularisation is introduced by the second
-term, the evaluates the probability of \SttVct\ based on a priori
+term, that evaluates the probability of \SttVct\ based on a priori
 information.
 
 If the retrieval problem is linear around (\aSttVct{a},\FrwMdlVctHat), \RtrVct\
@@ -317,17 +316,16 @@ that is, a description of the natural variability (including correlations) of
 the elements in \SttVct, but this rule is not always obeyed. First of all,
 normally there is no manner in which an exact \aCvrMtr{\SttVct} can be derived,
 and this matrix is set in some parametric way, loosely based on measurements
-and general knowledge on atmospheric physics. It could also be the case that
+and general knowledge of atmospheric physics. It could also be the case that
 \aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common example
-is that the variances in \aCvrMtr{a}\ are set with some margin to the true
+is that the variances in \aCvrMtr{a}\ are set with some margin with respect to the true
 values, to maintain measurement information as far as possible, or expressed
 differently, not to constrain the solution more than necessary. Further, it is
-likely that \aSttVct{a}\ differs from the true mean mean value of \SttVct, and
-also this systematic deviation should be represented in \aCvrMtr{a}\
+likely that \aSttVct{a}\ differs from the true mean \todo{Should there be two "mean"?} mean value of \SttVct, and this systematic deviation should also be represented in \aCvrMtr{a}\
 \citep{eriksson:analy:00}. For a continued discussion, and comments on the
 relationship between \aCvrMtr{a}\ and the corresponding regularisation matrix
 used in ``Tikhonov regularisation'', see, for example,
-\citet{eriksson:analy:00} and \citet{ungermann2011tomographic}. 
+\citet{eriksson:analy:00} and \citet{ungermann2011tomographic} \todo{Something wrong with the last reference}. 
 
 Finally regarding \aCvrMtr{a}, the point made in Sec.~2.6 of \citet{rodgers:00}
 is stressed, for given values along the diagonal, setting \aCvrMtr{a}\ to be
@@ -346,22 +344,22 @@ highly costly operation in the general case, but \aCvrMtr{\MsrErrVct_n}\ is in
 general a pure diagonal matrix and the inverse can be determined with a minimal
 calculation cost. 
 
-Further, the setting of \aCvrMtr{o}\ is influenced by the exact choice if
+Further, the setting of \aCvrMtr{o}\ is influenced by the exact choice of
 variables included in \SttVct. As discussed in Sec.~4.1.2 of \citet{rodgers:00}
 there is no strict division line between \SttVct\ and \FrwMdlVct. Obviously,
 \SttVct\ must contain a representation of the quantities targeted by the
 measurements, but for variables of interfering character (e.g.\ frequency
-off-set) there is a choice to make. For a perfect linear retrieval case, exact
-the same result will be obtained for the target quantities, independently if
+off-set) there is a choice to make. For a perfectly linear retrieval case, exactly
+the same results will be obtained for the target quantities independently if
 interfering factors are covered by \SttVct\ or \FrwMdlVct. However, inclusion
-in \SttVct\ is to prefer as this result in that values describing the
-interfering effects are obtained, which can be important diagnostic
+in \SttVct\ is to prefer as this will result in that values describing the
+interfering effects are obtained, which can provide important diagnostic
 information (e.g.\ to detect instrumental changes). In addition, in a
 non-linear situation a more optimal solution is obtained by placing interfering
 factors in \SttVct, as it is likely that \aWfnMtr{\FrwMdlVct}, and then also
 \aCvrMtr{\MsrErrVct_o} (cf.\ Eq.~\ref{eq:So}), vary with \SttVct. That is,
 the description of observation uncertainties is likely to deteriorate with
-difference between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
+differences between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
 of \SttVct, such non-linear effects will be taken care of by the reevaluation of 
 \aWfnMtr{\SttVct}.
 
@@ -369,14 +367,13 @@ of \SttVct, such non-linear effects will be taken care of by the reevaluation of
 \subsection{Forward model}
 \label{sec:setup:forward}
 %
-Some basic demands on the forward model were introduced in Sec.~\ref{sec:rt}.
+Some basic demands \todo{Replace "demands" with "requirements"?} on the forward model were introduced in Sec.~\ref{sec:rt}.
 The simulation problem to be tackled is basically the simplest possible,
 Eq.~\ref{eq:rteq} should be handled by all forward models for passive microwave
-measurements (but limb sounding requires that refraction and Earth's spherical
-shape are considered when determining the propagation path, which excludes all
+measurements (but limb sounding requires that refraction and the spherical shape of the Earth is considered when determining the propagation path, which excludes all
 ``plane-parallel'' models). On the other hand, the analysis of some data
-requires non-standard forward model features: the 118\,GHz oxygen measurements
-rise a demand for treatment of Zeeman effects and Doppler effects due to winds
+requires non-standard forward model features: the 118\,GHz oxygen measurements give 
+rise to a demand for treatment of Zeeman effects, and Doppler effects due to winds
 could have a significant impact on mesospheric spectra.
 
 Beside the atmospheric radiative transfer, the second main task of the forward
@@ -413,7 +410,7 @@ As mentioned already in Sec.~\ref{sec:aim}, the operational retrievals do not
 handle all \smr\ measurements. Most importantly, scattering is not activated in
 the forward model simulations and special retrievals have been developed to
 extract information from spectra containing tropospheric information.
-This retrieval scheme was introduced by \citet{rydberg:nonga:09} and latest
+This retrieval scheme was introduced by \citet{rydberg:nonga:09} and the latest
 results are found in \citet{eriksson:overw:14}. However, the method of
 \citet{rydberg:nonga:09} is only applicable for tangent altitudes below 9\,km
 and latitudes between 30$^\circ$S and 30$^\circ$N. This leaves a gap between

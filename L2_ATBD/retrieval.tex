@@ -14,7 +14,7 @@ Sec.~\ref{sec:formalism}.
 observation modes\addref. The altitude range scanned by \smr\ is not fixed, and
 a \smr\ limb ``scan'' is simply defined as the spectra recorded between two
 adjacent turning points, in altitude, of the limb scanning\addref. The
-retrievals covered by this \ATBD\ operate only on one scan and spectra from a
+retrievals covered by this \ATBD\ operate only on one scan and spectrum from a
 single frequency band at the time. Each combination of scan and frequency band
 is treated separately, no information is carried between different retrievals.
 
@@ -24,7 +24,7 @@ measurements, that is, gas species concentrations and atmospheric temperatures,
 but also a number of other variables are part of \SttVct\ (Sec.~\ref{sec:x}).
 These variables are either instrument correction factors or describe some
 interfering atmospheric effect. However, a restriction to effects of random
-nature is made, no fixed forward model variables (such as, spectroscopic data)
+nature is made, no fixed forward model variables (such as spectroscopic data)
 are placed in \SttVct. That is, variables causing systematic retrieval errors
 are not included in \SttVct\ (and neither in \aCvrMtr{o}, Sec.~\ref{sec:So}).
 
@@ -32,7 +32,7 @@ Covariance matrices are implemented as sparse matrices, while all other
 variables are stored as full vectors or matrices. For the retrieval problem at
 hand, $\aWfnMtr{\SttVct}$ is relatively dense and the overhead related with
 a sparse representation results in better performance keeping
-$\aWfnMtr{\SttVct}$ as a full matrix
+$\aWfnMtr{\SttVct}$ as a full matrix.
 
 
 
@@ -54,7 +54,7 @@ with spectra from different tangent altitudes appended. That is,
 where $\MsrVct_1$/$\MsrVct_x$ is the spectrum from the highest/lowest tangent
 altitude etc. 
 
-Each retrieval does only contain data from a single scan, as mentioned, but all
+Each retrieval only contains data from a single scan, as mentioned, but all
 spectra of the scan are not included. For each mode an upper and lower tangent
 altitude limit are defined, that determine which spectra of a scan that will be
 part of \MsrVct. The altitude limits are defined using geometrical tangent
@@ -131,7 +131,7 @@ for gain variations, causing an off-set in brightness temperatures. This
 off-set has been found to be flat over the frequency bands, but differ from one
 tangent altitude to next. The vector \VctStl{\Delta\VctStl{o}} contains one
 brightness temperature off-set for each included spectrum, to compensate for
-the ``baseline shift''. That is, a correction of the brightness temperatures is
+the ``baseline shift''. That is, a correction for the brightness temperatures is
 estimated, and corrected spectra can be expressed as
 \begin{equation}
   \label{eq:retr:baseline}
@@ -143,7 +143,7 @@ $i$ and $\Delta\VctStl{o}_i$ is element $i$ of $\Delta\VctStl{o}$.
 The pointing and frequency off-sets are scalar values. This implies that these
 correction factors are valid for the complete scan. In \ARTS\ the viewing
 direction, of each \LOS, is specified as the angle from zenith. These angles
-can not be determined perfectly from attitude data, but the error has been
+cannot be determined perfectly from attitude data, but the error has been
 judged to be constant during a scan and a single correction value should be
 sufficient. Hence, the retrieved zenith angles are
 \begin{equation}
@@ -202,14 +202,14 @@ throughout set to zero.
 The setting of \aCvrMtr{a}\ is the most controversial part of \OEM, see
 Sec.~\ref{sec:setup:inverse:xb} for some comments. This subject is not
 elaborated further, it is just noticed that for VMR and atmospheric
-temperature, in general, there exist no direct measurement on which total
+temperature, in general, there exist no direct measurements on which total
 covariance matrices can be based and ad hoc values are applied to a large
-extend. In addition, the values selected results in that \aCvrMtr{a}\ in
+extent. In addition, the values selected results in that \aCvrMtr{a}\ in
 general should over-estimate variability. Accordingly, \OEM\ is not used in a
 strict sense, but the retrievals can still be classified is regularisation
 \citep{ungermann2011tomographic} and close to optimal result should be obtained
 as long as \aCvrMtr{a}\ is given ``reasonable'' values
-\citep{eriksson:analy:00}. On the other hand, the uncertainties of the
+\citep{eriksson:analy:00}. On the other hand, the uncertainties in the
 instrumental variables are known fairly well and the corresponding parts of
 \aCvrMtr{a}\ should be quite accurate.
 \\
@@ -343,8 +343,8 @@ simulations, are presented already in Sec.~\ref{sec:arts:config}.
 \label{sec:b:rt}
 %
 The propagation path used when evaluating Eq.~\ref{eq:rteq} is defined by a set
-of points. A point is added at each crossing of the path crosses with a
-pressure levels (that is, the pressures defining the vertical grid). Additional
+of points. A point is added at each crossing of the path with a
+pressure level (that is, the pressures defining the vertical grid). Additional
 points are inserted to ensure that the distance along the path does not exceed
 an user defined threshold. This threshold is denoted $l_\mathrm{max}$ in the
 tables of ?\todo{Where?}.
