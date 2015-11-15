@@ -17,18 +17,18 @@ theory of this chapter is found in Sec.~\ref{sec:formalism}.
 %
 The full retrieval error is given by Eq.~\ref{eq:Sdelta1}, where the total
 retrieval error is presented as the sum of three terms. The calculation and
-interpretation of the forward model parameter and thermal noise retrieval
+interpretation of the forward model parameter and the thermal noise retrieval
 errors are quite straightforward, while the smoothing error term,
 $\left(\AvrKrnMtr-\IdnMtr\right)\aCvrMtr{\SttVct}\left(\AvrKrnMtr-\IdnMtr\right)^T$,
 is more problematic and frequently causes confusion. The aim of this section
-is to clarify some aspects of smoothing error and how this error term is
+is to clarify some aspects of the smoothing error and how this error term is
 handled in the \smr\ L2 data. The averaging kernel matrix has a central
 role for this discussion and it is defined by Eq.~\ref{eq:A}.
 
 
 \subsection*{The case of a single species profile}
 %
-Let us start with a simplified example, that the state vector just contains the
+Let us start with a simplified example; that the state vector just contains the
 vertical profile of a single species. For such a retrieval case, a row of
 \AvrKrnMtr\ shows how changes throughout the true profile contribute to the
 retrieved value at the altitude of concern. Accordingly the term ``averaging
@@ -37,7 +37,7 @@ impact of a delta-type perturbance in \SttVct\ \citep{rodgers:00}.
 
 The characterisation makes no attempt to estimate this smoothing error (the one
 internal for a retrieval quantity), for the simple reason that a sufficient
-accurate \aCvrMtr{\SttVct}\ can not be obtained. To replace \aCvrMtr{\SttVct}\
+accurate \aCvrMtr{\SttVct}\ cannot be obtained. To replace \aCvrMtr{\SttVct}\
 with the corresponding matrix used as part of \OEM, \aCvrMtr{a}, is not a
 viable option as it would give misleading results. The smoothing error should
 in general be over-estimated, considering how \aCvrMtr{\SttVct}\ is constructed
@@ -49,7 +49,7 @@ response (see Sec.~\ref{sec:mresp}).
 
 If the smoothing error is not included in the retrieval error, how should then
 the two remaining error terms be interpreted? Some guidance to understand this
-question can be obtained be a rearrangement of Eq.~\ref{eq:delta}:
+question can be obtained by a rearrangement of Eq.~\ref{eq:delta}:
 \begin{equation}
   \RtrVct -\aSttVct{a} - \AvrKrnMtr\left( \SttVct-\aSttVct{a} \right) = 
     \CtrFncMtr\aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
@@ -112,7 +112,7 @@ the averaging kernel matrix has the structure:
   \end{bmatrix}.
 \end{equation}
 The sub-matrices along the diagonal, such as $\AvrKrnMtr_{\VctStl{v}_2}$, can
-be interpreted exactly as in the simplified example above. In case of scalar
+be interpreted exactly as in the simplified example above. In the case of scalar
 quantities, such as $\AvrKrnMtr_{\Delta\nu}$, these sub-matrices have size 1\,x\,1.
 
 The off-diagonal sub-matrices show how the different quantities interfere with
@@ -179,26 +179,26 @@ $\AvrKrnMtr_{\VctStl{v},\VctStl{t}}\aCvrMtr{\VctStl{t}}\AvrKrnMtr_{\VctStl{v},\V
 is the smoothing error induced by atmospheric temperatures in the retrieved
 ozone profile. The last term is new compared to an ozone-only retrieval.
 
-Not surprisingly, this new term is identical the expression to be used if
+Not surprisingly, this new term is identical to the expression to be used if
 temperature had been a forward model parameter. If
-$\AvrKrnMtr_{\VctStl{v},\VctStl{t}}$ is expanded, we get that ozone retrieval
+$\AvrKrnMtr_{\VctStl{v},\VctStl{t}}$ is expanded, we get that the ozone retrieval
 error due to temperature interference is
 \begin{displaymath}
   \RtrErr_{\VctStl{v}}^{\VctStl{t}} =
   \CtrFncMtr_{\VctStl{v}}\aWfnMtr{\VctStl{t}}\aCvrMtr{\VctStl{t}}
    \aWfnMtr{\VctStl{t}}^T\CtrFncMtr_{\VctStl{v}}^T.
 \end{displaymath}
-This expression gives exactly the same result, as treating temperature as a
+This expression gives exactly the same result as treating temperature as a
 forward model uncertainty and following Eq.~\ref{eq:So} for the error
 calculation. This is consistent with the discussion in
-Sec.~\ref{sec:setup:inverse:xb}, that for a linear case exactly the same result
+Sec.~\ref{sec:setup:inverse:xb}; that for a linear case exactly the same result
 is obtained when moving an interfering quantity from \FrwMdlVct\ to \SttVct.
 This implies that the total error remains constant, but the corresponding error
-term is on the same time moved from being a forward model parameter error to
+term is at the same time moved from being a forward model parameter error to
 being a smoothing error. 
 
 (It should be noted that the last paragraphs make the silent assumption that
-there is no correlation between the retrieval quantities (off-diagonal
+there is no correlation between the retrieval quantities; off-diagonal
 sub-matrices of \aCvrMtr{\VctStl{\SttVct}}\ are zero. This is throughout
 assumed for the \SMR\ processing and the general case is not discussed.)
 
@@ -258,7 +258,7 @@ The full characterisation reports the complete averaging kernel matrix,
 together with the positions inside the state vector each retrieval quantity
 occupies. Each sub-matrix of \AvrKrnMtr\ can be extracted if these positions
 are known. The a priori data for which the averaging kernel matrix are also
-stored. 
+stored \todo{This sentence is strange}. 
 \\
 \lcomment{PE}{Exemplify how these data can be used.}
 
