@@ -215,13 +215,14 @@ response matrix obtained, \SnsMtr, is applied as:
   \label{eq:H}
   \aMsrVct{f} = \SnsMtr\MpiVct
 \end{equation}
-where \aMsrVct{f}\ is the measurement vector produced by the forward
-model and \MpiVct\ is all monochromatic pencil beam radiances compiled into a
-vector. The vector \MpiVct\ must contain a certain number of values to
-represent the radiation field, as a function of frequency and zenith angle,
-with sufficient accuracy. The methods setting up \SnsMtr\ assumes that both
-radiances and sensor responses vary linearly between the points were data are is available.\todo{Will the FillGrid method be used?}\ The variables controlling
-\SnsMtr\ and \MpiVct\ are discussed in Sec.~?\todo{Add value}.
+where \aMsrVct{f}\ is the measurement vector produced by the forward model and
+\MpiVct\ is all monochromatic pencil beam radiances compiled into a vector. The
+vector \MpiVct\ must contain a certain number of values to represent the
+radiation field, as a function of frequency and zenith angle, with sufficient
+accuracy. The methods setting up \SnsMtr\ assumes that both radiances and
+sensor responses vary linearly between the points were data are is
+available.\todo{Will the FillGrid method be used?}\ The variables controlling
+\SnsMtr\ and \MpiVct\ are discussed in Sec.~\ref{sec:b}.
 
 The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
 must also be mimicked by the forward model. The radiances ($I$,

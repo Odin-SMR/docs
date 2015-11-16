@@ -107,12 +107,12 @@ the poles.
 \label{sec:smr:errors}
 %
 The receiver noise temperature of \smr\ differs between the front-ends, varying
-between ? and ?\,K\todo{Add values}. This makes thermal noise an important
-error source. The pointing of Odin can be reconstructed to an accuracy matching
-?\,m\todo{Add value.}\ in tangent altitude, and observed frequencies can be
-controlled with an accuracy better than ?\,MHz\todo{Add value.}. The retrieval
-process includes both a pointing and frequency correction, but there are some
-remaining errors.
+between 2600 and 4500\,K. This makes thermal noise an important error source.
+The pointing of Odin can be reconstructed to an accuracy matching
+$\approx750$\,m in tangent altitude, and observed frequencies
+can be controlled with an accuracy of $\approx1$\,MHz\todo{Later revise the
+  number in this paragrapph.}. The retrieval process includes both a pointing
+and frequency correction, but there are some remaining errors.
 
 The three error sources discussed above basically follow nominal performance
 and are well characterised, but there are also features that are not yet
@@ -126,14 +126,14 @@ brightness temperatures over the frequency band.
 
 Some other non-nominal features are handled, or are characterised, fairly well.
 Reflections inside the receiver give rise to ``baseline ripple'', but these
-ripples are largely removed as part of the L1b processing\addref. The
+ripples are largely removed as part of the L1b processing \citep{atbdl1b}. The
 calibration uncertainty increases linearly with measured brightness
-temperature, and is presently estimated to not exceed ?\,K\todo{Add value.}\ at
-220\,K. \smr\ applies Dicke switching with respect to ``cold sky'' but there is
-some remaining impact of gain variations. These variations give rise to a
-constant shift of the brightness temperatures across the band (that is, it can
-be seen as a flat baseline ripple). These shifts have a standard deviation of
-about 2\,K, and iare uncorrelated between tangent altitudes and front-ends. The
+temperature, and is presently estimated to \dots\todo{Add result later.}\ \smr\
+applies Dicke switching with respect to ``cold sky'' but there is some
+remaining impact of gain variations. These variations give rise to a constant
+shift of the brightness temperatures across the band (that is, it can be seen
+as a flat baseline ripple). These shifts have a standard deviation of about
+2\,K, and iare uncorrelated between tangent altitudes and front-ends. The
 retrieval can remove these shifts with marginal impact on the retrievals as
 long as some part of the measured spectrum corresponds to cosmic background
 radiation (that is, high tangent altitudes), but this is a main error source
@@ -150,7 +150,7 @@ is found in \citet{eriksson:studi:02}, and a more detailed description of
 the observation modes is provided by \citet{merino:studi:02}.\todo{Missed
   something?}
 
-The input to this L2 processing is the L1b data described in ?\addref. The
+The input to this L2 processing is the L1b data described in \citet{atbdl1b}. The
 exact settings applied and the general characteristics of the L2 data, that
 both vary between the frequency bands, are described in ?\addref.
 \lcomment{PE}{Probably more to say here ...}
