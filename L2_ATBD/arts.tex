@@ -179,9 +179,9 @@ above 15\,km\todo{Perform test}.
 
 The radiance at the top of the atmosphere, $I_0$ is set to mimic cosmic
 background radiation. There is no attempt to model situations when the moon is
-found in the LOS, the retrieval reject such spectra\todo{Correct?}. The
-combination of Odin orbit and keeping the LOS close to the orbit plane results
-in that there is never a need to consider the Sun.
+found in the LOS, the retrieval reject such spectra. The combination of Odin
+orbit and keeping the LOS close to the orbit plane results in that there is
+never a need to consider the Sun.
 
 
 
@@ -213,9 +213,9 @@ grids are set and the description of the sensor responses are at hand. The
 response matrix obtained, \SnsMtr, is applied as:
 \begin{equation}
   \label{eq:H}
-  \aMsrVct{\FrwMdl} = \SnsMtr\MpiVct
+  \aMsrVct{f} = \SnsMtr\MpiVct
 \end{equation}
-where \aMsrVct{\FrwMdl}\ is the measurement vector produced by the forward
+where \aMsrVct{f}\ is the measurement vector produced by the forward
 model and \MpiVct\ is all monochromatic pencil beam radiances compiled into a
 vector. The vector \MpiVct\ must contain a certain number of values to
 represent the radiation field, as a function of frequency and zenith angle,

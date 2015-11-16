@@ -19,7 +19,7 @@ Besides geophysical variables, the retrieval must consider a number of
 instrumental aspects to avoid that e.g.\ pointing errors cause unnecessary
 large retrieval errors. The result of this part of the retrieval can be seen as
 diagnostics data. Some of the quality fields of the L2 data are based on the
-diagnostics data, and these data are stored internally for further analysis, to
+diagnostics data, and the data are also stored internally for further analysis, to
 e.g.\ detect instrumental drifts. 
 
 The retrieval can also include atmospheric state variables that influence the
@@ -44,7 +44,7 @@ A strong advantage of using microwaves is that local thermodynamic equilibrium
 (LTE) can be assumed, even for radiative transfer in the mesosphere and lower
 thermosphere. Further, as long as the lowest altitude of the line-of-sight, the
 tangent point, is some kilometres above the tropopause, scattering can safely
-be neglected as \smr\ operates at wavelengths $>$\,0.5\,mm. This restriction in
+be neglected as \smr\ operates at wavelengths $>$\,0.5\,mm. Such a restriction in
 tangent altitudes is made for the operational \smr\ retrievals. 
 
 The combination of LTE and no scattering makes the basic simulation task
@@ -163,8 +163,8 @@ linearised around (\aSttVct{a},\FrwMdlVctHat):
   \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
   \MsrErrVct_n
 \end{equation}
-On the conditions given, we have now a second way to express the forward
-model uncertainty \todo{Consider changing frasing to "Under these assumptions, we now have a second ..."}:
+Under these assumptions, we have now a second way to express the forward
+model uncertainty:
 \begin{equation}
   \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
 \end{equation}
@@ -240,10 +240,8 @@ can be written in a somewhat more compact form:
 In short, the task of the retrieval method is to derive \RtrVct\ from \MsrVct.
 It turns out that the mapping from \MsrVct\ to \RtrVct\ is not unique. That is,
 there exists an infinite set of $\SttVct$-vectors that result in a fit with the
-measurement, considering the measurement noise
-($\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat)=O(\MsrErrVct_n)$\todo{Is this correct
-  nomenclature?}). Instead, some ``optimal'' state must be selected, among this
-set of possible solutions.
+measurement, considering the measurement noise. Instead, some ``optimal'' state
+must be selected, among this set of possible solutions.
 
 If we for a moment assume that the retrieval problem can be treated as fully
 linear around (\aSttVct{a},\FrwMdlVctHat), we
@@ -265,7 +263,7 @@ atmospheric sounding.
 \subsubsection{The optimal estimation method}
 \label{sec:setup:inverse:oem}
 %
-The standard way to tackle ill-posed problems of this type is
+The normal way to tackle ill-posed problems of this type is
 ``regularisation'', where some constrain on the solution is introduced. In
 passive atmospheric sounding, using statistical information as basis for the
 regularisation has become the standard approach, and it is also the approach
@@ -318,13 +316,14 @@ normally there is no manner in which an exact \aCvrMtr{\SttVct} can be derived,
 and this matrix is set in some parametric way, loosely based on measurements
 and general knowledge of atmospheric physics. It could also be the case that
 \aCvrMtr{a}\ is partly used as a ``tuning parameter''. The most common example
-is that the variances in \aCvrMtr{a}\ are set with some margin with respect to the true
-values, to maintain measurement information as far as possible, or expressed
-differently, not to constrain the solution more than necessary. Further, it is
-likely that \aSttVct{a}\ differs from the true mean \todo{Should there be two "mean"?} mean value of \SttVct, and this systematic deviation should also be represented in \aCvrMtr{a}\
-\citep{eriksson:analy:00}. For a continued discussion, and comments on the
-relationship between \aCvrMtr{a}\ and the corresponding regularisation matrix
-used in ``Tikhonov regularisation'', see, for example,
+is that the variances in \aCvrMtr{a}\ are set with some margin with respect to
+the true values, to maintain measurement information as far as possible, or
+expressed differently, not to constrain the solution more than necessary.
+Further, it is likely that \aSttVct{a}\ differs from the true mean value of
+\SttVct, and this systematic deviation should also be represented in
+\aCvrMtr{a}\ \citep{eriksson:analy:00}. For a continued discussion, and
+comments on the relationship between \aCvrMtr{a}\ and the corresponding
+regularisation matrix used in ``Tikhonov regularisation'', see, for example,
 \citet{eriksson:analy:00} and \citet{ungermann2011tomographic}.
 
 Finally regarding \aCvrMtr{a}, the point made in Sec.~2.6 of \citet{rodgers:00}
@@ -359,7 +358,7 @@ non-linear situation a more optimal solution is obtained by placing interfering
 factors in \SttVct, as it is likely that \aWfnMtr{\FrwMdlVct}, and then also
 \aCvrMtr{\MsrErrVct_o} (cf.\ Eq.~\ref{eq:So}), vary with \SttVct. That is,
 the description of observation uncertainties is likely to deteriorate with
-differences between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
+the deviation between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
 of \SttVct, such non-linear effects will be taken care of by the reevaluation of 
 \aWfnMtr{\SttVct}.
 
@@ -367,20 +366,22 @@ of \SttVct, such non-linear effects will be taken care of by the reevaluation of
 \subsection{Forward model}
 \label{sec:setup:forward}
 %
-Some basic demands \todo{Replace "demands" with "requirements"?} on the forward model were introduced in Sec.~\ref{sec:rt}.
-The simulation problem to be tackled is basically the simplest possible,
-Eq.~\ref{eq:rteq} should be handled by all forward models for passive microwave
-measurements (but limb sounding requires that refraction and the spherical shape of the Earth is considered when determining the propagation path, which excludes all
-``plane-parallel'' models). On the other hand, the analysis of some data
-requires non-standard forward model features: the 118\,GHz oxygen measurements give 
-rise to a demand for treatment of Zeeman effects, and Doppler effects due to winds
-could have a significant impact on mesospheric spectra.
+Some basic requirements on the forward model were introduced in
+Sec.~\ref{sec:rt}. The simulation problem to be tackled is basically the
+simplest possible, Eq.~\ref{eq:rteq} should be handled by all forward models
+for passive microwave measurements (but limb sounding requires that refraction
+and the spherical shape of the Earth is considered when determining the
+propagation path, which excludes all ``plane-parallel'' models). On the other
+hand, the analysis of some \smr\ data requires non-standard forward model
+features: the 118\,GHz oxygen measurements give rise to a demand for treatment
+of Zeeman effects, and Doppler effects due to winds could have a significant
+impact on mesospheric spectra.
 
 Beside the atmospheric radiative transfer, the second main task of the forward
 model is to incorporate effects of sensor characteristics. For the \smr\
 radiometer package the sensor features needing consideration are antenna
 angular response, mixer, sideband filtering and frequency response of each
-spectrometer channel. A first order compensation of the Doppler shift due to
+spectrometer channel. Compensation of the Doppler shift due to
 the satellite's movement is part of the L1b processing.
 
 A further requirement is that the forward model can deliver the Jacobian

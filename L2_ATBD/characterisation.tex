@@ -42,8 +42,8 @@ with the corresponding matrix used as part of \OEM, \aCvrMtr{a}, is not a
 viable option as it would give misleading results. The smoothing error should
 in general be over-estimated, considering how \aCvrMtr{\SttVct}\ is constructed
 (Sec.~\ref{sec:Sa}). A smoothing error is present when $\AvrKrnMtr\neq\IdnMtr$.
-The averaging kernel matrix deviates from the identity matrix due to impact of
-a priori information, that roughly can be separated into two main aspects:
+The averaging kernel matrix deviates from the identity matrix due to the
+impact regularisation, that roughly can be separated into two main aspects:
 limited resolution (see Sec.~\ref{sec:vertres}) and non-perfect measurement
 response (see Sec.~\ref{sec:mresp}).
 
@@ -65,7 +65,7 @@ That is, the forward model parameter and retrieval noise errors describe the
 difference between the retrieved state and a smoothed version of the true state
 $(\AvrKrnMtr\SttVct)$. However, as \SttVct\ is unknown, and then also
 $\AvrKrnMtr\SttVct$, a somewhat different view must be used in practice.
-Retrieved profile are running averages of the true profiles, and errors refer
+Retrieved profiles are running averages of the true profiles, and errors refer
 to the accuracy of these averages. The vertical resolution gives the
 approximate averaging length. The condition
 $\AvrKrnMtr\aSttVct{a}\approx\aSttVct{a}$ is roughly fulfilled as long as the
@@ -116,7 +116,7 @@ be interpreted exactly as in the simplified example above. In the case of scalar
 quantities, such as $\AvrKrnMtr_{\Delta\nu}$, these sub-matrices have size 1\,x\,1.
 
 The off-diagonal sub-matrices show how the different quantities interfere with
-each other. For example, one row of the sub-matrix
+each other \citep{baron:studi:02}. For example, one row of the sub-matrix
 $\AvrKrnMtr_{\VctStl{v}_1,\VctStl{t}}$ gives how the corresponding value in gas
 species profile 1 is affected by variations in the temperature profile, while a
 row in $\AvrKrnMtr_{\VctStl{t},\VctStl{v}_1}$ gives how one temperature profile
@@ -182,7 +182,7 @@ ozone profile. The last term is new compared to an ozone-only retrieval.
 Not surprisingly, this new term is identical to the expression to be used if
 temperature had been a forward model parameter. If
 $\AvrKrnMtr_{\VctStl{v},\VctStl{t}}$ is expanded, we get that the ozone retrieval
-error due to temperature interference is
+error due to temperature interference is \citep{rodgers2003intercomparison}
 \begin{displaymath}
   \RtrErr_{\VctStl{v}}^{\VctStl{t}} =
   \CtrFncMtr_{\VctStl{v}}\aWfnMtr{\VctStl{t}}\aCvrMtr{\VctStl{t}}
@@ -221,7 +221,8 @@ valid on the constraint that the measurement response is relatively high. If
 the measurement response is low, there is a systematic bias towards the a
 priori state, that is not captured by the errors provided, but data with
 low measurement response shall anyhow not be used for a scientific analysis
-without special treatment\addref.
+without special treatment (see \citet{rodgers2003intercomparison} for general
+guidelines).
 
 
 
@@ -258,7 +259,7 @@ The full characterisation reports the complete averaging kernel matrix,
 together with the positions inside the state vector each retrieval quantity
 occupies. Each sub-matrix of \AvrKrnMtr\ can be extracted if these positions
 are known. The a priori data for which the averaging kernel matrix are also
-stored \todo{This sentence is strange}. 
+stored \dots 
 \\
 \lcomment{PE}{Exemplify how these data can be used.}
 
@@ -371,7 +372,7 @@ placement of the averaging kernel is given as the mean of altitude:
 where $z$ is altitude and $a(z)$ is the averaging kernel for the nominal
 altitude of $z_0$\todo{Or give $z_m-z_0$?}.
 \\
-\lcomment{PE}{\FWHM is a quite optimistic value, especially for averaging
+\lcomment{PE}{\FWHM\ is a quite optimistic value, especially for averaging
   kernels of the shape given by \OEM. Also include spread?}
 
 

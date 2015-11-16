@@ -17,7 +17,7 @@ processing are treated in this section.
 \section{Software}
 \label{sec:oem.m}
 %
-The \smr\ retrievals are performed by a Matlab implementation of \OEM,, that is
+The \smr\ retrievals are performed by a Matlab implementation of \OEM\ that is
 part of the Atmlab package. This package is available through the \ARTS\ site,
 at \url{www.radiativetransfer.org/tools}. The implementation of \OEM\ in Atmlab,
 \texttt{oem.m}, aims at being generic, that is, it shall be possible to couple
@@ -103,7 +103,7 @@ iterations to perform. The overall iteration scheme applied is:
     Otherwise, updated as $\gamma\leftarrow f_u\cdot\gamma$.
   \item[4b] If $\gamma$ becomes larger than a threshold value,
     $\gamma>\gamma_\mathrm{max}$, set $\RtrVct=\RtrVct_i$ and jump to 5.
-  \item[4c] Re-do the iteration with new $\gamma$ by moving to 1.
+  \item[4c] Re-do the iteration with new $\gamma$ by moving to 2.
   \end{itemize}
 \item[5] Perform retrieval characterisation
   (Chapter~\ref{chapter:characterisation}), using $\aWfnMtr{\SttVct}=\aWfnMtr{i}$.
@@ -203,12 +203,10 @@ For these reasons, a suitable upper limit on $\CstFnc'$ varies between the
 frequency bands. Suggested limits for quality filtering for each band are found
 ?\todo{Where?}. 
 
-The discussion above hints that the value of $\CstFnc'$ depends on the data
-quality, and this aspect should not be forgotten. A high final
-cost can be caused by both bad input data and that the iteration procedure
-ended up at a local minimum. Without a detailed analysis it is impossible to say
-which of the two potential problems that is the cause behind a suspiciously high end
-value of $\CstFnc'$.  
+A high final cost can be caused by both bad input data and that the iteration
+procedure ended up at a local minimum. Without a detailed analysis it is
+impossible to say which of the two potential problems that is the cause behind
+a suspiciously high end value of $\CstFnc'$.
 \\
 \lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
   help to disentangle things?}
@@ -238,12 +236,13 @@ $\RtrVct_c - \RtrVct_i$ is found by solving an equation system (by QR
 decomposition). This option is more numerically efficient, than calculating the
 actual inverse.
 
-However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} cannot be avoided. These calculations take advantage of the block-diagonal
-structure (see Sec.~?) \todo{Which section?}, where each sub-matrix is inverted separately. Further,
-in some situations the matrix inverse can be obtained in an analytic manner.
-This is possible for purely diagonal matrices, and for the combination of
-constant variance and exponentially declining correlation
-\citep[][Sec.~10.3.2.2]{rodgers:00}.\todo{Revise paragraph later.}
+However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} is
+made. These calculations take advantage of the block-diagonal structure (see
+Sec.~\ref{sec:Sa}), where each sub-matrix is inverted separately. Further, in
+some situations the matrix inverse can be obtained in an analytic manner. This
+is possible for purely diagonal matrices, and for the combination of constant
+variance and exponentially declining correlation\todo{This option used? Revise
+  paragraph later.}\ \citep[][Sec.~10.3.2.2]{rodgers:00}.
 
 The size of the elements in \SttVct\ can differ widely. For example, VMR values
 go down to at least ppb level ($10^{-9}$), while frequency off-sets can reach

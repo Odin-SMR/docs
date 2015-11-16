@@ -14,8 +14,8 @@ Sec.~\ref{sec:formalism}.
 observation modes\addref. The altitude range scanned by \smr\ is not fixed, and
 a \smr\ limb ``scan'' is simply defined as the spectra recorded between two
 adjacent turning points, in altitude, of the limb scanning\addref. The
-retrievals covered by this \ATBD\ operate only on one scan and spectrum from a
-single frequency band at the time. Each combination of scan and frequency band
+retrievals covered by this \ATBD\ operate only on one scan, from a
+single frequency band, at the time. Each combination of scan and frequency band
 is treated separately, no information is carried between different retrievals.
 
 Following the discussion in Sec.~\ref{sec:setup:inverse:xb}, the state vector
@@ -51,7 +51,7 @@ with spectra from different tangent altitudes appended. That is,
     \MsrVct_s
   \end{bmatrix},
 \end{equation}
-where $\MsrVct_1$/$\MsrVct_x$ is the spectrum from the highest/lowest tangent
+where $\MsrVct_1$/$\MsrVct_s$ is the spectrum from the highest/lowest tangent
 altitude etc. 
 
 Each retrieval only contains data from a single scan, as mentioned, but all
@@ -87,7 +87,8 @@ set to only represent thermal noise:
 \lcomment{PE}{Exactly what expression to use for converting L1b data to thermal
   noise standard deviation? Do we consider the noise correlation between
   channels? With Hanning the correlation is significant, while without Hanning
-  a pure diagonal matrix is a better approximation.}
+  a pure diagonal matrix is a better approximation. There is also correlation
+  between tangent altitudes \dots}
 
 
 \section{The state vector, \SttVct}
@@ -162,10 +163,10 @@ but some frequency error remains and there seems also to be some ageing on the
 \LO-chain affecting final frequencies. The resulting frequency uncertainty is
 totally correlated between the backend channels inside each frequency band. As
 long as the \LO-signal is phase-locked, it is judged that the frequency off-set
-is constant during a limb scan. However, the phase-locking of the 118 and
-575\,GHz front-ends have been failing basically throughout the mission, and the
-assumption of a constant frequency off-set is more uncertain for these receiver
-chains. The switch from version 1 to 2 of \ARTS\ enables the retrieval of a
+is constant during a limb scan. However, the phase-locking of the
+575\,GHz front-end has been failing basically throughout the mission, and the
+assumption of a constant frequency off-set is more uncertain for this receiver
+chain. The switch from version 1 to 2 of \ARTS\ enables the retrieval of a
 non-constant frequency off-set, but this possibility will only be activated later
 if found necessary. The retrieved frequency of channel $i$ is
 \begin{equation}
