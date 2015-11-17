@@ -468,15 +468,175 @@ From comparison for such conditions the accuracy of calibrated
 
 \subsection*{Precision}
 
+\lcomment{BR}{section under construction, may be confusing}
+
 The noise on an individual channel, \(\Delta T\) , is commonly represented by
 \begin{equation}
-\Delta T = \frac{T_{total}}{\sqrt{B\tau + \left( \frac{\Delta g}{g} \right)^2}}
+\Delta T = T_{sys}\sqrt{ \frac{1}{B\tau} + \left( \frac{\Delta g}{g} \right)^2 }
+\label{eq:prec}
 \end{equation}
-where \(T_{total}\) total is the combination of receiver system temperature and 
-scene radiance, \(B\) is the channel bandwidth, 
-\(\tau\) is the integration time of each measurement, and \(\frac{\Delta g}{g}\) 
-is a gain variation term. The \(B\tau\)  component is commonly referred to as
+
+where \(T_{sys}\) is the combination of receiver system temperature (\(T_{rec}\)) and
+scene radiance (\(T_{a}\)), \(B\) is the channel bandwidth,
+\(\tau\) is the integration time of each measurement, and \(\frac{\Delta g}{g}\)
+is a gain variation term. The \(\frac{1}{B\tau}\) component is commonly referred to as
 radiometer noise, and is uncorrelated between channels.
+The gain variation term is more likely to be correlated between channels.
+Equation~\ref{eq:prec} is not complete for \smr\ as it ignores the noise
+coming from noise on interpolated reference measurements.
+We here derive a more complete expression:
+
+\begin{equation}
+\frac{\partial T_{a,i}}{\partial c_{a,i}} \approx \frac{1}{g_i} 
+%\implies \Delta T_{a,i}^{2}=\frac{\Delta c_{a,i}^{2}}{g_{i}^2}
+\end{equation}
+
+\begin{equation}
+\frac{\partial T_{a,i}}{\partial c_{s,i}} \approx \frac{1}{g_i} 
+%\implies \Delta T_{a,i}^{2}=\frac{\Delta c_{s,i}^{2}}{g_{i}^2}
+\end{equation}
+
+\begin{equation}
+\frac{\partial T_{a,i}}{\partial g_{i}} \approx -\frac{c_{a,i}-c_{s,i}}{g_{i}^{2}} \approx \frac{T_{a,i}}{g_i} 
+%\implies \Delta T_{a,i}^{2}=T_{a,i}^{2}\frac{\Delta g_{i}^{2}}{g_{i}^2}
+\end{equation}
+
+which implies:
+
+\begin{equation}
+\Delta T_{a,i}^{2} = \frac{\Delta c_{a,i}^{2}}{g_{i}^2} + \frac{\Delta c_{s,i}^{2}}{g_{i}^2} + T_{a,i}^{2}\frac{\Delta g_{i}^{2}}{g_{i}^2},
+\end{equation}
+thus, the noise contribution can be divided in three terms, (1) the radiometer noise contribution,
+(2) interpolated reference noise contribution, and (3) interploated gain noise contribution.  
+
+\subsection*{Precision:radiometer noise contribution}
+The radiometer noise contribution induced noise variance in calibrated \(T_{a,i}\) is simply
+\begin{equation}
+\Delta T_{a,i}^2 = \frac{T_{sys}^{2}}{B\tau}.
+\end{equation}
+It should be noted that this noise is not uncorrelated between neighbouring channels
+in \smr\ spectra, as a Hanning smoothing is applied in the calibration process
+(noise is effectively reduced as this can be seen as an increase in bandwidth).    
+
+
+\subsection*{Precision: interpolated reference noise contribution}
+In the \smr\ calibration scheme, and for the nominal situation, the sky beam the interpolated
+reference signal can be written
+\begin{equation}
+\hat{c}_{s,i}(t_{j+1}) = \frac{1}{2}c_{s,i}(t_{j}) + \frac{1}{2}c_{s,i}(t_{j+2}), 
+\end{equation}
+where \(t_{j}\) represent the time.  
+If the gain fluctuations are small, or follows a linear variation during the
+observation sequence, the noise in \(\hat{c}_{s,i}(t_{j+1})\) is only due to radiometric
+noise, and induced noise variance in calibrated \(T_{a,i}\) is
+\begin{equation}
+\Delta T_{a,i}^2 = \frac{T_{rec}^{2}}{2B\tau}.
+\end{equation}
+
+In practise there is also a finite error due to non-linear gain variation.
+i.e. there is a broadband offset between the estimated and true reference signal 
+\begin{equation}
+\hat{c_{s}}(t_{j+1}) - c_{s}(t_{j+1}) = \Delta c_{s} = \Delta g^{'} T_{rec},
+\end{equation}
+where \(\Delta g^{'}\) represents the non-captured variation in gain
+due to non-linear gain fluctiations. 
+
+Thus, a more complete estimate of the induced noise variance arising from the
+interpolated reference signal is then
+
+\begin{equation}
+\Delta T_{a,i}^2 = T_{rec}^{2}\left(\frac{1}{2B\tau} + \left(\frac{\Delta g^{'}}{g}\right)^{2}\right)
+\end{equation}
+ 
+Two sequantial \smr\ spectrum have one reference spectrum in common, thus the noise
+of the two spectra is correlated ...  
+\lcomment{BR}{expand on this}
+   
+\subsection*{Precision: interploated gain noise contribution}
+
+In the calibration scheme, the gain is estimated as
+\begin{equation}
+g_{i}(t_{j+k}) = \frac{\hat{c}_{s,i}(t_{j+k})}{\overline{T}_{rec,i}} = \hat{c}_{s,i}(t_{j+k})\left(\frac{1}{n}\sum_{j=1}^{n}T_{rec,i}(t_{j})\right)^{-1}, 
+\end{equation}
+where
+\begin{equation}
+T_{rec,i}(t_{j}) = \hat{c}_{s,i}(t_{j}) \frac{ T_{l} - T_{s} }{  c_{l,i}(t_{j})- \hat{c}_{s,i}(t_{j})  }.
+\end{equation}
+That is, the precision of the interpolated gain depends on the precison of an interpolated
+reference measurement and on an average \(T_{rec}\). 
+
+\begin{equation}
+\frac{\partial g_{i}}{\partial \hat{c}_{s,i}(t_{j+k})} = \frac{1}{\overline{T}_{rec,i}}
+\end{equation}
+
+\begin{equation}
+\frac{\partial g_{i}}{\partial T_{rec,i}} = - \frac{\hat{c}_{s,i}(t_{j+k})}{\overline{T}_{rec,i}^2}.
+\end{equation}
+
+For an individual \(T_{rec}\) estimate, we have that
+\begin{equation}
+ \frac{\partial T_{rec,i}}{\partial c_{s,i}(t_{j})} = \frac{(T_{l}-T_{s})(c_{l,i}-c_{s,i}) + c_{s,i}(T_{l}-T_{s})}
+{(c_{l,i}-c_{s,i})^2} \approx \frac{T_{rec,i}}{g_{i}T_{l}}
+\end{equation}
+
+\begin{equation}
+ \frac{\partial T_{rec,i}}{\partial c_{l,i}} = \frac{-c_{s,i}(T_{l}-T_{s})}{(c_{l,i}-c_{s,i})^2} \approx -\frac{T_{rec,i}}{g_{i}T_{l}}
+\end{equation}
+
+Thus, we have
+
+\begin{equation}
+ \frac{\partial g_{i}}{\partial c_{l,i}} = \frac{\partial g_{i}}{\partial T_{rec,i}}\frac{\partial T_{rec_{i}}}{\partial c_{l,i}}=
+\frac{1}{T_{l,i}-T_{s,i}} 
+%\implies \Delta g_{i}^{2} =  \frac{\Delta c_{l,i}^{2}}{(T_{l,i}-T_{s,i})^2}
+\end{equation}
+
+\begin{equation}
+ \frac{\partial g_{i}}{\partial c_{s,i}} = \frac{\partial g_{i}}{\partial T_{rec,i}}\frac{\partial T_{rec_{i}}}{\partial c_{s,i}} =
+\frac{-1}{T_{l,i}-T_{s,i}} 
+%\implies \Delta g_{i}^{2} =  \frac{\Delta c_{s,i}^{2}}{(T_{l,i}-T_{s,i})^2}
+\end{equation}
+
+which implies:
+
+\begin{equation}
+\Delta g_{i}^{2} =  \frac{\Delta c_{l,i}^{2} + \Delta c_{s,i}^{2}}{(T_{l,i}-T_{s,i})^2} + \frac{ \Delta c_{i}^{2}(t_{j+1})}{T_{rec,i}^{2}}
+\approx \frac{\Delta c_{l,i}^{2} + \Delta c_{s,i}^{2}}{T_{l,i}^2}
+\end{equation}
+ 
+
+\subsection*{Precision: summary}
+
+\begin{equation}
+\Delta T_{a,i}^{2} =  \frac{\Delta c_{a,i}^{2}}{g_{i}^2} + \frac{\Delta c_{s,i}^{2}}{g_{i}^2} +
+     \frac{T_{a,i}^{2}}{T_{l,i}^2} \frac{\Delta c_{l,i}^{2} + \Delta c_{s,i}^{2}}{g_{i}^{2}}
+\end{equation}
+
+or
+
+\begin{equation}
+\Delta T_{a,i}^{2} =  \frac{1}{B\tau} \left( (T_{rec,i}+T_{a,i})^2 + \frac{T_{rec,i}^2}{2} + 
+   \frac{T_{a,i}^{2}}{n} \left( \left( \frac{T_{rec,i} + T_{l,i}}{T_{l,i}} \right)^2 + \left( \frac{T_{rec,i} }{T_{l,i}} \right)^2 \right) \right) 
+   + T_{rec}^{2}\left(\frac{\Delta g^{'}}{g}\right)^{2},
+\end{equation}
+for measurements with a close to blank backgroud, uncertainties in the gain estimate has low impact, and
+the noise expression reduces to
+\begin{equation}
+\Delta T_{a,i} =  T_{rec,i}\sqrt{\frac{3}{2}\frac{1}{B\tau} + \left(\frac{\Delta g^{'}}{g}\right)^{2} },
+\end{equation}
+
+%\begin{equation}
+%\frac{\partial c_{s,i}}{\partial g_{i}}\approx T_{rec}
+%\end{equation}
+
+%\begin{equation}
+%\frac{\partial c_{s,i}}{\partial T_{rec,i}} = g
+%\end{equation}
+
+%\begin{equation}
+% \Delta c_{s,i}^{2} = (T_{rec,i}\Delta g_{i})^{2}+(g_{i}\Delta T_{rec,i})^{2}
+%\end{equation}
+
 The gain variation term is more likely to be correlated between channels.
 For \smr\, this gain variation has been estimated to give rise to a constant 
 shift in the brightness temperature across the band (that is, it can 
@@ -611,6 +771,13 @@ Odin scan data format.
 
 \section{Quality flags}
 
+
+\begin{figure}[t]
+\includegraphics[width=14cm]{quality_control.png}
+\caption{Quality flag description.}
+\label{fig:quality}
+\end{figure}
+
 Quality related to a scan:\\
     1. check Tspill  - outside of valid range \\
     2. check Trec    - outside of valid range \\
@@ -619,13 +786,19 @@ Quality related to a scan:\\
     5. check Hotload - temperature data missing or out of range \\        
     6. check Scan    - corrupt scanning (tangent altitude is not  
                             decreasing or increasing as expected) \\ 
-    7. check nr of atmospheric spectra \\
-    8. check observation sequence \\
+    7. check nr of atmospheric spectra in scan\\
+    8. check observation sequence - Check that each atmospheric spectrum in the 
+       scan is surrounded by reference measurements from sky beam 1.
+       Accept n deviations for highest quality \\
+
 
 Quality related to individual spectrum:\\
     1. Tb        - outside of valid range (-x -- 300\,K) or strange pattern \\
-    2. Ref       - "time" to surrounding references \\
-    3. Attitude  - high pointing error (maybe not relevant as error describes 
+    2. Ref       - observation sequence - atmospheric spectrum is not collected 
+                   between two sky beam 1 references\\
+    3. Ref       - surrounding references have different integration times \\
+    4. Ref       - high zerolag difference between surrounding references  \\
+    5. Attitude  - high pointing error (maybe not relevant as error describes 
                    difference bteween target and achieved ) \\
 
 
