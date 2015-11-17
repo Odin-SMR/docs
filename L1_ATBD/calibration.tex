@@ -605,7 +605,7 @@ which implies:
 \end{equation}
  
 
-\subsection*{Precision: summary}
+\subsection*{Precision: summary of contributions}
 
 \begin{equation}
 \Delta T_{a,i}^{2} =  \frac{\Delta c_{a,i}^{2}}{g_{i}^2} + \frac{\Delta c_{s,i}^{2}}{g_{i}^2} +
@@ -637,6 +637,8 @@ the noise expression reduces to
 % \Delta c_{s,i}^{2} = (T_{rec,i}\Delta g_{i})^{2}+(g_{i}\Delta T_{rec,i})^{2}
 %\end{equation}
 
+\subsection*{Precision: notes on noise correlations}
+
 The gain variation term is more likely to be correlated between channels.
 For \smr\, this gain variation has been estimated to give rise to a constant 
 shift in the brightness temperature across the band (that is, it can 
@@ -644,6 +646,33 @@ be seen as a flat baseline ripple), where the shift
 has a standard deviation of about 2 K and is uncorrelated 
 between tangent altitudes, and front-ends.
 \lcomment{BR}{Add reference or show figure}
+
+Noise on calibrated \smr\ has correlations of the following type/reason:
+
+\begin{itemize}
+
+\item Radiometric noise from target signal is correlated between 
+neighbouring channels of a given spectrum (due to Hanning smoothing).
+
+\item non captured gain variation (in reference interpolation) give 
+rise to a constant shift in the brightness temperature across the 
+band of a spectrum.
+
+\item Noise of two neighbouring spectra is correlated due to
+the fact that they share (1) cold sky reference measurements. 
+The noise linear correlation coefficient from a given channel
+from two neighbouring spectra should be \(\sim\)\,0.17 due to this
+fact. This value was derived from simulations for an ideal
+case, where simulated measurements and references were 
+given noise of equal magnitude, and the calibration
+preocess replicated.
+
+\item All spectra in a scan share a common (noisy) \(T_{rec}\)
+spectrum. 
+
+\end{itemize}
+
+\subsection*{Precision: estimates from calibration process}
 
 \(T_{rec}\) and obtained random un-correlated noise level is estimated within the 
 calibration processing for each scan.
@@ -685,8 +714,45 @@ of \(\sim\)3000\,K.
 
 \section{Frequency calibration}
 
-text ...
+\subsection{Local oscillator frequency drift}
 
+First of all, the operating LO frequency is calculated
+from harmonic reference oscillator and PLL reference oscillator 
+frequencies from the housekeeping level0 data.
+
+For each spectrum a frequency \(f_{sky}\) of the centre channel in 
+the rest frame of the satellite is estimated.
+This estimate is calculated from the LO frequency and the 
+value of the IF frequency.
+A LO frequency drift with temperature (measured in Lab prior to launch?) 
+is calculated as (for the 495 and 549 frontends)
+
+\begin{equation}
+  d = 1.0+(29.23-0.138T_{pll})10^{-6}
+\end{equation}
+and (for the 555 and 572 frontends)
+\begin{equation}
+  d = 1.0+(24.69-0.109T_{pll})10^{-6}
+\end{equation}
+where \(T_{pll}\) is the temperature of image load b-side,
+and the correction is applied as
+\begin{equation}
+ \hat{f}_{sky}= d f_{sky}
+\end{equation}
+
+\lcomment{BR}{We should update these corrections}
+
+
+\subsection{Doppler correction}
+
+A doppler correction is applied.
+The relative velocity \(v_{geo}\) of the satellite in the direction
+of the tangent point is used to translate the sky frequency to an 
+earth fixed reference frame. i.e.
+\begin{equation}
+f_{rest} = \hat{f}_{sky}/(1.0 - v_{geo}/c),
+\end{equation}
+where \(c\) is the speed of light.
 
 \section{Pointing}
 
