@@ -357,7 +357,7 @@ level1b-product.
 
 
 \subsection{Radiometric performance and accuracy}
-
+\label{sec:radper}
 
 \begin{table}
 \caption{ Average Trec and Tspill for the various frequency modes }
@@ -443,9 +443,42 @@ The accuracy of calibrated \smr\ spectra, in terms of intensity, is affected by 
 
 \begin{itemize}
 
-\item calibration target temperature uncertainty: 0.1 K ?
+\item The accuracy of temperature information of the calibration target 
+ is (\(\Delta T_{l}\)) around 0.2\,K. The related calibration error (\(\Delta T_{a}\)) is
+ \begin{equation}
+  \Delta T_{a} \approx \frac{T_{a}}{T_{l}} \Delta T_{l},  
+ \end{equation}
+ which gives that for observations against a blank backgrund the error
+ is close to 0, while if \(T_{a}\)=200\,K \(\Delta T_{a}\)\(\approx\)\,0.14 K.  
 
-\item baffle temperature uncertainty: 0.3 K ?
+\item Main beam efficiency uncertainty. The main beam efficiency is estimated
+ for each scan and this estimate introduce a finite error on calibrated spectrum.
+ We have that 
+ \begin{equation}
+  \Delta T_{a} = \frac{\Delta n_{a}}{n_{a}}T_{a}
+ \end{equation}  
+ and
+ \begin{equation}
+  \Delta n_{a} \approx \frac{T_{sp}}{T_{amb}}\Delta{T_{amb}}.
+ \end{equation}
+  which gives that
+ \begin{equation}
+  \Delta T_{a} = \frac{T_{sp}}{T_{amb}}\left(\frac{\Delta T_{amb}}{T_{amb}-T_{sp}}\right)T_{a}
+ \end{equation}
+ There is no temperature sensor on \smr\ that measure the baffle temperature, and a constant
+ value of 300\,K is used in calibration process.
+ Anyhow, for  observations against a blank backgrund the error
+ is close to 0, while if \(T_{a}\)=200\,K, \(T_{amb}\)=300\,K, \(T_{sp}\)=8\,K, 
+ and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
+
+\item Gain fluctuations on a small time scale (between reference-target-reference
+observation sequence) not captured by the interpolation of reference signals
+can give rise to a close to flat baseline in a given calibrated spectrum.
+This effect is described more in the precision section below.
+For a given spectrum \(\Delta Ta\)\(\approx\)2\,K due to this effect,
+but while averaging many spectrum this effect is close to 0. 
+\lcomment{BR}{should the gain variation term (giving rise to a flat offset
+but a 0 mean) described in precision section be moved to here?}
 
 \item standing waves: 0.3 K ?
 
@@ -754,9 +787,26 @@ f_{rest} = \hat{f}_{sky}/(1.0 - v_{geo}/c),
 \end{equation}
 where \(c\) is the speed of light.
 
-\section{Pointing}
+\section{Pointing and attitude data processing}
 
-text ...
+The vertical scanning is achieved by a rotation of the satellite
+platform, by an advanced attitude control system (ACS). 
+The ACS uses star trackers as the main sensors with backup from gyros, 
+magnetometers, and Sun sensors. Reaction wheels and magnetic coils serve as 
+actuators. The ACS pointing accuracy, in limb-scanning mode, is 5\(^{'}\) in
+real time knowledge, and better than 1\(^{'}\) in reconstructed knowledge
+(which translates to a \(\sim\)200\,m accuracy in tangent point).
+
+The reconstructed attitude data files contains the estimated
+achieved attitude given as a quaternion and the satellite position   
+and velocity from GPS receiver onboard of Odin.
+
+In the calibration sofware at CTH this data is used to calculate
+the geographical position of the tangent point, the satellite relative velocity 
+\(v_{geo}\) of the satellite in the direction of the tangent point.
+The hit of the target and sky beams with various objects (e.g. Earth, Moon) 
+are also tested (using a low precision ephemeris)
+and reported as quality indicators.
 
 
 \chapter{Level1b data format and quality}
@@ -770,9 +820,9 @@ in a calibration database at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (CTH) in Gothenburg.
 There are several ways to access the data, but the recommendation is to use a web 
 interface to access the data, and description of how to access the data
-is given on the Odin web-page. Below is given a description of the
-Odin scan data format.
-
+is given on the Odin web-page. Table~\ref{table:dataformat} gives a description 
+of the \smr\ Level1B v8 scan data format.
+ \lcomment{BR}{fill in descriptions and remove unnecessary data}
 
 \begin{longtable}{| p{.20\textwidth} | p{.80\textwidth} |} 
 \hline
@@ -828,6 +878,7 @@ Odin scan data format.
      'TSpill'         & \\ \hline
      'ScanID'         & \\ \hline
      'Frequency'      & \\ \hline
+     'ZeroLagVar'     & \\ \hline
 \hline
 \caption{ Odin scan data format}
 \label{table:dataformat}
@@ -837,35 +888,65 @@ Odin scan data format.
 
 \section{Quality flags}
 
+The Quality variable of an \smr\ Level1B structure is a scalar value.
+The value is determined from a quality control
+of both scan variables and individual spectrum.
+Each test performed (see Table~\ref{table:quality}) is related to a unique scalar value,
+and the Quality variable is the sum of the values of tests 
+that was not passed.  
+Thus, spectrum with a Quality value of 0 is best.
+
+The radiometric noise of the spectra of a scan is estimated as decribed  
+in Sect.~\ref{sec:radper} (and reported as a effective integration time (EffTime)).
+This estimate does not contain the broadband noise (due to gain variation). 
+The scan data contains the variable ZeroLagVar, that can be seen as an estimate
+of the broadband gain variation (ZeroLagVar\(\approx \frac{\Delta g}{g}\) [\%] ) 
+of the two surrounding references of a target spectrum. 
+\lcomment{BR}{add description of how this variable can be used to estimate boradband 
+noise level uncertainty}
+ 
+
+\begin{table}
+\caption{ Desciption of the \smr\ Quality varibale. }
+\label{table:quality}
+\begin{tabular}{|l|l|l|}
+  \hline
+  \textbf{Test} & \textbf{Description} & \textbf{Value} \\
+  \hline
+  check of Tspill   & outside of valid range  & 0x0001 \\
+  \hline
+  check of Trec     & outside of valid range & 0x0002  \\
+  \hline
+  check of Noise    & outside of valid range & 0x0004  \\
+  \hline
+  check of Scanning & tangent altitude is not & 0x0008 \\
+                    &  decreasing or increasing as expected &  \\
+  \hline
+  check of nr of Spectra &  the scan consists of less than five spectra & 0x0010\\
+  \hline
+  check of Tb       & outside of valid range (-15 -- 300\,K) & 0x0020\\ 
+  \hline
+  check of Tint     & integration time is outside valid range & 0x0040\\
+  \hline
+  check of References 1 & atmospheric spectrum is not collected & 0x0080\\
+                        & between two sky beam 1 references     & \\
+  \hline
+  check of References 2 & surrounding references have different & 0x0100\\
+                        & integration times                     & \\ 
+  \hline check of Moon hit   & the moon is in the main beam          & 0x0200 \\
+
+\hline
+\end{tabular}
+\end{table}
+
 
 \begin{figure}[t]
 \includegraphics[width=14cm]{quality_control.png}
-\caption{Quality flag description.}
+\caption{Quality flag example figure\lcomment{BR}{update or remove }}
 \label{fig:quality}
 \end{figure}
 
-Quality related to a scan:\\
-    1. check Tspill  - outside of valid range \\
-    2. check Trec    - outside of valid range \\
-    3. check Int     - corrupt integration time \\
-    4. check Noise   - outside of valid range \\
-    5. check Hotload - temperature data missing or out of range \\        
-    6. check Scan    - corrupt scanning (tangent altitude is not  
-                            decreasing or increasing as expected) \\ 
-    7. check nr of atmospheric spectra in scan\\
-    8. check observation sequence - Check that each atmospheric spectrum in the 
-       scan is surrounded by reference measurements from sky beam 1.
-       Accept n deviations for highest quality \\
-
-
-Quality related to individual spectrum:\\
-    1. Tb        - outside of valid range (-x -- 300\,K) or strange pattern \\
-    2. Ref       - observation sequence - atmospheric spectrum is not collected 
-                   between two sky beam 1 references\\
-    3. Ref       - surrounding references have different integration times \\
-    4. Ref       - high zerolag difference between surrounding references  \\
-    5. Attitude  - high pointing error (maybe not relevant as error describes 
-                   difference bteween target and achieved ) \\
+    
 
 
 
