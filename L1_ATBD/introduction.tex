@@ -11,22 +11,22 @@
 
 The sub-millimetre radiometer (\SMR\ ) onboard the Odin satellite
 performs limb sounding measurements of the atmosphere.
-The basic output of \smr\ is spectra in different frequnency
+The basic output of \smr\ is spectra in different frequency
 bands, mainly within the 486\,--\,504\,GHz and 541\,--\,581\,GHz region.
-After calibration, a group of such such spectra, can be used
+After calibration, a group of such spectra can be used
 to retrieve profiles of e.g. \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}, 
 \chem{H_{2}O}, \chem{CO}, and isotopes of \chem{H_{2}O}, and \chem{O_{3}},
 which are species that are of interest for studiying stratospheric and 
 mesospheric chemistry and dynamics. 
 
-The processing of data, from basic instrumental data to the
-desired species concentration product, involves a number of steps.
-It is standard practise to devide data products into different levels, as:
+The processing of data from basic instrumental data to the
+desired species concentration product involves a number of steps.
+It is standard practise to divide data products into different levels, such  as:
 
 \begin{itemize}
 
-\item Level0 data: time tagged and sorted science and house keeping data
-and orbit and pointing data in separate files
+\item Level0 data: time tagged and sorted science and house-keeping data
+as well as orbit and pointing data in separate files
 
 \item Level1B data: groups of spectra, calibrated both in intensity and frequency. 
 Pointing and instruments settings included.
@@ -38,7 +38,7 @@ of ozone concentration) from observed spectra
 
 
 The aim of this document is to review and describe basic
-data (Level0) from \smr\, and the algorithms used to 
+data (Level0) from \smr\ and the algorithms used to 
 to processes Level0 data into gelocated and calibrated 
 groups of spectra (scans), which is refered to as Level1B data. 
 The aim is also to describe the Level1B data format and 
@@ -50,23 +50,23 @@ in Chapter~1. The calibration procedure is presented in
 Chapter~2, and the Level1b data format, including description
 of quality flags, is described in Chapter~3.
 Finally,
-Chapter 4 gives a summary, with focus on the most important points to correctly
+Chapter 4 gives a summary with focus on the most important points to correctly
 understand the \smr\ Level1B data. 
    
 
 \section{Odin}
 
-The Odin satellite was launched on 2001-02-20, into a sun-synchronous
+The Odin satellite was launched on 2001-02-20 into a sun-synchronous
 18:00 hour ascending node orbit, carrying two co-aligned limb sounding
 instruments: OSIRIS (optical spectrograph and infrared imaging system) and
 \SMR\ (sub-millimetre radiometer). Originally, Odin was used for both
 atmospheric and astronomical observations, while since 2007 only its aeronomy
-mission is active. Odin is a Swedish-led project, in cooperation with Canada,
+mission is active. Odin is a Swedish-led project in cooperation with Canada,
 France and Finland. Both of Odin's instruments are still functional, and the
-present operation of the satellite is partly performed as a ESA third party
+present operation of the satellite is partially performed as a ESA third party
 mission.
-Odin passes the ground station at Esrange about 14 times each
-and raw science and house-keeping data are downloaded at
+Odin passes the ground station at Esrange about 14 times each day
+and raw science and house-keeping data is downloaded at
 Esrange and transferred to a data archive housed by the Parallel
 Data Centre (PDC) at the Royal Institute of Technology (KTH)
 in Stockholm.
@@ -152,19 +152,19 @@ cooled to approximately 130 K by a 80 K Stirling cycle cooler. The receiver
 noise temperatures are around 3000 K for
 the sub-millimetre channels and 600 K for the millimetre channel.
 
-The receivers form two groups, A1+A2 and B1+B2+C, where each group shares
+The receivers form two groups, A1+A2 and B1+B2+C, in which each group shares
 a common path through the beam optics. 
 The main observing mode is by switching against the cold sky, between the
-main beam and an unfocused sky beam. In switching mode one group will
-receive its signal via the main beam when the other sees the reference signal,
+main beam and an unfocused sky beam. In switching mode, one group will
+receive its signal via the main beam while the other sees the reference signal,
 and vice versa.
-The two auto-correlators (ACs) of \smr\ can be coupled to any of the front-ends,
+The two auto-correlators (ACs) of \smr\ can be coupled to any of the front-ends
 and use each up to 8 x 112 MHz bands.
 Eight correlator ships provides 96 lags each.
 The center IF (intermediate frequency) of each sub-band is tuneable
 within a 500\,MHz wide band in 1\,MHz step. The channel spacing
-ranging from 125\,KHz in 1 band mode to 1\,MHz in 8 band mode.
-\smr\ can be tuned to over a wide frequency range, but the maximum total instantaneous
+ranges from 125\,KHz in 1 band mode to 1\,MHz in 8 band mode.
+\smr\ can be tuned to cover a wide frequency range, but the maximum total instantaneous
 bandwidth is only 1.6\,GHz. 
 
 In the configuration applied for
@@ -181,7 +181,7 @@ Definition of frequency modes are found in Tables~\ref{table:config2},
 %interferometers. The nominal sideband suppression is better than 19\,dB across
 %the image band.
 
-\smr\ has also a receiver chain around the 118\,GHz oxygen transition, that was
+\smr\ has also a receiver chain around the 118\,GHz oxygen transition which was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
 front-end was planned to be used for retrieving temperature profiles, but a
 technical problem (drifting LO frequency) and the fact that the analyses
@@ -189,16 +189,16 @@ requires treatment of Zeeman splitting have given these data low priority.
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. 
-The vertical scanning is achieved by a rotation of the satellite
+Vertical scanning is achieved by a rotation of the satellite
 platform, by an advanced attitude control system (ACS). 
 The ACS uses star trackers as the main sensors with backup from gyros, 
 magnetometers, and Sun sensors. Reaction wheels and magnetic coils serve as 
-actuators. The ACS pointing accuracy, in limb-scanning mode, is 5\(^{'}\) in
+actuators. The ACS pointing accuracy in limb-scanning mode is 5\(^{'}\) in
 real time knowledge, and better than 1\(^{'}\) in reconstructed knowledge
 (which translates to a \(\sim\)800\,m vertical accuracy in tangent point).
-Measurements are in general performed along the orbit plane, providing a
+Measurements are generally performed along the orbit plane, providing a
 latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
-2004 Odin is also pointing off-track during certain periods, e.g.\ during the
+2004 Odin also points off-track during certain periods, e.g.\ during the
 austral summer season, allowing the latitudinal coverage to be extended towards
 the poles. 
 
@@ -208,14 +208,14 @@ the poles.
 \subsection{Measurement sequence}
 
 
-The vertical scanning of \smr\'s line of sight is achieved by a
-rotation of the platform, with a rate matching a vertical speed of
+The vertical scanning of \smr\'s line of sight is achieved by
+rotation of the platform with a rate matching a vertical speed of
 the tangent altitude of 750\,m/s. Measurements are performed during
 both upward and downward scanning. The lower end of the scan is typically
-at about 7\,km, the upper end varies between 70 and 110\,km, depending on
-observation mode.
+at about 7\,km, and the upper end varies between 70 and 110\,km depending on
+the observation mode.
 
-For calibration purposes \smr\ performs areonomy observation
+For calibration purposes, \smr\ performs aeronomy observation
 in a switching mode, i.e. switching between the main beam and
 an unfocused sky beam of 4.4$^{\circ}$ FWHM at all wavelengths. This is done
 by means of a chopper wheel. An internal selection mirror
@@ -223,7 +223,7 @@ can choose between two possible directions of the sky beam,
 separated by 28$^{\circ}$. The separation from the main beam
 amounts to 42$^{\circ}$.
 The selection mirror may also direct the beam towards an internal
-load at ambient temperature (approximately 285 K), made out of carbon 
+load at ambient temperature (approximately 285 K), made of carbon 
 loaded polyethylene  tiles, optimised for 500 GHz reflecting less than -30 dB. 
 The temperature of the material is known better than 0.2 K using 
 redundant integrated temperature sensors.

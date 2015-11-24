@@ -25,15 +25,13 @@ measurements are performed at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (CTH) in Gothenburg.
 A file system at CTH is synchronized with the Level0-file archive 
 at KTH. The KTH archive also contains files with reconstructed attitude
-information.  Science and house keeping data within those files
+information.  Science and house-keeping data within those files
 are imported into Level0 tables of an Odin calibration database
 ( a postgresql database). 
 Dedicated algorithms to process and combine new Level0 to Level1b
-data are executed on a regular basis, and are described in this
+data are executed on a regular basis and are described in this
 chapter. Level1B data are stored in tables of the Odin calibration database.  
-How to access the Level1B data and the its format is described
-in Chapter 3.
-
+Chapter 3 describes the its format and how to access the Level1B data.
 \lcomment{BR}{should this be included?}
 
 
@@ -87,7 +85,7 @@ input signal \(s(t)\).
 
 \begin{itemize}
 
-\item Accurate quantization correction require accurate knowledge of the threshold
+\item Accurate quantization correction requires accurate knowledge of the threshold
  levels used at quantization. The quantization correction used is only valid 
 if the absolute values of the the positive and negative threshold levels are equal. 
 The \smr\ correlators provide monitor channels to check the
@@ -95,11 +93,11 @@ assumption of equal absolute values of the positive and negative threshold level
 Only when this condition is fulfilled the data will be further processed.
 
 \item The estimation of the true correlation \(\rho\) from the measured correlation
-coefficient \(r\) at lag \(\tau\) is then achieved by performing a quantisation correction using
+coefficient \(r\) at lag \(\tau\) is then achieved by performing a quantization correction using
 Kulkarni and Heiles approximation described in \citet{ohlberg:theod:03}.
 
 \item a Hanning smoothing is applied, which gives that the obtained resolution 
-of the spectra is 2\,MHz, although the channel spacing is 1\,MHz
+of the spectra is 2\,MHz although the channel spacing is 1\,MHz
 
 \item The Fourier transform of the auto correlation function gives the
 power spectral density, or a spectrum in the frequency domain..
@@ -111,7 +109,7 @@ power spectral density, or a spectrum in the frequency domain..
 \subsection{Radiances}
 
 
-The radiance emitted by a blackbody, per frequency unit, is
+The radiance emitted by a blackbody per frequency unit is
 \begin{equation}
  B_{\nu} = \frac{2h\nu^{3}}{c^{2}}\frac{1}{\exp(\frac{h\nu}{kT})-1},
 \end{equation}   
@@ -171,7 +169,7 @@ T_{a} = \frac{P}{k\Delta \nu}
 A radiometer detects radiant power and the calibration is most 
 easily discussed in terms of input power. As will be shown below, 
 the measured power can be converted to an
-antenna or brightness temperature, or a radiance, but it should be 
+antenna or brightness temperature or a radiance, but it should be 
 remembered that it is just power that actually can be measured.
 
 
@@ -181,14 +179,14 @@ remembered that it is just power that actually can be measured.
 \begin{figure}[t]
 \includegraphics[width=14cm]{cal_signals.png}
 \caption{ Intensity variation of one of the sub-band of freqmode 1
-during a number of scans, for the three types of signals involved
+during a number of scans for the three types of signals involved
 in the intensity calibration scheme.}
 \label{fig:intensityvar}
 \end{figure}
 
 
 
-For calibration purposes Odin/SMR performs areonomy observation in a switching
+For calibration purposes, Odin/SMR performs areonomy observation in a switching
 mode, i.e. switching between the main beam and an unfocused sky beam. 
 In nominal operation every other recorded signal comes from an unfocused cold sky
 beam, except around the lower and upper turning points of the scan where the reference
@@ -231,7 +229,7 @@ thus the approximation in eq.~\ref{eq:skybeam} results in negligible error.
 
 The main beam signal is always at a higher level than the cold sky signal
 (Fig.~\ref{fig:intensityvar}), which is due 
-to thermal emission from a baffle, that only affect the main beam signal.
+to thermal emission from a baffle which only affects the main beam signal.
 Thus, the main beam intercepts with the baffle
 and the spill over contribution (\(T_{sp}\)):
 \begin{equation}
@@ -242,9 +240,9 @@ T_{sp}=(1-\eta_{a})T_{amb}.
 \subsection{Calibration: basic equations}
 \label{sec:caleq}
 The aim of the calibration process is to use  
-information from the signals described in Sect.~\ref{sec:smrobs},
+information from the signals described in Sect.~\ref{sec:smrobs}
 in order to derive an estimate of the antenna temperature.
-We here derive expressions for how the unknown \(T_{rec,i}\),
+Here we derive expressions for how the unknown \(T_{rec,i}\),
 \(g_{i}\), \(T_{sp}\), \(n_{a}\), and \(T_{a,i}\) can be derived.
 In Sect.~\ref{sec:calscheme} the actual \smr\ calibration is described. 
 
@@ -296,14 +294,14 @@ In the derivation of Eq.~\ref{eq:ta}
 the reference signals are assumed to be ''clean''.
 In practice, it seems to be a small imbalance between 
 measurements and references for \smr. 
-Small perturbations on the sky and load signals will
-result in undesired feature in calibrated
-spectra (which we denote as "ripple"), 
+Small perturbations of the sky and load signals will
+result in undesired features in calibrated
+spectra (which we denote as "ripple") 
 if not taking into account (see Fig.~\ref{fig:ripple1}).
 %This section describes how 
 %ripple on those signals
 %can be taking into account in the calibration process.
-The sensitivity on calibrated \(T_{a,i}\) 
+The sensitivity of calibrated \(T_{a,i}\) 
 to small perturbations on \(T_{s,i}\) and \(T_{l,i}\) are:
 \begin{equation}
 \frac{dT_{a,i}}{dT_{s,i}}=\frac{1}{\eta_{a}}\left(1-\frac{c_{a,i}-c_{s,i}}{c_{l,i}-c_{s,i}}\right)\approx \frac{1}{\eta_{a}}\left(1-\frac{T_{a,i}}{T_{l,i}}\right)
@@ -313,13 +311,13 @@ and
 \frac{dT_{a,i}}{dT_{l,i}}=\frac{1}{\eta_{a}}\left(\frac{c_{a,i}-c_{s,i}}{c_{l,i}-c_{s,i}}\right)\approx \frac{1}{\eta_{a}}\left(\frac{T_{a,i}}{T_{l,i}}\right).
 \end{equation}
 Thus, the sensitivity is linearly proportional to \(T_{a,i}\).
-When \(T_{a,i}\) is 0 K or close to 0 K (as it is for measurements at high
-tangent altitudes) the sensitivity to perturbations on
+When \(T_{a,i}\) is close to or 0 K (as it is for measurements at high
+tangent altitudes) the sensitivity to perturbations of
 the sky beam signal is at its maximum.
-Perturbations on the load signal, on the other hand, has then practically
+On the other hand, perturbations on the load signal then have practically
 no impact on \(T_{a,i}\).
 When \(T_{a,i}\) is equal to the load temperature (but it never is)
-the situation is the reversed.
+the situation is reversed.
 
 A model for the removal of the effects of ripple on the reference signals
 on estimated \(T_{a,i}\) (from Eq.~\ref{eq:ta}) to achieve a new
@@ -330,15 +328,15 @@ T^{'}_{a,i}=T_{a,i}-\frac{1}{\eta_{a}}\left(1-\frac{T_{a,i}}{T_{l,i}}\right) s_{
  \frac{1}{\eta_{a}}\left(\frac{T_{a,i}}{T_{l,i}}\right) s_{1,i},
 \end{equation}
 where \(s_{0,i}\) and \(s_{1,i}\) can be seen as spectra that contain
-the ripple induced features for \(T_{a,i}\)=0 K and \(T_{a,i}\)=load temperature,
+the ripple induced features for \(T_{a,i}\)=0 K and \(T_{a,i}\)=load temperature
 respectively.
 
 \subsection{Intensity calibration scheme} 
 \label{sec:calscheme}
 
 The intensity calibration scheme can be divided into two parts. The first part can be
-seen as a scan based calibration scheme, where the Equations of Sect.\ref{sec:caleq} are applied.
-The second part takes into account of ripples (\ref{sec:ripples}), and uses the results
+seen as a scan based calibration scheme, in which the Equations of Sect.\ref{sec:caleq} are applied.
+The second part takes ripples (\ref{sec:ripples}) into account and uses the results
 (for a long period of time of measurements) from the first part of the calibration.
 
 
@@ -406,9 +404,9 @@ in time to \(c_{a}\).
 \begin{figure}[t]
 \includegraphics[width=14cm]{calibration_step2_fig.png}
 \caption{Schematic of part 2 of the intensity calibration.
-Upper panel shows uncorrected average spectra for frequency mode 2 observations,
+The upper panel shows uncorrected average spectra for frequency mode 2 observations
 with tangent points between 80 and 120\,km. The color-coding corresponds
-to ambient temperature of satellite (hotload temperature).
+to ambient temperature of the satellite (hotload temperature).
 The middle panel shows fits of the ripple of the spectra in the 
 upper panel. The lower panel shows the residual.}
 \label{fig:ripple1}
@@ -418,10 +416,10 @@ upper panel. The lower panel shows the residual.}
 
 Part 2 of the calibration deals with the removal
 of the effects of ripple on the sky signal on calibrated
-spectra from part 1, that neglect this effects.
+spectra from part 1, which neglects this effect.
 The removal of the artifacts introduced by the sky signal
-ripple is a fairly straight forward task, as the artifacts
-can be estimated from high tangent point measurements,
+ripple is a fairly straight-forward task, as the artifacts
+can be estimated from high tangent point measurements
 where we know that the intensity of a calibrated spectrum should be 0 K.
 
 Ripple on the load signal is more complicated in 
@@ -438,7 +436,7 @@ ignore the most left part of the spectra, which comes from two
 problematic bands of AC1 that should not be used). 
 These spectra are expected to be 
 centered around 0 K (except for the ozone line between 544.8-544.9 GHz), 
-but due to ripple on the sky signal we can see a wave pattern in the spectra.
+but due to ripple in the sky signal we can see a wave pattern in the spectra.
 Figure~\ref{fig:ripple1} also indicates that the phase of the wave pattern
 depends on the measurement conditions, and the temperature of
 the load (ambient temperature) is used in Fig~\ref{fig:ripple1}
@@ -454,17 +452,16 @@ temperatures ([277-278 K, 278-279 K, ..., 289-290 K])
 for each observation mode, and import the spectra
 into the ac\underline{ }level1b\underline{ }average table
 (Table~\ref{table:ac1c1})
-\item Estimate a fit to the median spectrum for each mode, and this is done
-by
+\item Estimate a fit to the median spectrum for each mode by
 \begin{enumerate}
-\item apply a filter that removes channels, that are contaminated by 
-atmospheric information or lines, from the median spectrum 
+\item apply a filter that removes channels which are contaminated by 
+atmospheric information or lines from the median spectrum 
 \item use the target fitting function  
 \begin{equation}
 y=a+ b\sin(cf+d)
 \end{equation}
 where \(f\) is the frequency and \(a,b,c,d\) parameters to estimate,
-to fit the spectrum for each of the four module of AC1 or AC2.
+in order to fit the spectrum for each of the four module of AC1 or AC2.
 The fitting is performed in such a way that \(c\) is forced 
 to be equal for all of the four module. 
 Import the fit into the ac\underline{ }cal\underline{ }level1c
@@ -473,7 +470,7 @@ table (Table~\ref{table:ac1b2})
 \item Apply the correction.\\
 Equation~\ref{correction} is applied to correct a given calibrated 
 spectrum (from part 1), where the fit of the median spectrum
-with matching hot load temperature range, is used as the \(s_{0}\)
+with matching hot load temperature range is used as the \(s_{0}\)
 spectrum. 
 This is done within the program/functions, described in
 Sect.\ref{sec:officialexport}, used to export the official
@@ -601,7 +598,7 @@ The noise contribution can be divided into three terms
 \ref{sec:calscheme}
 
 These contributions (derived in the following sub-sections) gives that the noise on an individual channel \(\Delta T_{i}\) of a 
-calibrated calibrated \smr\ spectra, using the calibration scheme described in Sect.~\ref{sec:calscheme}, 
+calibrated \smr\ spectrum using the calibration scheme described in Sect.~\ref{sec:calscheme}, 
 can be described by
 \begin{equation}
 \Delta T_{i}^{2} =  \frac{1}{B\tau} \left( (T_{rec,i}+T_{a,i})^2 + \frac{T_{rec,i}^2}{2} +
@@ -609,8 +606,8 @@ can be described by
    \left( \frac{T_{rec,i} }{T_{l,i}} \right)^2 \right) \right),
 \label{eq:raderror}
 \end{equation}
-for measurements with a close to blank background (i.e. \(T_{a,i}\approx\)0), uncertainties in the gain estimate 
-has low impact, and the noise expression reduces to
+for measurements with a nearly blank background (i.e. \(T_{a,i}\approx\)0), uncertainties in the gain estimate 
+have low impact and the noise expression reduces to
 \begin{equation}
 \Delta T_{i} =  T_{rec,i}\sqrt{\frac{3}{2}\frac{1}{B\tau}}.
 \label{eq:higaltnoise}
@@ -660,7 +657,7 @@ which implies:
 \end{equation}
 and the terms on the tight hand side is (1) the radiometer noise contribution,
 (2) interpolated reference noise contribution, and (3) interpolated gain noise contribution.  
-In the following sections these terms are described in more details.
+In the following sections these terms are described in more detail.
 
 \subsection*{Precision:radiometer noise contribution}
 The radiometer noise contribution induced noise variance in calibrated \(T_{a,i}\) is simply
@@ -679,10 +676,10 @@ reference signal can be written
 \begin{equation}
 \hat{c}_{s,i}(t_{j+1}) = \frac{1}{2}c_{s,i}(t_{j}) + \frac{1}{2}c_{s,i}(t_{j+2}), 
 \end{equation}
-where \(t_{j}\) represent the time.  
-If the gain fluctuations are small, or follows a linear variation during the
+where \(t_{j}\) represent time.  
+If the gain fluctuations are small or follow a linear variation during the
 observation sequence, the noise in \(\hat{c}_{s,i}(t_{j+1})\) is only due to radiometric
-noise, and induced noise variance in calibrated \(T_{a,i}\) is
+noise and induced noise variance in calibrated \(T_{a,i}\) is
 \begin{equation}
 \frac{\Delta c_{s,i}^{2}}{g_{i}^2} = \frac{T_{rec}^{2}}{2B\tau}.
 \end{equation}
@@ -798,7 +795,7 @@ Gain fluctuations on a small time scale (between reference-target-reference
 observation sequence) not captured by the interpolation of reference signals
 give rise to errors.
 In practice there is also a finite error due to non-linear gain variation 
-i.e. there is a broadband offset between the estimated and true reference signal
+i.e. there is a broadband-offset between the estimated and true reference signal
 \begin{equation}
 \hat{c_{s}}(t_{j+1}) - c_{s}(t_{j+1}) = \Delta c_{s} = \Delta g^{'} T_{rec},
 \end{equation}
@@ -812,7 +809,7 @@ This error can be described as
 \end{equation}
 
 For a given \smr\ spectrum \(\Delta T_{i}\)\(\approx\)2\,K due to this effect,
-but while averaging many spectrum this effect is close to 0.
+but while averaging many spectra this effect is close to 0.
 
 
 %Two sequantial \smr\ spectrum have one reference spectrum in common, thus the noise
@@ -838,7 +835,7 @@ the calibration target temperature and main beam efficiency.
  is close to 0, while if \(T_{a}\)=200\,K \(\Delta T_{a}\)\(\approx\)\,0.14 K.
 
 \item Main beam efficiency uncertainty. The main beam efficiency is estimated
- for each scan and this estimate introduce a finite error on calibrated spectrum.
+ for each scan and this estimate introduce a finite error on the calibrated spectrum.
  We have that
  \begin{equation}
   \Delta T_{a} = \frac{\Delta n_{a}}{n_{a}}T_{a}
@@ -851,9 +848,9 @@ the calibration target temperature and main beam efficiency.
  \begin{equation}
   \Delta T_{a} = \frac{T_{sp}}{T_{amb}}\left(\frac{\Delta T_{amb}}{T_{amb}-T_{sp}}\right)T_{a}
  \end{equation}
- There is no temperature sensor on \smr\ that measure the baffle temperature, and a constant
+ There is no temperature sensor on \smr\ that measure the baffle temperature. For this reason, a constant
  value of 300\,K is used in calibration process.
- Anyhow, for  observations against a blank backgrund the error
+ For  observations against a blank backgrund the error
  is close to 0, while if \(T_{a}\)=200\,K, \(T_{amb}\)=300\,K, \(T_{sp}\)=8\,K,
  and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
 
@@ -867,15 +864,15 @@ the calibration target temperature and main beam efficiency.
 \subsection{Trend uncertainties}
 \label{sec:trends}
 It can not be ruled out that calibrated \smr\ spectra
-contain artificial trends, that are related to a
-possible error in estimation of main beam efficiency.
+contain artificial trends which are related to a
+possible error in the estimation of main beam efficiency.
 
 The main beam efficiency is determined based on an estimated
 \(T_{sp}\) value (see Eq.~\ref{eq:eta}).
 The estimation of \(T_{sp}\) (see Eq.~\ref{eq:tspill2}) by itself
 is likely to be sound and in principle unquestionable.
-However, it is a possibility that our interpretation 
-of this \(T_{sp}\) is not correct, that will lead to an error
+However, it is possible that our interpretation 
+of this \(T_{sp}\) is not correct, which will lead to an error
 in the main beam efficiency.
 
 It has been noted that there is a slight mismatch between
@@ -893,7 +890,7 @@ that
 \begin{equation}
 \hat{\eta}_{a}=1-\frac{(1-\eta_{a})T_{amb}-\Delta T_{off}(t)}{T_{amb}} = \eta_{a} + \frac{\Delta T_{off}(t)}{T_{amb}}. 
 \end{equation}
-Calibrated spectrum is proportional to the inverse of the main beam efficiency,
+A calibrated spectrum is proportional to the inverse of the main beam efficiency,
 thus the error \(\Delta T_{err,off}\)  is proportional to
 
 \begin{equation}
@@ -901,7 +898,7 @@ thus the error \(\Delta T_{err,off}\)  is proportional to
  -\frac{\Delta T_{off}(t)}{T_{amb}\eta_{a}^{2}}
 \end{equation}
 
-Since main beam efficiency error is proportional to \(T_{a}\) it has low impact
+Since the main beam efficiency error is proportional to \(T_{a}\), it has low impact
 on weak signals. However, if \(\Delta T_{off}(t)\) has changed by 1,K
 during the mission, one would see an artificial change in strong 
 signals (around 200,K) of about 1,K. 
@@ -928,7 +925,7 @@ Noise on calibrated \smr\ has correlations of the following type/reason:
 
 \begin{itemize}
 
-\item Radiometric noise from target signal is correlated between 
+\item Radiometric noise from the target signal is correlated between 
 neighboring channels of a given spectrum (due to Hanning smoothing).
 
 \item The gain variation term (Eq.~\ref{eq:gainvar}) has been found to be correlated 
@@ -937,7 +934,7 @@ This gain variation has been estimated to give rise to a constant
 shift in the brightness temperature across the band (that is, it can 
 be seen as a flat baseline ripple), where the shift
 has a standard deviation of about 2 K and is uncorrelated
-between tangent altitudes, and front-ends.
+between tangent altitudes and front-ends.
 \lcomment{BR}{Add reference or show figure}
 
 \item Noise of two neighboring spectra is correlated due to
@@ -945,7 +942,7 @@ the fact that they share (1) cold sky reference measurements.
 The noise linear correlation coefficient from a given channel
 from two neighboring spectra should be \(\sim\)\,0.17 due to this
 fact. This value was derived from simulations for an ideal
-case, where simulated measurements and references were 
+case, in which simulated measurements and references were 
 given noise of equal magnitude, and the calibration
 process replicated.
 
@@ -957,22 +954,22 @@ spectrum.
 \subsection{Precision: estimates from calibration process}
 \label{sec:caluncer}
 
-\(T_{rec}\) and obtained random un-correlated noise level is estimated within the 
+\(T_{rec}\) and obtained random uncorrelated noise level is estimated within the 
 calibration processing for each scan.
 
 
-This random noise level is estimated, as an effective integration time
-(\(\tau_{eff}\)), from calibrated spectra of the upper part of a scan 
+This random noise level is estimated as an effective integration time
+(\(\tau_{eff}\)) from calibrated spectra of the upper part of a scan 
 (with a blank background). Each spectrum of a scan is given an effective
 integration time, but it is determined from all spectra within a time
 window of \(\pm\)45\,minutes. 
-Within, the calibration algorithm, the noise of each sub-band of
+Within the calibration algorithm, the noise of each sub-band of
 considered spectrum is calculated as the bias corrected variance, i.e.
 \begin{equation}
 \Delta T^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(T_{b,i}-\left<T_{b}\right>)^{2}
 \end{equation}
 
-An efficiency factor \(\eta\), for each sub-band, is then calculated (from radiometric noise equation) as
+An efficiency factor \(\eta\) for each sub-band is then calculated (from radiometric noise equation) as
 \begin{equation}
 \eta = \frac{T_{rec}^2}{B\Delta T^{2}\tau}.
 \end{equation}
@@ -982,17 +979,17 @@ with the highest average efficiency factor. The alternative option
 to use the result from the sub-band with lowest efficiency factor
 is not wise. The reason is that even for spectra of the upper part
 of the scan, some sub-bands may contain the signature of an emission 
-line, that here would be treated as noise.
+line which here would be treated as noise.
 
 The effective integration time associated with a given spectrum
-in the Level1B data, should then be treated as 
-variable that can be plug into the radiometer noise equation,
+in the Level1B data should then be treated as a 
+variable that can be plugged into the radiometer noise equation,
 i.e
 \begin{equation}
 \Delta T = T_{rec}\frac{1}{B\tau_{eff}},
 \end{equation}
 to obtain a measure of the noise level of the spectrum
-(and \(B\) should be set to 100\,MHz, even though this is not
+(and \(B\) should be set to 100\,MHz although this is not
 the resolution of a channel.
 This obtained noise level should be comparable to noise 
 of Eq.~\ref{eq:higaltnoise}.
@@ -1002,15 +999,15 @@ of Eq.~\ref{eq:higaltnoise}.
 
 \subsection{Local oscillator frequency drift}
 
-First of all, the operating LO frequency is calculated
+Firstly, the operating LO frequency is calculated
 from harmonic reference oscillator and PLL reference oscillator 
 frequencies from the housekeeping level0 data.
 
-For each spectrum a frequency \(f_{sky}\) of the center channel in 
+For each spectrum, a frequency \(f_{sky}\) of the center channel in 
 the rest frame of the satellite is estimated.
 This estimate is calculated from the LO frequency and the 
 value of the IF frequency.
-A LO frequency drift with temperature (measured in Lab prior to launch?) 
+An LO frequency drift with temperature (measured in Lab prior to launch?) 
 is calculated as (for the 495 and 549 frontends)
 
 \begin{equation}
@@ -1034,7 +1031,7 @@ and the correction is applied as
 A Doppler correction is applied.
 The relative velocity \(v_{geo}\) of the satellite in the direction
 of the tangent point is used to translate the sky frequency to an 
-earth fixed reference frame. i.e.
+earth-fixed reference frame. i.e.
 \begin{equation}
 f_{rest} = \hat{f}_{sky}/(1.0 - v_{geo}/c),
 \end{equation}
@@ -1042,11 +1039,11 @@ where \(c\) is the speed of light.
 
 \section{Pointing and attitude data processing}
 
-The vertical scanning is achieved by a rotation of the satellite
-platform, by an advanced attitude control system (ACS). 
+The vertical scanning is achieved by rotation of the satellite
+platform by an advanced attitude control system (ACS). 
 The ACS uses star trackers as the main sensors with backup from gyros, 
 magnetometers, and Sun sensors. Reaction wheels and magnetic coils serve as 
-actuators. The ACS pointing accuracy, in limb-scanning mode, is 5\(^{'}\) in
+actuators. The ACS pointing accuracy in limb-scanning mode is 5\(^{'}\) in
 real time knowledge, and better than 1\(^{'}\) in reconstructed knowledge
 (which translates to a \(\sim\)800\,m accuracy in tangent point).
 
@@ -1054,7 +1051,7 @@ The reconstructed attitude data files contains the estimated
 achieved attitude given as a quaternion and the satellite position   
 and velocity from GPS receiver on-board of Odin.
 
-In the calibration software at CTH this data is used to calculate
+In the calibration software at CTH, this data is used to calculate
 the geographical position of the tangent point, the satellite relative velocity 
 \(v_{geo}\) of the satellite in the direction of the tangent point.
 The hit of the target and sky beams with various objects (e.g. Earth, Moon) 
@@ -1071,7 +1068,7 @@ and reported as quality indicators.
 \smr\ Level0 and Level1B data are stored in tables
 in a calibration database at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (CTH) in Gothenburg.
-There are several ways to access the data, but the recommendation is to use a web 
+There are several ways to access the data but the recommendation is to use a web 
 interface to access the data, and description of how to access the data
 is given on the Odin web-page. Table~\ref{table:dataformat} gives a description 
 of the \smr\ Level1B v8 scan data format.
@@ -1144,7 +1141,7 @@ of the \smr\ Level1B v8 scan data format.
 The Quality variable of an \smr\ Level1B structure is a scalar value.
 The value is determined from a quality control
 of both scan variables and individual spectrum.
-Each test performed (see Table~\ref{table:quality}) is related to a unique scalar value,
+Each test performed (see Table~\ref{table:quality}) is related to a unique scalar value
 and the Quality variable is the sum of the values of tests 
 that was not passed.  
 Thus, spectrum with a Quality value of 0 is best.
@@ -1152,7 +1149,7 @@ Thus, spectrum with a Quality value of 0 is best.
 The radiometric noise of the spectra of a scan is estimated as decribed  
 in Sect.~\ref{sec:radper} (and reported as a effective integration time (EffTime)).
 This estimate does not contain the broadband noise (due to gain variation). 
-The scan data contains the variable ZeroLagVar, that can be seen as an estimate
+The scan data contains the variable ZeroLagVar which can be seen as an estimate
 of the broadband gain variation (ZeroLagVar\(\approx \frac{\Delta g}{g}\) [\%] ) 
 of the two surrounding references of a target spectrum. 
 \lcomment{BR}{add description of how this variable can be used to estimate broadband 
