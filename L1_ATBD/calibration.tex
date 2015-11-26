@@ -21,17 +21,16 @@ Raw science and house-keeping data are downloaded at
 Esrange and transferred to a data archive housed by the Parallel
 Data Centre (PDC) at the Royal Institute of Technology (KTH)
 in Stockholm. The data processing for the calibration \smr\
-measurements are performed at the Dept. of Earth and Space
+measurements is performed at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (Chalmers) in Gothenburg.
 A file system at Chalmers is synchronized with the Level0-file archive 
 at KTH. The KTH archive also contains files with reconstructed attitude
 information.  Science and house-keeping data within those files
-are imported into Level0 tables of an Odin calibration database
-(a postgresql database). 
+are imported into Level0 tables of an Odin calibration database. 
 Dedicated algorithms to process and combine new Level0 to Level1B
 data are executed on a regular basis and are described in this
 chapter. Level1B data are stored in tables of the Odin calibration database.  
-Chapter 3 describes the its format and how to access the Level1B data.
+Chapter 3 describes its format and how to access the Level1B data.
 %\lcomment{BR}{should this be included?}
 
 
@@ -81,7 +80,9 @@ of a Fourier transform.
 In the spectrometer hardware, the input signal is quantized into three levels: 
 high positive, high negative, and low amplitude. The input signal is furthermore delayed, 
 cross multiplied and integrated to obtain a measure of the auto-correlation function of the 
-input signal \(s(t)\). 
+input signal \(s(t)\). Below is given an overview of the applied processing steps that 
+transforms the measure of the auto-correlation function to a spectrum in the frequency 
+domain:
 
 \begin{itemize}
 
@@ -90,13 +91,14 @@ input signal \(s(t)\).
 if the absolute values of the the positive and negative threshold levels are equal. 
 The \smr\ correlators provide monitor channels to check the
 assumption of equal absolute values of the positive and negative threshold levels.
-Only when this condition is fulfilled the data will be further processed.
+Only when this condition is fulfilled the data will be further processed,
+otherwise the data will be blanked (filled with zeros).
 
 \item The estimation of the true correlation \(\rho\) from the measured correlation
 coefficient \(r\) at lag \(\tau\) is then achieved by performing a quantization correction using
 Kulkarni and Heiles approximation described in \citet{ohlberg:theod:03}.
 
-\item a Hanning smoothing is applied, which gives that the obtained resolution 
+\item A Hanning smoothing is applied, which results in that the obtained resolution 
 of the spectra is 2\,MHz although the channel spacing is 1\,MHz
 
 \item The Fourier transform of the auto correlation function gives the
@@ -151,11 +153,12 @@ That is, for a given radiance \(I\), \(T_{b}\) is defined as
 \end{equation}
 and in the Rayleigh--Jeans approximation this gives
 \begin{equation}
- T_{b} = \frac{c^{2}I}{2kv^{2}},
+ T_{b} = \frac{c^{2}I}{2kv^{2}}.
 \end{equation}
-and the Rayleigh--Jeans temperature of a blackbody can be written as 
+Hence, the Rayleigh--Jeans temperature of a blackbody can be written as 
 \begin{equation}
  T_{b} = \frac{h\nu}{k}\frac{1}{\exp(\frac{h\nu}{kT})-1}.  
+\label{eq:tbrj}
 \end{equation}
 
 
@@ -166,20 +169,22 @@ as in the actual case, which gives that (using Rayleigh--Jeans approximation)
 T_{a} = \frac{P}{k\Delta \nu}
 \end{equation}
 
-A radiometer detects radiant power and the calibration is most 
-easily discussed in terms of input power. As will be shown below, 
-the measured power can be converted to an
-antenna or brightness temperature or a radiance, but it should be 
+A radiometer detects radiant power but the measured power can be converted to an
+antenna or brightness temperature or a radiance, but it should be
 remembered that it is only power that can actually be measured.
-
+ 
 
 \subsection{\smr\ observation sequence and measured signals} 
 \label{sec:smrobs}
 
 \begin{figure}[t]
 \includegraphics[width=14cm]{cal_signals.png}
-\caption{ Intensity variation of one of the sub-bands of freqmode~1
-during a number of scans for the three types of signals involved
+\caption{ The upper panel shows the tangent altitude of the main beam
+for a number of scans.
+The middle panel shows the internal load temperature.
+The lower panel shows intensity variation, 
+of one of the sub-bands of freqmode~1,
+for the three types of signals (described in text) involved
 in the intensity calibration scheme.}
 \label{fig:intensityvar}
 \end{figure}
@@ -190,13 +195,13 @@ For calibration purposes, Odin/SMR performs areonomy observation in a switching
 mode, i.e. switching between the main beam and an unfocused sky beam. 
 In nominal operation every other recorded signal comes from an unfocused cold sky
 beam, except around the lower and upper turning points of the scan where the reference
-beam is directed towards the internal load (typically three consecutive load spectra are
-recorded). The load acts as a blackbody emitter at an ambient temperature of around 285
+beam is directed towards the internal load, typically three consecutive load spectra are
+recorded. The internal load acts as a blackbody emitter at an ambient temperature of around 285
 K. 
 
 The intensity calibration of \smr\ is thus performed by using
 information from three types of signals (see Fig~\ref{fig:intensityvar}), 
-i.e. the sky beam signal (\(c_{s}\)), the load signal (\(c_{l}\)), 
+i.e. the cold sky beam signal (\(c_{s}\)), the load signal (\(c_{l}\)), 
 and the main beam signal (\(c_{a}\)).
 The calibration scheme is based on the assumption that the
 digital value (e.g. \(c_{a,i}\)) read out from channel \(i\) of the
@@ -221,10 +226,10 @@ both the sky beam and load signals are unity),
 \(T_{amb,i}\) is the receiver ambient temperature,
 and \(T_{rec,i}\) is the receiver noise temperature.
 \(T_{a,i}\), \(T_{s,i}\), and \(T_{l,i}\) are the antenna temperature,
-cosmic background temperature, and load temperature all expressed
+cosmic background temperature, and load temperature, all expressed
 as equivalent Rayleigh--Jeans brightness temperatures (\(T_{b}\)).
 The Rayleigh--Jeans brightness temperature of the cosmic background radiation
-at 500 GHz is only 0.003\,K, and typical \(T_{rec}\) value of \smr\ is 3000\,K,
+at 500 GHz is only 0.003\,K, (Eq.~\ref{eq:tbrj}) and typical \(T_{rec}\) value of \smr\ is 3000\,K,
 thus the approximation in eq.~\ref{eq:skybeam} results in negligible error.
 
 The main beam signal is always at a higher level than the cold sky signal
@@ -271,7 +276,7 @@ T_{a,i} &=& \frac{1}{\eta_{a}}\left(\frac{c_{a,i}-c_{s,i}}{g_{i}} - T_{sp}\right
  &=& \frac{1}{\eta_{a}}\left( \left(c_{a,i} - c_{s,i}\right)\frac{T_{rec,i}}{c_{s,i}} -T_{sp} \right). 
 \end{eqnarray}
 
-For measurements at tangent altitude above the atmosphere
+For measurements at tangent altitude above the atmosphere,
 \(T_{a,i}\) = 0. Thus, we have that for these measurements
 to a very good approximation
 
@@ -286,7 +291,7 @@ Combining Eq.~\ref{eq:tspill1} and~\ref{eq:tspill2} gives that
 \eta_{a}=1-\frac{T_{sp}}{T_{amb}}=1-\frac{\left(c_{a,i}-c_{s,i}\right)\frac{T_{rec,i}}{c_{s,i}}}{T_{amb}}.
 \end{equation}
 
-\subsection{Low level ripple}
+\subsection{Ripple}
 \label{sec:ripples}
 Equation~\ref{eq:ta} can be thought of as the main intensity
 calibration equation for the \smr\ calibration scheme.
@@ -348,7 +353,7 @@ this is one of the main differences to previous verisons.
 Equation~\ref{eq:ta} is the key equation of the calibration.
 From this equation we see that to calibrate a given target signal
 we need to determine \(T_{rec,i}\), \(T_{sp}\), \(\eta_{a}\),
-and \(c_{s,i}\). Some of these variables, i.e. \(T_{rec,i}\), \(T_{sp}\), and \(\eta_{a}\)
+and \(c_{s,i}\). The variables \(T_{rec,i}\), \(T_{sp}\), and \(\eta_{a}\)
 are assumed to be fairly stable over short time scales.
 Common values of all these parameters are used for
 the calibration of all \(c_{a}\) signals within a given scan.
@@ -873,9 +878,8 @@ Thus, error in estimated main beam effciency is sensitive to errors in both assu
  and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
 
 
-
-\item standing waves: 0.3 K ?
-\lcomment{BR}{is this correct? how derived/estimated?}
+%\item standing waves: 0.3 K ?
+%\lcomment{BR}{is this correct? how derived/estimated?}
 
 
 \end{itemize}
@@ -1017,9 +1021,9 @@ For each spectrum, a frequency \(f_{sky}\) of the center channel in
 the rest frame of the satellite is estimated.
 This estimate is calculated from the LO frequency and the 
 value of the IF frequency.
-An LO frequency drift with temperature (measured in Lab prior to launch?) 
+An LO frequency drift with temperature  
 is calculated as (for the 495 and 549 frontends)
-\lcomment{BR}{measured in Lab prior to launch?}
+%\lcomment{BR}{measured in Lab prior to launch?}
 
 \begin{equation}
   d = 1.0+(29.23-0.138T_{pll})10^{-6}
@@ -1199,11 +1203,11 @@ noise level uncertainty}
 \end{table}
 
 
-\begin{figure}[t]
-\includegraphics[width=14cm]{quality_control.png}
-\caption{Quality flag example figure\lcomment{BR}{update or remove }}
-\label{fig:quality}
-\end{figure}
+%\begin{figure}[t]
+%\includegraphics[width=14cm]{quality_control.png}
+%\caption{Quality flag example figure\lcomment{BR}{update or remove }}
+%\label{fig:quality}
+%\end{figure}
 
     
 
@@ -1230,7 +1234,6 @@ comprehensive way.
 \item \smr\ spectra contain a significant amount of broadband noise, 
 due to rapid gain fluctuations, in addition to radiometric noise.
 
-\item more to come ...\lcomment{BR}{update or remove }
 
 \end{itemize}
 
