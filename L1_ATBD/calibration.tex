@@ -1080,7 +1080,7 @@ and reported as quality indicators.
 in a calibration database at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (Chalmers) in Gothenburg.
 There are several ways to access the data but the recommendation is to use a web 
-interface to access the data, and description of how to access the data
+interface. A description of how to access the data
 is given on the Odin web-page. Table~\ref{table:dataformat} gives a description 
 of the \smr\ Level1B v8 scan data format.
  \lcomment{BR}{fill in descriptions and remove unnecessary data}
@@ -1089,8 +1089,8 @@ of the \smr\ Level1B v8 scan data format.
 \hline
   \textbf{Variable} & \textbf{Description} \\
   \hline
-  'Version'         & \\ \hline
-  'Level'           & \\ \hline
+     'Version'         & \\ \hline
+     'Level'           & \\ \hline
      'Quality'         & \\ \hline
      'STW'             & \\ \hline
      'MJD'             & \\ \hline
@@ -1098,48 +1098,48 @@ of the \smr\ Level1B v8 scan data format.
      'LST'             & \\ \hline
      'Source'          & \\ \hline
      'Discipline'      & \\ \hline
-     'Topic'          & \\ \hline
+     'Topic'           & \\ \hline
      'Spectrum'        & \\    \hline
-     'ObsMode'        & \\ \hline
+     'ObsMode'         & \\ \hline
      'Type'            & \\ \hline
-     'Frontend'       & \\ \hline
-     'Backend'       & \\ \hline
+     'Frontend'        & \\ \hline
+     'Backend'         & \\ \hline
      'SkyBeamHit'      & \\ \hline
-     'RA2000'        & \\ \hline
-     'Dec2000'        & \\ \hline
+     'RA2000'          & \\ \hline
+     'Dec2000'         & \\ \hline
      'VSource'         & \\ \hline
-     'Longitude'    & \\ \hline
+     'Longitude'       & \\ \hline
      'Latitude'        & \\ \hline
      'Altitude'        & \\ \hline
-     'Qtarget'       & \\ \hline
-     'Qachieved'      & \\ \hline
-     'Qerror'         & \\ \hline
+     'Qtarget'         & \\ \hline
+     'Qachieved'       & \\ \hline
+     'Qerror'          & \\ \hline
      'GPSpos'          & \\ \hline
-     'GPSvel'         & \\ \hline
+     'GPSvel'          & \\ \hline
      'SunPos'          & \\ \hline
-     'MoonPos'        & \\ \hline
+     'MoonPos'         & \\ \hline
      'SunZD'           & \\ \hline
-     'Vgeo'           & \\ \hline
+     'Vgeo'            & \\ \hline
      'Vlsr'            & \\ \hline
-     'Tcal'          & \\ \hline
-     'Tsys'           & \\ \hline
+     'Tcal'            & \\ \hline
+     'Tsys'            & \\ \hline
      'SBpath'          & \\ \hline
      'LOFreq'          & \\ \hline
-     'SkyFreq'        & \\ \hline
-     'RestFreq'      & \\ \hline
-     'MaxSuppression' & \\ \hline
+     'SkyFreq'         & \\ \hline
+     'RestFreq'        & \\ \hline
+     'MaxSuppression'  & \\ \hline
      'AttitudeVersion' & \\  \hline
-     'FreqRes'        & \\ \hline
+     'FreqRes'         & \\ \hline
      'FreqCal'         & \\ \hline
-     'IntMode'       & \\ \hline
+     'IntMode'         & \\ \hline
      'IntTime'         & \\ \hline
      'EffTime'         & \\ \hline
-     'Channels'       & \\ \hline
-     'FreqMode'       & \\ \hline
-     'TSpill'         & \\ \hline
-     'ScanID'         & \\ \hline
-     'Frequency'      & \\ \hline
-     'ZeroLagVar'     & \\ \hline
+     'Channels'        & \\ \hline
+     'FreqMode'        & \\ \hline
+     'TSpill'          & \\ \hline
+     'ScanID'          & \\ \hline
+     'Frequency'       & \\ \hline
+     'ZeroLagVar'      & \\ \hline
 \hline
 \caption{ Odin scan data format}
 \label{table:dataformat}
@@ -1151,17 +1151,17 @@ of the \smr\ Level1B v8 scan data format.
 
 The Quality variable of an \smr\ Level1B structure is a scalar value.
 The value is determined from a quality control
-of both scan variables and individual spectrum.
+of both scan variables and the individual spectrum.
 Each test performed (see Table~\ref{table:quality}) is related to a unique scalar value
 and the Quality variable is the sum of the values of tests 
-that was not passed.  
-Thus, spectrum with a Quality value of 0 is best.
+that were not passed.  
+Thus, a spectrum with a Quality value of 0 is best.
 
 The radiometric noise of the spectra of a scan is estimated as decribed  
-in Sect.~\ref{sec:radper} (and reported as a effective integration time (EffTime)).
+in Sect.~\ref{sec:radper} (and reported as an effective integration time (EffTime)).
 This estimate does not contain the broadband noise (due to gain variation). 
 The scan data contains the variable ZeroLagVar which can be seen as an estimate
-of the broadband gain variation (ZeroLagVar\(\approx \frac{\Delta g}{g}\) [\%] ) 
+of the broadband gain variation (ZeroLagVar\(\approx \frac{\Delta g}{g}\) [\%]) 
 of the two surrounding references of a target spectrum. 
 \lcomment{BR}{add description of how this variable can be used to estimate broadband 
 noise level uncertainty}
@@ -1170,7 +1170,7 @@ noise level uncertainty}
 \begin{table}
 \caption{ Description of the \smr\ Quality variable. }
 \label{table:quality}
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|p{7cm}|l|}
   \hline
   \textbf{Test} & \textbf{Description} & \textbf{Value} \\
   \hline
@@ -1180,8 +1180,7 @@ noise level uncertainty}
   \hline
   check of Noise    & outside of valid range & 0x0004  \\
   \hline
-  check of Scanning & tangent altitude is not & 0x0008 \\
-                    &  decreasing or increasing as expected &  \\
+  check of Scanning & tangent altitude is not decreasing or increasing as expected & 0x0008 \\
   \hline
   check of nr of Spectra &  the scan consists of less than five spectra & 0x0010\\
   \hline
@@ -1189,8 +1188,7 @@ noise level uncertainty}
   \hline
   check of Tint     & integration time is outside valid range & 0x0040\\
   \hline
-  check of References 1 & atmospheric spectrum is not collected & 0x0080\\
-                        & between two sky beam 1 references     & \\
+  check of References 1 & atmospheric spectrum is not collected between two sky beam 1 references     & 0x0080\\
   \hline
   check of References 2 & surrounding references have different & 0x0100\\
                         & integration times                     & \\ 
@@ -1220,7 +1218,7 @@ Level1B data:
 \begin{itemize}
 
 \item \smr\ can perform observations in a number of different frequency
-bands, mainly within the 486\,--\,504\,GHz and 541\,--\,581\,GHz region.
+bands, mainly within the 486\,--\,504\,GHz and 541\,--\,581\,GHz regions.
 In practise, two or three frequency bands are measured simultaneously.
 For a given day, several observation modes can be applied, and hence
 it is rather complicated to describe the time-sharing in a 
@@ -1232,7 +1230,7 @@ comprehensive way.
 \item \smr\ spectra contain a significant amount of broadband noise, 
 due to rapid gain fluctuations, in addition to radiometric noise.
 
-\item more to come ...
+\item more to come ... \lcomment{BR}{update or remove }
 
 \end{itemize}
 
