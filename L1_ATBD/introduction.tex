@@ -16,7 +16,7 @@ bands, mainly within the 486\,--\,504\,GHz and 541\,--\,581\,GHz region.
 After calibration, a group of such spectra can be used
 to retrieve profiles of e.g. \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}, 
 \chem{H_{2}O}, \chem{CO}, and isotopes of \chem{H_{2}O}, and \chem{O_{3}},
-which are species that are of interest for studiying stratospheric and 
+which are species that are of interest for studying stratospheric and 
 mesospheric chemistry and dynamics. 
 
 The processing of data from basic instrumental data to the
@@ -47,7 +47,7 @@ the quality of the data.
 This document is organised as follows:
 \smr\ observations and measurement modes are described 
 in Chapter~1. The calibration procedure is presented in
-Chapter~2, and the Level1b data format, including description
+Chapter~2, and the Level1B data format, including description
 of quality flags, is described in Chapter~3.
 Finally,
 Chapter 4 gives a summary with focus on the most important points to correctly
@@ -60,10 +60,10 @@ The Odin satellite was launched on 2001-02-20 into a sun-synchronous
 18:00 hour ascending node orbit, carrying two co-aligned limb sounding
 instruments: OSIRIS (optical spectrograph and infrared imaging system) and
 \SMR\ (sub-millimetre radiometer). Originally, Odin was used for both
-atmospheric and astronomical observations, while since 2007 only its aeronomy
-mission is active. Odin is a Swedish-led project in cooperation with Canada,
+atmospheric and astronomical observations, however, since 2007 its only active
+mission is its aeronomy. Odin is a Swedish-led project in cooperation with Canada,
 France and Finland. Both of Odin's instruments are still functional, and the
-present operation of the satellite is partially performed as a ESA third party
+present operation of the satellite is partially performed as an ESA third party
 mission.
 Odin passes the ground station at Esrange about 14 times each day
 and raw science and house-keeping data is downloaded at
@@ -90,20 +90,20 @@ in Stockholm.
   \textbf{Frontend} & \textbf{Tuning range} & \textbf{Backend} & \textbf{Bandwidth } & \textbf{Channel spacing} \\
                     & {[}GHz{]}             &                  & {[}MHz{]}           & {[}MHz{]}\\
   \hline
-  549 A1            & 541 - 558             & AOS              & 1050                & 0.61\\
+  549 A1            & 541--558             & AOS              & 1050                & 0.61\\
   \hline
-  495 A2            & 486 - 504             & AC1/AC2          & 800                 & 1.0
+  495 A2            & 486--504             & AC1/AC2          & 800                 & 1.0
  \\
  \cline{1-1}
  \cline{2-2}
  \cline{4-4}
  \cline{5-5}
-  555 B1           & 547 - 564              &                 & 400                  & 0.5 \\
+  555 B1           & 547--564              &                 & 400                  & 0.5 \\
  \cline{1-1}
  \cline{2-2}
  \cline{4-4}
  \cline{5-5}
- 572 B2            & 563 - 581              &                 & 200                  & 0.25 \\
+ 572 B2            & 563--581              &                 & 200                  & 0.25 \\
  \cline{1-1}
  \cline{2-2}
  \cline{4-4}
@@ -120,11 +120,11 @@ in Stockholm.
   \hline
   \textbf{Scanning mode} & \textbf{Scanning range {[}km{]}} \\
   \hline
-  Stratospheric scan     &  7 -72 \\
+  Stratospheric scan     &  7--72 \\
  \hline
- Stratospheric/mesospheric scan &  7-110  \\
+ Stratospheric/mesospheric scan &  7--110  \\
  \hline
- Summer mesospheric scan & 60-100 \\
+ Summer mesospheric scan & 60--100 \\
  \hline
 \end{tabular}
 \end{table}
@@ -143,7 +143,7 @@ The \smr\ package is highly tunable and flexible \citep{frisk:theod:03}.
 The four main sub-mm receiver chains can be tuned to cover
 frequencies in the ranges 486\,--\,504\,GHz and 541\,--\,581\,GHz.
 Table~\ref{table:config} lists the receivers single sideband (SSB) tuning ranges.
-Martin-Pulpett interferometers are employed to provide SSB filtering 
+Martin--Pulpett interferometers are employed to provide SSB filtering 
 (with a nominal sideband suppression better than 19\,dB across
 the image band) and injection into the Schottky mixers.
 The local oscillators are varactor-tuned Gunn diodes followed by
@@ -159,18 +159,18 @@ main beam and an unfocused sky beam. In switching mode, one group will
 receive its signal via the main beam while the other sees the reference signal,
 and vice versa.
 The two auto-correlators (ACs) of \smr\ can be coupled to any of the front-ends
-and use each up to 8 x 112 MHz bands.
+and each use up to 8 x 112 MHz bands.
 Eight correlator ships provides 96 lags each.
 The center IF (intermediate frequency) of each sub-band is tuneable
-within a 500\,MHz wide band in 1\,MHz step. The channel spacing
+within a 500\,MHz wide band in 1\,MHz steps. The channel spacing
 ranges from 125\,KHz in 1 band mode to 1\,MHz in 8 band mode.
 \smr\ can be tuned to cover a wide frequency range, but the maximum total instantaneous
 bandwidth is only 1.6\,GHz. 
 
 In the configuration applied for
-atmospheric sounding, the channels of the ACs have a spacing of 1\,MHz..
+atmospheric sounding, the channels of the ACs have a spacing of 1\,MHz.
 To cover all molecular transitions of interest, a 
-number of ``observation modes'' has been defined. Each observation mode makes
+number of ``observation modes'' have been defined. Each observation mode makes
 use of two or three frequency bands. 
 %On the regular observation days it is operated in the so-called basic stratospheric 
 %mode with target gases \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}},
@@ -184,7 +184,7 @@ Definition of frequency modes are found in Tables~\ref{table:config2},
 \smr\ has also a receiver chain around the 118\,GHz oxygen transition which was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
 front-end was planned to be used for retrieving temperature profiles, but a
-technical problem (drifting LO frequency) and the fact that the analyses
+technical problem (drifting LO frequency) and the fact that the analysis
 requires treatment of Zeeman splitting have given these data low priority. 
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
@@ -208,7 +208,7 @@ the poles.
 \subsection{Measurement sequence}
 
 
-The vertical scanning of \smr\'s line of sight is achieved by
+The vertical scanning of \smr's line of sight is achieved by
 rotation of the platform with a rate matching a vertical speed of
 the tangent altitude of 750\,m/s. Measurements are performed during
 both upward and downward scanning. The lower end of the scan is typically
@@ -224,7 +224,7 @@ separated by 28$^{\circ}$. The separation from the main beam
 amounts to 42$^{\circ}$.
 The selection mirror may also direct the beam towards an internal
 load at ambient temperature (approximately 285 K), made of carbon 
-loaded polyethylene  tiles, optimised for 500 GHz reflecting less than -30 dB. 
+loaded polyethylene tiles, optimised for reflecting less than -30\,dB at 500\,GHz.
 The temperature of the material is known better than 0.2 K using 
 redundant integrated temperature sensors.
 
