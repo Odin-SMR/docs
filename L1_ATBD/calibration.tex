@@ -32,7 +32,7 @@ Dedicated algorithms to process and combine new Level0 to Level1b
 data are executed on a regular basis and are described in this
 chapter. Level1B data are stored in tables of the Odin calibration database.  
 Chapter 3 describes the its format and how to access the Level1B data.
-\lcomment{BR}{should this be included?}
+%\lcomment{BR}{should this be included?}
 
 
 
@@ -100,7 +100,7 @@ Kulkarni and Heiles approximation described in \citet{ohlberg:theod:03}.
 of the spectra is 2\,MHz although the channel spacing is 1\,MHz
 
 \item The Fourier transform of the auto correlation function gives the
-power spectral density, or a spectrum in the frequency domain..
+power spectral density, or a spectrum in the frequency domain.
 
 
 \end{itemize}
@@ -588,14 +588,13 @@ In Sect.~\ref{sec:caluncer} we describe the noise estimate output from the calib
 \subsection{Uncertainties related to radiometric noise}
 \label{sec:radnoise}
 
-In the \smr\ calibration process three type of signals are used (all of the containing radiometric noise)
+In the \smr\ calibration process three type of signals are used (all of them containing radiometric noise)
 and the obtained noise in calibrated spectra are sensitive to noise in
 all of these measurements. 
 The noise contribution can be divided into three terms
 (1) the radiometer noise contribution,
 (2) interpolated reference noise contribution, and (3) interpolated gain noise contribution
 \cite{jarnot:04}.
-\ref{sec:calscheme}
 
 These contributions (derived in the following sub-sections) gives that the noise on an individual channel \(\Delta T_{i}\) of a 
 calibrated \smr\ spectrum using the calibration scheme described in Sect.~\ref{sec:calscheme}, 
@@ -614,7 +613,7 @@ have low impact and the noise expression reduces to
 \end{equation}
 In Table~\ref{table:config5} typical \(T_{rec}\) values and radiometric noise levels
 (for measurements having high tangent points)
-of the main frequency mode of \smr\ is listed.
+of the main frequency modes of \smr\ is listed.
 
 
 %The noise on an individual channel, \(\Delta T\) , is commonly represented by
@@ -655,7 +654,7 @@ which implies:
 \begin{equation}
 \Delta T_{i}^{2} = \frac{\Delta c_{a,i}^{2}}{g_{i}^2} + \frac{\Delta c_{s,i}^{2}}{g_{i}^2} + T_{a,i}^{2}\frac{\Delta g_{i}^{2}}{g_{i}^2},
 \end{equation}
-and the terms on the tight hand side is (1) the radiometer noise contribution,
+and the terms on the right hand side is (1) the radiometer noise contribution,
 (2) interpolated reference noise contribution, and (3) interpolated gain noise contribution.  
 In the following sections these terms are described in more detail.
 
@@ -835,24 +834,50 @@ the calibration target temperature and main beam efficiency.
  is close to 0, while if \(T_{a}\)=200\,K \(\Delta T_{a}\)\(\approx\)\,0.14 K.
 
 \item Main beam efficiency uncertainty. The main beam efficiency is estimated
- for each scan and this estimate introduce a finite error on the calibrated spectrum.
+ for each scan and this estimate introduce a finite error on calibrated spectrum.
  We have that
  \begin{equation}
-  \Delta T_{a} = \frac{\Delta n_{a}}{n_{a}}T_{a}
+  \Delta T_{a} = \frac{\Delta n_{a}}{n_{a}}T_{a},
  \end{equation}
  and
+
  \begin{equation}
-  \Delta n_{a} \approx \frac{T_{sp}}{T_{amb}}\Delta{T_{amb}}.
+  \Delta n_{a}^{2} = \left(\frac{T_{sp}\Delta T_{amb}}{T_{amb}^{2}}\right)^{2} + 
+                     \left( \frac{\Delta T_{sp}}{T_{amb}} \right)^2.
  \end{equation}
-  which gives that
- \begin{equation}
-  \Delta T_{a} = \frac{T_{sp}}{T_{amb}}\left(\frac{\Delta T_{amb}}{T_{amb}-T_{sp}}\right)T_{a}
- \end{equation}
- There is no temperature sensor on \smr\ that measure the baffle temperature. For this reason, a constant
+
+Thus, error in estimated main beam effciency is sensitive to errors in both assumed 
+\(T_{amb}\) and estimated \(T_{sp}\), and 
+
+\begin{equation}
+  \Delta T_{a} = \sqrt{ \left(\frac{T_{sp}\Delta T_{amb}}{T_{amb}^{2}}\right)^{2} +
+                     \left( \frac{\Delta T_{sp}}{T_{amb}} \right)^2 } \frac{T_{a}}{n_a}
+\label{eq:tanaerr}
+\end{equation}
+
+
+% \begin{equation}
+% \frac{\partial n_{a}}{\partial T_{amb}}=\frac{T_{sp}}{T_{amb}^{2}}
+% \end{equation}
+%  \begin{equation}
+% \frac{\partial n_{a}}{\partial T_{sp}}=-\frac{1}{T_{amb}}
+% \end{equation}
+
+%\begin{equation}
+%  \Delta n_{a} \approx \frac{T_{sp}}{T_{amb}}\Delta{T_{amb}}.
+% \end{equation}
+%  which gives that
+% \begin{equation}
+%  \Delta T_{a} = \frac{T_{sp}}{T_{amb}}\left(\frac{\Delta T_{amb}}{T_{amb}-T_{sp}}\right)T_{a}
+% \end{equation}
+ If we for the moment assume \(\Delta T_{sp}\)=0 (see Sect.~\ref{sec:trends} for further
+ analysis), and focus on the \(\Delta T_{amb}\) term.
+ There is no temperature sensor on \smr\ that measure the baffle temperature, and a constant
  value of 300\,K is used in calibration process.
- For  observations against a blank backgrund the error
+ Anyhow, for  observations against a blank backgrund the error
  is close to 0, while if \(T_{a}\)=200\,K, \(T_{amb}\)=300\,K, \(T_{sp}\)=8\,K,
  and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
+
 
 
 \item standing waves: 0.3 K ?
@@ -869,51 +894,41 @@ possible error in the estimation of main beam efficiency.
 
 The main beam efficiency is determined based on an estimated
 \(T_{sp}\) value (see Eq.~\ref{eq:eta}).
-The estimation of \(T_{sp}\) (see Eq.~\ref{eq:tspill2}) by itself
-is likely to be sound and in principle unquestionable.
-However, it is possible that our interpretation 
-of this \(T_{sp}\) is not correct, which will lead to an error
-in the main beam efficiency.
-
+The estimation of \(T_{sp}\) (see Eq.~\ref{eq:tspill2}) 
+is done under the assumption that reference signals are "clean".
+%by itself
+%is likely to be sound and in principle unquestionable.
+%However, it is a possibility that our interpretation 
+%of this \(T_{sp}\) is not correct, that will lead to an error
+%in the main beam efficiency.
 It has been noted that there is a slight mismatch between
 main beam and reference signals (see Sect.~\ref{sec:ripples}).
 If we assume reference signal contain a time varying
-broadband offset (\(c_{s,i}=g_{i}(T_{rec,i}+\Delta T_{off}(t))\)) 
+broadband offset (\(c_{s}=g(T_{rec}+\Delta T_{off}(t))\)) 
 we have that Eq.~\ref{eq:tspill2} reads
 \begin{equation}
- T_{sp,i}=(c_{a,i}-c_{s,i})\frac{T_{rec,i}}{c_{s,i}}\approx(1-\eta_{a})T_{amb}-\Delta T_{off}(t),
+ T_{sp}=(c_{a}-c_{s})\frac{T_{rec}}{c_{s}}\approx(1-\eta_{a})T_{amb}-\Delta T_{off}(t),
 \end{equation}
-thus, \(T_{sp}\) have then two contribution parts. 
-A possible problem error is introduced when this \(T_{sp}\) value
-is used to estimate main beam efficiency, since we then have (see Eq.~\ref{eq:eta})
-that  
-\begin{equation}
-\hat{\eta}_{a}=1-\frac{(1-\eta_{a})T_{amb}-\Delta T_{off}(t)}{T_{amb}} = \eta_{a} + \frac{\Delta T_{off}(t)}{T_{amb}}. 
-\end{equation}
-A calibrated spectrum is proportional to the inverse of the main beam efficiency,
-thus the error \(\Delta T_{err,off}\)  is proportional to
-
-\begin{equation}
- \Delta T_{err,off} \sim \frac{1}{\eta_{a}+\frac{\Delta T_{off}(t)}{T_{amb}}}-\frac{1}{\eta_{a}}\approx
- -\frac{\Delta T_{off}(t)}{T_{amb}\eta_{a}^{2}}
-\end{equation}
-
-Since the main beam efficiency error is proportional to \(T_{a}\), it has low impact
-on weak signals. However, if \(\Delta T_{off}(t)\) has changed by 1,K
+thus, \(T_{sp}\) have then two contribution parts and the error
+in "true" \(T_{sp}\) is \(\Delta T_{off}(t)\).
+Equation~\ref{eq:tanaerr} then tells us how this related
+error introduce an error in estimated \(T_{a}\) within the calibration algorithm.
+%A possible problem error is introduced when this \(T_{sp}\) value
+%is used to estimate main beam efficiency, since we then have (see Eq.~\ref{eq:eta})
+%that  
+%\begin{equation}
+%\hat{\eta}_{a}=1-\frac{(1-\eta_{a})T_{amb}-\Delta T_{off}(t)}{T_{amb}} = \eta_{a} + \frac{\Delta T_{off}(t)}{T_{amb}}. 
+%\end{equation}
+%Calibrated spectrum is proportional to the inverse of the main beam efficiency,
+%thus the error \(\Delta T_{err,off}\)  is proportional to
+%\begin{equation}
+% \Delta T_{err,off} \sim \frac{1}{\eta_{a}+\frac{\Delta T_{off}(t)}{T_{amb}}}-\frac{1}{\eta_{a}}\approx
+% -\frac{\Delta T_{off}(t)}{T_{amb}\eta_{a}^{2}}
+%\end{equation}
+Since main beam efficiency error is proportional to \(T_{a}\) it has low impact
+on weak signals. However, if \(\Delta T_{off}(t)\) has changed by 1.5\,K
 during the mission, one would see an artificial change in strong 
-signals (around 200,K) of about 1,K. 
-
-
-%The most efficient way to determine the accuracy of calibrated \smr\ spectra
-%is probably to compare calibrated spectra with forward model measurement
-%simulations. For some conditions, this comparison can be a very valuable
-%tool for this purpose.
-%When the observed signal comes from a known source such as an isotherm
-%region,  ( e.g. observations with low tangent point at high latitudes
-%and with low tropospheric temperature gradient),
-%the measurement can be simulated accurately.
-%From comparison for such conditions the accuracy of calibrated
-%\smr\ spectra has been determined to be better than x\,K.
+signals (around 200\,K) of about 1\,K. 
 
 
 
@@ -986,11 +1001,11 @@ in the Level1B data should then be treated as a
 variable that can be plugged into the radiometer noise equation,
 i.e
 \begin{equation}
-\Delta T = T_{rec}\frac{1}{B\tau_{eff}},
+\Delta T = T_{rec}\frac{1}{\sqrt{B\tau_{eff}}},
 \end{equation}
 to obtain a measure of the noise level of the spectrum
 (and \(B\) should be set to 100\,MHz although this is not
-the resolution of a channel.
+the resolution of a channel after calibration).
 This obtained noise level should be comparable to noise 
 of Eq.~\ref{eq:higaltnoise}.
 
@@ -1203,6 +1218,25 @@ noise level uncertainty}
 
 \chapter{Summary}
 
-text ...
 
+Some key issues that should be considered when examining or applying \smr\
+Level1b data:
+\begin{itemize}
+
+\item \smr\ can perform observations in a number of different frequency
+bands, mainly within the 486\,--\,504\,GHz and 541\,--\,581\,GHz region.
+In practise, two or three frequency bands are measured simultaneously.
+For a given day, several observation modes can be applied, and hence
+it is rather complicated to describe the time-sharing in a 
+comprehensive way.
+ 
+
+\item Calibrated spectra are expressed in terms of Rayleigh-Jeans brightness temperature.
+
+\item \smr\ spectra contain a significant amount of broadband noise, 
+due to rapid gain fluctuations, in addition to radiometric noise.
+
+\item more to come ...
+
+\end{itemize}
 
