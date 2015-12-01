@@ -1,5 +1,72 @@
-\chapter{Level2 algorithms}
+\chapter{\smr\ Level2 algorithms and input data}
 \section{Overview}
-\section{Requirements}
+The basic target of the Level2 algorithms is to
+convert observed and calibrated Level1B spectra
+to atmospheric species profiles.
+%The mapping between an observed set of spectra (a scan)
+%and the underlying atmospheric species profile is not unique.
+The \smr\ level2 data products will be derived by an
+optimal estimation method (OEM) implementation, as described
+in the ATBD for Level2 processing. 
+The OEM implementation combines measurement information with 
+Ancillary -- Auxiliary data and applies a forward 
+model. Requirements for each component is described in the
+following sections.
+
+\section{Forward model requirements}
+
+Forward model requirements are described in Sect. 2.2
+and 2.4.2 in the ATBD for level2 processing.
+In short, these requirements are
+
+\begin{itemize}
+
+
+\item limb sounding requires that refraction and the spherical shape
+of the Earth is considered when determining the propagation path,
+which excludes all plane-parallel models 
+
+\item the forward model must be able to deliver Jacobians
+
+\item the forward model must be able to incorporate effects of
+sensor characteristic (antenna angular response, sideband filtering,
+frequency response of each spectrometer channel) 
+
+\end{itemize}
+
+ARTS, the Atmospheric radiative transfer simulator, 
+is a publicly available software that is both developed and 
+maintained as an open source project.
+ARTS is in compliance with the requirements for \smr\ Level2
+data processing. Thus, no further refinements of ARTS must be performed.
+
+
+
+\section{OEM implementation requirements}
+
+\lcomment{BR}{How can the requirements be formulated?}
+
+\section{Level1B data requirements}
+
+\lcomment{BR}{How can the requirements be formulated?}
+
+\section{Ancillary -- Auxiliary data requirements}
+\subsection{Climatological \textit{a priori} data}
+\textit{a priori} data, or a climatology database covering all species of interest
+are required, as the OEM implementation needs a starting guess for each profile
+to be retrived. 
+The climatology must cover latitudinal and seasonal variations.
+
+
+\subsection{Weather data?}
+Temperature, pressure, altitude. Data from the same source
+should be available for the complete Odin mission.
+Data should contain no known artificial trend.
+
+\subsection{Sensor characteristic data}  
+antenna angular response, sideband filtering,
+frequency response of each spectrometer channel.
+
+\lcomment{BR}{How can the requirements be formulated?}
 
 

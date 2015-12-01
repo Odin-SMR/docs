@@ -1,5 +1,70 @@
-\chapter{\smr\ Level2 product}
+\chapter{\smr\ Level2 data products}
 
-\section{Definition of Level2 product}
+\section{The Odin mission}
+\label{sec:odin}
+%
+\lcomment{BR}{Text from ATBD-L2}
+
+The Odin satellite was launched on the 20th of February 2001, into a sun-synchronous
+18:00 hour ascending node orbit, carrying two co-aligned limb sounding
+instruments: OSIRIS (optical spectrograph and infrared imaging system) and
+\SMR\ (sub-millimetre radiometer). Originally, Odin was used for both
+atmospheric and astronomical observations, while since 2007 only its aeronomy
+mission is active. Odin is a Swedish-led project, in cooperation with Canada,
+France and Finland. Both of Odin's instruments are still functional, and the
+present operation of the satellite is partly performed as a ESA third party
+mission.
+
+\section{The SMR instrument}
+\lcomment{BR}{Text from ATBD-L2}
+
+The \smr\ package is highly flexible. In short, the four main receiver chains
+can be tuned to cover frequencies in the ranges 486\,--\,504\,GHz and
+541\,--\,581\,GHz, but the maximum total instantaneous bandwidth is only
+1.6\,GHz. This bandwidth is determined by the two auto-correlation
+spectrometers (ACs) used for atmospheric observations. The two ACs can be
+coupled to any of the four front-ends, but only two or three front-ends are
+used simultaneously. The ACs cover 400 or 800\,MHz per front-end, depending on
+configuration. In the configuration applied for atmospheric sounding, the
+channels of the ACs have a spacing of 1\,MHz, while the frequency resolution is
+only 2\,MHz\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. To cover all molecular transitions
+of interest, a number of ``observation modes'' have been defined. Each
+observation mode makes use of two or three frequency bands. Single sideband
+operation is obtained by tunable Martin-Pupplet interferometers. The nominal
+sideband suppression is better than 19\,dB across the image band.
+
+\smr\ also has a receiver chain around the 118\,GHz oxygen transition, that was
+heavily used during Odin's astronomy mission. For the atmospheric mission, this
+front-end was planned to be used for retrieving temperature profiles, but a
+technical problem (drifting LO frequency) and the fact that the analysis
+requires treatment of Zeeman splitting have given these data low priority. This
+\ATBD\ focuses on the processing of the sub-millimetre data but comments on the
+adoptions required to also handle the 118\,GHz data are given
+
+The main reflector of \smr\ has a diameter of 1.1\,m, giving a
+vertical resolution at the tangent point of about 2\,km. The vertical scanning
+of the two instruments' line-of-sigh is achieved by a rotation of the satellite
+platform, with a rate matching a vertical speed of the tangent altitude of
+750\,m/s. Measurements are performed during both upward and downward scanning.
+The lower end of the scan is typically at about 7\,km, the upper end varies
+between 70 and 110\,km, depending on observation mode. In correspondence,
+the horizontal sampling ranges from 1 scan per 600 km to 1 scan per 1000 km.
+Measurements are in general performed along the orbit plane, providing a
+latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
+2004 Odin is also pointing off-track during certain periods, e.g.\ during the
+austral summer season, allowing the latitudinal coverage to be extended towards
+the poles. 
+
+
+\section{\smr Level2 data products}
+\lcomment{BR}{Short text for each species: estimated vertical coverage, vertical
+resolution, and accuracy?}
+
+\subsection{Ozone profile}
+\subsection{\chem{ClO} profile}
+\subsection{\chem{N_{2}O} profile}
+\subsection{\chem{HNO_{3}} profile} 
+\subsection{\chem{H_{2}O} profile}
+\subsection{\chem{CO} profile}
 
 
