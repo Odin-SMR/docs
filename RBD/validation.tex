@@ -2,29 +2,70 @@
 
 
 \section{Validation objective and method}
-Validation is an iterative process: validation results are used to trace
-systematic errors in the instrument and its operational algorithms and thus 
-to improve Level1 and Level2 products.
 
-\lcomment{BR}{Describe the validation method we intend to apply?}
+The basic idea of validation is to check that a product  
+meets its specification. An ideal validation exercise
+would be to compare \smr\ Level2 data profiles to the truth,
+and to evaluate if the differences between \smr\ and the 
+truth is within the specified errors. Furthermore, validation can 
+be seen as an iterative process: validation results are used to 
+trace systematic errors in the instrument and the applied 
+processing algorithms, and thus to improve Level1 and Level2 products.
+
+The problem is that the true trace gas species concentration,
+within the \smr\ field of view in the upper atmosphere, is seldom known. 
+Thus, a true validation is complicated. The best one can do is therefore
+to compare \smr\ Level2 data to best possible correlative datasets,
+and to derive a mean bias against various reference datasets.
+
+The "validation" must be performed in at least two phases.
+The first phase is for a Diagnostic dataset, i.e. a sub-part 
+of the \smr\ dataset, that is used for verification purposes, 
+for the development of the new processing algorithms.  
+The second phase is for the finally selected processing setup
+and for complete dataset.
 
 \section{Level1B verification}
 
-Radiances compared with radiative transfer model spectra.
-\lcomment{BR}{Expand on this.}
+The quality of the Level1B dataset should be verified.
+A mimimum requirement is that calibrated spectra should 
+be compared with radiative transfer model simulations where 
+the observed signal can be accurately predicted. 
+In practise, this means observations with low tangent point 
+at high latitudes and with low tropospheric temperature gradient. 
+Furthermore, simulations should based on best possible input data.
+Time-series of measurements and simulations should be evaluated
+in order to identify/verify the calibration accuracy and any drifts. 
+
 
 \section{Level2 validation}
 
-Compare species (\chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}})
-retrieved from stratospheric mode 
-observations to the previous Odin-SMR level 2 version, 
-and to correlative datasets (Envisat/MIPAS and Aura/MLS).
+%The situataion is a bit different for the various species.
+All main Level2 data species can be compared to correlative datasets
+from other satellite instruments, such as Microwave Limb Sounder (MLS)
+on the Aura satellite, and the Michelson Interferometer for Passive
+Atmospheric Sounding (MIPAS) which is a mid-infrared emission spectrometer
+mounted on the European ENVIronmantal SATellite (ENVISAT).
+Furthermore, \smr ozone profiles can be compared to high quality balloon-borne 
+measurements, and such comparisons are presented in \citep{jegou:techn:08}.
+However, ozone profiles dervied from balloon-borne 
+measurements do not cover the upper atmosphere atmosphere (typically maximum
+altitude is below 35\,km).
 
-A basic requirement is that external data intended to be used 
-for validation is validated.
- 
+A mimimum requirement for \smr\ Level2 products is that mean bias 
+profiles against reference datasets are established. 
+The following reference datasets must be considered:
+\begin{itemize}
 
-\lcomment{BR}{Describe which data sources / requirements we intend to use for
-validation purposes?}
+\item The previous \smr\ Level2 dataset for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}.
+
+\item Best possible correlative dataset derived from satellite-borne measurements
+      for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}.
+
+\item Ballon-borne measurements (between 20--35\,km) for \chem{O_3}
+
+\end{itemize}
+
+
 
  

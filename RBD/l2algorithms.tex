@@ -41,35 +41,76 @@ ARTS is in compliance with the requirements for \smr\ Level2
 data processing. Thus, no further refinements of ARTS must be performed.
 
 
+\subsection{Spectroscopic data}
+
+Spectroscopic data can be seen as basic input to the forward model,  
+and it is of high importance that this data is as correct as possible. 
+The position and strength of molecular transitions 
+are known with a relatively high accuracy. In contrast, pressure 
+broadening and non-resonant absorption are less well known.
+Spectroscopic parameters can for instance be found in the 
+high-resolution transmission molecular absorption (HITRAN) database.
+However, a requirement is that a literature review is performed,
+in order to identify the best possible spectroscopic data to apply. 
+
+
 
 \section{OEM implementation requirements}
 
 \lcomment{BR}{How can the requirements be formulated?}
 
 \section{Level1B data requirements}
+
+The accuracy of the Level1B dataset is important for the quality of the
+Level2 dataset for obvious reasons. \smr\ has been in operation
+for \(\sim\)14 years, and thus, the Level2 dataset can be applied for
+scientifically interesting trend analysis. It is therefore of
+high importance that the Level1B dataset is accurate and stable.
+
 Best available \smr\ Level1B data should be applied.
 The Level1B data must not contain any errors that are known.
 
-\lcomment{BR}{How can the requirements be formulated?}
 
 \section{Ancillary -- Auxiliary data requirements}
 \subsection{Climatological \textit{a priori} data}
 \textit{a priori} data, or a climatology database covering all species of interest
 are required, as the OEM implementation needs a starting guess for each profile
 to be retrived. 
-The climatology must cover latitudinal and seasonal variations.
-Climatlogy data must have an accuracy better than ? \(\%\)
+The climatology must also cover the relevant vertical range for each species, and
+latitudinal and seasonal variations.
+Climatlogy data must have an accuracy better than ? \(\%\).
 
-\subsection{Weather data?}
-Temperature, pressure, altitude. Data from the same source
-should be available for the complete Odin mission.
-Data should contain no known artificial trend.
-Temperature information must be better than ?\,K.
+A requirement is that a literature review is performed,
+in order to identify the best possible climatological data.
+
+
+\subsection{Weather data}
+External weather data (here pressure, temperature, altitude) is given as input
+to the Level2 processing. Data from the selected source must be available
+for the complete Odin mission. Furthermore, the data should be as accurate
+as possible (typically temperature errors less than 2\,K?), 
+and contain no known artificial trend. 
+
+A commonly used data source, for this type of application, is 
+European Centre for Medium-Range Weather Forecasts (ECMWF).
+In principle, there are two possible ECMWF products to choose
+between, i.e. data from the operational model or from   
+ERA-Interim. ERA-Interim is a global atmospheric reanalysis from 1979,
+and is based on the same version of assimilation system,
+whereas the operational product has changed assimilation
+version during the Odin mission. 
+ 
+Thus, a requirment is that temperature trend analsysis is performed 
+for candidate data sources, in order to verify that the data contain
+no spurious trend, that can propagate to an artificial trend in
+\smr\ Level2 data.
+ 
 
 \subsection{Sensor characteristic data}  
-antenna angular response, sideband filtering,
-frequency response of each spectrometer channel.
-Best available data must be used.
-\lcomment{BR}{How can the requirements be formulated?}
+The forward model simulation must take into account of sensor characteristic data
+such as the antenna angular response, sideband filtering, and frequency response 
+of each spectrometer channel. A requirement is that best possible
+data is applied. 
+
 
 

@@ -3,7 +3,7 @@
 \section{The Odin mission}
 \label{sec:odin}
 %
-\lcomment{BR}{Text from ATBD-L2}
+%\lcomment{BR}{Text from ATBD-L2}
 
 The Odin satellite was launched on the 20th of February 2001, into a sun-synchronous
 18:00 hour ascending node orbit, carrying two co-aligned limb sounding
@@ -16,7 +16,7 @@ present operation of the satellite is partly performed as a ESA third party
 mission.
 
 \section{The SMR instrument}
-\lcomment{BR}{Text from ATBD-L2}
+%\lcomment{BR}{Text from ATBD-L2}
 
 The \smr\ package is highly flexible. In short, the four main receiver chains
 can be tuned to cover frequencies in the ranges 486\,--\,504\,GHz and
@@ -27,7 +27,9 @@ coupled to any of the four front-ends, but only two or three front-ends are
 used simultaneously. The ACs cover 400 or 800\,MHz per front-end, depending on
 configuration. In the configuration applied for atmospheric sounding, the
 channels of the ACs have a spacing of 1\,MHz, while the frequency resolution is
-only 2\,MHz\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. To cover all molecular transitions
+only 2\,MHz.
+%\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. 
+To cover all molecular transitions
 of interest, a number of ``observation modes'' have been defined. Each
 observation mode makes use of two or three frequency bands. Single sideband
 operation is obtained by tunable Martin-Pupplet interferometers. The nominal
@@ -58,38 +60,110 @@ the poles.
 
 \section{\smr\ Level2 data products}
 In this section an overview of \smr\ Level2 data products are given, and
-Table~\ref{table:level2} describes characteristics of the main products.
+Table~\ref{table:level2} and Table~\ref{table:level2b} describe characteristics of the main 
+and science Level2 products.
+The main products are retrieved from the so called "stratospheric" observation mode
+of \smr. In this mode spectra in frequency bands around 501 and 544\,GHz are collected,
+and this mode is the most commonly applied mode.
+The science data products are derived from less frequently applied observation modes
+(typically applied a few days per month).  
 
-\lcomment{BR}{Short text for each species.}
+
 
 \begin{table}
-\caption{ Characteristics \ Requirements? of \smr\ Level2 data products.}
+\caption{ Characteristics of \smr\ Level2 main data products.}
 \label{table:level2}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
   \hline
-  \textbf{Product} & \textbf{Vertical coverage} & \textbf{Vertical resolution} & \textbf{Precision} & \textbf{Remark} \\
+  \textbf{Product}      & \textbf{Frequency} & \textbf{Vertical}          & \textbf{Vertical}            & \textbf{Precision} & \textbf{Remark} \\
+                        & \textbf{{[}GHz{]}} & \textbf{coverage}          & \textbf{resolution}          &                    &                 \\
   \hline
-  \chem{O_{3}}     & x--y km                    &  x km                        & x                  & -- \\
+  \chem{O_{3}}          & 501.5              & \(\sim\)19--50\,km         &  \(\sim\)2\,km               & 0.5--2\,ppmv       &  \citep{urban:odins:05-b} \\
   \hline
-  \chem{ClO}       & x--y km                    &  x km                        & x                  & -- \\
+  \chem{ClO}            & 501.3              & \(\sim\)19--67\,km         &  1.5--2\,km                  & 0.15--0.2\,ppbv    & \citep{urban:odins:05-b} \\
   \hline
-  \chem{N_{2}O}    & x--y km                    &  x km                        & x                  & -- \\
+  \chem{N_{2}O}         & 502.3              & \(\sim\)15--70\,km         &  \(\sim\)1.5\,km             & 15--35\,ppbv       & \citep{urban:odins:05-b} \\
   \hline
-  \chem{HNO_{3}}   & x--y km                    &  x km                        & x                  & -- \\
+  \chem{O_{3}}          & 544.9              & \(\sim\)18--70\,km         &  \(\sim\)1.5\,km             & 0.2--0.4\,ppmv     & \citep{urban:odins:05-b} \\
   \hline
-  \chem{H_{2}O}    & x--y km                    &  x km                        & x                  & -- \\
+  \chem{HNO_{3}}        & 544.4              & \(\sim\)21--67\,km         &  1.5--2\,km                  & 1 ppbv             & \citep{urban:odins:05-b} \\
+  \hline 
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{ Characteristics of \smr\ Level2 science data products.}
+\label{table:level2b}
+\begin{tabular}{|l|l|l|l|l|l|}
   \hline
-  \chem{CO}        & x--y km                    &  x km                        & x                  & -- \\
+  \textbf{Product}      & \textbf{Frequency} & \textbf{Vertical}          & \textbf{Vertical}            & \textbf{Precision} & \textbf{Remark} \\
+                        & \textbf{{[}GHz{]}} & \textbf{coverage}          & \textbf{resolution}          &                    &                 \\
+  \hline
+  \chem{CO}             & 578.6              & \(\sim\)17--110\,km        &  3--4\,km                    & 25\,ppbv--2\,ppmv  & \citep{dupuy:strat:04} \\
+  \hline
+  \chem{H_{2}\,^{16}O}  & 556.9              & \(\sim\)40--100\,km        &  \(\sim\)3\,km               & 0.5--1\,ppmv       & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{16}O}  & 488.5              & \(\sim\)20--70\,km         &  \(\sim\)3\,km               & 0.5--1\,ppmv       & \citep{urban:globa:07} \\
+  \hline
+  \chem{HDO}            & 490.6              & \(\sim\)20--70\,km         &  3--4\,km                    & 0.5\,ppbv          & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{18}O}  & 489.1              & \(\sim\)20--65\,km         &  3--4\,km                    & 20-30\,ppbv        & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{18}O}  & 552.0              & \(\sim\)20--70\,km         & \(\sim\)3\,km                & 0.4\,ppbv          & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{18}O}  & 552.0              & \(\sim\)20--70\,km         & \(\sim\)3\,km                & 0.4\,ppbv          & \citep{urban:globa:07} \\
+  \hline
+  \chem{^{16}O\,^{18}O\,^{16}O}  & 490.4     & \(\sim\)27--41\,km         & 4--6\,km                     & 25\,\(\%\)         &     \\
+  \hline
+  \chem{^{16}O\,^{16}O\,^{18}O}  & 490.0     & \(\sim\)25--45\,km         & 3--4\,km                     & 25\,\(\%\)         &     \\
+  \hline
+  \chem{^{16}O\,^{16}O\,^{17}O}  & 490.6     & \(\sim\)31--39\,km         & 5--6\,km                     & 25\,\(\%\)         &     \\
   \hline
 \end{tabular}
 \end{table}
 
 
-\subsection{Ozone profile}
-\subsection{\chem{ClO} profile}
-\subsection{\chem{N_{2}O} profile}
-\subsection{\chem{HNO_{3}} profile} 
-\subsection{\chem{H_{2}O} profile}
-\subsection{\chem{CO} profile}
 
+
+%Odin/SMR limb observations of stratospheric trace gases: Level 2 processing of ClO, N2O, HNO3, and O-3
+
+\subsection{Main data products}
+\subsection*{Ozone profile}
+
+Ozone, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}} profiles
+are the main \smr\ Level2 products.
+\chem{ClO} and \chem{N_{2}O} profiles are retrieved from spectra covering
+transitions around 501\,GHz and \chem{HNO_{3}} from spectra around 544\,GHz.
+Ozone can be retrieved from both of the 501 and 544\,GHz bands.
+Table~\ref{table:level2} describe characteristics of these Level2 products,
+that has been derived from earlier \smr\ Level2 data studies.
+The characteristics, can not be expected to be changed/improved dramatically
+for a new Level2 data product,
+because these characteristics depends on the physics of the measurement and
+the sensor. 
+
+Besides the characteristics described in Table~\ref{table:level2},
+also the accuracy and stability of the profiles are equally
+or even more important, for enabling trend studies. 
+The requirement for the upcoming Level2 data products also reflect
+this aspect, and the requirement is therefore that the accuracy
+and stability outperforms that from earlier \smr\ Level2 data products. 
+
+
+
+%\subsection*{\chem{ClO} profile}
+%\subsection*{\chem{N_{2}O} profile}
+%\subsection*{\chem{HNO_{3}} profile}
+
+\subsection{Science data products}
+Profiles of \chem{H_{2}O}, \chem{CO}, and isotopologues of \chem{H_{2}O}, and \chem{O_{3}}
+are considered as science data products for \smr. 
+Characteristics of these products are described in Table~\ref{table:level2b}.
+
+\lcomment{BR}{Add text...}
+
+%\subsection*{\chem{H_{2}O} profile}
+%\subsection*{\chem{CO} profile}
+%\subsection*{isotopologues of \chem{H_{2}O}}
+%\subsection*{isotopologues of \chem{O_{3}}}
 
