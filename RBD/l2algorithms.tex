@@ -1,5 +1,7 @@
 \chapter{\smr\ Level2 algorithms and input data}
+\label{level2-algorithms}
 \section{Overview}
+
 
 \begin{figure}[t]
 \includegraphics[width=14cm]{level2-overview.png}
@@ -7,15 +9,16 @@
 \label{fig:level2}
 \end{figure}
 
-
 The basic target of the Level2 algorithms is to
 convert observed and calibrated Level1B spectra
 to atmospheric species profiles.
+The retrieval problem is in general non-unique 
+and non-linear for \smr\,  
 %The mapping between an observed set of spectra (a scan)
 %and the underlying atmospheric species profile is not unique.
-The \smr\ level2 data products will be derived by an
+and the \smr\ level2 data products will be derived by an
 optimal estimation method (OEM) implementation, as described
-in the ATBD for Level2 processing. 
+in the \smr\ ATBD for level2 processing \citep{atbdl2}.
 The OEM implementation combines measurement information with 
 Ancillary -- Auxiliary data and applies a forward 
 model (Figure~\ref{fig:level2}). High level requirements for each 
@@ -29,16 +32,15 @@ In short, these requirements are
 
 \begin{itemize}
 
-
-\item limb sounding requires that refraction and the spherical shape
+\item Limb sounding requires that refraction and the spherical shape
 of the Earth is considered when determining the propagation path,
-which excludes all plane-parallel models 
+which excludes all plane-parallel models. 
 
-\item the forward model must be able to deliver Jacobians
+\item The forward model must be able to deliver Jacobians.
 
-\item the forward model must be able to incorporate effects of
+\item The forward model must be able to incorporate effects of
 sensor characteristic (antenna angular response, sideband filtering,
-frequency response of each spectrometer channel) 
+frequency response of each spectrometer channel).
 
 \end{itemize}
 
@@ -47,7 +49,6 @@ is a publicly available software that is both developed and
 maintained as an open source project.
 ARTS is in compliance with the requirements for \smr\ Level2
 data processing. Thus, no further refinements of ARTS must be performed.
-
 
 \subsection{Spectroscopic data}
 
@@ -62,41 +63,79 @@ However, a requirement is that a literature review is performed,
 in order to identify the best possible spectroscopic data to apply. 
 
 
-
 \section{OEM implementation requirements}
 
-\lcomment{BR}{How can the requirements be formulated?}
+
+
+The basis of the required OEM implementation for \smr\ 
+is described in Chapter 4 of the ATBD for level2 processing.
+In short, the basic considerations/requirements of the OEM implementation are
+\begin{itemize}
+\item The OEM implementation must contain an interface to 
+      the applied forward model.
+\item The retrieval problem is in general non-unique, hence
+      a constrain to the solution must be applied.  
+\item Measurement information must be combined with \textit{a priori}
+      information, and the OEM implementation must contain functions to 
+      create parametric covariance matrices.
+\item The retrieval problem is non-linear, hence an iterative
+      procedure is required to find the solution.
+\item The iteration scheme needs a convergence test and stop 
+      criteria.
+
+\end{itemize}
+
+A matlab implementation, that is part of the Atmlab package, 
+of OEM will be applied. This package is available through the \ARTS\ site,
+at \url{www.radiativetransfer.org/tools}, and provides an interface
+to \ARTS\ and other necessary functionality, and has
+been used by several groups for retrieval processing.
+However, the exact setup of the retrieval processing
+must be seen as specific for \smr\ and tests must be performed
+to identify best setup. Level2 data validation 
+is covered in Chapter\ref{validation}.
+
 
 \section{Level1B data requirements}
 
 The accuracy of the Level1B dataset is important for the quality of the
-Level2 dataset for obvious reasons. \smr\ has been in operation
-for \(\sim\)14 years, and thus, the Level2 dataset can be applied for
-scientifically interesting trend analysis. It is therefore of
-high importance that the Level1B dataset is accurate and stable.
-
-Best available \smr\ Level1B data should be applied.
-The Level1B data must not contain any errors that are known.
+Level2 dataset for obvious reasons. 
+Following various validation exercises a number of 
+issues of \smr\ Level1 data have been identified, 
+including strange baselines, glitches and jumps in the power level.
+A requirement is therefore that a review of the calibration 
+scheme and the processing algorithms must be performed,
+and any detected errors must be corrected if possible. 
+A further requirement is that Level1 data is quality classified, 
+and that corrupt data is weeded out.
+The accuracy of Level1 data should be verified by comparison
+to simulated measurements (see Chapter\ref{validation}).
+In short,
+%\smr\ has been in operation
+%for \(\sim\)14 years, and thus, the Level2 dataset can be applied for
+%scientifically interesting trend analysis. It is therefore of
+%high importance that the Level1B dataset is accurate and stable.
+best available \smr\ Level1B data should be applied,
+and the Level1B data must not contain any errors that are known.
 
 
 \section{Ancillary -- Auxiliary data requirements}
-\subsection{Climatological \textit{a priori} data}
+\subsection{Climatology \textit{a priori} data}
 \textit{a priori} data, or a climatology database covering all species of interest
-are required, as the OEM implementation needs a starting guess for each profile
-to be retrived. 
+is required, as the OEM implementation needs a starting guess for each profile
+to be retrieved. 
 The climatology must also cover the relevant vertical range for each species, and
 latitudinal and seasonal variations.
-Climatlogy data must have an accuracy better than ? \(\%\).
-
+%Climatlogy data must have an accuracy better than ? \(\%\).
 A requirement is that a literature review is performed,
-in order to identify the best possible climatological data.
+in order to identify the best possible climatology data.
 
 
-\subsection{Weather data}
-External weather data (here pressure, temperature, altitude) is given as input
+\subsection{ZPT data}
+External ZPT data (altitude, pressure, temperature) is given as input
 to the Level2 processing. Data from the selected source must be available
 for the complete Odin mission. Furthermore, the data should be as accurate
-as possible (typically temperature errors less than 2\,K?), 
+as possible %(typically temperature errors less than 2\,K?), 
 and contain no known artificial trend. 
 
 A commonly used data source, for this type of application, is 
@@ -108,7 +147,7 @@ and is based on the same version of assimilation system,
 whereas the operational product has changed assimilation
 version during the Odin mission. 
  
-Thus, a requirment is that temperature trend analsysis is performed 
+Thus, a requirement is that temperature trend analysis is performed 
 for candidate data sources, in order to verify that the data contain
 no spurious trend, that can propagate to an artificial trend in
 \smr\ Level2 data.

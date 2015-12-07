@@ -1,5 +1,5 @@
 \chapter{Data validation}
-
+\label{validation}
 
 \section{Validation objective and method}
 
@@ -19,19 +19,25 @@ to compare \smr\ Level2 data to best possible correlative datasets,
 and to derive a mean bias against various reference datasets.
 
 The "validation" must be performed in at least two phases.
-The first phase is for a Diagnostic dataset, i.e. a sub-part 
-of the \smr\ dataset, that is used for verification purposes, 
-for the development of the new processing algorithms.  
+The first phase is for a diagnostic/verification dataset, i.e. a sub-part 
+of the \smr\ dataset, that is used to judge the performance of the 
+updated processing chain, and to allow continuous improvements to the 
+processing chain during development.
+The dataset should be representative in the sense that it
+contains all types of data (both "good" and "problematic") and
+that it is not overly large (less than 10\(\%\) of the complete data).
 The second phase is for the finally selected processing setup
 and for complete dataset.
+
+
 
 \section{Level1B verification}
 
 The quality of the Level1B dataset should be verified.
-A mimimum requirement is that calibrated spectra should 
+A minimum requirement is that calibrated spectra should 
 be compared with radiative transfer model simulations where 
 the observed signal can be accurately predicted. 
-In practise, this means observations with low tangent point 
+In practice, this means observations with low tangent point 
 at high latitudes and with low tropospheric temperature gradient. 
 Furthermore, simulations should based on best possible input data.
 Time-series of measurements and simulations should be evaluated
@@ -41,18 +47,18 @@ in order to identify/verify the calibration accuracy and any drifts.
 \section{Level2 validation}
 
 %The situataion is a bit different for the various species.
-All main Level2 data species can be compared to correlative datasets
+All main Level2 data species must be compared to correlative datasets
 from other satellite instruments, such as Microwave Limb Sounder (MLS)
 on the Aura satellite, and the Michelson Interferometer for Passive
 Atmospheric Sounding (MIPAS) which is a mid-infrared emission spectrometer
 mounted on the European ENVIronmantal SATellite (ENVISAT).
 Furthermore, \smr ozone profiles can be compared to high quality balloon-borne 
 measurements, and such comparisons are presented in \citep{jegou:techn:08}.
-However, ozone profiles dervied from balloon-borne 
+However, ozone profiles derived from balloon-borne 
 measurements do not cover the upper atmosphere atmosphere (typically maximum
 altitude is below 35\,km).
 
-A mimimum requirement for \smr\ Level2 products is that mean bias 
+A minimum requirement for \smr\ Level2 products is that mean bias 
 profiles against reference datasets are established. 
 The following reference datasets must be considered:
 \begin{itemize}
