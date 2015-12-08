@@ -10,10 +10,10 @@ The Odin satellite was launched on the 20th of February 2001, into a sun-synchro
 instruments: OSIRIS (optical spectrograph and infrared imaging system) and
 \SMR\ (sub-millimetre radiometer) \citep{murtagh:anove:02}. 
 Originally, Odin was used for both
-atmospheric and astronomical observations, while since 2007 only its aeronomy
+atmospheric and astronomical observations, but since 2007 only its aeronomy
 mission is active. Odin is a Swedish-led project, in cooperation with Canada,
 France and Finland. Both of Odin's instruments are still functional, and the
-present operation of the satellite is partly performed as a ESA third party
+present operation of the satellite is partly performed as an ESA third party
 mission.
 
 \section{The SMR instrument}
@@ -21,8 +21,8 @@ mission.
 
 The \smr\ package is highly flexible \citep{frisk:theod:03}. 
 In short, the four main receiver chains
-can be tuned to cover frequencies in the ranges 486\,--\,504\,GHz and
-541\,--\,581\,GHz, but the maximum total instantaneous bandwidth is only
+can be tuned to cover frequencies in the ranges 486--504\,GHz and
+541--581\,GHz, but the maximum total instantaneous bandwidth is only
 1.6\,GHz. This bandwidth is determined by the two auto-correlation
 spectrometers (ACs) used for atmospheric observations. The two ACs can be
 coupled to any of the four front-ends, but only two or three front-ends are
@@ -35,20 +35,20 @@ To cover all molecular transitions
 of interest (see Table~\ref{table:level2} and Table~\ref{table:level2b} for an overview), 
 a number of ``observation modes'' have been defined. Each
 observation mode makes use of two or three frequency bands. Single sideband
-operation is obtained by tunable Martin-Pupplet interferometers. The nominal
+operation is obtained by tunable Martin--Pupplet interferometers. The nominal
 sideband suppression is better than 19\,dB across the image band.
 
-\smr\ also has a receiver chain around the 118\,GHz oxygen transition, that was
+\smr\ also has a receiver chain around the 118\,GHz oxygen transition that was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
 front-end was planned to be used for retrieving temperature profiles, but a
 technical problem (drifting LO frequency) and the fact that the analysis
 requires treatment of Zeeman splitting have given these data low priority. This
-\ATBD\ focuses on the processing of the sub-millimetre data but comments on the
-adoptions required to also handle the 118\,GHz data are given
+\ATBD\ focuses on the processing of the sub-millimetre data, but comments on the
+adaptions required to also handle the 118\,GHz data are given.
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
-of the two instruments' line-of-sigh is achieved by a rotation of the satellite
+of the two instruments' line-of-sight is achieved by a rotation of the satellite
 platform, with a rate matching a vertical speed of the tangent altitude of
 750\,m/s. Measurements are performed during both upward and downward scanning.
 The lower end of the scan is typically at about 7\,km, the upper end varies
@@ -62,10 +62,10 @@ the poles.
 
 
 \section{\smr\ Level2 data products}
-In this section an overview of \smr\ Level2 data products and requirements are given, and
+In this section an overview of \smr\ Level2 data products and requirements are given.
 Table~\ref{table:level2} and Table~\ref{table:level2b} describe characteristics of the main 
 and science Level2 products.
-The main products are retrieved from the so called "stratospheric" observation mode
+The main products are retrieved from the so called ``stratospheric'' observation mode
 of \smr. In this mode spectra in frequency bands around 501 and 544\,GHz are collected,
 and this mode is the most commonly applied mode.
 The science data products are derived from less frequently applied observation modes
@@ -137,30 +137,30 @@ The science data products are derived from less frequently applied observation m
 Ozone, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}} profiles
 are the main \smr\ Level2 products.
 \chem{ClO} and \chem{N_{2}O} profiles are retrieved from spectra covering
-transitions around 501\,GHz and \chem{HNO_{3}} from spectra around 544\,GHz.
-Ozone can be retrieved from both of the 501 and 544\,GHz bands.
-Table~\ref{table:level2} describe characteristics of these Level2 products,
+transitions around 501\,GHz, and \chem{HNO_{3}} from spectra around 544\,GHz.
+Ozone can be retrieved from both the 501 and the 544\,GHz band.
+Table~\ref{table:level2} describes characteristics of these Level2 products
 that has been derived from earlier \smr\ Level2 data studies.
-The characteristics, can not be expected to be changed/improved dramatically
+The characteristics can not be expected to be changed/improved dramatically
 for a new Level2 data product,
-because these characteristics depends on the physics of the measurement and
+because these characteristics depend on the physics of the measurement and
 the sensor. 
 
 Besides the characteristics described in Table~\ref{table:level2},
-also the accuracy and stability of the profiles are equally
+the accuracy and stability of the profiles are equally
 or even more important, for enabling trend studies. 
-The overall aim of the new Level2 data processing also reflect
+The overall aim of the new Level2 data processing also reflects
 this aspect, and the objective is therefore that the accuracy
 and stability outperforms that from earlier \smr\ Level2 data products. 
 
-A requirement is therefore that an inventory/review of the Level1B 
+A requirement is therefore that an inventory/review is performed of the Level1B 
 algorithm and data, and all other input data, 
-applied in the Level2 processing must be performed
-(see Chapter\ref{level2-algorithms}). 
-A further requirement is also that the new Level2 dataset
-must be validated by comparison to correlative datasets, 
+applied in the Level2 processing
+(see Chapter~\ref{level2-algorithms}).
+A further requirement is that the new Level2 dataset
+is validated by comparison to correlative datasets,
 both during the development phase and and in its final stage 
-(see further Chapter\ref{validation}).
+(see further Chapter~\ref{validation}).
 
 
 
@@ -174,8 +174,8 @@ are considered as science data products for \smr, and
 characteristics of these products are described in Table~\ref{table:level2b}.
 Observations covering the science data products are performed on a less 
 frequent basis than the main data products. The aim of the
-Level2 processing of the science data products are in principle
-identical to that from the main data products, although
+Level2 processing of the science data products is in principle
+identical to that for the main data products, although
 the main data products will be given a higher priority.
 
 
