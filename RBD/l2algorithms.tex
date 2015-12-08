@@ -18,9 +18,9 @@ and non-linear for \smr\,
 %The mapping between an observed set of spectra (a scan)
 %and the underlying atmospheric species profile is not unique.
 and the \smr\ level2 data products will be derived by an
-optimal estimation method (OEM) implementation, as described
-in the \smr\ ATBD for level2 processing \citep{atbdl2}.
-The OEM implementation combines measurement information with 
+\OEMlong\ (\OEM) implementation, as described
+in the \smr\ \ATBD\ for level2 processing \citep{atbdl2}.
+The \OEM\ implementation combines measurement information with 
 Ancillary--Auxiliary data and applies a forward 
 model (Figure~\ref{fig:level2}). High level requirements for each 
 component is described in the following sections.
@@ -28,7 +28,7 @@ component is described in the following sections.
 \section{Forward model requirements}
 
 Forward model requirements are described in Sect. 2.2
-and 2.4.2 in the ATBD for level2 processing.
+and 2.4.2 in the \ATBD\ for level2 processing.
 In short, these requirements are:
 
 \begin{itemize}
@@ -45,11 +45,11 @@ frequency response of each spectrometer channel).
 
 \end{itemize}
 
-ARTS, the Atmospheric radiative transfer simulator, 
-is a publicly available free and open source software project.
+\ARTS, the \ARTSlong,
+is a publicly available \FOSSlong\ project.
 % that is both developed and  maintained as free and open source project.
-ARTS is in compliance with the requirements for \smr\ Level2
-data processing. Thus, no further refinements of ARTS are necessary to perform.
+\ARTS\ is in compliance with the requirements for \smr\ Level2
+data processing. Thus, no further refinements of \ARTS\ are necessary to perform.
 
 \subsection{Spectroscopic data}
 
@@ -59,23 +59,23 @@ The positions and strengths of molecular transitions
 are known with a relatively high accuracy. In contrast, effects of pressure
 broadening and non-resonant absorption are less well known.
 Spectroscopic parameters can for instance be found in the 
-high-resolution transmission molecular absorption (HITRAN) database.
+High-resolution transmission molecular absorption (HITRAN) database.
 However, a requirement is that a literature review is performed,
 in order to identify the best possible spectroscopic data to apply. 
 
 
 \section{OEM implementation requirements}
 
-The basis of the required OEM implementation for \smr\ 
-is described in Chapter 4 of the ATBD for level2 processing.
+The basis of the required \OEM\ (\OEMlong) implementation for \smr\ 
+is described in Chapter 4 of the \ATBD\ for level2 processing.
 In short, the basic considerations/requirements of the OEM implementation are:
 \begin{itemize}
-\item the OEM implementation must contain an interface to
+\item the \OEM\ implementation must contain an interface to
       the applied forward model,
 \item the retrieval problem is in general non-unique, hence
       a constraint to the solution must be applied,
 \item measurement information must be combined with \textit{a priori}
-      information, and the OEM implementation must contain functions to 
+      information, and the \OEM\ implementation must contain functions to 
       create parametric covariance matrices,
 \item the retrieval problem is non-linear, hence an iterative
       procedure is required to find the solution,
@@ -84,7 +84,7 @@ In short, the basic considerations/requirements of the OEM implementation are:
 \end{itemize}
 
 A matlab implementation, that is part of the Atmlab package, 
-of OEM will be applied. This package is available through the \ARTS\ site,
+of \OEM\ will be applied. This package is available through the \ARTS\ site,
 at \url{www.radiativetransfer.org/tools}. It provides an interface
 to \ARTS\ and other necessary functionality, and has
 been used by several groups for retrieval processing.
@@ -120,7 +120,7 @@ and the Level1B data must not contain any errors that are known.
 \section{Ancillary--Auxiliary data requirements}
 \subsection{Climatology \textit{a priori} data}
 \textit{A priori} data, or a climatology database covering all species of interest
-is required, as the OEM implementation needs a starting estimate for each profile
+is required, as the \OEM\ implementation needs a starting estimate for each profile
 to be retrieved. 
 The climatology must also cover the relevant vertical range for each species, and
 latitudinal and seasonal variations.
@@ -137,7 +137,7 @@ as possible %(typically temperature errors less than 2\,K?),
 and contain no known artificial trends.
 
 A commonly used data source for this type of application, is
-European Centre for Medium-Range Weather Forecasts (ECMWF).
+European centre for medium-range weather forecasts (ECMWF).
 In principle, there are two possible ECMWF products to choose
 between, i.e. data from the operational model or from   
 ERA-Interim. ERA-Interim is a global atmospheric reanalysis from 1979,
