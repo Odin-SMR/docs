@@ -4,6 +4,7 @@
 
 
 \begin{figure}[t]
+\centering
 \includegraphics[width=14cm]{level2-overview.png}
 \caption{Schematic of the Level2 processing and input data.}
 \label{fig:level2}
@@ -20,7 +21,7 @@ and the \smr\ level2 data products will be derived by an
 optimal estimation method (OEM) implementation, as described
 in the \smr\ ATBD for level2 processing \citep{atbdl2}.
 The OEM implementation combines measurement information with 
-Ancillary -- Auxiliary data and applies a forward 
+Ancillary--Auxiliary data and applies a forward 
 model (Figure~\ref{fig:level2}). High level requirements for each 
 component is described in the following sections.
 
@@ -28,34 +29,34 @@ component is described in the following sections.
 
 Forward model requirements are described in Sect. 2.2
 and 2.4.2 in the ATBD for level2 processing.
-In short, these requirements are
+In short, these requirements are:
 
 \begin{itemize}
 
-\item Limb sounding requires that refraction and the spherical shape
+\item limb sounding requires that refraction and the spherical shape
 of the Earth is considered when determining the propagation path,
-which excludes all plane-parallel models. 
+which excludes all plane-parallel models,
 
-\item The forward model must be able to deliver Jacobians.
+\item the forward model must be able to deliver Jacobians,
 
-\item The forward model must be able to incorporate effects of
-sensor characteristic (antenna angular response, sideband filtering,
+\item the forward model must be able to incorporate effects of
+sensor characteristics (e.g. antenna angular response, sideband filtering,
 frequency response of each spectrometer channel).
 
 \end{itemize}
 
 ARTS, the Atmospheric radiative transfer simulator, 
-is a publicly available software that is both developed and 
-maintained as an open source project.
+is a publicly available free and open source software project.
+% that is both developed and  maintained as free and open source project.
 ARTS is in compliance with the requirements for \smr\ Level2
-data processing. Thus, no further refinements of ARTS must be performed.
+data processing. Thus, no further refinements of ARTS are necessary to perform.
 
 \subsection{Spectroscopic data}
 
 Spectroscopic data can be seen as basic input to the forward model,  
 and it is of high importance that this data is as correct as possible. 
-The position and strength of molecular transitions 
-are known with a relatively high accuracy. In contrast, pressure 
+The positions and strengths of molecular transitions
+are known with a relatively high accuracy. In contrast, effects of pressure
 broadening and non-resonant absorption are less well known.
 Spectroscopic parameters can for instance be found in the 
 high-resolution transmission molecular absorption (HITRAN) database.
@@ -65,35 +66,32 @@ in order to identify the best possible spectroscopic data to apply.
 
 \section{OEM implementation requirements}
 
-
-
 The basis of the required OEM implementation for \smr\ 
 is described in Chapter 4 of the ATBD for level2 processing.
-In short, the basic considerations/requirements of the OEM implementation are
+In short, the basic considerations/requirements of the OEM implementation are:
 \begin{itemize}
-\item The OEM implementation must contain an interface to 
-      the applied forward model.
-\item The retrieval problem is in general non-unique, hence
-      a constrain to the solution must be applied.  
-\item Measurement information must be combined with \textit{a priori}
+\item the OEM implementation must contain an interface to
+      the applied forward model,
+\item the retrieval problem is in general non-unique, hence
+      a constraint to the solution must be applied,
+\item measurement information must be combined with \textit{a priori}
       information, and the OEM implementation must contain functions to 
-      create parametric covariance matrices.
-\item The retrieval problem is non-linear, hence an iterative
-      procedure is required to find the solution.
-\item The iteration scheme needs a convergence test and stop 
+      create parametric covariance matrices,
+\item the retrieval problem is non-linear, hence an iterative
+      procedure is required to find the solution,
+\item the iteration scheme needs a convergence test and stop 
       criteria.
-
 \end{itemize}
 
 A matlab implementation, that is part of the Atmlab package, 
 of OEM will be applied. This package is available through the \ARTS\ site,
-at \url{www.radiativetransfer.org/tools}, and provides an interface
+at \url{www.radiativetransfer.org/tools}. It provides an interface
 to \ARTS\ and other necessary functionality, and has
 been used by several groups for retrieval processing.
 However, the exact setup of the retrieval processing
-must be seen as specific for \smr\ and tests must be performed
+has to be seen specific for \smr\ and tests must be performed
 to identify best setup. Level2 data validation 
-is covered in Chapter\ref{validation}.
+is covered in Chapter~\ref{validation}.
 
 
 \section{Level1B data requirements}
@@ -104,25 +102,25 @@ Following various validation exercises a number of
 issues of \smr\ Level1 data have been identified, 
 including strange baselines, glitches and jumps in the power level.
 A requirement is therefore that a review of the calibration 
-scheme and the processing algorithms must be performed,
-and any detected errors must be corrected if possible. 
+scheme and the processing algorithms is performed,
+and that any errors that are found are corrected if possible.
 A further requirement is that Level1 data is quality classified, 
 and that corrupt data is weeded out.
 The accuracy of Level1 data should be verified by comparison
-to simulated measurements (see Chapter\ref{validation}).
+to simulated measurements (see Chapter~\ref{validation}).
 In short,
 %\smr\ has been in operation
 %for \(\sim\)14 years, and thus, the Level2 dataset can be applied for
 %scientifically interesting trend analysis. It is therefore of
 %high importance that the Level1B dataset is accurate and stable.
-best available \smr\ Level1B data should be applied,
+the best available \smr\ Level1B data should be applied,
 and the Level1B data must not contain any errors that are known.
 
 
-\section{Ancillary -- Auxiliary data requirements}
+\section{Ancillary--Auxiliary data requirements}
 \subsection{Climatology \textit{a priori} data}
-\textit{a priori} data, or a climatology database covering all species of interest
-is required, as the OEM implementation needs a starting guess for each profile
+\textit{A priori} data, or a climatology database covering all species of interest
+is required, as the OEM implementation needs a starting estimate for each profile
 to be retrieved. 
 The climatology must also cover the relevant vertical range for each species, and
 latitudinal and seasonal variations.
@@ -136,9 +134,9 @@ External ZPT data (altitude, pressure, temperature) is given as input
 to the Level2 processing. Data from the selected source must be available
 for the complete Odin mission. Furthermore, the data should be as accurate
 as possible %(typically temperature errors less than 2\,K?), 
-and contain no known artificial trend. 
+and contain no known artificial trends.
 
-A commonly used data source, for this type of application, is 
+A commonly used data source for this type of application, is
 European Centre for Medium-Range Weather Forecasts (ECMWF).
 In principle, there are two possible ECMWF products to choose
 between, i.e. data from the operational model or from   
@@ -147,16 +145,16 @@ and is based on the same version of assimilation system,
 whereas the operational product has changed assimilation
 version during the Odin mission. 
  
-Thus, a requirement is that temperature trend analysis is performed 
-for candidate data sources, in order to verify that the data contain
+Thus, a requirement is that a temperature trend analysis is performed
+for candidate data sources, in order to verify that the data contains
 no spurious trend, that can propagate to an artificial trend in
 \smr\ Level2 data.
  
 
 \subsection{Sensor characteristic data}  
-The forward model simulation must take into account of sensor characteristic data
+The forward model simulation must take into account sensor characteristic data,
 such as the antenna angular response, sideband filtering, and frequency response 
-of each spectrometer channel. A requirement is that best possible
+of each spectrometer channel. A requirement is that the best possible
 data is applied. 
 
 
