@@ -19,16 +19,15 @@ to compare \smr\ Level2 data to best possible correlative datasets,
 and to derive a mean bias against various reference datasets.
 
 The "validation" must be performed in at least two phases.
-The first phase is for a diagnostic/verification dataset, i.e. a sub-part 
-of the \smr\ dataset, that is used to judge the performance of the 
-updated processing chain, and to allow continuous improvements to the 
-processing chain during development.
+The first phase is validation for a diagnostic/verification dataset, i.e. a
+sub-part of the \smr\ dataset. This dataset will be used to judge the
+performance of the updated processing chain, and to allow continuous
+improvements to the processing chain during development.
 The dataset should be representative in the sense that it
-contains all types of data (both "good" and "problematic") and
-that it is not overly large (less than 10\(\%\) of the complete data).
-The second phase is for the finally selected processing setup
-and for complete dataset.
-
+contains all types of data (both "good" and "problematic") while
+not being overly large (less than 10\% of the complete dataset).
+The second phase is to perform validation for the finally selected processing
+setup and for the complete dataset.
 
 
 \section{Level1B verification}
@@ -39,7 +38,7 @@ be compared with radiative transfer model simulations where
 the observed signal can be accurately predicted. 
 In practice, this means observations with low tangent point 
 at high latitudes and with low tropospheric temperature gradient. 
-Furthermore, simulations should based on best possible input data.
+Furthermore, simulations should be based on the best possible input data.
 Time-series of measurements and simulations should be evaluated
 in order to identify/verify the calibration accuracy and any drifts. 
 
@@ -50,25 +49,25 @@ in order to identify/verify the calibration accuracy and any drifts.
 All main Level2 data species must be compared to correlative datasets
 from other satellite instruments, such as Microwave Limb Sounder (MLS)
 on the Aura satellite, and the Michelson Interferometer for Passive
-Atmospheric Sounding (MIPAS) which is a mid-infrared emission spectrometer
+Atmospheric Sounding (MIPAS), a mid-infrared emission spectrometer
 mounted on the European ENVIronmantal SATellite (ENVISAT).
 Furthermore, \smr ozone profiles can be compared to high quality balloon-borne 
 measurements, and such comparisons are presented in \citep{jegou:techn:08}.
 However, ozone profiles derived from balloon-borne 
-measurements do not cover the upper atmosphere atmosphere (typically maximum
+measurements do not cover the upper atmosphere (typically maximum
 altitude is below 35\,km).
 
-A minimum requirement for \smr\ Level2 products is that mean bias 
+A minimum requirement for the \smr\ Level2 products is that mean bias
 profiles against reference datasets are established. 
 The following reference datasets must be considered:
 \begin{itemize}
 
-\item The previous \smr\ Level2 dataset for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}.
+\item the previous \smr\ Level2 dataset for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}},
 
-\item Best possible correlative dataset derived from satellite-borne measurements
-      for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}}.
+\item best possible correlative dataset derived from satellite-borne measurements
+      for \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}},
 
-\item Ballon-borne measurements (between 20--35\,km) for \chem{O_3}
+\item ballon-borne measurements (between 20--35\,km) for \chem{O_3}.
 
 \end{itemize}
 
