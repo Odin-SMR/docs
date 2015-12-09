@@ -58,7 +58,7 @@ e.g.][Eq.~50]{chandrasekhar:60}:
      I(\nu) = I_0(\nu)e^{-\int^l_0{k(s,\nu)ds}} + 
      \int^l_0{k(s,\nu)B(T(s),\nu) e^{-\int^l_0{k(s',\nu)ds'}} ds},
 \end{equation}
-where $I$ is radiance, $I_0$ is the radiance along the line-of-sight (LOS) at
+where $I$ is radiance, $I_0$ is the radiance along the line-of-sight (\LOS) at
 the top of the atmosphere, where the propagation path starts, $l$ is the length
 of this propagation path, $k$ is the absorption coefficient, $s$ is the
 distance along the propagation path, and $B$ is the Planck function giving the
@@ -163,7 +163,7 @@ linearised around (\aSttVct{a},\FrwMdlVctHat):
   \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right) +
   \MsrErrVct_n
 \end{equation}
-Under these assumptions, we have now a second way to express the forward
+Under these assumptions, we now have a second way to express the forward
 model uncertainty:
 \begin{equation}
   \MsrErrVct_b = \aWfnMtr{\FrwMdlVct}\left(\FrwMdlVct-\FrwMdlVctHat\right).
@@ -268,13 +268,13 @@ The normal way to tackle ill-posed problems of this type is
 passive atmospheric sounding, using statistical information as basis for the
 regularisation has become the standard approach, and it is also the approach
 selected for \smr. The method is probably most widely known as the optimal
-estimation method (OEM), and is the name selected for this document. The method
+estimation method (\OEM), which is the name used in this document. The method
 can be seen as an application of Bayes theorem, under certain conditions, and
 another possible name of the method the maximum a posteriori solution, see
 further \citet{rodgers:00}.
 
 The aspect of ``statistical regularisation'' is probably most clearly
-identified by noting that OEM minimises the following ``cost function'':
+identified by noting that \OEM\ minimises the following ``cost function'':
 \begin{equation}
   \label{eq:costfun}
   \CstFnc(\SttVct) = (\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat))^T\aCvrMtr{o}^{-1}
@@ -349,14 +349,14 @@ there is no strict division line between \SttVct\ and \FrwMdlVct. Obviously,
 \SttVct\ must contain a representation of the quantities targeted by the
 measurements, but for variables of interfering character (e.g.\ frequency
 off-set) there is a choice to make. For a perfectly linear retrieval case, exactly
-the same results will be obtained for the target quantities independently if
+the same results will be obtained for the target quantities independent of whether
 interfering factors are covered by \SttVct\ or \FrwMdlVct. However, inclusion
 in \SttVct\ is to prefer as this will result in that values describing the
 interfering effects are obtained, which can provide important diagnostic
 information (e.g.\ to detect instrumental changes). In addition, in a
 non-linear situation a more optimal solution is obtained by placing interfering
 factors in \SttVct, as it is likely that \aWfnMtr{\FrwMdlVct}, and then also
-\aCvrMtr{\MsrErrVct_o} (cf.\ Eq.~\ref{eq:So}), vary with \SttVct. That is,
+\aCvrMtr{\MsrErrVct_o} (cf.\ Eq.~\ref{eq:So}), varies with \SttVct. That is,
 the description of observation uncertainties is likely to deteriorate with
 the deviation between $\SttVct$ and $\aSttVct{a}$. If interfering species are part
 of \SttVct, such non-linear effects will be taken care of by the reevaluation of 
@@ -394,11 +394,12 @@ fit), see further Sec.~\ref{sec:x}.
 
 In contrast to many other satellite missions \citep[e.g.][]{read2006clear}, no
 \smr\ specific forward model has been developed. Instead, the general forward
-model \ARTS\ (the Atmospheric radiative transfer simulator) is used for \smr\
+model \ARTS\ (\ARTSlong) is used for \smr\
 L2 processing. Earlier operational L2 processing \citep{urban:odins:05-b} made
 use of the first \ARTS\ version (and also the Moliere forward model
 \citep{urban2004moliere}), while the retrievals described in this document are
-based on the latest version. At this point it is just noted that \ARTS\ comply
+based on the latest version. \todo{which, at the time of writing, is \ldots?}
+At this point it is just noted that \ARTS\ complies
 fully with the demands listed above, and the presentation of \ARTS\ is
 continued in Chapter~\ref{chapter:arts}.
 
