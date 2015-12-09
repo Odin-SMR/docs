@@ -27,7 +27,7 @@ are based on measurements confined to tangent altitudes above the tropopause,
 with some margin, to allow that scattering can be neglected in the simulations
 of atmospheric radiative transfer. Observations that can be affected by
 scattering (due to tropospheric clouds) are treated separately, and the same
-applies to data measured when Odin has been performed a special scanning
+applies to data measured when Odin has performed a special scanning
 sequence (see further Sec.~\ref{sec:nonstandard}). The result of these
 retrievals are formally also L2 products, but inside this document the term
 ``L2'' refers only to the operational products.
@@ -53,12 +53,12 @@ the table of contents.
 %
 The Odin satellite was launched on the 20th of February 2001, into a sun-synchronous
 18:00 hour ascending node orbit, carrying two co-aligned limb sounding
-instruments: OSIRIS (optical spectrograph and infrared imaging system) and
-\SMR\ (sub-millimetre radiometer). Originally, Odin was used for both
-atmospheric and astronomical observations, while since 2007 only its aeronomy
+instruments: \OSIRIS\ (\OSIRISlong) and
+\SMR\ (\SMRlong). Originally, Odin was used for both
+atmospheric and astronomical observations, but since 2007 only its aeronomy
 mission is active. Odin is a Swedish-led project, in cooperation with Canada,
 France and Finland. Both of Odin's instruments are still functional, and the
-present operation of the satellite is partly performed as a ESA third party
+present operation of the satellite is partly performed as a \ESA\ third party
 mission.
 
 
@@ -66,8 +66,8 @@ mission.
 \label{sec:smr:details}
 %
 The \smr\ package is highly flexible. In short, the four main receiver chains
-can be tuned to cover frequencies in the ranges 486\,--\,504\,GHz and
-541\,--\,581\,GHz, but the maximum total instantaneous bandwidth is only
+can be tuned to cover frequencies in the ranges 486--504\,GHz and
+541--581\,GHz, but the maximum total instantaneous bandwidth is only
 1.6\,GHz. This bandwidth is determined by the two auto-correlation
 spectrometers (ACs) used for atmospheric observations. The two ACs can be
 coupled to any of the four front-ends, but only two or three front-ends are
@@ -77,7 +77,7 @@ channels of the ACs have a spacing of 1\,MHz, while the frequency resolution is
 only 2\,MHz\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. To cover all molecular transitions
 of interest, a number of ``observation modes'' have been defined. Each
 observation mode makes use of two or three frequency bands. Single sideband
-operation is obtained by tunable Martin-Pupplet interferometers. The nominal
+operation is obtained by tunable Martin--Pupplet interferometers. The nominal
 sideband suppression is better than 19\,dB across the image band.
 
 \smr\ also has a receiver chain around the 118\,GHz oxygen transition, that was
@@ -90,7 +90,7 @@ adoptions required to also handle the 118\,GHz data are given
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
-of the two instruments' line-of-sigh is achieved by a rotation of the satellite
+of the two instruments' line-of-sight is achieved by a rotation of the satellite
 platform, with a rate matching a vertical speed of the tangent altitude of
 750\,m/s. Measurements are performed during both upward and downward scanning.
 The lower end of the scan is typically at about 7\,km, the upper end varies
@@ -109,8 +109,8 @@ the poles.
 The receiver noise temperature of \smr\ differs between the front-ends, varying
 between 2600 and 4500\,K. This makes thermal noise an important error source.
 The pointing of Odin can be reconstructed to an accuracy matching
-$\approx750$\,m in tangent altitude, and observed frequencies
-can be controlled with an accuracy of $\approx1$\,MHz\todo{Later revise the
+$\sim 750$\,m in tangent altitude, and observed frequencies
+can be controlled with an accuracy of $\sim 1$\,MHz\todo{Later revise the
   number in this paragrapph.}. The retrieval process includes both a pointing
 and frequency correction, but there are some remaining errors.
 
@@ -133,7 +133,7 @@ applies Dicke switching with respect to ``cold sky'' but there is some
 remaining impact of gain variations. These variations give rise to a constant
 shift of the brightness temperatures across the band (that is, it can be seen
 as a flat baseline ripple). These shifts have a standard deviation of about
-2\,K, and iare uncorrelated between tangent altitudes and front-ends. The
+2\,K, and uncorrelated between tangent altitudes and front-ends. The
 retrieval can remove these shifts with marginal impact on the retrievals as
 long as some part of the measured spectrum corresponds to cosmic background
 radiation (that is, high tangent altitudes), but this is a main error source
