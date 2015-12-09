@@ -8,21 +8,21 @@
 \subsection{Main features}
 %
 \ARTS, the Atmospheric radiative transfer simulator, is a publicly available
-software that is both developed and maintained as an open source project. The
+software that is both developed and maintained as a \FOSSlong\ project. The
 software was initiated 1999, and the first official version was released some
-years later \citep{buehler:artst:05}. The main novelty of this version was the
+years later \citep{buehler:artst:05}. The main novelty of this initial version was the
 fact that \ARTS\ behaves more or less as a scripting language, in contrast to
 most (or all?) other forward models that are controlled by a fixed set of
 keywords. The control file was introduced to meet the design goal of high
 modularity. When defining an \ARTS\ control file, the user can select between a
-high number of workspace methods and variables. Regarding physical mechanisms
-covered, \ARTS\ v1 did not stand out in any way, but despite this the software
+large number of workspace methods and variables. Regarding physical mechanisms
+covered, \ARTS~v1 did not stand out in any way, but despite this the software
 found a number of applications, including operational \SMR\ processing
 (Sec.~\ref{sec:setup:forward}).
 
 Already before the first version was released, a development branch was started
 with the aim of adding more advanced features to \ARTS. At the time, treatment
-of scattering and going beyond horizontally homogeneous atmospheres (1D), were
+of scattering and going beyond horizontally homogeneous atmospheres (1D) were
 the main aims. This development resulted in a second main version \ARTS\
 \citep{eriksson:arts2:11}, and further extensions have been made more recently.
 \ARTS\ can today handle several observation techniques, as well as simulations
@@ -30,13 +30,13 @@ for other planets, but only aspects relevant for \smr\ are discussed below.
 \smr\ measures thermal emission in a limb sounding geometry and, in this
 context, the most important features of \ARTS\ are:
 \begin{itemize}
-\item The full polarisation state of radiation can by described, by the Stokes
+\item The full polarisation state of radiation can by described, using the Stokes
   formalism.
 \item Atmospheric fields can be defined to vary in one dimension (1D;
   pressure), two dimensions (2D; pressure and angle along the orbit) or three
   dimensions (3D; pressure, latitude and longitude).
 \item The planet's overall shape is spherical (also spheroidal allowed for 2D
-  and 3D), there are no assumptions on a ``flat Earth''.
+  and 3D), there are no assumptions of a ``flat Earth''.
 \item Gaseous absorption can be calculated based on several spectroscopic
   databases and a high number of absorption parameterisations.
 \item The impact of the magnetic field on oxygen absorption due to the Zeeman
@@ -82,15 +82,15 @@ documents, see \url{www.radiativetransfer.org/docs}.
 \ARTS\ has been compared to other forward models by
 \citet{melsheimer:inter:05}, \citet{buehler2006radiative} and
 \citet{saunders07:_atmos_infrar_sound_airs_jgr}, as well as in more informal
-manners. A number of test cases has been defined for \ARTS, targeting either a
+manners. A number of test cases have been defined for \ARTS, targeting either a
 special part of \ARTS\ or a complete calculation of some type. These tests are
 run at each new commit of code to the software repository, in order to catch
 bugs and unexpected side-effects of code changes as early as possible. As
 \ARTS\ is a very flexible tool, it is impossible to design a comprehensive set
 of tests, but standard applications of \ARTS\ should be fairly well covered by
 the tests. Some of the tests include comparison to a stored set of reference
-values, to test that not only the code runs but also that the actual simulation
-results have not changed above some specified tolerance.
+values, in order to test that the code not only runs, but also that the actual simulation
+results have not changed beyond some specified tolerance.
 
 \lcomment{PE}{One of the present tests mimic \smr, but it should be updated and
   make use of reference values, to ensure safety when updating to a new \ARTS\
@@ -107,7 +107,7 @@ The processing chain contains a check that a specific version of \ARTS\ is
 used. The version used presently is ARTS 2.3.?\todo{Add number later.}. \ARTS\
 is written in C++, and a compilation for each platform architecture is needed. The
 \texttt{cmake} build system is used to set up the compilation of \ARTS. A
-minimal version of \ARTS\ is created, using the following options:
+minimal version of \ARTS\ is created using the following options:
 \begin{verbatim}
   cmake -DCMAKE_BUILD_TYPE=Release -DNO_NETCDF=1 -DNO_DOCSERVER=1 ..
 \end{verbatim}
@@ -124,7 +124,7 @@ The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
 function of pressure, and are implicitly treated as constant in the latitude
 and longitude dimensions. A 1D atmosphere implies further a spherical reference
 geoid, and the radius of the this geoid is set to ?\todo{Fixed or as curvature
-  radius?}. The upper limit of the model atmosphere is in \ARTS\ defined by the
+  radius?}. The upper limit of the model atmosphere is defind in \ARTS\ by the
 lowest value in the user defined pressure grid. The range of this grid varies,
 see Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by
 the planet's surface, and \ARTS\ demands that a surface is always defined. The
@@ -138,7 +138,7 @@ theoretically intersect with the surface, but the net impact of the surface is
 still zero. This is the case due to the very high optical thickness of the
 middle and lower troposphere at frequencies around 500\,GHz
 \citep{ekstrom:first:07}. Even for tangent altitudes around 0\,km\ only
-altitudes above $\sim$8\,km effectively contributes to measured radiance.
+altitudes above $\sim$8\,km effectively contribute to measured radiance.
 
 The atmosphere is assumed to not cause scattering, which is a valid assumption
 for the wavelengths of \smr\ and tangent altitudes some kilometres above the
@@ -148,7 +148,7 @@ tropopause.
 \subsection{Gaseous absorption}
 %
 In lack of scattering and assuming LTE, the local radiative properties of the
-atmosphere is solely determined by the absorption coefficient. \ARTS\ has two
+atmosphere are solely determined by the absorption coefficient. \ARTS\ has two
 main ways of calculating absorption, ``on-the-fly'' or by look-up tables, where
 the latter option is by far the most efficient for simulations of \smr. That
 is, molecular absorption cross-sections are pre-calculated and stored in
@@ -179,8 +179,8 @@ above 15\,km\todo{Perform test}.
 
 The radiance at the top of the atmosphere, $I_0$ is set to mimic cosmic
 background radiation. There is no attempt to model situations when the moon is
-found in the LOS, the retrieval reject such spectra. The combination of Odin
-orbit and keeping the LOS close to the orbit plane results in that there is
+found in the LOS, since the retrievals reject such spectra. The combination of Odin
+orbit and keeping the \LOS\ close to the orbit plane results in that there is
 never a need to consider the Sun.
 
 
@@ -203,10 +203,10 @@ multi-dimensional interpolation.
 \subsection{Sensor characteristics and calibration}
 %
 The impact of the various sensor responses is incorporated following
-\citet{eriksson:06}. Also in this approach calculation time is saved by
+\citet{eriksson:06}. In this approach calculation time is saved by
 performing pre-calculations, but, in contrast to the absorption tables, no
 post-processing is needed. In short, the impact of the different sensor parts
-is all linear operations and a ``response matrix'' representing the complete
+is all linear operationsi, and a ``response matrix'' representing the complete
 receiver system can be determined. This calculation can be done before the
 atmospheric radiative transfer has been performed, as long as the calculation
 grids are set and the description of the sensor responses are at hand. The
@@ -220,14 +220,14 @@ where \aMsrVct{f}\ is the measurement vector produced by the forward model and
 vector \MpiVct\ must contain a certain number of values to represent the
 radiation field, as a function of frequency and zenith angle, with sufficient
 accuracy. The methods setting up \SnsMtr\ assumes that both radiances and
-sensor responses vary linearly between the points were data are is
+sensor responses vary linearly between the points were data are
 available.\todo{Will the FillGrid method be used?}\ The variables controlling
 \SnsMtr\ and \MpiVct\ are discussed in Sec.~\ref{sec:b}.
 
 The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
 must also be mimicked by the forward model. The radiances ($I$,
 W/(m$^2\cdot$Hz$\cdot$sr)) given by the atmospheric radiative transfer part are
-converted to follow the Rayleigh-Jeans approximation of the Planck function:
+converted to follow the Rayleigh--Jeans approximation of the Planck function:
 \begin{equation}
   \label{eq:i2tb}
   T_b = \frac{c^2}{2\nu k_B} I,
