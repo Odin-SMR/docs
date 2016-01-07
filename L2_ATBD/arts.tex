@@ -115,7 +115,7 @@ minimal version of \ARTS\ is created using the following options:
 just use latest version of the development branch. Later we should select a
 specific version and add check in the code that exactly this version is used.
 The executable should be minimal ARTS (no DISORT, T-Matrix ...). What level
-optimisation should be used? Shall asserts be turned off?}
+optimisation should be used?}
 
 
 \subsection{Basic settings}
@@ -128,8 +128,8 @@ geoid, and the radius of the this geoid is set to ?\todo{Fixed or as curvature
 lowest value in the user defined pressure grid. The range of this grid varies,
 see Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by
 the planet's surface, and \ARTS\ demands that a surface is always defined. The
-altitude of the surface is for these simulations set to ?\,km\todo{Add number},
-and regarding radiative properties it is set to behave as a blackbody.
+altitude of the surface is for these simulations set to 1\,km, and regarding
+radiative properties it is set to behave as a blackbody.
 
 It is possible to use a ``dummy'' surface for the following reason. Even if
 data with (bore-sight) tangent altitudes below the tropopause are rejected, the
@@ -173,9 +173,9 @@ Solving equation Eq.~\ref{eq:rteq} requires two main steps, to determine the
 propagation path and to perform the integration along the found path.
 Refraction must be considered for \smr\ \citep{eriksson:studi:02}, which is
 achieved by a simple ray tracing scheme (see AUG). The maximum step length of
-the ray tracing is set to ?\,km\todo{Add value}, which is estimated to give a
-tangent point accuracy better than ?\,m\todo{Add value}\ for tangent altitudes
-above 15\,km\todo{Perform test}.
+the ray tracing is set to 20\,km, which is estimated to give a
+tangent point accuracy better than 5\,m for tangent altitudes
+above 18\,km.
 
 The radiance at the top of the atmosphere, $I_0$ is set to mimic cosmic
 background radiation. There is no attempt to model situations when the moon is
