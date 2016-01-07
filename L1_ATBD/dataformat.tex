@@ -358,16 +358,31 @@ of both scan variables and the individual spectrum.
 Each test performed (see Table~\ref{table:quality}) is related to a unique scalar value
 and the Quality variable is the sum of the values of tests 
 that were not passed.  
-Thus, a spectrum with a Quality value of 0 is best.
+Thus, a spectrum with a Quality value of 0 is most reliable.
+
+The most common situation is that most spectra in a given scan has 
+a Quality value of 0, and a few spectra has a higher Quality value.
+In particular, the first and last spectrum of a scan tend to be more
+unreliable (Quality=0x0080).  
+Many scan also contain one spectrum with a Quality=0x0100
+since it is common that integration times changes during a scan,
+i.e. the spectra of the upper part of the scan has a greater integration 
+time than spectra in the lower part of the scan.
+A spectrum with Quality 0x0080 or 0x0100 does not necessarily need
+to be corrupt, but the probability that it is corrupt is high.  
+If the spectrum also failed to pass other tests it is corrupt. 
 
 The radiometric noise of the spectra of a scan is estimated as decribed  
 in Sect.~\ref{sec:radper} (and reported as an effective integration time (EffTime)).
 This estimate does not contain the broadband noise (due to gain variation). 
 The scan data contains the variable ZeroLagVar which can be seen as an estimate
 of the broadband gain variation (ZeroLagVar\(\approx \frac{\Delta g}{g}\) [\%]) 
-of the two surrounding references of a target spectrum. 
-\lcomment{BR}{add description of how this variable can be used to estimate broadband 
-noise level uncertainty}
+of the two surrounding references of a target spectrum.
+If the ZeroLagVar is above \(\sim\)0.25 for a given sub-band
+than it is likely that data from this band has a large broadband offset.
+  
+%\lcomment{BR}{add description of how this variable can be used to estimate broadband 
+%noise level uncertainty}
  
 \begin{table}
 \caption{ Description of the \smr\ Quality variable. }
