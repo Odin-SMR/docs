@@ -1,7 +1,7 @@
 \chapter{OEM implementation}
 \label{chapter:oem}
 
-The optimal estimation method (\OEM) is introduced generally in
+A general introduction to the optimal estimation method (\OEM) is given in
 Sec.~\ref{sec:setup:inverse}, while details more specific for the \smr\ L2
 processing are treated in this section.
 \\
@@ -30,12 +30,13 @@ several groups operating ground-based microwave radiometers
 forward model by \citet{sica2015retrieval}.
 
 To be clear, earlier L2 processing made direct use of the Qpack system (version
-1), but this is not longer the case, to allow a higher degree of optimisation
-with respect to \smr. Instead, the core functionality, on which Qpack2 is
+1), but, in order to allow a higher degree of optimisation
+with respect to \smr, this is no longer the case.
+Instead, the core functionality, on which Qpack2 is
 based, is used to set up a retrieval system targeting the needs raised by \smr.
 The main components taken from Atmlab are \texttt{oem.m}, functions to
 read/write \ARTS\ output/input files, functions to interpolate data of
-climatology character (denoted as ``atmdata'' inside Atmlab) and functions to
+climatology character (denoted as ``atmdata'' inside Atmlab), and functions to
 create parametric variance-covariance matrices. All these functions are also
 used by Qpack2 and, hence, are well tested.
 
@@ -49,13 +50,13 @@ number of iteration schemes has been suggested. The simplest version is
 Gauss-Newton \citep[see][Sec.~5.3]{rodgers:00}. This iteration scheme assumes a
 robust decrease of the cost function (\CstFnc, Eq.~\ref{eq:costfun}) during the
 iterations, but this is seldom the case in practical retrievals and instead
-Gauss-Newton can result in that \CstFnc\ is increasing while iterating.
+Gauss--Newton can result in that \CstFnc\ is increasing while iterating.
 The standard choice among iteration approaches including a manner to enforce a
 decrease of the cost function at each step, is the Levenberg\,-\,Marquardt
 method (LM), and it is also selected for these retrievals.
 
 \LM\ operates with a parameter $\gamma$. With $\gamma=0$, \LM\ becomes equal to
-Gauss-Newton iteration. For large values $\gamma$, \LM\ instead behaves as a
+Gauss--Newton iteration. For large values $\gamma$, \LM\ instead behaves as a
 steepest descent method. The later results in a relatively small change in
 \SttVct, and then also a slow convergence rate, but \SttVct\ is updated in a
 direction that is close to optimal to ensure a decrease of \CstFnc. See
