@@ -1,0 +1,187 @@
+\chapter{\smr\ Level2 data products}
+
+\section{The Odin mission}
+\label{sec:odin}
+%
+\lcomment{BR}{Text from RBD: this should be modified a bit}
+
+The Odin satellite was launched on the 20th of February 2001, into a sun-synchronous
+18:00 hour ascending node orbit, carrying two co-aligned limb sounding
+instruments: \OSIRIS\ (\OSIRISlong) and
+\SMR\ (\SMRlong) \citep{murtagh:anove:02}. 
+Originally, Odin was used for both
+atmospheric and astronomical observations, but since 2007 only its aeronomy
+mission is active. Odin is a Swedish-led project, in cooperation with Canada,
+France and Finland. Both of Odin's instruments are still functional, and the
+present operation of the satellite is partly performed as an \ESA\ third party
+mission.
+
+\section{The SMR instrument}
+%\lcomment{BR}{Text from ATBD-L2}
+
+The \smr\ package is highly flexible \citep{frisk:theod:03}. 
+In short, the four main receiver chains
+can be tuned to cover frequencies in the ranges 486--504\,GHz and
+541--581\,GHz, but the maximum total instantaneous bandwidth is only
+1.6\,GHz. This bandwidth is determined by the two auto-correlation
+spectrometers (ACs) used for atmospheric observations. The two ACs can be
+coupled to any of the four front-ends, but only two or three front-ends are
+used simultaneously. The ACs cover 400 or 800\,MHz per front-end, depending on
+configuration. In the configuration applied for atmospheric sounding, the
+channels of the ACs have a spacing of 1\,MHz, while the frequency resolution is
+only 2\,MHz.
+%\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. 
+To cover all molecular transitions
+of interest (see Table~\ref{table:level2} and Table~\ref{table:level2b} for an overview), 
+a number of ``observation modes'' have been defined. Each
+observation mode makes use of two or three frequency bands. Single sideband
+operation is obtained by tunable Martin--Pupplet interferometers. The nominal
+sideband suppression is better than 19\,dB across the image band.
+
+\smr\ also has a receiver chain around the 118\,GHz oxygen transition that was
+heavily used during Odin's astronomy mission. For the atmospheric mission, this
+front-end was planned to be used for retrieving temperature profiles, but a
+technical problem (drifting LO frequency) and the fact that the analysis
+requires treatment of Zeeman splitting have given these data low priority. This
+\ATBD\ focuses on the processing of the sub-millimetre data, but comments on the
+adaptions required to also handle the 118\,GHz data are given.
+
+The main reflector of \smr\ has a diameter of 1.1\,m, giving a
+vertical resolution at the tangent point of about 2\,km. The vertical scanning
+of the two instruments' line-of-sight is achieved by a rotation of the satellite
+platform, with a rate matching a vertical speed of the tangent altitude of
+750\,m/s. Measurements are performed during both upward and downward scanning.
+The lower end of the scan is typically at about 7\,km, the upper end varies
+between 70 and 110\,km, depending on observation mode. In correspondence,
+the horizontal sampling ranges from 1 scan per 600 km to 1 scan per 1000 km.
+Measurements are in general performed along the orbit plane, providing a
+latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
+2004 Odin is also pointing off-track during certain periods, e.g.\ during the
+austral summer season, allowing the latitudinal coverage to be extended towards
+the poles. 
+
+
+\section{\smr\ Level2 data products}
+In this section an overview of \smr\ Level2 data products and requirements are given.
+Table~\ref{table:level2} and Table~\ref{table:level2b} describe characteristics of the main 
+and science Level2 products.
+The main products are retrieved from the so called ``stratospheric'' observation mode
+of \smr. In this mode spectra in frequency bands around 501 and 544\,GHz are collected,
+and this mode is the most commonly applied mode.
+The science data products are derived from less frequently applied observation modes
+(typically applied a few days per month).  
+
+
+
+
+\begin{table}
+\caption{ Characteristics of \smr\ Level2 main data products.}
+\label{table:level2}
+\begin{tabular}{|l|l|l|l|l|l|}
+  \hline
+  \textbf{Product}      & \textbf{Frequency} & \textbf{Vertical}          & \textbf{Vertical}            & \textbf{Precision} & \textbf{Reference} \\
+                        & \textbf{{[}GHz{]}} & \textbf{coverage}          & \textbf{resolution}          &                    &                 \\
+  \hline
+  \chem{O_{3}}          & 501.5              & \(\sim\)19--50\,km         &  \(\sim\)2\,km               & 0.5--2\,ppmv       &  \citep{urban:odins:05-b} \\
+  \hline
+  \chem{ClO}            & 501.3              & \(\sim\)19--67\,km         &  1.5--2\,km                  & 0.15--0.2\,ppbv    & \citep{urban:odins:05-b} \\
+  \hline
+  \chem{N_{2}O}         & 502.3              & \(\sim\)15--70\,km         &  \(\sim\)1.5\,km             & 15--35\,ppbv       & \citep{urban:odins:05-b} \\
+  \hline
+  \chem{O_{3}}          & 544.9              & \(\sim\)18--70\,km         &  \(\sim\)1.5\,km             & 0.2--0.4\,ppmv     & \citep{urban:odins:05-b} \\
+  \hline
+  \chem{HNO_{3}}        & 544.4              & \(\sim\)21--67\,km         &  1.5--2\,km                  & 1 ppbv             & \citep{urban:odins:05-b} \\
+  \hline 
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{ Characteristics of \smr\ Level2 science data products.}%\lcomment{BR}{Add accuracy column}}
+\label{table:level2b}
+\begin{tabular}{|l|l|l|l|l|l|}
+  \hline
+  \textbf{Product}      & \textbf{Frequency} & \textbf{Vertical}          & \textbf{Vertical}            & \textbf{Precision} & \textbf{Remark} \\
+                        & \textbf{{[}GHz{]}} & \textbf{coverage}          & \textbf{resolution}          &                    &                 \\
+  \hline
+  \chem{CO}             & 578.6              & \(\sim\)17--110\,km        &  3--4\,km                    & 25\,ppbv--2\,ppmv  & \citep{dupuy:strat:04} \\
+  \hline
+  \chem{H_{2}\,^{16}O}  & 556.9              & \(\sim\)40--100\,km        &  \(\sim\)3\,km               & 0.5--1\,ppmv       & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{16}O}  & 488.5              & \(\sim\)20--70\,km         &  \(\sim\)3\,km               & 0.5--1\,ppmv       & \citep{urban:globa:07} \\
+  \hline
+  \chem{HDO}            & 490.6              & \(\sim\)20--70\,km         &  3--4\,km                    & 0.5\,ppbv          & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{18}O}  & 489.1              & \(\sim\)20--65\,km         &  3--4\,km                    & 20-30\,ppbv        & \citep{urban:globa:07} \\
+  \hline
+  \chem{H_{2}\,^{17}O}  & 552.0              & \(\sim\)20--70\,km         & \(\sim\)3\,km                & 0.4\,ppbv          & \citep{urban:globa:07} \\
+  \hline
+  \chem{NO}             & 551.7              & \(\sim\)40--100\,km        & \(\sim\)7\,km               & 40\,\(\%\)          & \citep{sheese:odino:2013} \\
+  \hline
+  \chem{^{16}O\,^{18}O\,^{16}O}  & 490.4     & \(\sim\)27--41\,km         & 4--6\,km                     & 25\,\(\%\)         & \citep{urban:globa:13} \\
+  \hline
+  \chem{^{16}O\,^{16}O\,^{18}O}  & 490.0     & \(\sim\)25--45\,km         & 3--4\,km                     & 25\,\(\%\)         & \citep{urban:globa:13} \\
+  \hline
+  \chem{^{16}O\,^{16}O\,^{17}O}  & 490.6     & \(\sim\)31--39\,km         & 5--6\,km                     & 25\,\(\%\)         & \citep{urban:globa:13}  \\
+  \hline
+\end{tabular}
+\end{table}
+
+
+
+
+%Odin/SMR limb observations of stratospheric trace gases: Level 2 processing of ClO, N2O, HNO3, and O-3
+
+\subsection{Main data products}
+%\subsection*{Ozone profile}
+
+Ozone, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}} profiles
+are the main \smr\ Level2 products.
+\chem{ClO} and \chem{N_{2}O} profiles are retrieved from spectra covering
+transitions around 501\,GHz, and \chem{HNO_{3}} from spectra around 544\,GHz.
+Ozone can be retrieved from both the 501 and the 544\,GHz band.
+Table~\ref{table:level2} describes characteristics of these Level2 products
+that has been derived from earlier \smr\ Level2 data studies.
+The characteristics can not be expected to be changed/improved dramatically
+for a new Level2 data product,
+because these characteristics depend on the physics of the measurement and
+the sensor. 
+
+Possibly more important than the characteristics described in
+Table~\ref{table:level2} are the accuracy and stability of the profiles, since
+the latter enable trend studies.
+The overall aim of the new Level2 data processing also reflects
+this aspect, and the objective is therefore that the accuracy
+and stability outperforms that from earlier \smr\ Level2 data products. 
+
+A requirement is therefore that an inventory/review is performed of the Level1B 
+algorithm and data, and all other input data, 
+applied in the Level2 processing
+(see Chapter~\ref{level2-algorithms}).
+A further requirement is that the new Level2 dataset
+is validated by comparison to correlative datasets,
+both during the development phase and and in its final stage 
+
+
+
+%\subsection*{\chem{ClO} profile}
+%\subsection*{\chem{N_{2}O} profile}
+%\subsection*{\chem{HNO_{3}} profile}
+
+\subsection{Science data products}
+Profiles of \chem{H_{2}O}, \chem{CO}, \chem{NO} and isotopologues of \chem{H_{2}O}, and \chem{O_{3}}
+are considered as science data products for \smr, and
+characteristics of these products are described in Table~\ref{table:level2b}.
+Observations covering the science data products are performed on a less 
+frequent basis than the main data products. The aim of the
+Level2 processing of the science data products is in principle
+identical to that for the main data products, although
+the main data products will be given a higher priority.
+
+
+
+
+%\subsection*{\chem{H_{2}O} profile}
+%\subsection*{\chem{CO} profile}
+%\subsection*{isotopologues of \chem{H_{2}O}}
+%\subsection*{isotopologues of \chem{O_{3}}}
+
