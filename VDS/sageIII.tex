@@ -1,0 +1,76 @@
+\section{SAGE III on Meteor-3M}
+
+\subsection*{Introduction\footnote{The text in this section has been
+adapted from \cite{NASA_SAGEIII/M3M, SAGEIII_DPUG}.}}
+SAGE III on Meteor-3M (SAGE III/M3M) was a third generation, satellite-borne
+instrument and a crucial element in NASA’s Earth Observing System (EOS). The
+instrument was launched on the Russian Meteor-3M spacecraft on 10 December
+2001 into into a Sun-synchronous orbit at an altitude of 1020 km and with an
+approximate 9:00 a.m. equatorial crossing time.  The instrument was active from
+2002-02-27 to 2005-11-12.
+
+\subsection*{Level 2 products}
+The SAGE III instrument measures the attenuation of solar radiation resulting
+from the scattering and absorption by atmospheric constituents in the Earth’s
+atmosphere as the spacecraft observes a sunrise or sunset event.  Due to the
+orbital parameters, solar occultation measurement opportunities are limited to
+mostly high latitudes in the Northern Hemisphere (between 50\degree~and
+80\degree~N) and mid-latitudes in the Southern Hemisphere (between
+30\degree~and 50°~S).  Level~2 products from these measurements include
+profiles of ozone~(\chem{O_3}), water vapour~(\chem{H_2O}) and nitrogen
+dioxide~(\chem{NO_2}).  Of these \chem{O_3} and \chem{H_2O} have been included
+in the VDS; see Table~\ref{tab:sage3products} for a summary.
+
+Similar measurements where made during the lunar moonrise and moonset. Due to
+poor data coverage, none of these products have been included in the VDS, but
+are listed here for completeness.  These measurements were made only during the
+second and third quarter phases of the Moon and when the atmosphere along the
+line-of-sight (LOS) was not directly illuminated by the Sun.  Level~2 products
+from these measurements include profiles of ozone~(\chem{O_3}), nitrogen
+dioxide~(\chem{NO_2}), nitrogen trioxide~(\chem{NO_3}) and chlorine
+dioxide~(\chem{OClO}).
+
+\begin{table}
+    \caption{Products from SAGE III included in the VDS}
+    \label{tab:sage3products}
+    \begin{tabular}[llp{1in}l]
+\hline\hline
+Species & Altitude range & Expected precision & Corresponding Odin/SMR frequency mode \\
+\hline
+Ozone (\chem{O_3}) & 6--85 km & 10\% & FM \\
+Water vapour (\chem{H_2O}) & 0--50 km & 5--15\% (<5\% below 33~km) & FM \\
+\hline\hline
+    \end{tabular}
+\end{table}
+
+\subsection*{Data format}
+The SAGE III data collocated with Odin/SMR is accessible through the Odin REST
+API trhough URIs such as:
+
+EXAMPLE
+
+The data is returned as a JSON object with the elements described in
+Table~\ref{tab:sage3data}.
+
+\begin{table}
+    \caption{Description of elements in SAGE III JSON object}
+    \label{tab:sage3data}
+    \begin{tabular}[llp{2in}]
+\hline\hline
+Element & Type & Comment
+\hline
+FileName & String & Filename is the same as in the original data set\\
+Instrument & String & Name of the instrument \\
+EventType & String & Solar or Lunar (only Solar included in VDS) \\
+MJD & List of doubles & Start and end time in MJD for the measurement \\
+Latitudes & List of doubles & Start and end latitudes for the measurement \\
+Longitudes & List of doubles & Start and end longitudes for the measurement \\
+Pressure & List of doubles & Pressure profile for the measurement \\
+Temperature & List of doubles & Temperature profile for the measurement \\
+<Species> & List list of doubles & Profile for <species> the measurement; each
+row contains concentration, uncertainty, and a quality bit
+flag\footnote{see \ref{SAGEII_DPUG} for details!} \\
+\hline\hline
+    \end{tabular}
+\end{table}
+
