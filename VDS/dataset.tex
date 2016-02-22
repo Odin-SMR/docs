@@ -303,22 +303,22 @@ text ...
 The SAGE III data collocated with Odin/SMR is accessible through the Odin REST
 API. The data is returned as a JSON object with the following attributes:
 \begin{itemize}
-    \item FileName    \emph{(String)} Filename is the same as in the original
+    \item FileName    \emph{(String)}: Filename is the same as in the original
         data set \\
-    \item Instrument  \emph{(String)} Name of the instrument \\
-    \item EventType   \emph{(String)} Solar or Lunar (only Solar included in
+    \item Instrument  \emph{(String)}: Name of the instrument \\
+    \item EventType   \emph{(String)}: Solar or Lunar (only Solar included in
         VDS) \\
-    \item MJDStart    \emph{(Double)} Start time in MJD for the measurement \\
-    \item MJDEnd      \emph{(Double)} End time in MJD for the measurement \\
-    \item LatStart    \emph{(Double)} Start latitude for the measurement \\
-    \item LatEnd      \emph{(Double)} End latitude for the measurement \\
-    \item LongStart   \emph{(Double)} Start longitude for the measurement \\
-    \item LongEnd     \emph{(Double)} End longitude for the measurement \\
-    \item Pressure    \emph{(Array of doubles)} Pressure profile for the
+    \item MJDStart    \emph{(Double)}: Start time in MJD for the measurement \\
+    \item MJDEnd      \emph{(Double)}: End time in MJD for the measurement \\
+    \item LatStart    \emph{(Double)}: Start latitude for the measurement \\
+    \item LatEnd      \emph{(Double)}: End latitude for the measurement \\
+    \item LongStart   \emph{(Double)}: Start longitude for the measurement \\
+    \item LongEnd     \emph{(Double)}: End longitude for the measurement \\
+    \item Pressure    \emph{(Array of doubles)}: Pressure profile for the
         measurement \\
-    \item Temperature \emph{(Array of doubles)} Temperature profile for the
+    \item Temperature \emph{(Array of doubles)}: Temperature profile for the
         measurement \\
-    \item <Species>   \emph{(Array of triplets of doubles)} Profile for
+    \item <Species>   \emph{(Array of triplets of doubles)}: Profile for
         <Species> for the measurement; each row is a triplet containing
         concentration, uncertainty, and a quality bit
         flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
