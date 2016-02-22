@@ -114,9 +114,35 @@ to its 4\,K mechanically cooled superconducting receiver system.
  
 text ...
 
-\subsection{Meteor3M/SAGEIII}
+\subsection{Meteor3M/SAGE III}
+SAGE III on Meteor-3M (SAGE III/M3M) was a third generation, satellite-borne
+instrument and an element in NASA’s Earth Observing System (EOS). The
+instrument was launched on the Russian Meteor-3M spacecraft on 10 December 2001
+into into a Sun-synchronous orbit at an altitude of 1020 km and with an
+approximate 9:00 a.m. equatorial crossing time.  The instrument was active from
+2002-02-27 to 2005-11-12.\footnote{all text in this section adapted from
+\cite{SAGEIII_DPUG}}
 
-text ...
+The SAGE III instrument measures the attenuation of solar radiation resulting
+from the scattering and absorption by atmospheric constituents in the Earth’s
+atmosphere as the spacecraft observes a sunrise or sunset event.  Due to the
+orbital parameters, solar occultation measurement opportunities are limited to
+mostly high latitudes in the Northern Hemisphere (between 50\degree~and
+80\degree~N) and mid-latitudes in the Southern Hemisphere (between
+30\degree~and 50°~S).  Level~2 products from these measurements include
+profiles of ozone~(\chem{O_3}), water vapour~(\chem{H_2O}) and nitrogen
+dioxide~(\chem{NO_2}).  Of these \chem{O_3} and \chem{H_2O} have been included
+in the VDS.
+
+Similar measurements where made during the lunar moonrise and moonset. Due to
+poor data coverage, none of these products have been included in the VDS, but
+are listed here for completeness.  These measurements were made only during the
+second and third quarter phases of the Moon and when the atmosphere along the
+line-of-sight was not directly illuminated by the Sun.  Level~2 products from
+these measurements include profiles of ozone~(\chem{O_3}), nitrogen
+dioxide~(\chem{NO_2}), nitrogen trioxide~(\chem{NO_3}) and chlorine
+dioxide~(\chem{OClO}).
+
 
 
 \section{Collocations criteria and scan selection}
@@ -143,27 +169,27 @@ text ...
     8  &     SMILES   &      \chem{O_3} \\
        &     MLS      &      \chem{O_3}, \chem{H_{2}O} \\
        &     MIPAS    &      \chem{O_3}, \chem{H_{2}O} \\
-       &     SAGEIII  &      \chem{O_3} \\
+       &     SAGEIII  &      \chem{O_3}, \chem{H_{2}O} \\
 \hline
    13  &     SMILES   &      \chem{O_3} \\
        &     MLS      &      \chem{O_3}, \chem{H_{2}O} \\
        &     MIPAS    &      \chem{O_3}, \chem{H_{2}O} \\
-       &     SAGEIII  &      \chem{O_3} \\
+       &     SAGEIII  &      \chem{O_3}, \chem{H_{2}O} \\
 \hline
    17  &     SMILES   &      \chem{O_3} \\
        &     MLS      &      \chem{O_3}, \chem{H_{2}O} \\
        &     MIPAS    &      \chem{O_3}, \chem{H_{2}O} \\
-       &     SAGEIII  &      \chem{O_3} \\
-\hline        
+       &     SAGEIII  &      \chem{O_3}, \chem{H_{2}O} \\
+\hline
    19  &     SMILES   &      \chem{O_3} \\
        &     MLS      &      \chem{O_3}, \chem{H_{2}O} \\
        &     MIPAS    &      \chem{O_3}, \chem{H_{2}O} \\
-       &     SAGEIII  &      \chem{O_3} \\
+       &     SAGEIII  &      \chem{O_3}, \chem{H_{2}O} \\
 \hline
    21  &     SMILES   &      \chem{O_3}, \chem{NO} \\
        &     MLS      &      \chem{O_3}, \chem{H_{2}O} \\
        &     MIPAS    &      \chem{O_3}, \chem{H_{2}O} \\
-       &     SAGEIII  &      \chem{O_3} \\
+       &     SAGEIII  &      \chem{O_3}, \chem{H_{2}O} \\
 \hline
 \end{tabular}
 \end{table}
@@ -191,7 +217,7 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm2.png}
 \caption{VDS:Positions of collocated scans for frequency mode 2.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm2}
 \end{figure}
 
 \clearpage
@@ -203,7 +229,7 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm8.png}
 \caption{VDS:Positions of collocated scans for frequency mode 8.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm8}
 \end{figure}
 
 \clearpage
@@ -215,7 +241,7 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm13.png}
 \caption{VDS:Positions of collocated scans for frequency mode 13.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm13}
 \end{figure}
 
 \clearpage
@@ -227,7 +253,7 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm14.png}
 \caption{VDS:Positions of collocated scans for frequency mode 14.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm14}
 \end{figure}
 
 \clearpage
@@ -239,7 +265,7 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm19.png}
 \caption{VDS:Positions of collocated scans for frequency mode 19.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm19}
 \end{figure}
 
 \clearpage
@@ -251,13 +277,51 @@ text ...
 \centering
 \includegraphics[width=17cm]{test_collocation_fm21.png}
 \caption{VDS:Positions of collocated scans for frequency mode 21.}
-\label{fig:vdsfm1}
+\label{fig:vdsfm21}
 \end{figure}
 
 
 
 \section{Data format}
+\subsection{Aura/MLS}
+...
 
+\subsection{ENVISAT/MIPAS}
+...
+
+\subsection{ISS/JEM/SMILES}
+...
+
+\subsection{Odin/OSIRIS}
+...
+
+
+\subsection{Meteor3M/SAGE III}
+The SAGE III data collocated with Odin/SMR is accessible through the Odin REST
+API. The data is returned as a JSON object with the attributes described in
+Table~\ref{tab:sage3data}.
+
+\begin{table}
+    \caption{Description of attributes in SAGE III JSON object}
+    \label{tab:sage3data}
+    \begin{tabular}{|l|p{1in}|p{3in}|}
+\hline
+Attribute & Type & Comment \\
+\hline
+FileName & String & Filename is the same as in the original data set \\
+Instrument & String & Name of the instrument \\
+EventType & String & Solar or Lunar (only Solar included in VDS) \\
+MJD & List of doubles & Start and end time in MJD for the measurement \\
+Latitudes & List of doubles & Start and end latitudes for the measurement \\
+Longitudes & List of doubles & Start and end longitudes for the measurement \\
+Pressure & List of doubles & Pressure profile for the measurement \\
+Temperature & List of doubles & Temperature profile for the measurement \\
+<Species> & List of triplets of doubles & Profile for <species> the measurement; each
+row contains concentration, uncertainty, and a quality bit
+flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
+\hline
+    \end{tabular}
+\end{table}
 
 
 
