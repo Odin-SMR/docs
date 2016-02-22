@@ -311,17 +311,20 @@ Table~\ref{tab:sage3data}.
 \hline
 Attribute & Type & Comment \\
 \hline
-FileName & String & Filename is the same as in the original data set \\
-Instrument & String & Name of the instrument \\
-EventType & String & Solar or Lunar (only Solar included in VDS) \\
-MJD & List of doubles & Start and end time in MJD for the measurement \\
-Latitudes & List of doubles & Start and end latitudes for the measurement \\
-Longitudes & List of doubles & Start and end longitudes for the measurement \\
-Pressure & List of doubles & Pressure profile for the measurement \\
+FileName    & String & Filename is the same as in the original data set \\
+Instrument  & String & Name of the instrument \\
+EventType   & String & Solar or Lunar (only Solar included in VDS) \\
+MJDStart    & Double & Start time in MJD for the measurement \\
+MJDEnd      & Double & End time in MJD for the measurement \\
+LatStart    & Double & Start latitude for the measurement \\
+LatEnd      & Double & End latitude for the measurement \\
+LongStart   & Double & Start longitude for the measurement \\
+LongEnd     & Double & End longitude for the measurement \\
+Pressure    & List of doubles & Pressure profile for the measurement \\
 Temperature & List of doubles & Temperature profile for the measurement \\
-<Species> & List of triplets of doubles & Profile for <species> the measurement; each
-row contains concentration, uncertainty, and a quality bit
-flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
+<Species>   & List of triplets of doubles & Profile for <species> the
+    measurement; each row contains concentration, uncertainty, and a quality
+    bit flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
 \hline
     \end{tabular}
 \end{table}
