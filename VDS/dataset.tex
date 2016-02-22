@@ -301,33 +301,28 @@ text ...
 
 \subsection{Meteor3M/SAGE III}
 The SAGE III data collocated with Odin/SMR is accessible through the Odin REST
-API. The data is returned as a JSON object with the attributes described in
-Table~\ref{tab:sage3data}.
-
-\begin{table}
-    \caption{Description of attributes in SAGE III JSON object}
-    \label{tab:sage3data}
-    \begin{tabular}{|l|p{1in}|p{3in}|}
-\hline
-Attribute & Type & Comment \\
-\hline
-FileName    & String & Filename is the same as in the original data set \\
-Instrument  & String & Name of the instrument \\
-EventType   & String & Solar or Lunar (only Solar included in VDS) \\
-MJDStart    & Double & Start time in MJD for the measurement \\
-MJDEnd      & Double & End time in MJD for the measurement \\
-LatStart    & Double & Start latitude for the measurement \\
-LatEnd      & Double & End latitude for the measurement \\
-LongStart   & Double & Start longitude for the measurement \\
-LongEnd     & Double & End longitude for the measurement \\
-Pressure    & List of doubles & Pressure profile for the measurement \\
-Temperature & List of doubles & Temperature profile for the measurement \\
-<Species>   & List of triplets of doubles & Profile for <species> the
-    measurement; each row contains concentration, uncertainty, and a quality
-    bit flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
-\hline
-    \end{tabular}
-\end{table}
+API. The data is returned as a JSON object with the following attributes:
+\begin{itemize}
+    \item FileName    \emph{(String)} Filename is the same as in the original
+        data set \\
+    \item Instrument  \emph{(String)} Name of the instrument \\
+    \item EventType   \emph{(String)} Solar or Lunar (only Solar included in
+        VDS) \\
+    \item MJDStart    \emph{(Double)} Start time in MJD for the measurement \\
+    \item MJDEnd      \emph{(Double)} End time in MJD for the measurement \\
+    \item LatStart    \emph{(Double)} Start latitude for the measurement \\
+    \item LatEnd      \emph{(Double)} End latitude for the measurement \\
+    \item LongStart   \emph{(Double)} Start longitude for the measurement \\
+    \item LongEnd     \emph{(Double)} End longitude for the measurement \\
+    \item Pressure    \emph{(Array of doubles)} Pressure profile for the
+        measurement \\
+    \item Temperature \emph{(Array of doubles)} Temperature profile for the
+        measurement \\
+    \item <Species>   \emph{(Array of triplets of doubles)} Profile for
+        <Species> for the measurement; each row is a triplet containing
+        concentration, uncertainty, and a quality bit
+        flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
+\end{itemize}
 
 
 

@@ -1,0 +1,141 @@
+\section{API decription}
+\label{sec:api}
+This section describes the API calls used to get data from from the VDS.  The
+data is accessed through a hierarcical REST API where deeper URIs return more
+specific data. All GET calls return JSON objects unless otherwise noted. See
+the sections on the different data sources for specifications on the structure
+of the JSON objects.
+
+
+\subsection{\url{<version>/vds}}
+Method: \emph{GET}
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item VDS:
+
+        A list of objects containing information about collocated scans,
+        grouped by backend and frequency mode.
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item Backend \emph{(String)}: The backend for the data
+            \item FreqMode \emph{(Int)}: The frequency mode for the data
+            \item URL-allscans \emph{(URI)}: A URI for getting a list of all
+                scans from the VDS for the Backend/FreqMode pair
+            \item URL-collocations \emph{(URI)}: A URI for getting a more
+                specific list of the data available for the Backend/FreqMode
+                pair
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{\url{vds/<backend>/<freqmode>}}
+Method: \emph{GET}
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item VDS:
+
+        A list of objects containing information about collocated scans for
+        the chosen backend and frequency, grouped by instrument and species.
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item Backend \emph{(String)}: The backend for the data
+            \item FreqMode \emph{(Int)}: The frequency mode for the data
+            \item Instrument \emph{(String)}: The name of the instrument with
+                which the VDS data is collocated
+            \item NumScan \emph{(Int)}: Number of collocated scans
+            \item Species \emph{(String)}: The species the collocated data
+                considers
+            \item URL \emph{(URI)}: A URI for getting a more specific list of
+                the data available for the Instrument/Species pair
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{\url{vds/<backend>/<freqmode>/allscans}}
+Method: \emph{GET}
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item VDS:
+
+        A list of objects containing detailed information about all the scans
+        in the VDS for the chosen backend andfrequency.
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item Info \emph{(Object)}: Object containing information
+                about the Odin/SMR scan, such as time and geolocation
+            \item URLS \emph{(Object)}: Object containing URIs for getting the
+                Odin/SMR spectra and apriori data for the specific scan, as
+                well as the PTZ data
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>}}
+Method: \emph{GET}
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item VDS:
+
+        A list of objects containing information about collocated scans for
+        the chosen backend, frequency, species and instrument, grouped by date.
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item Backend \emph{(String)}: The backend for the data
+            \item Date \emph{(String)}: The date (in ISO format) on which the
+                data was collected
+            \item FreqMode \emph{(Int)}: The frequency mode for the data
+            \item Instrument \emph{(String)}: The name of the instrument with
+                which the VDS data is collocated
+            \item NumScan \emph{(Int)}: Number of collocated scans
+            \item Species \emph{(String)}: The species the collocated data
+                considers
+            \item URL \emph{(URI)}: A URI for getting a more specific list of
+                the data available for the particular date
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>/<date>}}
+Method: \emph{GET}
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item VDS:
+
+        A list of objects containing detailed information about the scans for
+        the chosen backend, frequency, instrument, species and date.
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item CollocationInfo \emph{(Object)}: Object containing
+                information about the collocation, such as time and
+                geolocation, as well as Delta time and angular distance between
+                the Odin/SMR scan and the collocated data from the selected
+                instrument
+            \item OdinInfo \emph{(Object)}: Object containing information
+                about the Odin/SMR scan, such as time and geolocation
+            \item URLS \emph{(Object)}: Object containing URIs for getting the
+            Odin/SMR spectra and apriori data for the specific scan, as
+            well as the PTZ data, and the collocated data from the selected
+            instrument
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{\url{vds_external/<instrument>/<species>/<date>/<file>/<file_index>}}
+Method: \emph{GET}
+
+Returns object containing the data for the specified instrument, species and
+date. See the sections describing the various instruments for details on their
+respective data structures.
+
+\subsection{Typical usage}
+\label{sec:api_usage}
