@@ -3,7 +3,6 @@
 \section{The Odin mission}
 \label{sec:odin}
 %
-\lcomment{BR}{Text from RBD: this should be modified a bit}
 
 The Odin satellite was launched on the 20th of February 2001, into a sun-synchronous
 18:00 hour ascending node orbit, carrying two co-aligned limb sounding
@@ -42,9 +41,7 @@ sideband suppression is better than 19\,dB across the image band.
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
 front-end was planned to be used for retrieving temperature profiles, but a
 technical problem (drifting LO frequency) and the fact that the analysis
-requires treatment of Zeeman splitting have given these data low priority. This
-\ATBD\ focuses on the processing of the sub-millimetre data, but comments on the
-adaptions required to also handle the 118\,GHz data are given.
+requires treatment of Zeeman splitting have given these data low priority. 
 
 The main reflector of \smr\ has a diameter of 1.1\,m, giving a
 vertical resolution at the tangent point of about 2\,km. The vertical scanning
@@ -59,18 +56,6 @@ latitude coverage between 82.5$^{\circ}$S and 82.5$^{\circ}$N. Since the end of
 2004 Odin is also pointing off-track during certain periods, e.g.\ during the
 austral summer season, allowing the latitudinal coverage to be extended towards
 the poles. 
-
-
-\section{\smr\ Level2 data products}
-In this section an overview of \smr\ Level2 data products and requirements are given.
-Table~\ref{table:level2} and Table~\ref{table:level2b} describe characteristics of the main 
-and science Level2 products.
-The main products are retrieved from the so called ``stratospheric'' observation mode
-of \smr. In this mode spectra in frequency bands around 501 and 544\,GHz are collected,
-and this mode is the most commonly applied mode.
-The science data products are derived from less frequently applied observation modes
-(typically applied a few days per month).  
-
 
 
 
@@ -128,11 +113,19 @@ The science data products are derived from less frequently applied observation m
 
 
 
+\section{\smr\ Level2 data products}
 
-%Odin/SMR limb observations of stratospheric trace gases: Level 2 processing of ClO, N2O, HNO3, and O-3
+\smr data are categorized into main and science Level2 products,
+and Table~\ref{table:level2} and Table~\ref{table:level2b} describe the 
+characteristics of these products, respectively.
+The main products are retrieved from the so called ``stratospheric'' observation mode
+of \smr, and this mode cover approximately 50\,\(\%\) of the \smr observation time. 
+In this mode spectra in frequency bands around 501 and 544\,GHz are collected.
+The science data products are derived from less frequently applied observation modes
+(typically applied a few days per month).
+
 
 \subsection{Main data products}
-%\subsection*{Ozone profile}
 
 Ozone, \chem{ClO}, \chem{N_{2}O}, and \chem{HNO_{3}} profiles
 are the main \smr\ Level2 products.
@@ -153,13 +146,13 @@ The overall aim of the new Level2 data processing also reflects
 this aspect, and the objective is therefore that the accuracy
 and stability outperforms that from earlier \smr\ Level2 data products. 
 
-A requirement is therefore that an inventory/review is performed of the Level1B 
-algorithm and data, and all other input data, 
-applied in the Level2 processing
-(see Chapter~\ref{level2-algorithms}).
-A further requirement is that the new Level2 dataset
-is validated by comparison to correlative datasets,
-both during the development phase and and in its final stage 
+%A requirement is therefore that an inventory/review is performed of the Level1B 
+%algorithm and data, and all other input data, 
+%applied in the Level2 processing
+%(see Chapter~\ref{level2-algorithms}).
+%A further requirement is that the new Level2 dataset
+%is validated by comparison to correlative datasets,
+%both during the development phase and and in its final stage 
 
 
 
@@ -168,6 +161,7 @@ both during the development phase and and in its final stage
 %\subsection*{\chem{HNO_{3}} profile}
 
 \subsection{Science data products}
+
 Profiles of \chem{H_{2}O}, \chem{CO}, \chem{NO} and isotopologues of \chem{H_{2}O}, and \chem{O_{3}}
 are considered as science data products for \smr, and
 characteristics of these products are described in Table~\ref{table:level2b}.

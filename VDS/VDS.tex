@@ -4,8 +4,8 @@
 singlelinecheck=false % <-- important
 ]{caption}
 \usepackage{longtable}
-\usepackage{todonotes}
-\newcommand{\TODO}[1]{\todo[inline]{#1}}
+%\usepackage{todonotes}
+%\newcommand{\TODO}[1]{\todo[inline]{#1}}
 
 % Define cover page
 \def\CoverTitle{Verification Dataset: Technical Note}
@@ -43,7 +43,6 @@ singlelinecheck=false % <-- important
 \input{introduction}
 \input{l2definition}
 \input{dataset.tex}
-%\input{validation}
 \input{api.tex}
 
 \chapter*{}
@@ -52,14 +51,14 @@ singlelinecheck=false % <-- important
 %\bibliography{../Common/references}
 
 
-%\begin{appendices}
-% 
-%  \renewcommand{\chapterhead}{Appendix}
-% 
-%  \input{appendices}
-%
-%
-%\end{appendices}
+\begin{appendices}
+ 
+  \renewcommand{\chapterhead}{Appendix}
+ 
+  \input{appendices}
+
+
+\end{appendices}
 
 
 
