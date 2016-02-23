@@ -1,7 +1,7 @@
 # Setup the name space:
 import requests
 
-# Make a request to the root URI of the VDS API:
+# Start by making a request to the root URI of the VDS API:
 r0 = requests.get("http://odin.rss.chalmers.se/rest_api/v4/vds/")
 
 # The request contains the returned JSON object, which in Python is a
