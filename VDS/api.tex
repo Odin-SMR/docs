@@ -5,7 +5,7 @@ data is accessed through a hierarcical REST API where deeper URIs return more
 specific data.  All call URIs have a common root \url{rest_api/<version>}, which
 has been omitted below for clarity.  All GET calls return JSON objects unless
 otherwise noted. See the sections on the different data sources for
-specifications on the structure of the JSON objects.
+specifications on the structure of their respective JSON objects.
 
 
 \subsection{\url{<version>/vds}}
@@ -64,7 +64,7 @@ Returns object with the following attributes:
     \item VDS:
 
         A list of objects containing detailed information about all the scans
-        in the VDS for the chosen backend andfrequency.
+        in the VDS for the chosen backend and frequency.
         Each object contains the following keys:
 
         \begin{itemize}
