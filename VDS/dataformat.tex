@@ -1,4 +1,4 @@
-\Chapter{Data formats for the instruments}
+\chapter{Data formats for the instruments}
 \label{sec:dataformat}
 \subsection{Aura/MLS}
 The MLS data collocated with Odin/SMR is accessible through the Odin REST
@@ -50,18 +50,18 @@ The MIPAS data collocated with Odin/SMR is accessible through the Odin REST
 API, see section~\ref{sec:api}. The data is returned as a JSON object with the
 following attributes:
 \begin{itemize}
-    \item MJD \emph{(Double)}: Time in MJD for the measurement
-    \item altitude \emph{(Array of doubles)}: Altitudes for the measurement
-    \item laitutde \emph{(Double)}: Latitude for the measurement
-    \item longitude \emph{(Double)}: Longitude for the measurement
+    \item MJD \emph{(Double)}: Time in MJD for the observation
+    \item altitude \emph{(Array of doubles)}: Altitudes for the observation
+    \item laitutde \emph{(Double)}: Latitude for the observation
+    \item longitude \emph{(Double)}: Longitude for the observation
     \item los \emph{(Array of doubles)}: Line of sight angles for the
-        measurement
-    \item sza \emph{(Double)}: Sun zenith angle for the measurement
-    \item time \emph{(Double)}: Time of the measurement in ... \todo{what?}
+        observation
+    \item sza \emph{(Double)}: Sun zenith angle for the observation
+    \item time \emph{(Double)}: Time of the observation in ... \todo{what?}
     \item pressure \emph{(Array of doubles)}: Pressure profile for the
-        measurement
+        observation
     \item temperature \emph{(Array of doubles)}: Temperature profile for the
-        measurement
+        observation
     \item akm\_diagonal \emph{(Array of doubles)}: Diagonal something ...
         \todo{what?}
     \item chi2 \emph{(Double)}: $\chi^2$ of ... \todo{what?}
@@ -117,7 +117,7 @@ following attributes:
             \item DifferenceYAll \emph{(Double)}: Maximum normalised \chem{HCl}
                 difference between scan and zonal mean profile
             \item FOVInterference \emph{(Int)}: Field-of-view interference
-                flag; -1 indicates no information, 0 indicates no itnerference,
+                flag; -1 indicates no information, 0 indicates no interference,
                 larger than 0 indicates source of interferance
             \item InformationValue \emph{(Array of doubles)}: Information value
             \item MaxNumIteration \emph{(Int)}: Maximum convergence number
@@ -128,9 +128,9 @@ following attributes:
             \item PrecisionWOSignal \emph{(Array of doubles)}: Calculation
                 error without signal information
             \item Pressure \emph({Array of doubles}): Pressure profile for the
-                measurement
+                observation
             \item Temperature \emph({Array of doubles}): Temperature profile
-                for the measurement
+                for the observation
             \item RadianceResidualMax \emph{(Double)}: Maximum radience
                 residual
             \item RadianceResidualMean \emph{(Double)}: Mean radience residual
@@ -162,7 +162,7 @@ following attributes:
             \item TimeUTC \emph{(String)}: Date and time for the observation in
                 UTC as a string in ISO format
             \item SolarZenithAngle \emph{(Double)}: The solar zenith angle for
-                the measurement
+                the observation
             \item Altitude \emph({Array of doubles}): Represenetative
                 altitudes~(km) for the measured profiles
             \item Reserved \emph{(Int)}: Reserved field
@@ -184,17 +184,17 @@ following attributes:
     \item Instrument  \emph{(String)}: Name of the instrument
     \item EventType   \emph{(String)}: Solar or Lunar (only Solar included in
         VDS)
-    \item MJDStart    \emph{(Double)}: Start time in MJD for the measurement
-    \item MJDEnd      \emph{(Double)}: End time in MJD for the measurement
-    \item LatStart    \emph{(Double)}: Start latitude for the measurement
-    \item LatEnd      \emph{(Double)}: End latitude for the measurement
-    \item LongStart   \emph{(Double)}: Start longitude for the measurement
-    \item LongEnd     \emph{(Double)}: End longitude for the measurement
+    \item MJDStart    \emph{(Double)}: Start time in MJD for the observation
+    \item MJDEnd      \emph{(Double)}: End time in MJD for the observation
+    \item LatStart    \emph{(Double)}: Start latitude for the observation
+    \item LatEnd      \emph{(Double)}: End latitude for the observation
+    \item LongStart   \emph{(Double)}: Start longitude for the observation
+    \item LongEnd     \emph{(Double)}: End longitude for the observation
     \item Pressure    \emph{(Array of doubles)}: Pressure profile for the
-        measurement
+        observation
     \item Temperature \emph{(Array of doubles)}: Temperature profile for the
-        measurement
+        observation
     \item <Species>   \emph{(Array of triplets of doubles)}: Profile for
-        <Species> for the measurement; each row is a triplet containing
+        <Species> for the observation; each row is a triplet containing
         concentration, uncertainty, and a quality bit
 \end{itemize}
