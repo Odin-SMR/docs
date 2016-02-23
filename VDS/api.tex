@@ -1,4 +1,4 @@
-\section{API decription}
+\chapter{API decription}
 \label{sec:api}
 This section describes the API calls used to get data from from the VDS.  The
 data is accessed through a hierarcical REST API where deeper URIs return more
@@ -8,7 +8,7 @@ otherwise noted. See the sections on the different data sources for
 specifications on the structure of their respective JSON objects.
 
 
-\subsection{\url{<version>/vds}}
+\section{\url{<version>/vds}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -31,7 +31,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\subsection{\url{vds/<backend>/<freqmode>}}
+\section{\url{vds/<backend>/<freqmode>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -56,7 +56,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\subsection{\url{vds/<backend>/<freqmode>/allscans}}
+\section{\url{vds/<backend>/<freqmode>/allscans}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -77,7 +77,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>}}
+\section{\url{vds/<backend>/<freqmode>/<species>/<instrument>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -104,7 +104,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>/<date>}}
+\section{\url{vds/<backend>/<freqmode>/<species>/<instrument>/<date>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -131,14 +131,14 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\subsection{\url{vds_external/<instrument>/<species>/<date>/<file>/<file_index>}}
+\section{\url{vds_external/<instrument>/<species>/<date>/<file>/<file_index>}}
 Method: \emph{GET}
 
 Returns object containing the data for the specified instrument, species and
 date. See the sections describing the various instruments for details on their
 respective data structures.
 
-\subsection{Typical usage}
+\section{Typical usage}
 \label{sec:api_usage}
 
 \TODO{Add typical usage}

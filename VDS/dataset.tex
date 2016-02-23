@@ -21,7 +21,7 @@
                      02 &  544.102--544.902        & SMILES              & \chem{O_3}, \chem{HNO_3}                  &   1353       \\
                         &                          & MLS                 & \chem{O_3}, \chem{HNO_3}                  &  10824       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{HNO_3}                  &   7176       \\
-                        &                          & SAGEIII             & \chem{O_3}                                &      ?       \\
+                        &                          & SAGEIII             & \chem{O_3}                                &   3063       \\
 \hline
                      08 &  488.950--489.350,       & SMILES              & \chem{O_3}                                &    328       \\
                         &  488.350--488.750        & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &  10759       \\
@@ -36,7 +36,7 @@
                      14 &  576.062--576.862        & SMILES              & \chem{O_3}                                &    245       \\
                         &                          & MLS                 & \chem{O_3}, \chem{CO}                     &   9547       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{CO}                     &   5005       \\
-                        &                          & SAGEIII             & \chem{O_3}                                &     ?        \\
+                        &                          & SAGEIII             & \chem{O_3}                                &    170       \\
 \hline
                      17 &   489.950--490.750       & SMILES              & \chem{O_3}                                &    277       \\
                         &                          & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &  10566       \\
@@ -131,7 +131,7 @@ including a description of the data format.
   \chem{H_{2}O}         & \(\sim\)20--50\,km         &  2.3--6.9\,km            & 0.2 -- 0.9 ppmv    &  V5R-H2O-22(0/1)     &  \citep{stiller:valid:2012}\\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
-  \chem{CO}             & ?\,km                      &  ?\,km                   & ?\,\(\%\)          &  V5H-CO-20           &  ?\\
+  \chem{CO}             &  \(\sim\)10--70\,km\,km    &  6--12\,km               & 10--70\,\(\%\)     &  V5H-CO-20           &  \citep{funke:analy:07}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
   \hline
   \chem{CO}             & ?\,km                      &  ?\,km                   & ?                  &  V5R-H2O-22(0/1)     &  ?\\
@@ -394,215 +394,6 @@ all geographical positions and the complete observation period of \smr.
 
 
 
-
-\section{Data format}
-\label{sec:dataformat}
-\subsection{Aura/MLS}
-The MLS data collocated with Odin/SMR is accessible through the Odin REST
-API, see section~\ref{sec:api}. The data is returned as a JSON object with the
-following attributes:
-\begin{itemize}
-    \item data\_fields \emph{(Object)}: Object containing the data under the
-        following keys:
-        \begin{itemize}
-            \item AscDescMode \emph{(Int)}: 0 for ascending, 1 for descending
-                measurement mode
-            \item Convergence \emph{(Double)}: Convergence of the ...
-                \todo{what?}
-            \item <Species> \emph{(Array of doubles)}: Concentration profile
-                for <Species>
-            \item <Species>Precision \emph{(Array of doubles)}: Precision of
-                the concentration profile for <Species>
-            \item L2gpValue \emph{(Array of doubles)}: Level 2 ... \todo{what?}
-            \item L2gpPrecision \emph{(Array of doubles)}: Precision of the ...
-                Level 2 ... \todo{what?}
-            \item Quality \emph{(Double)}: Quality of the ... \todo{what?}
-            \item Status \emph{(Int)}: Status code ...
-        \end{itemize}
-    \item geolocation\_fields \emph{(Object)}: Object containing the
-        geolocation of the data under the following keys:
-        \begin{itemize}
-            \item ChunkNumber \emph{(Int)}: Number of chunks...
-            \item Latitude \emph{(Double)}: Latitude for the measurement
-            \item Longitude \emph{(Double)}: Longitude for the measurement
-            \item LineOfSightAngle \emph{(Double)}: Line of sight angle for the
-                measurement
-            \item LocalSolarTime \emph{(Double)}: Local solar time for the
-                measurement
-            \item MJD \emph{(Double)}: Time for the measurement in MJD
-            \item Time \emph{(Double)}: Time for the measurement in ...
-                \todo{what?}
-            \item OrbitGeodeticAngle \emph{(Double)}: The geodetic angle of the
-                orbit at the time of measurement
-            \item SolarZenithAngle \emph{(Double)}: The solar zenith angle for
-                the measurement
-            \item Pressure \emph({Array of doubles}): Pressure profile for the
-                measurement
-        \end{itemize}
-\end{itemize}
-
-\subsection{ENVISAT/MIPAS}
-The MIPAS data collocated with Odin/SMR is accessible through the Odin REST
-API, see section~\ref{sec:api}. The data is returned as a JSON object with the
-following attributes:
-\begin{itemize}
-    \item MJD \emph{(Double)}: Time in MJD for the measurement
-    \item altitude \emph{(Array of doubles)}: Altitudes for the measurement
-    \item laitutde \emph{(Double)}: Latitude for the measurement
-    \item longitude \emph{(Double)}: Longitude for the measurement
-    \item los \emph{(Array of doubles)}: Line of sight angles for the
-        measurement
-    \item sza \emph{(Double)}: Sun zenith angle for the measurement
-    \item time \emph{(Double)}: Time of the measurement in ... \todo{what?}
-    \item pressure \emph{(Array of doubles)}: Pressure profile for the
-        measurement
-    \item temperature \emph{(Array of doubles)}: Temperature profile for the
-        measurement
-    \item akm\_diagonal \emph{(Array of doubles)}: Diagonal something ...
-        \todo{what?}
-    \item chi2 \emph{(Double)}: $\chi^2$ of ... \todo{what?}
-    \item dof \emph{(Double)}: Degrees of freedom ... \todo{or? why double?}
-    \item eta \emph{(Array of doubles)}: Diagonal something with $\eta$...
-        \todo{what?}
-    \item eta\_indices \emph{(Array of ints)}: Indices of something ...
-        \todo{what?} with $\eta$
-    \item rms \emph{(Double)}: Root mean square error of something ...
-        \todo{what?}
-    \item geo\_id \emph{(Array of strings)}: Some sort of id ...
-        \todo{what?} with $\eta$
-    \item sub\_id \emph{(Array of strings)}: Some other sort of id ...
-        \todo{what?} with $\eta$
-    \item target \emph{(Array of doubles)}: Target of something ...
-        \todo{what?}
-    \item target\_noiser\_error \emph{(Array of doubles)}: Noise error of
-        something target something ... \todo{what?}
-    \item visibility \emph{(Array of ints)}: Visibility of something ...
-        \todo{what?}; 0 indicates obusfacted, 1 indicates visible
-    \item vr\_akdiag \emph{(Array of doubles)}: Something diagonals ...
-        \todo{what?}
-    \item vr\_col \emph{(Array of doubles)}: Something columns ... \todo{what?}
-    \item vr\_row \emph{(Array of doubles)}: Something rows ... \todo{what?}
-\end{itemize}
-
-\subsection{ISS/JEM/SMILES}
-The SMILES data collocated with Odin/SMR is accessible through the Odin REST
-API, see section~\ref{sec:api}. The data is returned as a JSON object with the
-following attributes:
-\begin{itemize}
-    \item data\_fields \emph{(Object)}: Object containing the data under the
-        following keys:
-        \begin{itemize}
-            \item AOSUnitNum \emph{(Double)}: Number of the ...
-                \todo{what?}
-            \item Apriori \emph{(Array of doubles)}: Apriori profile of ...
-                \todo{what?}
-            \item AprioriError \emph{(Array of doubles)}: Apriori error of ...
-                \todo{what?}
-            \item AveragingKernel \emph{(Two-dimensional array of doubles)}:
-                Averaging kernel used in the ... \todo{what?}
-            \item Baseline<N> \emph{(Array of doubles)}: Baselines of ...
-                \todo{what?}; N=0--3
-            \item Baseline<n>Precision \emph{(Array of doubles)}: Precision of
-                baseline of ... \todo{what?}; N=0--3
-            \item Convergence \emph{(Double)}: Measurement of the convergence
-                of the ... \todo{what?}
-            \item CorrLength \emph{(Double)}: Correlation length of the ...
-                \todo{what?}
-            \item CostFunctionY \emph{(Array of doubles)}: Cost function ...
-                \todo{what?}
-            \item CostFunctionYAll \emph{(Double)}: Cost function ...
-                \todo{what?}
-            \item DifferenceY \emph{(Array of doubles)}: Differences ...
-                \todo{what?}
-            \item DifferenceYAll \emph{(Double)}: Differences ...
-                \todo{what?}
-            \item FOVInterference \emph{(Int)}: Field-of-view interference flag
-                \todo{or?}
-            \item InformationValue \emph{(Array of doubles)}: Value of ...
-                \todo{what?}
-            \item L2Value \emph{(Array of doubles)}: Level 2 ... \todo{what?}
-            \item L2Precision \emph{(Array of doubles)}: Precision of the ...
-                Level 2 ... \todo{what?}
-            \item MaxNumIteration \emph{(Int)}: Maximum number of iterations
-                for the ... \todo{what?} algorithm
-            \item NumIterationPerform \emph{(Int)}: Number of iteration in the
-                ... \todo{what?} algorithm
-            \item MeasurementError \emph{(Array of doubles)}: Estimate of the
-                measurement error of the ... \todo{what?}
-            \item PrecisionWOSignal \emph{(Array of doubles)}: Precision of
-                the ... \todo{what?}
-            \item Pressure \emph({Array of doubles}): Pressure profile for the
-                measurement
-            \item Temperature \emph({Array of doubles}): Temperature profile
-                for the measurement
-            \item RadianceResidualMax \emph{(Double)}: Maximum of the residual
-                radiance of the ... \todo{what?}
-            \item RadianceResidualMean \emph{(Double)}: Mean of the residual
-                radiance of the ... \todo{what?}
-            \item RadianceResidualRMS \emph{(Double)}: Root mean square error
-                of the residualvradiance of the ... \todo{what?}
-            \item SeqCount \emph{(Int)}: Number of ... \todo{what?}
-            \item SmoothingError \emph({Array of doubles}): Error from the
-                smoothing of ... \todo{what?}
-            \item VerticalResolution \emph({Array of doubles}): Vertical
-                resolution of the profiles
-            \item WaterVapor \emph({Array of doubles}): Profile of the water
-                vapour concentration
-        \end{itemize}
-    \item geolocation\_fields \emph{(Object)}: Object containing the
-        geolocation of the data under the following keys:
-        \begin{itemize}
-            \item AscendingDescending \emph{(Int)}: 0 for ascending, 1 for
-                descending measurement mode
-            \item Latitude \emph{(Double)}: Latitude for the measurement
-            \item Longitude \emph{(Double)}: Longitude for the measurement
-            \item LineOfSightAngle \emph{(Double)}: Line of sight angle for the
-                measurement
-            \item MJD \emph{(Double)}: Time for the measurement in MJD
-            \item LocalTime \emph{(Double)}: Local time of day for the
-                measurement in ... \todo{what?}
-            \item LocalTime \emph{(Double)}: Time for the measurement in ...
-                \todo{what?}
-            \item TimeUTC \emph{(String)}: Date and time for the measurement in
-                UTC as a string in ISO format
-                \todo{what?}
-            \item Reserved \emph{(Int)}: Reserved ... \todo{what?}
-            \item SolarZenithAngle \emph{(Double)}: The solar zenith angle for
-                the measurement
-            \item Altitude \emph({Array of doubles}): Altitudes (km) for the
-                measured profiles
-        \end{itemize}
-\end{itemize}
-
-
-
-
-\subsection{Meteor3M/SAGE III}
-The SAGE III data collocated with Odin/SMR is accessible through the Odin REST
-API, see section~\ref{sec:api}. The data is returned as a JSON object with the
-following attributes:
-\begin{itemize}
-    \item FileName    \emph{(String)}: Filename is the same as in the original
-        data set
-    \item Instrument  \emph{(String)}: Name of the instrument
-    \item EventType   \emph{(String)}: Solar or Lunar (only Solar included in
-        VDS)
-    \item MJDStart    \emph{(Double)}: Start time in MJD for the measurement
-    \item MJDEnd      \emph{(Double)}: End time in MJD for the measurement
-    \item LatStart    \emph{(Double)}: Start latitude for the measurement
-    \item LatEnd      \emph{(Double)}: End latitude for the measurement
-    \item LongStart   \emph{(Double)}: Start longitude for the measurement
-    \item LongEnd     \emph{(Double)}: End longitude for the measurement
-    \item Pressure    \emph{(Array of doubles)}: Pressure profile for the
-        measurement
-    \item Temperature \emph{(Array of doubles)}: Temperature profile for the
-        measurement
-    \item <Species>   \emph{(Array of triplets of doubles)}: Profile for
-        <Species> for the measurement; each row is a triplet containing
-        concentration, uncertainty, and a quality bit
-        %flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
-\end{itemize}
-\TODO{Add line of sight to SAGE III api?}
 
 
 
