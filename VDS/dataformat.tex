@@ -95,85 +95,76 @@ following attributes:
     \item data\_fields \emph{(Object)}: Object containing the data under the
         following keys:
         \begin{itemize}
-            \item AOSUnitNum \emph{(Double)}: Number of the ...
-                \todo{what?}
-            \item Apriori \emph{(Array of doubles)}: Apriori profile of ...
-                \todo{what?}
-            \item AprioriError \emph{(Array of doubles)}: Apriori error of ...
-                \todo{what?}
+            \item Apriori \emph{(Array of doubles)}: A priori profile
+            \item AprioriError \emph{(Array of doubles)}: A priori error
+            \item L2Value \emph{(Array of doubles)}: Retrieved profile
+            \item L2Precision \emph{(Array of doubles)}: Calculation error;
+                negative values indicate unuseful data
             \item AveragingKernel \emph{(Two-dimensional array of doubles)}:
-                Averaging kernel used in the ... \todo{what?}
-            \item Baseline<N> \emph{(Array of doubles)}: Baselines of ...
-                \todo{what?}; N=0--3
-            \item Baseline<n>Precision \emph{(Array of doubles)}: Precision of
-                baseline of ... \todo{what?}; N=0--3
-            \item Convergence \emph{(Double)}: Measurement of the convergence
-                of the ... \todo{what?}
-            \item CorrLength \emph{(Double)}: Correlation length of the ...
-                \todo{what?}
-            \item CostFunctionY \emph{(Array of doubles)}: Cost function ...
-                \todo{what?}
-            \item CostFunctionYAll \emph{(Double)}: Cost function ...
-                \todo{what?}
-            \item DifferenceY \emph{(Array of doubles)}: Differences ...
-                \todo{what?}
-            \item DifferenceYAll \emph{(Double)}: Differences ...
-                \todo{what?}
-            \item FOVInterference \emph{(Int)}: Field-of-view interference flag
-                \todo{or?}
-            \item InformationValue \emph{(Array of doubles)}: Value of ...
-                \todo{what?}
-            \item L2Value \emph{(Array of doubles)}: Level 2 ... \todo{what?}
-            \item L2Precision \emph{(Array of doubles)}: Precision of the ...
-                Level 2 ... \todo{what?}
-            \item MaxNumIteration \emph{(Int)}: Maximum number of iterations
-                for the ... \todo{what?} algorithm
-            \item NumIterationPerform \emph{(Int)}: Number of iteration in the
-                ... \todo{what?} algorithm
-            \item MeasurementError \emph{(Array of doubles)}: Estimate of the
-                measurement error of the ... \todo{what?}
-            \item PrecisionWOSignal \emph{(Array of doubles)}: Precision of
-                the ... \todo{what?}
+                Averaging kernel
+            \item Baseline<N> \emph{(Array of doubles)}: Coefficients of
+                continuum
+            \item Baseline<n>Precision \emph{(Array of doubles)}: Baseline
+                errors of coefficients of continuum
+            \item Convergence \emph{(Double)}: Convergence status
+            \item CorrLength \emph{(Double)}: Correlative length of a priori
+            \item CostFunctionY \emph{(Array of doubles)}: Cost function of
+                spectra for each altitude
+            \item CostFunctionYAll \emph{(Double)}: Cost function of spectra
+            \item DifferenceY \emph{(Array of doubles)}: Normalised \chem{HCl}
+                difference between scan and zonal mean profile
+            \item DifferenceYAll \emph{(Double)}: Maximum normalised \chem{HCl}
+                difference between scan and zonal mean profile
+            \item FOVInterference \emph{(Int)}: Field-of-view interference
+                flag; -1 indicates no information, 0 indicates no itnerference,
+                larger than 0 indicates source of interferance
+            \item InformationValue \emph{(Array of doubles)}: Information value
+            \item MaxNumIteration \emph{(Int)}: Maximum convergence number
+            \item NumIterPerform \emph{(Int)}: Convergence loop number and
+                result
+            \item MeasurementError \emph{(Array of doubles)}: Measurement
+                error
+            \item PrecisionWOSignal \emph{(Array of doubles)}: Calculation
+                error without signal information
             \item Pressure \emph({Array of doubles}): Pressure profile for the
                 measurement
             \item Temperature \emph({Array of doubles}): Temperature profile
                 for the measurement
-            \item RadianceResidualMax \emph{(Double)}: Maximum of the residual
-                radiance of the ... \todo{what?}
-            \item RadianceResidualMean \emph{(Double)}: Mean of the residual
-                radiance of the ... \todo{what?}
-            \item RadianceResidualRMS \emph{(Double)}: Root mean square error
-                of the residualvradiance of the ... \todo{what?}
-            \item SeqCount \emph{(Int)}: Number of ... \todo{what?}
-            \item SmoothingError \emph({Array of doubles}): Error from the
-                smoothing of ... \todo{what?}
+            \item RadianceResidualMax \emph{(Double)}: Maximum radience
+                residual
+            \item RadianceResidualMean \emph{(Double)}: Mean radience residual
+            \item RadianceResidualRMS \emph{(Double)}: Root mean square
+                radiance residual
+            \item SeqCount \emph{(Int)}: Sequence counter
+            \item AOSUnitNum \emph{(Double)}: Number of observed AOS units
+            \item SmoothingError \emph({Array of doubles}): Smoothing error
             \item VerticalResolution \emph({Array of doubles}): Vertical
                 resolution of the profiles
-            \item WaterVapor \emph({Array of doubles}): Profile of the water
-                vapour concentration
+            \item WaterVapor \emph({Array of doubles}): Using water vapour of
+                retrieval
+            \item Status \emph{(Int)}: Status information as a bit mask error
+                code; 0 indicates useful information
         \end{itemize}
     \item geolocation\_fields \emph{(Object)}: Object containing the
         geolocation of the data under the following keys:
         \begin{itemize}
             \item AscendingDescending \emph{(Int)}: 0 for ascending, 1 for
                 descending measurement mode
-            \item Latitude \emph{(Double)}: Latitude for the measurement
-            \item Longitude \emph{(Double)}: Longitude for the measurement
-            \item LineOfSightAngle \emph{(Double)}: Line of sight angle for the
-                measurement
-            \item MJD \emph{(Double)}: Time for the measurement in MJD
-            \item LocalTime \emph{(Double)}: Local time of day for the
-                measurement in ... \todo{what?}
-            \item LocalTime \emph{(Double)}: Time for the measurement in ...
-                \todo{what?}
-            \item TimeUTC \emph{(String)}: Date and time for the measurement in
+            \item Latitude \emph{(Double)}: Latitude for the observation
+            \item Longitude \emph{(Double)}: Longitude for the observation
+            \item LineOfSightAngle \emph{(Double)}: Azimuth view
+            \item MJD \emph{(Double)}: Time for the observation in MJD
+            \item Time \emph{(Double)}: Time for the observation in seconds
+                from 1958-01-01
+            \item LocalTime \emph{(Double)}: Local time (decimal hour of day)
+                for the observation
+            \item TimeUTC \emph{(String)}: Date and time for the observation in
                 UTC as a string in ISO format
-                \todo{what?}
-            \item Reserved \emph{(Int)}: Reserved ... \todo{what?}
             \item SolarZenithAngle \emph{(Double)}: The solar zenith angle for
                 the measurement
-            \item Altitude \emph({Array of doubles}): Altitudes (km) for the
-                measured profiles
+            \item Altitude \emph({Array of doubles}): Represenetative
+                altitudes~(km) for the measured profiles
+            \item Reserved \emph{(Int)}: Reserved field
         \end{itemize}
 \end{itemize}
 
