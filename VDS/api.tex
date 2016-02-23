@@ -10,8 +10,8 @@ by a brief description of the contents.  See the sections on the different
 data sources for specifications on the structure of their respective JSON
 objects.
 
-
-\section{\url{<version>/vds}}
+\section{API calls}
+\subsection{\url{<version>/vds}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -34,7 +34,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\section{\url{vds/<backend>/<freqmode>}}
+\subsection{\url{vds/<backend>/<freqmode>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -59,7 +59,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\section{\url{vds/<backend>/<freqmode>/allscans}}
+\subsection{\url{vds/<backend>/<freqmode>/allscans}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -80,7 +80,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\section{\url{vds/<backend>/<freqmode>/<species>/<instrument>}}
+\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -107,7 +107,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\section{\url{vds/<backend>/<freqmode>/<species>/<instrument>/<date>}}
+\subsection{\url{vds/<backend>/<freqmode>/<species>/<instrument>/<date>}}
 Method: \emph{GET}
 
 Returns object with the following attributes:
@@ -134,7 +134,7 @@ Returns object with the following attributes:
 \end{itemize}
 
 
-\section{\url{vds_external/<instrument>/<species>/<date>/<file>/<file_index>}}
+\subsection{\url{vds_external/<instrument>/<species>/<date>/<file>/<file_index>}}
 Method: \emph{GET}
 
 Returns object containing the data for the specified instrument, species and
