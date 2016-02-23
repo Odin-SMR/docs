@@ -10,37 +10,38 @@ following attributes:
         \begin{itemize}
             \item AscDescMode \emph{(Int)}: 0 for ascending, 1 for descending
                 measurement mode
-            \item Convergence \emph{(Double)}: Convergence of the ...
-                \todo{what?}
             \item <Species> \emph{(Array of doubles)}: Concentration profile
                 for <Species>
             \item <Species>Precision \emph{(Array of doubles)}: Precision of
                 the concentration profile for <Species>
-            \item L2gpValue \emph{(Array of doubles)}: Level 2 ... \todo{what?}
-            \item L2gpPrecision \emph{(Array of doubles)}: Precision of the ...
-                Level 2 ... \todo{what?}
-            \item Quality \emph{(Double)}: Quality of the ... \todo{what?}
-            \item Status \emph{(Int)}: Status code ...
+            \item L2gpValue \emph{(Array of doubles)}: Concentration profile
+                for <Species>
+            \item L2gpPrecision \emph{(Array of doubles)}: Precision of the
+                concentration profile fore <Species>
+            \item Quality \emph{(Double)}: Quality; larger is generally better
+            \item Status \emph{(Int)}: Status code; use with caution if
+                non-zero, don't use of odd
+            \item Convergence \emph{(Double)}: Convergence of retrieval
+                algorithms; values near unity indicate good convergence
         \end{itemize}
     \item geolocation\_fields \emph{(Object)}: Object containing the
         geolocation of the data under the following keys:
         \begin{itemize}
-            \item ChunkNumber \emph{(Int)}: Number of chunks...
-            \item Latitude \emph{(Double)}: Latitude for the measurement
-            \item Longitude \emph{(Double)}: Longitude for the measurement
+            \item ChunkNumber \emph{(Int)}: Number of chunks used in retrieval
+            \item Latitude \emph{(Double)}: Latitude for the observation
+            \item Longitude \emph{(Double)}: Longitude for the observation
             \item LineOfSightAngle \emph{(Double)}: Line of sight angle for the
-                measurement
+                observation
             \item LocalSolarTime \emph{(Double)}: Local solar time for the
-                measurement
-            \item MJD \emph{(Double)}: Time for the measurement in MJD
-            \item Time \emph{(Double)}: Time for the measurement in ...
-                \todo{what?}
+                observation
+            \item MJD \emph{(Double)}: Time for the observation in MJD
+            \item Time \emph{(Double)}: Time for the observation in TAI units
             \item OrbitGeodeticAngle \emph{(Double)}: The geodetic angle of the
-                orbit at the time of measurement
+                orbit at the time observation
             \item SolarZenithAngle \emph{(Double)}: The solar zenith angle for
-                the measurement
+                the observation
             \item Pressure \emph({Array of doubles}): Pressure profile for the
-                measurement
+                observation
         \end{itemize}
 \end{itemize}
 
@@ -196,6 +197,4 @@ following attributes:
     \item <Species>   \emph{(Array of triplets of doubles)}: Profile for
         <Species> for the measurement; each row is a triplet containing
         concentration, uncertainty, and a quality bit
-        %flag\footnote{see \cite{SAGEIII_DPUG} for details!} \\
 \end{itemize}
-\TODO{Add line of sight to SAGE III api?}
