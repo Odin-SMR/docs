@@ -4,8 +4,11 @@ This section describes the API calls used to get data from from the VDS.  The
 data is accessed through a hierarcical REST API where deeper URIs return more
 specific data.  All call URIs have a common root \url{rest_api/<version>}, which
 has been omitted below for clarity.  All GET calls return JSON objects unless
-otherwise noted. See the sections on the different data sources for
-specifications on the structure of their respective JSON objects.
+otherwise noted. Key/value pairs are listed as name of the key
+along with the type of the corresponding value within parantheses, followed
+by a brief description of the contents.  See the sections on the different
+data sources for specifications on the structure of their respective JSON
+objects.
 
 
 \section{\url{<version>/vds}}
@@ -117,12 +120,12 @@ Returns object with the following attributes:
 
         \begin{itemize}
             \item CollocationInfo \emph{(Object)}: Object containing
-                information about the collocation, such as time and
+                information about the collocated measurement, such as time and
                 geolocation, as well as Delta time and angular distance between
-                the Odin/SMR scan and the collocated data from the selected
+                the \smr\ scan and the collocated data from the selected
                 instrument
             \item OdinInfo \emph{(Object)}: Object containing information
-                about the Odin/SMR scan, such as time and geolocation
+                about the \smr\ scan, such as time and geolocation
             \item URLS \emph{(Object)}: Object containing URIs for getting the
             Odin/SMR spectra and apriori data for the specific scan, as
             well as the PTZ data, and the collocated data from the selected
@@ -135,7 +138,7 @@ Returns object with the following attributes:
 Method: \emph{GET}
 
 Returns object containing the data for the specified instrument, species and
-date. See the sections describing the various instruments for details on their
+date. See Sect.~\ref{sec:dataformats} for details on their
 respective data structures.
 
 \section{Typical usage}
