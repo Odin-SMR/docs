@@ -196,3 +196,72 @@ following attributes:
         <Species> for the observation; each row is a triplet containing
         concentration, uncertainty, and a quality bit
 \end{itemize}
+
+
+\section{Odin/OSIRIS}
+The OSIRIS data collocated with Odin/SMR is accessible through the Odin REST
+API, see section~\ref{sec:api}. The data is returned as a JSON object with the
+following attributes (see \url{http://odin-osiris.usask.ca/sites/default/files/media/pdf/l2dataformat.pdf}
+for more details):
+\begin{itemize}
+    \item data\_fields \emph{(Object)}: Object containing the data under the
+        following keys:
+        \begin{itemize}
+            \item O3                     \emph{(Array of doubles)}: Measured ozone profiles 
+                expressed as volume mixing ratio
+            \item O3NumberDensity        \emph{(Array of doubles)}: The measured ozone profiles 
+                expressed as number density
+            \item O3Precision            \emph{(Array of doubles)}: The error in the ozone volume 
+                mixing ratio
+            \item RTModel\_AirDensity     \emph{(Array of doubles)}: The atmospheric air density 
+                profile used in the radiative transfer model
+            \item RTModel\_Albedo         \emph{(Double)}: The ground albedo value used in the 
+                radiative transfer code
+            \item RTModel O3Density      \emph{(Array of doubles)}: The atmospheric air density 
+                profile used in the radiative transfer model
+            \item RTModel\_O3InitialGuess \emph{(Array of doubles)}: The initial guess of \chem{O_3} 
+                used in the MART retrieval, expressed as a number density
+            \item RTModel\_Temperature    \emph{(Array of doubles)}: The atmospheric temperature 
+                profile used in the radiative transfer model in the inversion algorithms
+        \end{itemize}
+    \item geolocation\_fields \emph{(Object)}: Object containing the
+        geolocation of the data under the following keys:
+        \begin{itemize}
+            \item Altitude              \emph{(Array of double)}: The geometric altitude of the 
+                primary swath data products expressed in km. The altitudes are specified with 
+                respect to the IAU 1976 reference geoid
+            \item Latitude              \emph{(Double)}: The nominal latitude of the scan expressed 
+                in degrees. This corresponds to the latitude of the tangent point at time Time.
+            \item Longitude             \emph{(Double)}: The nominal longitude of the scan expressed 
+                in degrees. This corresponds to the latitude of the tangent point at time Time
+            \item LocalSolarTime        \emph{(Double)}: The local solar time at the nominal tangent 
+                point expressed in hours
+            \item RTModel\_Altitude      \emph{(Array of double)}: The geometric altitude of the model 
+                inputs expressed in km. The altitudes are with respect to the IAU 1976 reference geoid 
+            \item ScanEndLatitude       \emph{(Double)}: The latitude of the tangent point in degrees 
+                at the end of the scan
+            \item ScanEndLongitude      \emph{(Double)}: The longitude of the tangent point at the end 
+                of the scan
+            \item ScanEndTime           \emph{(Double)}: The end time of the scan expressed as TAI93 
+                assuming no offset between UTC and TAI93
+            \item ScanNo                \emph{(Int)}: The unique identification number of this scan
+            \item ScanStartLatitude     \emph{(Double)}: The latitude of the tangent point in degrees 
+                at the start of the scan
+            \item ScanStartLongitude    \emph{(Double)}: The longitude of the tangent point in degrees 
+                at the start of the scan
+            \item ScanStartTime         \emph{(Double)}: The start time of the scan expressed as TAI93 
+                assuming no offset between UTC and TAI93
+            \item ScanUpFlag            \emph{(Int)}:Indicates if the scan was going up (1) or going down (0)
+            \item SolarAzimuthAngle     \emph{(Double)}:  The solar azimuth angle expressed in degrees at 
+                the nominal tangent point of the scan
+            \item SolarScatteringAngle  \emph{(Double)}: The solar scattering angle expressed in degrees 
+                at the nominal tangent point of the scan 
+            \item SolarZenithAngle      \emph{(Double)}: The solar zenith angle expressed in degrees at 
+                the nominal tangent point of the scan
+            \item Time                  \emph{(Double)}: The nominal time of the scan in UTC expressed as 
+                TAI93 assuming no offset between UTC and TAI93. This corresponds to the instant when the 
+                tangent point of the OSIRIS look vector was at 25 km
+            \item MJD \emph{(Double)}: Time for the observation in MJD
+        \end{itemize}
+\end{itemize}
+

@@ -1,4 +1,4 @@
-  
+      
 \chapter{Verification Dataset}
 \label{chapter:vds}
 
@@ -17,41 +17,56 @@
                         &  501.980--502.380        & MLS                 & \chem{O_3}, \chem{ClO}, \chem{N_{2}O}     &  11050       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{N_{2}O}                 &   7228       \\
                         &                          & SAGEIII             & \chem{O_3}                                &   3115       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   7168       \\
 \hline
                      02 &  544.102--544.902        & SMILES              & \chem{O_3}, \chem{HNO_3}                  &   2367,1353  \\
                         &                          & MLS                 & \chem{O_3}, \chem{HNO_3}                  &  10824       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{HNO_3}                  &   7176       \\
                         &                          & SAGEIII             & \chem{O_3}                                &   3063       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   7079       \\
+
 \hline
                      08 &  488.950--489.350,       & SMILES              & \chem{O_3}                                &    618       \\
                         &  488.350--488.750        & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &  10759       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{H_{2}O}                 &   6249       \\
                         &                          & SAGEIII             & \chem{O_3}, \chem{H_{2}O}                 &    284       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   2749       \\
+
 \hline
                      13 &  556.598--557.398        & SMILES              & \chem{O_3}                                &    364       \\
                         &                          & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &   9352       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{H_{2}O}                 &   5001       \\
                         &                          & SAGEIII             & \chem{O_3}, \chem{H_{2}O}                 &    170       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   1870       \\
+
 \hline
                      14 &  576.062--576.862        & SMILES              & \chem{O_3}                                &    409       \\
                         &                          & MLS                 & \chem{O_3}, \chem{CO}                     &   9547       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{CO}                     &   5005       \\
                         &                          & SAGEIII             & \chem{O_3}                                &    170       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   1913       \\
+
 \hline
                      17 &   489.950--490.750       & SMILES              & \chem{O_3}                                &    527       \\
                         &                          & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &  10566       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{H_{2}O}                 &   6126       \\
                         &                          & SAGEIII             & \chem{O_3}, \chem{H_{2}O}                 &    263       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   2638       \\
+
 \hline
                      19 &   556.550--557.350       & SMILES              & \chem{O_3}                                &    604       \\
                         &                          & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &  10190       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{H_{2}O}                 &   6127       \\
                         &                          & SAGEIII             & \chem{O_3}, \chem{H_{2}O}                 &    444       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   2578       \\
+
 \hline
                      21 &   551.152--551.552,      & SMILES              & \chem{O_3}                                &    583       \\
                         &   551.752--552.152       & MLS                 & \chem{O_3}, \chem{H_{2}O}                 &   9573       \\
                         &                          & MIPAS               & \chem{O_3}, \chem{H_{2}O}, \chem{NO}      &   4819       \\
                         &                          & SAGEIII             & \chem{O_3}, \chem{H_{2}O}                 &     80       \\
+                        &                          & OSIRIS              & \chem{O_3}                                &   2508       \\
+
 \hline
 \end{tabular}}
 \end{table}
@@ -62,7 +77,7 @@ the \smr\ complete dataset, and correlative datasets.
 In short, the VDS is a dataset of \smr\ measurements 
 and collocated measurements from a number of correlative
 limb-sounding instruments, i.e. Aura/MLS, ENVISAT/MIPAS,
-ISS/JEM/SMILES, and Meteor3M/SAGEIII.
+ISS/JEM/SMILES, Meteor3M/SAGEIII, and Odin/OSIRIS.
 Table~\ref{table:comp} gives an overview of the correlative
 datasets included in the VDS, and these datasets
 are described in more detail in Sect.~\ref{sec:corrmeas}.
@@ -78,7 +93,7 @@ including a description of the data format.
 
 %http://www.atmos-chem-phys.net/9/2387/2009/acp-9-2387-2009.pdf
 \begin{table}
-\caption{ Characteristics of Aura/MLS, ENVISAT/MIPAS, ISS/JEM/SMILES, and Meteor3M/SAGEIII Level2 data products included in the VDS.}
+\caption{ Characteristics of Aura/MLS, ENVISAT/MIPAS, ISS/JEM/SMILES, Meteor3M/SAGEIII, and Odin/OSIRIS Level2 data products included in the VDS.}
 \label{table:complevel2}
 \scalebox{0.8}{%
 \begin{tabular}{|l|l|l|l|l|l|}
@@ -109,39 +124,33 @@ including a description of the data format.
   \hline
   \chem{O_{3}}          & \(\sim\)10--60\,km         &  3.5 -- 8\,km            & 0.1--0.2\,ppmv     &  V5H-O3-21           &  \citep{steck:biasd:07}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{O_{3}}          & \(\sim\)10--70\,km         &  2 -- 6\,km              & 0.03--0.09\,ppmv   &  V5R-O3-22(4/5)      &  \citep{laeng:valid:14}\\
+                        & \(\sim\)10--70\,km         &  2 -- 6\,km              & 0.03--0.09\,ppmv   &  V5R-O3-22(4/5)      &  \citep{laeng:valid:14}\\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
   \chem{N_{2}O}         & \(\sim\)15--60\,km         &  3--6\,km                & 10--20\,\(\%\)     &  V5H-N2O-21          &  \citep{plieninger:metha:15}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{N_{2}O}         & \(\sim\)15--60\,km         &  2.5--6\,km              & 10--20\,\(\%\)     &  V5R-N2O-22(4/5)     &  \citep{plieninger:metha:15}\\
+                        & \(\sim\)15--60\,km         &  2.5--6\,km              & 10--20\,\(\%\)     &  V5R-N2O-22(4/5)     &  \citep{plieninger:metha:15}\\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
   \chem{HNO_{3}}        & \(\sim\)20--50\,km         &  3--8\,km                & 2--6\,\(\%\)       &  V5H-HNO3-22         &  \citep{wang:valid:07}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{HNO_{3}}        & \(\sim\)?\,km              &  ?\,km                   & ? ppbv             &  V5R-HNO3-22(4/5)    &  -\\
+                        &                            &                          &                    &  V5R-HNO3-22(4/5)    &   \\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
   \chem{H_{2}O}         & \(\sim\)15--50\,km         &  3.5--4.5\,km            & 5--10\,\(\%\)      &  V5H-H2O-20          &  \citep{milz:valid:09}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{H_{2}O}         & \(\sim\)20--50\,km         &  2.3--6.9\,km            & 0.2 -- 0.9 ppmv    &  V5R-H2O-22(0/1)     &  \citep{stiller:valid:2012}\\
+                        & \(\sim\)20--50\,km         &  2.3--6.9\,km            & 0.2 -- 0.9 ppmv    &  V5R-H2O-22(0/1)     &  \citep{stiller:valid:2012}\\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
   \chem{CO}             &  \(\sim\)10--70\,km        &  6--12\,km               & 10--70\,\(\%\)     &  V5H-CO-20           &  \citep{funke:analy:07}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{CO}             & ?\,km                      &  ?\,km                   & ?                  &  V5R-H2O-22(0/1)     &  -\\
+                        &                            &                          &                    &  V5R-H2O-22(0/1)     &   \\
                         &                            &                          &                    &  2005-01 -- 2012-04  &   \\
   \hline
   \chem{NO}             &  \(\sim\)20--60\,km\       &  3.5--12\,km             & 0.2--0.3\,ppbv     &  V5H-NO-20           &  \citep{funke:retri:05}\\
                         &                            &                          &                    &  2002-07 -- 2004-03  &   \\
-  \hline
-  \chem{NO}             & ?\,km                      &  ?\,km                   & ?                  &  V5R-NO-22(0/1)     &  - \\
-                        &                            &                          &                    &  2005-01 -- 2012-04  &   \\
+                        &                            &                          &                    &  V5R-NO-22(0/1)      &  \\
+                        &                            &                          &                    &  2005-01 -- 2012-04  &  \\
   \hline
   \multicolumn{6}{|c|}{\textbf{ISS/JEM/SMILES}}\\
   \multicolumn{6}{|c|}{\textbf{}}\\
@@ -165,6 +174,14 @@ including a description of the data format.
   \hline
   \chem{H_{2}O}         & 0--50\,km                  &  \(\sim\)1\,km           & 5--15\,\(\%\)      &  NASA v04            & \citep{SAGEIII_DPUG} \\
   \hline
+  \multicolumn{6}{|c|}{\textbf{Odin/OSIRIS}}\\
+  \multicolumn{6}{|c|}{\textbf{}}\\
+  \hline
+  \textbf{Product}      & \textbf{Vertical}          & \textbf{Vertical}        & \textbf{Precision} &  \textbf{Version} & \textbf{Reference}  \\
+                        & \textbf{coverage}          & \textbf{resolution}      &                    &                   &                     \\
+  \hline
+  \chem{O_{3}}          & 10--60\,km                  &  \(\sim\)2-3\,km        & 3--4\,\(\%\)         &  SaskMART v5.07   & \citep{adams:assess:14} \\
+  \hline 
 \end{tabular}}
 \end{table}
 
@@ -315,6 +332,24 @@ trioxide~(\chem{NO_3}) and chlorine dioxide~(\chem{OClO}).  Due to poor data
 coverage, none of these products have been included in the VDS, but are
 listed here for completeness.
 
+\subsection{Odin/OSIRIS}
+
+Odin has two optically co-aligned instruments: the SMR 
+and the Optical Spectrograph and InfraRed Imager System (OSIRIS)
+\citep{llewellyn:osiris:04}. OSIRIS
+measures limb-scattered sunlight within the wavelength range of 280\,-\,
+800\,nm with a spectral resolution of approximately 1\,nm,
+OSIRIS is capable of measuring vertical profiles of stratospheric 
+\chem{O_{3}}, \chem{NO_{2}}, and aerosols. 
+Ozone measurements are only taken in the
+summer hemisphere, with coverage in both hemispheres in
+the spring and autumn.
+Nominally OSIRIS generates approximately 30
+\chem{O_3} profiles per orbit over the sunlit hemisphere.
+Characteristics of OSIRIS Level2 \chem{O_{3}} product
+are found in Table~\ref{table:complevel2}.
+
+
 
 \section{Verification Dataset: collocation criteria and data selection}
 \label{sec:vdsselection}
@@ -382,6 +417,17 @@ time difference criteria is 1\,h, while for the other bins it is set to 6\,h.
 Figure~\ref{fig:vdsfm1} shows a graphical view of the position in
 time and space for the measurements included in the VDS for
 frequency mode 1 of \smr.   
+
+The \smr\ and Odin/OSIRIS instruments are optically co-alignend and thus
+the measurements can always be seen as highly collocated.
+The selection of which OSIRIS measurements to include in the
+VDS is based on which measurements that are included 
+for MIPAS, MLS, SAGEIII, and SMILES, in order to not
+construct a too large VDS.  That is,
+OSIRIS measurements are included in the VDS for all selected
+collocations between \smr\ and the other sensors, given
+that OSIRIS measurements are available. 
+
 
 The total number of measurements included in the VDS, for the various \smr\ frequency modes,
 is displayed in Table~\ref{table:comp}. This gives that a few percent of the total \smr\
