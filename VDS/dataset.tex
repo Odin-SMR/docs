@@ -81,13 +81,14 @@ ISS/JEM/SMILES, Meteor3M/SAGEIII, and Odin/OSIRIS.
 Table~\ref{table:comp} gives an overview of the correlative
 datasets included in the VDS, and these datasets
 are described in more detail in Sect.~\ref{sec:corrmeas}.
+Collocated ground based measurements, i.e.
+ozone sonde and lidar observations, from 
+a number of stations is also included
+in the VDS, and these are described ib Sect.~\ref{sec:ground}.
 Sect.~\ref{sec:vdsselection} describes the collocation criteria
 applied and how the VDS was selected. 
-Sect.~\ref{sec:api} describes an API to the VDS,
-including a description of the data format. 
-    
 
-\section{Correlative measurements}
+\section{Correlative limb measurements}
 \label{sec:corrmeas}
 \subsection{Aura/MLS}
 
@@ -349,15 +350,219 @@ Nominally OSIRIS generates approximately 30
 Characteristics of OSIRIS Level2 \chem{O_{3}} product
 are found in Table~\ref{table:complevel2}.
 
+\section{Ground based measuerements}
+\label{sec:ground}
+\begin{table}
+\caption{ Sonde and lidar stations included in the VDS. Nr of profiles = number of collocations
+to \smr\ frequency mode 1 ozone mesurements.}
+\label{table:lidar}
+\scalebox{0.65}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Network}  & \textbf{Station}  & \textbf{Coordinates}  & \textbf{Technique} & \textbf{Nr of profiles}\\
+\hline
+ NDACC  & ANDOYA           &  69.3\degree N 16.0\degree E    & Lidar & 148\\
+\hline
+ NDACC  & DUMONT D'URV     &  66.7\degree S 140.0\degree E   & Lidar & 162\\
+\hline
+ NDACC  & EUREKA           &  80.0\degree N 86.3\degree W    & Lidar & 53\\
+\hline
+ NDACC  & HOHENPEISSEN     &  47.8\degree N 11.06\degree E   & Lidar & 380\\
+\hline
+ NDACC  & LAUDER           &  45.0\degree S 169.7\degree E   & Lidar/Sonde & 339/185\\
+\hline
+ NDACC  & MAUNA LOA        &  19.5\degree N 155.2\degree W   & Lidar & 486\\
+\hline
+ NDACC  & NY-ALESUND       &  78.6\degree N 12.0\degree E    & Lidar/Sonde & 249/252\\
+\hline
+ NDACC  & OHP              &  43.9\degree N 5.7\degree E     & Lidar & 530\\
+\hline
+ NDACC  & RIO GALLEGOS     &  51.6\degree S 69.3\degree W    & Lidar & 74\\
+\hline
+ NDACC  & REUNION.ST       &  20.9\degree S 55.480\degree E  & Lidar & 14\\
+\hline
+ NDACC  & TABLE MTN        &  34.4\degree N 117.7\degree W   & Lidar & 412\\
+\hline
+ NDACC  & TSUKUBA          &  36.0\degree N 140.1\degree E   & Lidar & 71\\
+\hline
+ NDACC  & ALERT            &   82.5\degree N 62.3\degree E   & Sonde & 261\\
+\hline
+ NDACC  & SOUTH POLE       &   89.6\degree S 24.5\degree W   & Sonde & 302\\
+\hline
+ NDACC  & BOULDER          &   39.7\degree N 105.0\degree W  & Sonde & 148\\
+\hline
+ NDACC  & DE BILT          &   52.1\degree N 5.18\degree E   & Sonde & 344\\
+\hline
+ NDACC  & TORONTO          &   43.8\degree N 79.5\degree W   & Sonde & 147\\
+\hline
+ NDACC  & EUREKA           &   80.0\degree N 86.3\degree W   & Sonde & 319\\
+\hline
+ NDACC  & HILO             &   19.7\degree N 155.1\degree W   & Sonde & 124\\
+\hline
+ NDACC  & HOHENPEISSEN     &   47.8\degree N 11.02\degree E   & Sonde & 694\\
+\hline
+ NDACC  & HUNTSVILLE       &   34.72\degree N 86.65\degree W  & Sonde & 95\\
+\hline
+ NDACC  & IZANA            &   28.3\degree N 16.5\degree W    & Sonde & 163\\
+\hline
+ NDACC  & PRAHA            &   50.01\degree N 14.45\degree E  & Sonde & 363\\
+\hline
+ NDACC  & MACQUARIE        &   54.5\degree S 158.94\degree E  & Sonde & 198\\
+\hline
+ NDACC  & SCOTT BASE       &   77.85\degree S 166.78\degree E & Sonde & 137\\
+\hline
+ NDACC  & NATAL            &    6.1\degree S 35.3\degree W    & Sonde & 123\\
+\hline
+ NDACC  & PAYERNE          &   46.82\degree N 6.95\degree E   & Sonde & 1073\\
+\hline
+ NDACC  & PARAMARIBO       &    5.75\degree N 55.2\degree W   & Sonde & 155\\
+\hline
+ NDACC  & REUNION.ST       &   20.9\degree S 55.48\degree E   & Sonde & 141\\
+\hline
+ NDACC  & RESOLUTE         &   74.2\degree N 95.0\degree W    & Sonde & 160\\
+\hline
+ NDACC  & IZANA            &   28.3\degree N 16.5\degree W    & Sonde & 36\\
+\hline
+ NDACC  & SCORESBYSUND     &   71.0\degree N 22.0\degree W    & Sonde & 393\\
+\hline
+ NDACC  & SODANKYLA        &   67.0\degree N 27.0\degree E    & Sonde & 277\\
+\hline
+ NDACC  & SUMMIT           &   72.34\degree N 38.29\degree W  & Sonde & 143\\
+\hline
+ NDACC  & SYOWA BASE       &   69.0\degree S 39.6\degree E    & Sonde & 387\\
+\hline
+ NDACC  & THULE            &   77.3\degree N 69.3\degree W    & Sonde & 68\\
+\hline
+ NDACC  & TABLE MTN        &   34.4\degree N 117.7\degree W   & Sonde & 7\\
+\hline
+ NDACC  & SAMOA            &   14.23\degree S 170.56\degree W & Sonde & 75\\
+\hline
+ NDACC  & UCCLE            &   50.8\degree N 4.35\degree E    & Sonde & 990\\
+\hline
+ NDACC  & VALENTIA         &   51.93\degree N 10.25\degree W  & Sonde & 174\\
+\hline
+ NDACC  & GSFC             &   38.9\degree N 76.7\degree W    & Sonde & 5\\
+\hline
+ NDACC  & ALTZOMONI        &   19.12\degree N 98.66\degree W  & Sonde & 7\\
+\hline
+ NDACC  & ASCENSION IS.    &    8.0\degree S 14.4\degree W    & Sonde & 151\\
+\hline
+ SHADOZ & FIJI IS.         &   18.1\degree S 178.4\degree W   & Sonde & 54\\
+\hline
+ SHADOZ & NAIROBI          &    1.3\degree S 36.8\degree W    & Sonde & 167\\
+\hline
+ SHADOZ & MALININDI          &    3.0\degree S 40.2\degree W    & Sonde & 20\\
+\hline
+ SHADOZ & SAN CRISTOBAL    &  0.9\degree S 89.60\degree E     & Sonde & 87\\
+\hline
+ SHADOZ & IRENE            &    25.9\degree S 28.2\degree W   & Sonde & 57\\
+\hline
+ SHADOZ & WATUKOSEL        &     7.5\degree S 112.6\degree E & Sonde & 72\\
+\hline
+ WOUDC  & REGINA           &    50.21\degree N 104.71\degree W & Sonde & 143\\
+\hline
+ WOUDC  & EDMONTON         &    53.55\degree N 114.1\degree W  & Sonde & 274\\
+\hline
+ WOUDC  & GOOSE BAY        &    53.31\degree N 60.363\degree W & Sonde & 234\\
+\hline
+ WOUDC  & KELOWNA         &    49.92\degree N 119.4\degree W   & Sonde & 160\\
+\hline
+ WOUDC  & YARMOUTH        &    43.87\degree N 66.11\degree W   & Sonde & 174\\
+\hline
+ -      & MADRID          &    40.45\degree N 3.71\degree W    & Sonde & 238\\
+\hline
+ -      & TRINIDAD HEAD   &    40.80\degree N 124.15\degree W  & Sonde & 23\\
+\hline
+ -      & PELLSTON        &    45.56\degree N 84.68 \degree W  & Sonde & 2\\
+\hline
+ -      & HOUSTON         &    29.72\degree N 95.4\degree W    & Sonde & 16\\
+\hline
+ -      & MARAMBIO        &    64.23\degree S 56.6\degree W    & Sonde & 318\\
+\hline
+ -      & NEUMAYER        &    70.688\degree S 8.26\degree W   & Sonde & 536\\
+\hline
+ -      & BROADMEADOW     &    37.78\degree S 144.95\degree E  & Sonde & 190\\
+\hline
+ -      & COTONUO         &     6.21\degree N 2.23\degree E    & Sonde & 40\\
+\hline
+ -      & DAVIS           &    68.588\degree S 77.97\degree E  & Sonde & 160\\
+\hline
+ -      & VANSCOY         &    52.02\degree N 107.03\degree W  & Sonde & 7\\
+\hline
+ -      & BARBADOS        &    13.16\degree N 59.43\degree W   & Sonde & 4\\
+\hline
+ -      &                 &    32.48\degree N 51.42\degree E   & Sonde & 46\\
+\hline
+\end{tabular}}
+\end{table}
+
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=17cm]{test_collocation_ground.png}
+\caption{Positions of ground based ozone sonde and lidar stations 
+included in the VDS. The figure also displays 
+collocations between ground based and \smr\ 
+measurements that is included in the VDS.}
+\label{fig:vdsground}
+\end{figure}
+
+
+\subsection{NDACC,SHADOZ, and WOUDC networks}
+
+
+The vertical distribution of ozone can be measured by ground-based stratospheric 
+ozone lidars and by balloon-borne electrochemical ozonesondes.
+Such ground-based instruments are often operated in networks,
+and one of the principal goals of these networks are to provide
+independent calibrations and validations of space-based sensors
+of the atmosphere and to make complementary measurements.
+
+The international Network for the Detection of Atmospheric Composition Change (NDACC) 
+(\url{http://www.ndsc.ncep.noaa.gov/}).
+is composed of more than 70 high-quality, research stations for observing 
+and understanding the physical and chemical 
+state of the upper troposphere, stratosphere and mesosphere, 
+and for assessing the impact of changes in the 
+stratosphere on the underlying troposphere and on global climate.
+Ozone and key ozone-related chemical compounds and parameters 
+are targeted for measurements. NDACC is a major
+component of the international upper atmosphere research
+effort. 
+
+Southern Hemisphere ADditional OZonesondes (SHADOZ)
+(\url{http://croc.gsfc.nasa.gov/shadoz/})
+is a collection ozonesonde stations that are operating in the 
+tropics and subtropics.
+
+The World Ozone and Ultraviolet Radiation Data Centre (WOUDC)
+is a data center operated by the Meteorological Service of Canada.
+There are over 500 registered stations,
+and \chem{O_3} data-sets include vertical profile data from lidar 
+measurements and ozonesonde flights.
+
+Data from 12 (lidar: all from NDACC) and 57 (sonde: from NDACC, SHADOZ, and WOUDC) 
+stations is included in the VDS.
+The station names and coordinates are given in Table~\ref{table:lidar}.  
+An overview of the geographical positions of the stations and
+collocations to \smr\ is  displayed in Fig.~\ref{fig:vdsground}.
+
+
 
 
 \section{Verification Dataset: collocation criteria and data selection}
 \label{sec:vdsselection}
+\subsection{Limb observation}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=17cm]{test_collocation_fm1.png}
-\caption{VDS:Positions of collocated scans for frequency mode 1.}
+\caption{Positions of collocations for the various limb instruments
+and \smr\ frequency mode 1 scans, included in the VDS. The upper two panels show
+the latitude of the collocations as function of time. The bottom panels
+show the geograpical coverage of the collocations between \smr\
+and the other instruments.}
 \label{fig:vdsfm1}
 \end{figure}
 
@@ -428,8 +633,29 @@ OSIRIS measurements are included in the VDS for all selected
 collocations between \smr\ and the other sensors, given
 that OSIRIS measurements are available. 
 
+The total number of limb measurement collocations included in the VDS, for the various 
+\smr\ frequency modes, is displayed in Table~\ref{table:comp}. This gives that a few 
+percent of the total \smr\ dataset is included in the VDS. Included measurements cover 
+approximately all geographical positions and the complete observation period of \smr.
 
-The total number of measurements included in the VDS, for the various \smr\ frequency modes,
-is displayed in Table~\ref{table:comp}. This gives that a few percent of the total \smr\
-dataset is included in the VDS. Included measurements cover approximately 
-all geographical positions and the complete observation period of \smr. 
+\subsection{Ground based observation}
+%<1000km, <12h
+
+The VDS also contains collocations between \smr\ and ground based observations
+(lidar and sonde measurements). This collocation dataset was compiled
+by Daan Hubert using data that was used within the Ozone CCI project
+(\url{http://www.esa-ozone-cci.org/}).
+Collocations criterias for this dataset is that
+the distance and observation time between the two Ozone profiles are
+less than 1000\,km and and 12\,h, respectively.
+The locations of the included stations and an overview of the collocations are given
+in Figure~\ref{fig:vdsground}.
+The total size of this dataset is 14000 samples 
+(11482 sonde- and 2918 lidar-profiles).
+
+
+
+
+ 
+
+
