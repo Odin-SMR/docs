@@ -265,3 +265,66 @@ for more details):
         \end{itemize}
 \end{itemize}
 
+\section{Odin/SMR 2.1}
+The Odin/SMR 2.1 data collocated with Odin/SMR is accessible through the Odin
+REST API, see section~\ref{sec:api}. The data is returned as a JSON object with
+the following attributes:
+\TODO{Link to PDF?}
+\begin{itemize}
+    \item Data \emph{(Object)}: Object containing the data under the
+        following keys:
+        \begin{itemize}
+            \item Altitudes \emph{(Array of doubles)}: Retrieval altitude for
+                the selected species
+            \item Profiles \emph{(Array of doubles)}: Measured profile for the
+                selected species (VMR)
+            \item MeasResp \emph{(Array of doubles)}: Measurement response
+            \item MeasError \emph{(Array of doubles)}: Retrieval error due to
+                errors in the measurement
+            \item SmoothingError \emph{(Array of doubles)}: Retrieval error due
+                to the error between true and a priori states
+            \item TotalError \emph{(Array of doubles)}: Total retrieval error
+            \item ID2 \emph{(Array of ints)}: Index used to identify the data
+                in the original HDF file
+        \end{itemize}
+    \item Geolocation \emph{(Object)}: Object containing the
+        geolocation of the data under the following keys:
+        \begin{itemize}
+            \item Year \emph{(Int)}: Year for the scan
+            \item Month \emph{(Int)}: Month for the scan
+            \item Day \emph{(Int)}: Day for the scan
+            \item Hour \emph{(Int)}: Hour for the scan
+            \item Min \emph{(Int)}: Minute for the scan
+            \item Secs \emph{(Int)}: Second for the scan
+            \item Ticks \emph{(Double)}: Ticks of the scan
+            \item MJD \emph{(Double)}: Time for the scan in MJD
+            \item LST \emph{(Double)}: Local (mean) sidereal time
+            \item Time \emph{(Double)}: Time for the scan in TAI93 units
+            \item Latitude \emph{(Double)}: Reference latitude for the scan
+            \item StartLat \emph{(Double)}: Geodetic start latitude for the
+                scan
+            \item EndLat \emph{(Double)}: Geodetic end latitude for the scan
+            \item Longitude \emph{(Double)}: Reference longitude for the scan
+            \item StartLong \emph{(Double)}: Geodetic start longitude for the
+                scan
+            \item EndLong \emph{(Double)}: Geodetic end longitude for the scan
+            \item StartTan \emph{(Double)}: Start tangent altitude for the scan
+            \item EndTan \emph{(Double)}: End tangent altitude for the scan
+            \item SunZD \emph{(Double)}: Average solar zenith angle for the
+                scan in degrees
+            \item Nspecies \emph{(Int)}: Number of species in the scan
+            \item Quality \emph{(Int)}: Quality bit flag
+            \item ScanNo \emph{(Int)}: Scan number
+            \item ID1 \emph{(Int)}: Index used to identify the scan in the
+                original HDF file
+            \item OrbitFilename \emph{(String)}: Full orbit filename (without
+                .HDF for ) including the spectrometer that was used
+            \item Source \emph{(String)}: Observation mode
+            \item ZPTSource \emph{(String)}: Source file for the temperature
+                and pressure profiles
+            \item Version1b \emph{(String)}: Version of the Level1b processing
+                chain used to create the Level1b file
+            \item Version2 \emph{(String)}: Version of the Level2 processing
+                chain used to chreat the Level2 file
+        \end{itemize}
+\end{itemize}
