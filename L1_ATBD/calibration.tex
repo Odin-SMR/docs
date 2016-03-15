@@ -1013,42 +1013,67 @@ of Eq.~\ref{eq:higaltnoise}.
 
 \subsection{Local oscillator frequency drift}
 
-Firstly, the operating LO frequency is calculated
-from harmonic reference oscillator and PLL reference oscillator 
-frequencies from the housekeeping level0 data.
+\begin{table}
+\caption{Fitting parameters for the frequency drift correction.}
+\label{table:freqcorr}
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  \textbf{Frontend} & \textbf{Constant}  & \textbf{Time Dependence}      & \textbf{Temperature dependence} \\
+                    & \textbf{\(c_{0}\)} & \textbf{\(c_{0}\)}            & \textbf{\(c_{0}\)}              \\
+  \hline
+        555         & 1.00007687         & -9.881469\(\cdot10^{-10}\)    &  -7.20429255\(\cdot10^-{8}\)    \\
+  \hline 
+        495         & 1.00004369         & -3.049353\(\cdot10^{-10}\)    &  -9.77071337\(\cdot10^-{8}\)    \\
+  \hline
+        549         & 1.00005847         & -6.275934*\(\cdot10^{-10}\)   &  -3.89089138\(\cdot10^-{8}\)    \\
+  \hline
+        572         & N/A                & N/A                           & N/A                             \\
+  \hline
+\end{tabular}
+\end{table}  
 
-For each spectrum, a frequency \(f_{sky}\) of the center channel in 
-the rest frame of the satellite is estimated.
-This estimate is calculated from the LO frequency and the 
-value of the IF frequency.
-An LO frequency drift with temperature  
-is calculated as (for the 495 and 549 frontends)
-%\lcomment{BR}{measured in Lab prior to launch?}
-
+Firstly, the operating local oscillator (LO) frequency is calculated
+from harmonic reference oscillator and phase locked loop (PLL) 
+reference oscillator frequencies from the housekeeping level0 data.
+A second step is then to account for drifts in the LO frequency.
+It has been previously noted that a spectral shift exists in 
+the current level 1 dataset (version 6 and 7) and that this shift 
+has been changing over time.
+A new model, based on Version 2-0 and Verison 2-1 Level2 data,
+is applied for calibration version 8 data that takes into
+account of a temperature dependency and a temporal term
+of the LO frequency drift.
+The correction factor \(k\) and frequency drift corrected
+LO frequency \(\hat{f}_{lo,sky}\) is estimated as
 \begin{equation}
-  d = 1.0+(29.23-0.138T_{pll})10^{-6}
+  \label{eq:freqcorr}
+  k = c_{0} + c_{1} \cdot mjd + c_{2} \cdot T_{pll}
 \end{equation}
-and (for the 555 and 572 frontends)
+and
 \begin{equation}
-  d = 1.0+(24.69-0.109T_{pll})10^{-6}
+ \label{eq:freqest}
+ \hat{f}_{lo,sky}= k f_{lo,sky},
 \end{equation}
 where \(T_{pll}\) is the temperature of image load b-side,
-and the correction is applied as
-\begin{equation}
- \hat{f}_{sky}= d f_{sky}
-\end{equation}
-
-\lcomment{BR}{We should update these corrections}
-
+and the \(c_{0}\), \(c_{1}\), and \(c_{2}\) terms have been found
+to depend on the applied frontend and the applied values are
+displayed in Table~\ref{table:freqcorr}. No correction
+is applied for data from the 572 GHz frontend, due to a PLL
+failure of this radiometer, which in practise means
+that the LO frequency is noticeably offset from the commanded 
+frequency, and no meaningfull correction can be applied
+in the Level1 processing.  
+This model keeps the frequency error within \(\pm\)\,0.5\,MHz
+(except for data from the 572 GHz radiometer).
 
 \subsection{Doppler correction}
 
 A Doppler correction is applied.
 The relative velocity \(v_{geo}\) of the satellite in the direction
-of the tangent point is used to translate the sky frequency to an 
+of the tangent point is used to translate the LO frequency to an 
 earth-fixed reference frame. i.e.
 \begin{equation}
-f_{rest} = \hat{f}_{sky}/(1.0 - v_{geo}/c),
+\hat{f}_{lo} = \hat{f}_{lo,sky}/(1.0 - v_{geo}/c),
 \end{equation}
 where \(c\) is the speed of light.
 
