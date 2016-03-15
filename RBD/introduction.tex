@@ -15,10 +15,21 @@ respectively.
 From these measurements, profiles of 
 \chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}, 
 \chem{H_{2}O}, \chem{CO}, and isotopologues of \chem{H_{2}O}, and \chem{O_{3}},
-that are species that are of interest for studying stratospheric and 
+that are species of interest for studying stratospheric and 
 mesospheric chemistry and dynamics, can be derived. 
 \smr\ has been in operation for approximately 14 years, and thus, the Level2
 dataset can potentially be applied for scientifically interesting trend analysis.
+The current Level2 data version is Version 2-0 (for the 544 GHz band)
+and 2-1 (for all other data). 
+Following various validation exercises a number of issues have been identified. 
+In particular various artefacts were noted in the level 1 data used, 
+including strange baselines, glitches and jumps in the power level. 
+It has become clear that many of these are caused by the implementation 
+of the calibration scheme, in particular in how the load spectra were selected.
+The main aim of the project is to reprocess all \smr\ data in order to 
+create a fully consistent and homogeneous dataset of stratospheric species profiles. 
+This should be done using the latest versions of the calibration scheme and settings 
+for the inversion algorithm, and revised ancillary and auxiliary data.
 
 The aim of this document is to define \smr\ Level2 products
 to be generated, and then establish a structured set of 
