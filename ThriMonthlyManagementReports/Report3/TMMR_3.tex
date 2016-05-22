@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt]{report}
+
+% Define cover page
+\def\CoverTitle{Tri-Monthly Management Report - 3}
+\def\FooterDocTitle{TMMR\,-\,1}
+\def\Authors{Joel Rasch}
+\def\Contact{Joel Rasch <joel.rasch@molflow.com>}
+\def\Version{1}
+\def\ReleaseDate{2016-05-22}
+
+% Page numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+% Switch to arabic numbering is made inside introduction.tex
+
+% Common preamble settings
+\input{../../Common/preamble}
+
+% Import math symbol commands
+\input{../../Common/symbol_defs}
+
+% Import acronyms
+\input{../../Common/acronyms_all}
+
+
+\begin{document} 
+
+\input{../../Common/coverpage}
+
+\addcontentsline{toc}{chapter}{Contents}
+%\renewcommand{\contentsname}{Table of Contents}
+\tableofcontents
+
+
+\input{introduction}
+
+\input{progress}
+
+\input{in_progress}
+
+%\input{upcoming}
+
+%\chapter*{}
+%\addcontentsline{toc}{chapter}{References}
+%\bibliography{../Common/references}
+
+
+
+\end{document}
