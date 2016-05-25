@@ -4,14 +4,6 @@
 A general introduction to the optimal estimation method (\OEM) is given in
 Sec.~\ref{sec:setup:inverse}, while details more specific for the \smr\ L2
 processing are treated in this section.
-\\
-\lcomment{PE}{It is for the moment assumed that the general \OEM\ function of
-  Atmlab will be used. If the \OEM-part is found to be a bottle-neck in the
-  calculations, some optimisation could be achieved by making a stand-alone
-  function and e.g.\ use the conjugate gradient scheme during the iterations.
-  Or maybe this option will be added to \texttt{oem.m}. However, the first main
-  concern regarding calculation time will be to find optimised settings for
-  \ARTS.}
 
 
 \section{Software}
@@ -111,12 +103,12 @@ iterations to perform. The overall iteration scheme applied is:
 \end{itemize}
 The values of $\gamma_0$, $f_s$, $f_u$, $\gamma_\mathrm{min}$,
 $\gamma_\mathrm{max}$ and $i_\mathrm{max}$ vary between the retrieval of the
-different frequency bands. Actual values are listed in ?\todo{Where?}.
+different observation modes. Actual values are listed in ?\todo{Where?}.
 \\
-\lcomment{PE}{Shall optical thickness be used to stabilise convergence? That
-  is, only channels with low optical thickness are considered in the first
-  iteration, and gradually higher optical thicknesses are introduced during the
-  iterations.}
+%\lcomment{PE}{Shall optical thickness be used to stabilise convergence? That
+%  is, only channels with low optical thickness are considered in the first
+%  iteration, and gradually higher optical thicknesses are introduced during the
+%  iterations.}
 
 
 \section{Convergence tests and values}
@@ -137,17 +129,17 @@ book section cited:
 \end{equation}
 where $n$ is the length of the vector \SttVct\ and
 $\Delta\SttVct_\mathrm{stop}$ is the variable controlling the wanted
-strictness. The value $\Delta\SttVct_\mathrm{stop}=?$\todo{Select value}\ is
-applied for all frequency bands. 
+strictness. The value of $\Delta\SttVct_\mathrm{stop}=?$ varies between
+observation modes, see ?\todo{Where?}.
 
 If Eq.~\ref{eq:stopcrit} becomes fulfilled, it is considered that basic
 convergence has been achieved. There are two exceptions, resulting in
 non-convergence status, that either the iteration number limit
 $(i_\mathrm{max})$ has been reached or that $\gamma$ has reached its upper
 threshold $(\gamma_\mathrm{max})$.
-\\
-\lcomment{PE}{Describe here how the overall convergence flag is set. We should
-  also consider the history of $\gamma$, but how? }
+%\\
+%\lcomment{PE}{Describe here how the overall convergence flag is set. We should
+%  also consider the history of $\gamma$, but how? }
 
 
 \subsection{Normalised cost values}
@@ -156,7 +148,7 @@ For these \smr\ retrievals, the length of \MsrVct, $m$, is always much higher
 than $n$ (length of \SttVct). In this situation, the final cost value, defined
 according to Eq.~\ref{eq:costfun}, should be approximately $m$ at correct
 convergence. As $m$ can vary from retrieval to retrieval, even for a single
-frequency band, a normalised cost, $\CstFnc'$, is defined to make it simpler to
+observation mode, a normalised cost, $\CstFnc'$, is defined to make it simpler to
 compare cost values from different retrievals. The normalised cost is
 defined as:
 \begin{eqnarray}
@@ -179,8 +171,8 @@ optimal solution a more advanced approach than \LM\ is required, but all
 such methods are computationally very demanding. A simplistic approach is to
 restart the iteration with other start conditions, where $\RtrVct_0$ and/or
 $\gamma=\gamma_0$ are/is given other initial value. Such tests have been
-performed on a number of cases for each frequency bands, to validate the
-iteration settings, but is not performed on a regular basis.\todo{Do this!}
+performed on a number of cases for each observation mode, to validate the
+iteration settings, but are not performed on a regular basis.
 
 The final cost value can be used for rough testing of incorrect convergence,
 but it is hard to give a general critical value. Theoretically, it is expected
@@ -200,20 +192,20 @@ resulting in that the residual:
 contains features besides thermal noise. The so called baseline ripple is a common
 cause for an excess size of the residual.
 
-For these reasons, a suitable upper limit on $\CstFnc'$ varies between the
-frequency bands. Suggested limits for quality filtering for each band are found
-?\todo{Where?}. 
+For these reasons, a suitable upper limit on $\CstFnc_y'$ varies between the
+observation modes. Suggested limits for quality filtering for each mode are found
+in ?\todo{Where?}. 
 
 A high final cost can be caused by both bad input data and that the iteration
 procedure ended up at a local minimum. Without a detailed analysis it is
 impossible to say which of the two potential problems that is the cause behind
 a suspiciously high end value of $\CstFnc'$.
-\\
-\lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
-  help to disentangle things?}
+%\\
+%\lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
+%  help to disentangle things?}
 
 
-\section{Some notes on the matrix operations}
+\section{Some notes on matrix operations}
 \label{sec:matrixops}
 %
 As mentioned above, $m>n$ for these \smr\ retrievals. In the terminology of 
@@ -241,9 +233,12 @@ However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} is
 made. These calculations take advantage of the block-diagonal structure (see
 Sec.~\ref{sec:Sa}), where each sub-matrix is inverted separately. Further, in
 some situations the matrix inverse can be obtained in an analytic manner. This
-is possible for purely diagonal matrices, and for the combination of constant
-variance and exponentially declining correlation\todo{This option used? Revise
-  paragraph later.}\ \citep[][Sec.~10.3.2.2]{rodgers:00}.
+is possible for purely diagonal matrices and with exponantially decling
+correlation\footnote{Analytical matrix inversion in the case of exponantially
+  decling correlation is discussed in \citet[][Sec.~10.3.2.2]{rodgers:00}. In
+  contrast to the expression foind in \citet{rodgers:00}, our implementation
+  allows a non-constant standard deviation, but still limited to conmstant
+  correlation length and grid spacing.}.
 
 The size of the elements in \SttVct\ can differ widely. For example, VMR values
 go down to at least ppb level ($10^{-9}$), while frequency off-sets can reach
@@ -254,7 +249,7 @@ avoid numerical problems (at least due to the reason considered), an internal
 re-scaling of \SttVct\ is applied. The re-scaling is done in such way that the
 variances of \aCvrMtr{a}, matching the transformed \SttVct, all are unity. That
 is, the elements in \SttVct\ are scaled with the square root of the
-corresponding variance in \aCvrMtr{a}.\todo{Add equations for this.}
+corresponding variance in \aCvrMtr{a}.
 
 
 %%% Local Variables: 

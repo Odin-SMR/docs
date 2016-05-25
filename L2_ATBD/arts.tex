@@ -89,12 +89,9 @@ bugs and unexpected side-effects of code changes as early as possible. As
 \ARTS\ is a very flexible tool, it is impossible to design a comprehensive set
 of tests, but standard applications of \ARTS\ should be fairly well covered by
 the tests. Some of the tests include comparison to a stored set of reference
-values, in order to test that the code not only runs, but also that the actual simulation
-results have not changed beyond some specified tolerance.
-
-\lcomment{PE}{One of the present tests mimic \smr, but it should be updated and
-  make use of reference values, to ensure safety when updating to a new \ARTS\
-  version for the operational processing. Also the L2 processing chain should
+values, in order to test that the code not only runs, but also that the actual
+simulation results have not changed beyond some specified tolerance.
+\lcomment{PE}{The L2 processing chain should
   have an internal quality check. How?}
 
 
@@ -123,11 +120,11 @@ optimisation should be used?}
 The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
 function of pressure, and are implicitly treated as constant in the latitude
 and longitude dimensions. A 1D atmosphere implies further a spherical reference
-geoid, and the radius of the this geoid is set to ?\todo{Fixed or as curvature
-  radius?}. The upper limit of the model atmosphere is defind in \ARTS\ by the
-lowest value in the user defined pressure grid. The range of this grid varies,
-see Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by
-the planet's surface, and \ARTS\ demands that a surface is always defined. The
+geoid, and the radius of the this geoid is set to 6371\,km. The upper limit of
+the model atmosphere is defind in \ARTS\ by the lowest value in the user
+defined pressure grid. The range of this grid varies, see
+Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by the
+planet's surface, and \ARTS\ demands that a surface is always defined. The
 altitude of the surface is for these simulations set to 1\,km, and regarding
 radiative properties it is set to behave as a blackbody.
 
@@ -152,7 +149,7 @@ atmosphere are solely determined by the absorption coefficient. \ARTS\ has two
 main ways of calculating absorption, ``on-the-fly'' or by look-up tables, where
 the latter option is by far the most efficient for simulations of \smr. That
 is, molecular absorption cross-sections are pre-calculated and stored in
-tables. One table is created for each frequency band. The tables contain
+tables. One table is created for each observation mode. The tables contain
 absorption cross-sections for combinations of pressure and temperature, and
 final values are obtained by interpolation. It is throughout assumed that the
 absorption cross-sections do not vary with the mixing ratio of the gas, and that
@@ -220,9 +217,12 @@ where \aMsrVct{f}\ is the measurement vector produced by the forward model and
 vector \MpiVct\ must contain a certain number of values to represent the
 radiation field, as a function of frequency and zenith angle, with sufficient
 accuracy. The methods setting up \SnsMtr\ assumes that both radiances and
-sensor responses vary linearly between the points were data are
-available.\todo{Will the FillGrid method be used?}\ The variables controlling
-\SnsMtr\ and \MpiVct\ are discussed in Sec.~\ref{sec:b}.
+sensor responses vary linearly between the points were data are available.
+However, these exists an option to include a polynomial frequency interpolation
+of monochromatic data, to create a more dense grid before the sensor responses
+are applied. This option decreases the overall calculation time, but makes the
+selection of the monochromatic frequency grid more critical. The variables
+controlling \SnsMtr\ and \MpiVct\ are discussed in Sec.~\ref{sec:b}.
 
 The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
 must also be mimicked by the forward model. The radiances ($I$,
@@ -237,19 +237,19 @@ conversion is made before the sensor responses are applied.
 
 
 
-\section{\ARTS\ and weighting functions}
-\label{sec:arts:wfuns}
+%\section{\ARTS\ and weighting functions}
+%\label{sec:arts:wfuns}
 %
-\lcomment{PE}{The Jacobian probably deserves special attention, as it is the
-  least well established part among forward models. Discuss how ARTS calculates
-  weighting functions. First of all, this is done quite efficiently, less than
-  doubling of the calculation time compared to a just calculating \MsrVct. This
-  due to analytic expressions and \SnsMtr. With absorption look-up table, the
-  derivative of absorption with respect to temperature is done by perturbation.
-  And temperature Jacobian does not consider non-local effects due to
-  refraction and hydrostatic equilibrium. The pointing Jacobian could be used
-  to make a first order correction for these simplifications, but this not yet
-  tested.}
+%\lcomment{PE}{The Jacobian probably deserves special attention, as it is the
+%  least well established part among forward models. Discuss how ARTS calculates
+%  weighting functions. First of all, this is done quite efficiently, less than
+%  doubling of the calculation time compared to a just calculating \MsrVct. This
+%  due to analytic expressions and \SnsMtr. With absorption look-up table, the
+%  derivative of absorption with respect to temperature is done by perturbation.
+%  And temperature Jacobian does not consider non-local effects due to
+%  refraction and hydrostatic equilibrium. The pointing Jacobian could be used
+%  to make a first order correction for these simplifications, but this not yet
+%  tested.}
 
 
 

@@ -19,7 +19,7 @@ motivate the different decisions involved, such as what instrumental parameters
 that shall be retrieved in parallel to the geophysical data to provide best
 possible L2 data product. This document describes the retrieval process and
 related questions in a general manner, while details and information that
-vary between frequency bands are found elsewhere (see
+vary between observation modes are found elsewhere (see
 Sec.~\ref{sec:reading}).
 
 The document covers only the ``operational'' \smr\ L2 products. These products
@@ -67,18 +67,19 @@ mission.
 %
 The \smr\ package is highly flexible. In short, the four main receiver chains
 can be tuned to cover frequencies in the ranges 486--504\,GHz and
-541--581\,GHz, but the maximum total instantaneous bandwidth is only
-1.6\,GHz. This bandwidth is determined by the two auto-correlation
-spectrometers (ACs) used for atmospheric observations. The two ACs can be
-coupled to any of the four front-ends, but only two or three front-ends are
-used simultaneously. The ACs cover 400 or 800\,MHz per front-end, depending on
-configuration. In the configuration applied for atmospheric sounding, the
-channels of the ACs have a spacing of 1\,MHz, while the frequency resolution is
-only 2\,MHz\todo{Or will we skip Hanning, to obtain 1.2\,MHz?}. To cover all molecular transitions
-of interest, a number of ``observation modes'' have been defined. Each
-observation mode makes use of two or three frequency bands. Single sideband
-operation is obtained by tunable Martin--Pupplet interferometers. The nominal
-sideband suppression is better than 19\,dB across the image band.
+541--581\,GHz, but the maximum total instantaneous bandwidth is only 1.6\,GHz.
+This bandwidth is determined by the two auto-correlation spectrometers (ACs)
+used for atmospheric observations. The two ACs can be coupled to any of the
+four front-ends, but only two or three front-ends are used simultaneously. The
+ACs cover 400 or 800\,MHz per front-end, depending on configuration. In the
+configuration applied for atmospheric sounding, the channels of the ACs have a
+spacing of 1\,MHz, while the frequency resolution is only 1.2 or 2\,MHz
+(depending if a rectangular or Hanning window is applied or not in the
+conversion from autocorrelations to spectra). To cover all molecular
+transitions of interest, a number of ``observation modes'' have been defined.
+Each observation mode makes use of two or three frequency bands. Single
+sideband operation is obtained by tunable Martin--Pupplet interferometers. The
+nominal sideband suppression is better than 19\,dB across the image band.
 
 \smr\ also has a receiver chain around the 118\,GHz oxygen transition, that was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
@@ -147,13 +148,12 @@ for other situations.
 \citet{murtagh:anove:02} give an overview of the Odin aeronomy mission, as well
 as the general technical details of \smr. Some further technical information
 is found in \citet{eriksson:studi:02}, and a more detailed description of
-the observation modes is provided by \citet{merino:studi:02}.\todo{Missed
-  something?}
+the observation modes is provided by \citet{merino:studi:02}.
 
 The input to this L2 processing is the L1b data described in \citet{atbdl1b}. The
 exact settings applied and the general characteristics of the L2 data, that
-both vary between the frequency bands, are described in ?\addref.
-\lcomment{PE}{Probably more to say here ...}
+both vary between observation modes, are described in ?\todo{This document
+  does not yet exist}.
 
 
 

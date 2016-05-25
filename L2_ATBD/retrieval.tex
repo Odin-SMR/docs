@@ -11,13 +11,13 @@ Sec.~\ref{sec:formalism}.
 %
 \smr\ performs measurements in several frequency bands simultaneously
 (Sec.~\ref{sec:smr:details}). The set of frequency bands differs between
-observation modes \citep{merino:studi:02}\todo{Which ``ATBD'' covers this? Add
-  that reference.}. The altitude range scanned by \smr\ is not fixed, and a
-\smr\ limb ``scan'' is simply defined as the spectra recorded between two
-adjacent turning points, in altitude, of the limb scanning \citep{atbdl1b}. The
-retrievals covered by this \ATBD\ operate only on one scan, from a single
-frequency band, at the time. Each combination of scan and frequency band is
-treated separately, no information is carried between different retrievals.
+observation modes \citep{atbdl1b}. The altitude range scanned by \smr\ is not
+fixed, and a \smr\ limb ``scan'' is simply defined as the spectra recorded
+between two adjacent turning points, in altitude, of the limb scanning
+\citep{atbdl1b}. The retrievals covered by this \ATBD\ operate only on one
+scan, from a single frequency band, at the time. Each combination of scan and
+frequency band is treated separately, no information is carried between
+different retrievals.
 
 Following the discussion in Sec.~\ref{sec:setup:inverse:xb}, the state vector
 does not only contain the quantities targeted directly by the \smr\
@@ -61,13 +61,8 @@ altitude limit are defined, that determine which spectra of a scan that will be
 part of \MsrVct. The altitude limits are defined using geometrical tangent
 altitudes (that is, refraction neglected) as those are the tangent altitudes
 found in the L1b data. A minimum scan range is defined in the same manner; no
-retrieval is made if a limb scan does not cover this minimum range.
-
-The tangent altitude limits are allowed to vary as a function of latitude, an
-example is given in Fig.~?\todo{Make figure}. These tangent altitude masks are
-throughout defined at 90\degree S, \dots\todo{Add values}\ and 90\degree N,
-with linear interpolation applied between these latitudes. The altitude limits
-applied for each frequency band are found ?\todo{Where?}.
+retrieval is made if a limb scan does not cover this minimum range. The tangent
+altitude masks for each frequency band are found ?\todo{Where?}.
 
 
 
@@ -84,12 +79,11 @@ set to only represent thermal noise:
 \begin{equation}
   \aCvrMtr{o} = \aCvrMtr{\MsrErrVct_n}.
 \end{equation}
-\\
-\lcomment{PE}{Exactly what expression to use for converting L1b data to thermal
-  noise standard deviation? Do we consider the noise correlation between
-  channels? With Hanning the correlation is significant, while without Hanning
-  a pure diagonal matrix is a better approximation. There is also correlation
-  between tangent altitudes \dots}
+The standard deviations to include in $\aCvrMtr{\MsrErrVct_n}$ are set
+according to \citet{atbdl1b}. The correlation of noise between adjecent
+channels of each spectrum is considered. The magnitude of this correlation
+depends on if a Hanning window has been applied or not. No noise correlation
+between spectra from different altitudes is included.
 
 
 \section{The state vector, \SttVct}
@@ -99,7 +93,7 @@ The state vector contains a mix of quantities (Sec.~\ref{sec:retr:basics}).
 Besides the 118\,GHz band, the quantities always present are: gas species
 profiles $(\VctStl{v})$, the temperature profile $(\VctStl{t})$, a set of
 brightness temperature off-sets $(\Delta\VctStl{o})$, a pointing off-set
-$(\Delta\theta)$ and a frequency off-set $(\Delta\nu)$\todo{Correct?}. With
+$(\Delta\theta)$ and a frequency off-set $(\Delta\nu)$. With
 just these quantities retrieved, and a case involving two gas species, the
 state vector becomes:
 \begin{equation}
