@@ -1057,14 +1057,15 @@ and
 where \(T_{pll}\) is the temperature of image load b-side,
 and the \(c_{0}\), \(c_{1}\), and \(c_{2}\) terms have been found
 to depend on the applied frontend and the applied values are
-displayed in Table~\ref{table:freqcorr}. No correction
-is applied for data from the 572 GHz frontend, due to a PLL
-failure of this radiometer, which in practise means
+displayed in Table~\ref{table:freqcorr}. Another correction
+is applied for data from the 572 GHz frontend. Due to a PLL
+failure of this radiometer, which in practice means
 that the LO frequency is noticeably offset from the commanded 
-frequency, and no meaningfull correction can be applied
-in the Level1 processing.  
+frequency, a special correction is applied in the Level1 processing, which is described in Appendix \ref{chapter:freqCorrCO}.  
 This model keeps the frequency error within \(\pm\)\,0.5\,MHz
 (except for data from the 572 GHz radiometer).
+
+%End of paragraph updated with reference to Appendox {chapter:freqCorrCO} by Julia R, 2016-05-30.
 
 \subsection{Doppler correction}
 
