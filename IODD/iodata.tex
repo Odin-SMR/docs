@@ -79,10 +79,10 @@ are described in Appendix~\ref{sec:dataformat}.
 \subsection{Level2 data}
 \subsection{Auxiliary data}
 
-\section{API description}
+\section{API description and calls for input data}
 \label{sec:api}
 
-This section describes the API calls used to get data 
+This section describes an API and the calls used to get data 
 to the Level2 processing.
 The data is accessed through a hierarcical REST API where deeper URIs return more
 specific data.  All call URIs have a common root \url{rest_api/<version>}, which
@@ -94,10 +94,120 @@ by a brief description of the contents.
 %data sources for specifications on the structure of their respective JSON
 %objects.
 
+The URI hierachy is organized in the following way:
+\begin{itemize}
+    \item \url{freqmode/<date>/}: Returns object, which describes which frequency modes that were deployed the
+    given date
+    \begin{itemize}
+        \url{freqmode/<date>/<backend>/<freqmode>/}: Returns object, which describes log data of the scans
+        for the given date and deployed frequency mode
+        \begin{itemize}
+           \item \url{scan/<backend>/<freqmode>/<scanID>/}: Returns object that describes Level1B data for a given scan       
+           \item \url{ptz/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes ptz data for a given scan
+           \item \url{apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes \textit{a priori} data for a given scan
+        \end{itemize}  
+    \end{itemize}
+\end{itemize}
+  
 
-\subsection{API calls}
 
-describe the various calls
+\subsection{\url{freqmode/<date>/}}
+Method: \emph{GET}
+
+Returns object, which describes which frequency modes that were deployed the
+given date (YYYY-MM-DD), with the following attributes:
+\begin{itemize}
+    \item Info:
+
+        A list of objects containing information about which
+        frequency modes that were mesured this date. 
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item Backend \emph{(String)}: The backend for the data
+            \item FreqMode \emph{(Int)}: The frequency mode for the data
+            \item NumScan \emph{(Int)}: The number of available scans
+            \item URL \emph{(URI)}: A URI 
+                for getting more specific of the available scans\\ 
+                 (\url{freqmode/<date>/<backend>/<freqmode>/})
+        \end{itemize}
+\end{itemize}
+
+\subsection{\url{freqmode/<date>/<backend>/<freqmode>/}}
+Method: \emph{GET}
+
+Returns object, which describes log data of the scans  
+for the given date, backend, and freqmode,
+with the following attributes:
+
+\begin{itemize}
+    \item Info:
+
+        A list of objects that describes each scans
+        with some log data.  
+        Each object contains the following keys:
+
+        \begin{itemize}
+            \item AltEnd \emph{(float)}: Tangent point altitude ([\,m\,]) for last spectrum in scan
+            \item AltStart \emph{(float)}:Tangent point altitude for first spectrum in scan
+            \item DateTime \emph{(str)}: Mean UTC datetime (datetime(first) + datetime(last))/2 of scan
+            \item FreqMode \emph{(Int)}: Deployed frequency mode
+            \item LatEnd \emph{(float)}: Latitude of tangent point for last spectrum in scan
+            \item LatStart \emph{(float)}: Latitude at tangent point for first spectrum in scan
+            \item LonEnd \emph{(float)}: Longitude of tangent point for last spectrum in scan
+            \item LonStart \emph{(float)}: Longitude at tangent point for first spectrum in scan
+            \item MJDEnd \emph{(float)}: Modified julian date for last spectrum in scan
+            \item MJDStart \emph{(float)}: Modified julian date for first spectrum in scan
+            \item NumSpec \emph{(int)}: Number of atmospheric spectra in scan
+            \item ScanID \emph{(int)}: Satellite time word identifier of scan
+            \item SunZD \emph{(float)}: Mean solar zenith angle  (SunZD(first) + SunZD(last))/2 for scan
+            \item URLS a list of key/value describing URIs containing
+            more detailed data
+            \begin{itemize} 
+                \item URL-apriori-<species> \emph{(URI)}: 
+                A URI for getting \textit{a priori} data of the scan\\
+                (\url{apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/})
+                \item URL-ptz \emph{(URI)}: A URI for getting ptz data for the scan\\
+                (\url{ptz/<date>/<backend>/<freqmode>/<scanID>/})
+                \item URL-spectra \emph{(URI)}: A URI for getting Level1B spectra of the scan\\         
+                (\url{scan/<backend>/<freqmode>/<scanID>/})        
+            \end{itemize}
+       \end{itemize}   
+\end{itemize}
+
+\subsection{\url{scan/<backend>/<freqmode>/<scanID>/}}
+Method: \emph{GET}
+
+\subsection{\url{ptz/<date>/<backend>/<freqmode>/<scanID>/}}
+Method: \emph{GET}
+
+Returns an object that describes the ptz data of the scan,
+with the following attributes:
+
+\begin{itemize}
+    \item Pressure \emph{(array of doubles)}: Pressure vector ([\,Pa\,])
+    \item Temperature \emph{(array of doubles)}: Temperature vector([\,K\,])
+    \item Altitude \emph{(array of doubles)}:  Altitude vector([\,m\,])
+    \item Latitude \emph{(double)}: Latitude of PTZ data
+    \item Longitude \emph{(double)}: Longitude of PTZ data
+    \item MJD \emph{(double)}: Modified Julian Date of PTZ data
+
+\end{itemize}
+
+\subsection{\url{apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}}
+Method: \emph{GET}
+
+Returns an object that describes the \textit{a priori} data of the scan,
+with the following attributes:
+
+\begin{itemize}
+    \item Pressure \emph{(array of doubles)}: Pressure vector ([\,Pa\,])
+    \item VMR \emph{(array of doubles)}: Climatology volume mixing ratio vector [\,--\,] of the species
+    \item Species \emph{(String)}: description of species, i.e. one of 'BrO', 'Cl2O2', 'CO',
+          'HCl', 'HO2', 'NO2', 'OCS', 'C2H2', 'ClO', 'H2CO', 'HCN', 'HOBr', 'NO', 'OH', 'C2H6',
+          'ClONO2', 'H2O2', 'HCOOH', 'HOCl', 'O2', 'SF6', 'CH3Cl', 'ClOOCl', 'H2O', 'HF', 'N2', 'O3',
+          'SO2','CH3CN', 'CO2', 'H2S', 'HI', 'N2O', 'OBrO', 'CH4', 'COF2', 'HBr', 'HNO3', 'NH3', or 'OClO'.
+\end{itemize}
 
 
 
