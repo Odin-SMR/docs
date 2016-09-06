@@ -27,7 +27,8 @@ information with Ancillary/Auxiliary data
 and applies a forward model, and an iterative
 scheme is used to find a best solution.   
 The details of the algorithms within the
-\smr\ Level2 processor is described in \smr\ Level2 ATBD.
+\smr\ Level2 processor is described in \smr\ Level2 ATBD
+\citep{atbdl2}.
 
 \section{Level2 processor input data}
 
@@ -49,11 +50,12 @@ dynamic (or semi-dynamic) and static input data,
     the OEM implementation needs a starting estimate for each profile
     to be retrieved. The climatology cover vertical, seasonal,
     and latitudinal variations of each species and is based on data
-    from ?.
+    from \dots\todo{? Do we have any reference here.}\
 
     \item \emph{ZPT data}:
-    The Level2 processor requires external ZPT data (altitude, pressure, temperature)
-    data. The ZPT data is extracted from the ERA-Interim dataset for the geolocation
+    The Level2 processor requires external ZPT data,
+    (altitude, pressure, and temperature).
+    The ZPT data is extracted from the ERA-Interim dataset for the geolocation
     of the scan. ERA-Interim is a global atmospheric reanalysis from 1979, and
     data is available throughout the Odin mission.
   \end{itemize}
@@ -69,9 +71,10 @@ dynamic (or semi-dynamic) and static input data,
     processor.
 
     \item \emph{Configuration}:
-    \smr\ applies a number of different observation modes,
+    \smr\ applies a number of different observation modes
+    (different frequency intervall coverage and scanning altitudes) 
     and for each mode a different configuration is applied
-    of the Level2 processor...
+    of the Level2 processor.
   \end{itemize}
 \end{itemize}
 
@@ -96,33 +99,30 @@ Sect.~\ref{sec:api} and Sect.~\ref{sec:static}.
 
 The Level2 processor obtains dynamic input data through
 a hierarcical REST API, where deeper URIs return more
-specific data.  All call URIs have a common root \url{rest_api/<version>}, which
-has been omitted below for clarity.  All GET calls return JSON objects unless
-otherwise noted. Key/value pairs are listed as name of the key
-along with the type of the corresponding value within parantheses, followed
-by a brief description of the contents.  
-%See the sections on the different
-%data sources for specifications on the structure of their respective JSON
-%objects.
-
-The URI hierachy is organized in the following way:
+specific data. All GET calls return JSON objects.
+The call URIs hierachy is organized in the following way:
 \begin{itemize}
-    \item \url{freqmode/<date>/}: Returns object, which describes which frequency modes that were deployed the
+    \item \url{rest_api/<version>/freqmode/<date>/}: Returns object, which describes which frequency modes that were deployed the
     given date
     \begin{itemize}
-        \url{freqmode/<date>/<backend>/<freqmode>/}: Returns object, which describes log data of the scans
+        \url{rest_api/<version>freqmode/<date>/<backend>/<freqmode>/}: Returns object, which describes log data of the scans
         for the given date and deployed frequency mode
         \begin{itemize}
-           \item \url{scan/<backend>/<freqmode>/<scanID>/}: Returns object that describes Level1B data for a given scan       
-           \item \url{ptz/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes ptz data for a given scan
-           \item \url{apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes \textit{a priori} data for a given scan
+           \item \url{rest_api/<version>/scan/<backend>/<freqmode>/<scanID>/}: Returns object that describes Level1B data for a given scan       
+           \item \url{rest_api/<version>/ptz/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes ptz data for a given scan
+           \item \url{rest_api/<version>apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}: Returns object that describes \textit{a priori} data for a given scan
         \end{itemize}  
     \end{itemize}
 \end{itemize}
   
+The data returned by the five various GET calls listed above 
+is described in the following sections.
+Key/value pairs are listed as name of the key
+along with the type of the corresponding value within parantheses, followed
+by a brief description of the contents.
 
 \subsubsection{Level1B overview data}
-\subsection*{\url{freqmode/<date>/}}
+\subsection*{\url{rest_api/<version>/freqmode/<date>/}}
 Method: \emph{GET}
 
 Returns object, which describes which frequency modes that were deployed the
@@ -144,7 +144,7 @@ given date (YYYY-MM-DD), with the following attributes:
         \end{itemize}
 \end{itemize}
 
-\subsection*{\url{freqmode/<date>/<backend>/<freqmode>/}}
+\subsection*{\url{rest_api/<version>/freqmode/<date>/<backend>/<freqmode>/}}
 Method: \emph{GET}
 
 Returns object, which describes log data of the scans  
@@ -181,17 +181,93 @@ with the following attributes:
                 \item URL-ptz \emph{(URI)}: A URI for getting ptz data for the scan\\
                 (\url{ptz/<date>/<backend>/<freqmode>/<scanID>/})
                 \item URL-spectra \emph{(URI)}: A URI for getting Level1B spectra of the scan\\         
-                (\url{scan/<backend>/<freqmode>/<scanID>/})        
+                (\url{rest_api/<version>/scan/<backend>/<freqmode>/<scanID>/})        
             \end{itemize}
        \end{itemize}   
 \end{itemize}
 
 \subsubsection{Level1B data}
-\subsection*{\url{scan/<backend>/<freqmode>/<scanID>/}}
+\subsection*{\url{rest_api/<version>/scan/<backend>/<freqmode>/<scanID>/}}
 Method: \emph{GET}
 
+Returns an object that describes the Level1B data of the scan,
+with the following attributes (See \citet{atbdl1b} for more details):
+
+\begin{itemize}
+
+  \item Version \emph{(Array of integers)}: Calibration version
+  \item Quality \emph{(Array of integers)}: Quality indicator of scan/spectrum
+  \item STW \emph{(Array of integers)}: Satellite time word
+  \item MJD \emph{(Array of doubles)}: Modified julian date of observation
+  \item Orbit \emph{(Array of doubles)}: Number of orbit plus fraction
+  \item Spectrum \emph{(2-D Array of doubles)}: Frequency sorted and intensity calibrated spectra
+                       in Rayleigh Jeans temperature in Kelvin
+  \item TrecSpectrum \emph{(Array of doubles)}: Frequency sorted receiver noise temperature spectrum
+                       determined and used in calibration of this scan
+  \item Frontend \emph{(Array of integers)}: The frontend used for this observation: 1\,=\,555, 2\,=\,495, 
+                       3\,=\,572, 4\,=\,549, and 5\,=\,119
+  \item Backend \emph{(Array of integers)}: The backend used for this observation: 1\,=\,AC1 and 2\,=\,AC2
+  \item RA2000 \emph{(Array of doubles)}: The right ascension (J2000) of the direction of pointing in degrees
+  \item Dec2000 \emph{(Array of doubles)}: The declination (J2000) of the direction of pointing in degrees
+  \item Longitude \emph{(Array of doubles)}: Geodetic longitude of the tangent point
+  \item Latitude \emph{(Array of doubles)}: Geodetic latitude of the tangent point
+  \item Altitude \emph{(Array of doubles)}: Tangent point altitude [m]
+  \item GPSpos \emph{(2-D Array of doubles)}: The geocentric position $X$,$Y$,$Z$ in meter of the satellite
+  \item GPSvel \emph{(2-D Array of doubles)}: The geocentric velocity $\dot X$, $\dot Y$, $\dot Z$ in meter per 
+                         second of the satellite
+  \item SunPos \emph{(2-D Array of doubles)}: The geocentric position of the Sun in meter
+  \item MoonPos \emph{(2-D Array of doubles)}: The geocentric position of the Moon in meter
+  \item SunZD \emph{(Array of doubles)}: The solar zenith angle in degrees
+  \item Vgeo \emph{(Array of doubles)}: The velocity of the satellite with respect to the Earth in meter per second
+  \item Tcal \emph{(Array of doubles)}: The temperature in Kelvin of the calibration load
+  \item Trec \emph{(Array of doubles)}: The mean value of the receiver nosie temperature 
+                       in Kelvin used during the intensity calibration
+  \item SBpath \emph{(Array of doubles)}: The path length in meter of the SSB diplexer
+  \item AttitudeVersion \emph{(Array of integers)}: The version number of the attitude reconstruction software (SODA) 
+                         used at SSC during production of attitiude files
+  \item FreqRes \emph{(Array of doubles)}: The spacing in Hz between neighbouring channels for this spectrum
+  \item FreqCal \emph{(2-D Array of doubles)}:  These are the four local oscillator frequencies of the SSB modules
+  \item IntTime \emph{(Array of doubles)}: The integration time in seconds, i.e. the duration of this observation
+  \item EffTime \emph{(Array of doubles)}: The effective integration time in seconds, i.e. you will get the
+                         noise level in this spectrum by using this time and the receiver noise 
+                         temperature from above and the usual radiometer formula:
+                        \begin{verbatim}dT = Trec/sqrt(df * EffTime)\end{verbatim}
+                         where {\tt df} is the bandwidth (FreqRes) of the spectrometer
+  \item Channels \emph{(Array of integers)}: The number of channels in this spectrum
+  \item FreqMode \emph{(Array of integers)}: Frequency mode applied
+  \item TSpill \emph{(Array of doubles)}: Estimated Tspill in Kelvin
+  \item ScanID \emph{(Array of integers)}: satellite time word scan identifier
+  \item Apodization \emph{(Array of integers)}: The "channel response" filtering technique applied. 1\,=\,Hanning smoothing  
+  \item Frequency \emph{(Object)}: an object that contains information that can be used to create frequency grids for the spectra
+                       and consists of following keys: 
+  \begin{itemize}             
+      \item LOFreq \emph{(Array of doubles)}: Local oscillator frequency in Hz in the rest frame of the
+                       observed object, i.e Doppler corrected
+      \item AppliedDopplerCorr \emph{(Array of doubles)} The applied Doppler correction in Hz
+      \item IFreqGrid \emph{(Array of doubles)}: The frequency grid can be obtained by
+                       \begin{verbatim}frequency = LOFreq + IFreqGrid\end{verbatim}
+      \item SubBandIndex \emph{(2-D Array of integers)}: The SubBandIndex 
+                       can be used to identify from which sub-band a given channel belongs to.
+                       An example SubBandIndex array is [[ -1, -1, 420, 509, 111, 1, 310, 200],
+                       [-1, -1, 508, 618, 199, 110, 419, 309]].
+                       The first and second row indicate the start and end positions, respectively,
+                       of the eight sub-bands in the frequency sorted spectrum.
+                       The first and second index in these rows corresponds to SubBand 1 and 2, and so
+                       on. E.g sub-band 3 data can be found between index 420 to 508.
+                       -1 indicates that data from this band is not used.
+     \item ChannelsID \emph{(Array of integers)}: Channel identifier describes the location
+                       of the sorted channels in the original unsorted spectra
+  \end{itemize} 
+  \item ZeroLagVar \emph{(2-D Array of doubles)}: Zerolag variation of the surrounding reference measurements for all sub-bands.
+                       \begin{verbatim}ZeroLagVar = abs(diff(ZeroLag))/mean(ZeroLag)\end{verbatim} \([\%]\)
+                        ZeroLag is the measured coefficient of the first channel of the auto-correlator,
+                        and is proportional to the total power of the band
+\end{itemize}
+
+
+
 \subsubsection{PTZ data}
-\subsection*{\url{ptz/<date>/<backend>/<freqmode>/<scanID>/}}
+\subsection*{\url{rest_api/<version>/ptz/<date>/<backend>/<freqmode>/<scanID>/}}
 Method: \emph{GET}
 
 Returns an object that describes the ptz data of the scan,
@@ -208,7 +284,7 @@ with the following attributes:
 \end{itemize}
 
 \subsubsection{Climatological \textit{apriori} data}
-\subsection*{\url{apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}}
+\subsection*{\url{rest_api/<version>/apriori/<species>/<date>/<backend>/<freqmode>/<scanID>/}}
 Method: \emph{GET}
 
 Returns an object that describes the \textit{a priori} data of the scan,
@@ -229,17 +305,28 @@ with the following attributes:
 
 \subsection{Static input data}
 \label{sec:static}
+Static data (sensor characteristic data, spectroscopic data, and configuration)
+is required by the Level2 processor, although this data is in a strict
+sense not input data to the Level2 processor, as this data
+is contained by the Level2 processor as explained by Figure~\ref{fig:level2b}.
+The sensor characteristic and spectroscopic data
+are used by the forward model (ARTS) of the Level2 processor,
+and the configuration controls the complete retrieval
+calculation including the forward model calculation.  
+The static data used by the Level2 processor is 
+described in the following sections.
+ 
 
 \subsubsection{Configuration}
 
 The \smr\ retrievals are performed by a Matlab implementation of OEM,
-and the retrieval calculation is controlled by the setting of
-a Matlab structure, contained by the Level2 processor.
+and the retrieval calculation is controlled by the setting of 
+several Matlab objects (structures) contained by the Level2 processor.
 Part of this setting is general for all of the various 
-frequency modes applied by /smr/, while some of the settings
-are frequency mode specific.
+observation modes applied by \smr\, while some of the settings
+are mode specific.
 A description of the setting is found in Appendix~\ref{sec:dataformat}
-(not yet, but \url{qsmr/Settings/q_fields.rst} describes the structure).
+\dots\todo{?}\ 
 
 
 \clearpage
@@ -248,6 +335,7 @@ A description of the setting is found in Appendix~\ref{sec:dataformat}
 \subsubsection{Sensor characteristic data}
 
 \subsubsection*{Antenna angular response}
+
 
 \begin{table}
 \caption{ Frequency mode and antenna angular response function file relationships.}
@@ -269,7 +357,14 @@ A description of the setting is found in Appendix~\ref{sec:dataformat}
 \end{tabular}
 \end{table}
 
-arts xml format description:
+The antenna angular response data used by the Level2 processor
+is based on actual measurements of the antenna \dots\todo{?.}\.
+Table~\ref{table:antenna} displays antenna response function files,
+contained by the Level2 processor,
+that are valid for different frequency modes and integration 
+times. These files are valid for an "azimuthally collapsed" 
+antenna. The files are stored in ARTS xml format, which is
+described below:
 
 \lstset{language=XML}
 \begin{lstlisting}
@@ -305,15 +400,28 @@ arts xml format description:
 
 \subsubsection*{Sideband filtering}
 
-parameter: SIDEBAND LEAKAGE  
 
-\clearpage
-\newpage
+\smr\ operates as a single sideband receiver. 
+The nominal sideband suppression is better than 19 dB across the image band,
+but the actual sideband leakage is not perfectly known.
+The sideband leakage varies between frequency modes, and the
+assumed sideband leakage by the Level2 processor has been determined
+from residual simulation studies \dots\todo{? is this correct or understandable}\.
+The sideband leakage is controlled by the mode specfic configuration 
+parameter: SIDEBAND LEAKAGE.  
+
 
 \subsubsection*{Frequency response of each spectrometer channel}
 
-arts xml-file: url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml}
-
+The frequency response function of each spectrometer channel
+is contained by the file
+\url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml}
+of the Level2 processor.
+The response function by itself is determined from
+the algorithm that is applied to calibrate \smr\ spectra,
+i.e. a Hanning smoothing is applied.
+The file is stored in ARTS xml format, which is
+described below:
 
 \lstset{language=XML}
 \begin{lstlisting}
@@ -344,6 +452,8 @@ arts xml-file: url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml}
 
 \subsubsection*{Absorption models}
 
+
+
 \clearpage
 \newpage
 
@@ -352,11 +462,22 @@ arts xml-file: url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml}
 The output of the OEM implementation of the Level2 processor is
 two Matlab objcets (L2 and L2I), where L2 contains
 the main results of the retrieval and L2I describes
-auxiliary instrument and retrieval data.
+auxiliary instrument and retrieval data \citep{atbdl2}.
+The Level2 processor posts this data to the API,
+which in turns store the data in a \smr\ Level2 database.
+The Level2 data can then be obtained from API GET calls
+(in the form of JSON objcets or netCDF files)
+\dots\todo{?.}\
+The L2 and L2I objects are described in the following sections.
 
 \subsection{Level2 data}
+\subsection*{\url{rest_api/<version>/l2data/<date>/<l2mode>/<scanID>}}
+\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
 
-The L2 object is "struct array" and contains the following fields (for each retrieved species):
+%The L2 object is "struct array" and contains the following fields (for each retrieved species):
+The L2 object contains the following keys (for each retrieved species):
+\dots\todo{need some help from Patrick to decsribe the keys}\
+
 \begin{itemize}
 
     \item AVK (\emph{2-D array of doubles}):
@@ -382,8 +503,12 @@ The L2 object is "struct array" and contains the following fields (for each retr
 \end{itemize}
 
 \subsection{Auxiliary data}
+\subsection*{\url{rest_api/<version>/l2idata/<date>/<l2mode>/<scanID>}}
+\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
 
-The L2I object is a scalar structure and contains the following fields:
+The L2I object is a scalar structure and contains the following keys:
+\dots\todo{need some help from Patrick to decsribe the keys}\
+
 \begin{itemize}
   \item BlineOffset (\emph{2-D array of doubles}):
   \item ChannelsID (\emph{array of doubles}):
