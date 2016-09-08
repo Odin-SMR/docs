@@ -2,7 +2,19 @@
 
 \section{Design of the Level2 processing system}
 
-describe the design of the Level2 processing system,
-including the "job service", "worker", and "odin-api",
-\dots\todo{a task for Joakim or Jimmy}\
+The processing system consists of three parts:
 
+\begin{itemize}
+\item Job Service: An api that keeps track of which jobs that are available.
+\item Workers: Fetch jobs from the job service, send them to the Level2
+  Processor and notify the job service when the jobs are done.
+\item Level2 Processor: Fetches the dynamic input data from the odin api
+  and sends the resulting level2 data to the odin api.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=14cm]{smr-level2-processing-system.png}
+  \caption{The Level2 processing system.}
+  \label{fig:processing}
+\end{figure}
