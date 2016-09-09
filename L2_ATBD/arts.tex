@@ -91,8 +91,6 @@ of tests, but standard applications of \ARTS\ should be fairly well covered by
 the tests. Some of the tests include comparison to a stored set of reference
 values, in order to test that the code not only runs, but also that the actual
 simulation results have not changed beyond some specified tolerance.
-\lcomment{PE}{The L2 processing chain should
-  have an internal quality check. How?}
 
 
 \section{Configuration used}
@@ -106,13 +104,11 @@ is written in C++, and a compilation for each platform architecture is needed. T
 \texttt{cmake} build system is used to set up the compilation of \ARTS. A
 minimal version of \ARTS\ is created using the following options:
 \begin{verbatim}
-  cmake -DCMAKE_BUILD_TYPE=Release -DNO_NETCDF=1 -DNO_DOCSERVER=1 ..
+  cmake -DCMAKE_BUILD_TYPE=Release -DNO_DOCSERVER=1 ..
 \end{verbatim}
-\lcomment{PE}{Finish this section later. During the development phase we should
+\lcomment{PE}{During the development phase we should
 just use latest version of the development branch. Later we should select a
-specific version and add check in the code that exactly this version is used.
-The executable should be minimal ARTS (no DISORT, T-Matrix ...). What level
-optimisation should be used?}
+specific version and add check in the code that exactly this version is used.}
 
 
 \subsection{Basic settings}
@@ -121,7 +117,7 @@ The atmosphere is set to be 1D. That is, atmospheric fields vary only as a
 function of pressure, and are implicitly treated as constant in the latitude
 and longitude dimensions. A 1D atmosphere implies further a spherical reference
 geoid, and the radius of the this geoid is set to 6371\,km. The upper limit of
-the model atmosphere is defind in \ARTS\ by the lowest value in the user
+the model atmosphere is defined in \ARTS\ by the lowest value in the user
 defined pressure grid. The range of this grid varies, see
 Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by the
 planet's surface, and \ARTS\ demands that a surface is always defined. The
@@ -203,7 +199,7 @@ The impact of the various sensor responses is incorporated following
 \citet{eriksson:06}. In this approach calculation time is saved by
 performing pre-calculations, but, in contrast to the absorption tables, no
 post-processing is needed. In short, the impact of the different sensor parts
-is all linear operationsi, and a ``response matrix'' representing the complete
+is all linear operations, and a ``response matrix'' representing the complete
 receiver system can be determined. This calculation can be done before the
 atmospheric radiative transfer has been performed, as long as the calculation
 grids are set and the description of the sensor responses are at hand. The
@@ -274,7 +270,6 @@ L2 processing:
 \end{verbatim}
 where \verb|p_grid| is the original pressure grid, \verb|x| is the atmospheric
 profile to be interpolated, and \verb|p_grid_new| is the pressure grid.
-\item \lcomment{PE}{Should be more to add here}
 \end{itemize}
 
 

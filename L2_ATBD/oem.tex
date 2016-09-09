@@ -103,12 +103,8 @@ iterations to perform. The overall iteration scheme applied is:
 \end{itemize}
 The values of $\gamma_0$, $f_s$, $f_u$, $\gamma_\mathrm{min}$,
 $\gamma_\mathrm{max}$ and $i_\mathrm{max}$ vary between the retrieval of the
-different observation modes. Actual values are listed in ?\todo{Where?}.
-\\
-%\lcomment{PE}{Shall optical thickness be used to stabilise convergence? That
-%  is, only channels with low optical thickness are considered in the first
-%  iteration, and gradually higher optical thicknesses are introduced during the
-%  iterations.}
+different observation modes. Actual values are listed in ???\todo{This
+  document does not yet exist}.
 
 
 \section{Convergence tests and values}
@@ -130,16 +126,13 @@ book section cited:
 where $n$ is the length of the vector \SttVct\ and
 $\Delta\SttVct_\mathrm{stop}$ is the variable controlling the wanted
 strictness. The value of $\Delta\SttVct_\mathrm{stop}=?$ varies between
-observation modes, see ?\todo{Where?}.
+observation modes, see ???\todo{This document does not yet exist}.
 
 If Eq.~\ref{eq:stopcrit} becomes fulfilled, it is considered that basic
 convergence has been achieved. There are two exceptions, resulting in
 non-convergence status, that either the iteration number limit
 $(i_\mathrm{max})$ has been reached or that $\gamma$ has reached its upper
 threshold $(\gamma_\mathrm{max})$.
-%\\
-%\lcomment{PE}{Describe here how the overall convergence flag is set. We should
-%  also consider the history of $\gamma$, but how? }
 
 
 \subsection{Normalised cost values}
@@ -193,8 +186,8 @@ contains features besides thermal noise. The so called baseline ripple is a comm
 cause for an excess size of the residual.
 
 For these reasons, a suitable upper limit on $\CstFnc_y'$ varies between the
-observation modes. Suggested limits for quality filtering for each mode are found
-in ?\todo{Where?}. 
+observation modes. Suggested limits for quality filtering for each mode are
+found in ???\todo{This document does not yet exist}.
 
 A high final cost can be caused by both bad input data and that the iteration
 procedure ended up at a local minimum. Without a detailed analysis it is
@@ -233,11 +226,11 @@ However, a direct calculation of the inverse of \aCvrMtr{a} and \aCvrMtr{o} is
 made. These calculations take advantage of the block-diagonal structure (see
 Sec.~\ref{sec:Sa}), where each sub-matrix is inverted separately. Further, in
 some situations the matrix inverse can be obtained in an analytic manner. This
-is possible for purely diagonal matrices and with exponantially decling
-correlation\footnote{Analytical matrix inversion in the case of exponantially
-  decling correlation is discussed in \citet[][Sec.~10.3.2.2]{rodgers:00}. In
-  contrast to the expression foind in \citet{rodgers:00}, our implementation
-  allows a non-constant standard deviation, but still limited to conmstant
+is possible for purely diagonal matrices and with exponentially declining
+correlation\footnote{Analytic matrix inversion in the case of exponentially
+  declining correlation is discussed in \citet[][Sec.~10.3.2.2]{rodgers:00}. In
+  contrast to the expression found in \citet{rodgers:00}, our implementation
+  allows a non-constant standard deviation, but still limited to constant
   correlation length and grid spacing.}.
 
 The size of the elements in \SttVct\ can differ widely. For example, VMR values
