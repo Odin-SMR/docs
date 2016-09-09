@@ -299,8 +299,6 @@ with the following attributes:
           'SO2','CH3CN', 'CO2', 'H2S', 'HI', 'N2O', 'OBrO', 'CH4', 'COF2', 'HBr', 'HNO3', 'NH3', or 'OClO'.
 \end{itemize}
 
-\clearpage
-\newpage
 
 
 \subsection{Static input data}
@@ -310,7 +308,7 @@ is required by the Level2 processor, although this data is in a strict
 sense not input data to the Level2 processor, as this data
 is contained by the Level2 processor as explained by Figure~\ref{fig:level2b}.
 The sensor characteristic and spectroscopic data
-are used by the forward model (ARTS) of the Level2 processor,
+is used by the forward model (ARTS) of the Level2 processor,
 and the configuration controls the complete retrieval
 calculation including the forward model calculation.  
 The static data used by the Level2 processor is 
@@ -320,52 +318,63 @@ described in the following sections.
 \subsubsection{Configuration}
 
 The \smr\ retrievals are performed by a Matlab implementation of OEM,
-and the retrieval calculation is controlled by the setting of 
-several Matlab objects (structures) contained by the Level2 processor.
+that is a part of the Atmlab package (available at \url{www.radiativetransfer.org/tools}).
+The main OEM function in Atmlab is \emph{oem.m}. 
+The Atmlab package contains the required functions to interface \emph{oem.m} with ARTS
+(i.e. read/write ARTS output/input files).
+The OEM implementation is controlled by a Matlab object
+(a Matlab structure denoted as Q), and  
+a description of this structure is found in Appendix~\ref{sec:dataformat}.
 Part of this setting is general for all of the various 
 observation modes applied by \smr\, while some of the settings
-are mode specific.
-A description of the setting is found in Appendix~\ref{sec:dataformat}
-\dots\todo{?}\ 
-
-
-\clearpage
-\newpage
+are observation mode specific.
 
 \subsubsection{Sensor characteristic data}
 
 \subsubsection*{Antenna angular response}
-
-
-\begin{table}
-\caption{ Frequency mode and antenna angular response function file relationships.}
-\label{table:antenna}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Frequency} & \textbf{Integration} & \textbf{Antenna Response function file} \\
-\textbf{mode} & \textbf{time [ms]} &  \\
-\hline
-  01 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint0860ms.xml \\ \hline                                                                      
-  01 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint1860ms.xml \\ \hline                                                               
-  01 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint3860ms.xml \\ \hline                                                                
-  02 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint0860ms.xml \\ \hline                                        
-  02 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint1860ms.xml \\ \hline                                
-  02 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint3860ms.xml \\ \hline                                
-  21 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint0860ms.xml \\ \hline       
-  21 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint1860ms.xml \\ \hline
-  21 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint3860ms.xml \\ \hline
-\end{tabular}
-\end{table}
+%\begin{table}
+%\caption{ Frequency mode and antenna angular response function file relationships.}
+%\label{table:antenna}
+%\begin{tabular}{|l|l|l|}
+%\hline
+%\textbf{Frequency} & \textbf{Integration} & \textbf{Antenna Response function file} \\
+%\textbf{mode} & \textbf{time [ms]} &  \\
+%\hline
+%  01 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint0860ms.xml \\ \hline                                                                      
+%  01 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint1860ms.xml \\ \hline                                                               
+%  01 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode01\_tint3860ms.xml \\ \hline                                                                
+%  02 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint0860ms.xml \\ \hline                                        
+%  02 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint1860ms.xml \\ \hline                                
+%  02 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode02\_tint3860ms.xml \\ \hline                                
+%  21 & 860  & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint0860ms.xml \\ \hline       
+%  21 & 1860 & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint1860ms.xml \\ \hline
+%  21 & 3860 & qsmr/DataFiles/Antenna/antenna\_fmode21\_tint3860ms.xml \\ \hline
+%\end{tabular}
+%\end{table}
 
 The antenna angular response data used by the Level2 processor
-is based on actual measurements of the antenna \dots\todo{?.}\.
-Table~\ref{table:antenna} displays antenna response function files,
-contained by the Level2 processor,
-that are valid for different frequency modes and integration 
-times. These files are valid for an "azimuthally collapsed" 
-antenna. The files are stored in ARTS xml format, which is
-described below:
+is based on actual measurements of the antenna \dots\todo{?.}\
+A number of data files describing the antenna pattern
+are contained by the Level2 processor.
+A given file is valid for a specific frequency mode and integration
+time, and the file naming convention is:\\
+\url{qsmr/DataFiles/Antenna/antenna_fmode<XX>_tint<YYYY>ms.xml}\\
+where \emph{XX} describes the frequency mode (e.g 01, 02, and so on)
+and \emph{YYYY} describes the integration time (e.g 0860, 1860, or 3860).
+These files are valid for an "azimuthally collapsed"
+antenna. The file format is ARTS xml GriddedField4 (see ARTS user guide ~\citep{artsug}),
+where the grids are \emph{Polarisation}, \emph{Frequency}, \emph{Zenith angle},
+and \emph{Azimuth angle}, and the only non-scalar grid is \emph{Zenith angle}.
+An example is given below:
 
+%The ~\citet{artsug}
+%Table~\ref{table:antenna} displays antenna response function files,
+%contained by the Level2 processor,
+%that are valid for different frequency modes and integration 
+%times. These files are valid for an "azimuthally collapsed" 
+%antenna. The files are stored in ARTS xml format, which is
+%described below:
+%
 \lstset{language=XML}
 \begin{lstlisting}
 <?xml version="1.0"?>
@@ -385,8 +394,8 @@ described below:
       ...
       2.0000000e-01
     </Vector>
-    <Vector name="Azimuth angle" nelem="1">
-      0.0000000e+00
+    <Vector name="Azimuth angle" nelem="1">     
+       0.0000000e+00
     </Vector>
     <Tensor4 name="Response" nbooks="1" npages="1" nrows="161" ncols="1">
       3.2714490e-04
@@ -406,10 +415,11 @@ The nominal sideband suppression is better than 19 dB across the image band,
 but the actual sideband leakage is not perfectly known.
 The sideband leakage varies between frequency modes, and the
 assumed sideband leakage by the Level2 processor has been determined
-from residual simulation studies \dots\todo{? is this correct or understandable}\.
-The sideband leakage is controlled by the mode specfic configuration 
-parameter: SIDEBAND LEAKAGE.  
-
+from residual simulation studies \dots\todo{? is this correct or understandable ?}\
+The sideband leakage assumed in the retrieval caclulation
+is controlled by the configuration parameter \emp{SIDEBAND\_LEAKAGE},
+which describes the relative contribution of the sideband. So far the sideband 
+leakage is assumed to be flat over each frequency band.
 
 \subsubsection*{Frequency response of each spectrometer channel}
 
@@ -420,8 +430,8 @@ of the Level2 processor.
 The response function by itself is determined from
 the algorithm that is applied to calibrate \smr\ spectra,
 i.e. a Hanning smoothing is applied.
-The file is stored in ARTS xml format, which is
-described below:
+The file format is ARTS xml GriddedField1 (see ARTS user guide ~\citep{artsug}),
+where the grid is \emph{Frequency}, and an example is given below:
 
 \lstset{language=XML}
 \begin{lstlisting}
@@ -449,13 +459,19 @@ described below:
 
 \subsubsection{Spectroscopic data}
 
+Spectroscopic data is basic input to the forward model (ARTS) applied.
+The absorption data used in the calculation is extracted 
+from an absorption cross-section look-up table for a computational efficiency reason.
+The abosrption look-up table is contained by the Level2 processor.
+ARTS provides methods to create, read and write, and 
+extract data from the lookup table.
+The format of the absorption look-up table and how to create it
+is described in details in \citet{artsug}.
 
-\subsubsection*{Absorption models}
+%The absorption depends on pressure at a first order, 
+%and to a second order of temperature and concentration of absorbing species.
+%\subsubsection*{Absorption models}
 
-
-
-\clearpage
-\newpage
 
 \section{Level2 processor Output Data}
 
@@ -463,65 +479,73 @@ The output of the OEM implementation of the Level2 processor is
 two Matlab objcets (L2 and L2I), where L2 contains
 the main results of the retrieval and L2I describes
 auxiliary instrument and retrieval data \citep{atbdl2}.
-The Level2 processor posts this data to the API,
+The Level2 processor posts this data to the API
+(the \emph{POST} URL is \url{rest_api/<version>/level2})
 which in turns store the data in a \smr\ Level2 database.
-The Level2 data can then be obtained from API GET calls
-(in the form of JSON objcets or netCDF files)
-\dots\todo{?.}\
+%The Level2 data can then be obtained from API GET calls
+%(in the form of JSON objcets or netCDF files)
+%\dots\todo{?.}\
 The L2 and L2I objects are described in the following sections.
 
 \subsection{Level2 data}
-\subsection*{\url{rest_api/<version>/l2data/<date>/<l2mode>/<scanID>}}
-\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
+%\subsection*{\url{rest_api/<version>/level2}}
 
 %The L2 object is "struct array" and contains the following fields (for each retrieved species):
-The L2 object contains the following keys (for each retrieved species):
+The L2 object is a list of objects (struct array) and each
+object contains the following keys (for each retrieved species):
 \dots\todo{need some help from Patrick to decsribe the keys}\
 
 \begin{itemize}
 
-    \item AVK (\emph{2-D array of doubles}):
-    \item Altitude (\emph{array of doubles}):
-    \item Apriori (\emph{array of doubles}):
-    \item ErrorNoise (\emph{array of doubles}):
-    \item ErrorTotal (\emph{array of doubles}):
-    \item FreqMode (\emph{int}):
-    \item InvMode (\emph{string}):
-    \item Lat1D (\emph{double}):
-    \item Latitude  (\emph{array of doubles}):
-    \item Lon1D (\emph{double}):
-    \item Longitude  (\emph{array of doubles}):
-    \item MJD (\emph{double}):
-    \item MeasResponse (\emph{array of doubles}):
-    \item Pressure (\emph{array of doubles}):
-    \item Product (\emph{string}):
-    \item Quality (\emph{?}):
-    \item ScanID (\emph{int}):
-    \item Temperature (\emph{array of doubles}):
-    \item VMR (\emph{array of doubles}):
+    \item AVK (\emph{2-D array of doubles}): averaging kernel matrix 
+    \item Altitude (\emph{array of doubles}): altitude of retrived species [m]
+    \item Apriori (\emph{array of doubles}): \textit{a priori} profile used in inversion 
+    (volume mixing ratio, [-]) 
+    \item ErrorNoise (\emph{array of doubles}):  error due to measurement thermal noise
+    (square root of the diagonal elements of the corresponding error matrix) 
+    \item ErrorTotal (\emph{array of doubles}): total retrieval error,
+    the error due to thermal noise and all interfering smoothing errors
+    (square root of the diagonal elements of the corresponding error matrix)
+    \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
+    \item InvMode (\emph{string}): inversion mode 
+    \item Lat1D (\emph{double}): a scalar representative latitude of the retrieval
+    \item Latitude  (\emph{array of doubles}): latitude of retrieval 
+    \item Lon1D (\emph{double}): a scalar representative longitude of the retrieval
+    \item Longitude  (\emph{array of doubles}): longitude of retrieval
+    \item MJD (\emph{double}): mean modified julian date of the observation
+    \item MeasResponse (\emph{array of doubles}): The measurement response is defined 
+    as the row sum of the averaging kernel matrix [-]
+    \item Pressure (\emph{array of doubles}): Pressure grid of the retrieved species [Pa] 
+    \item Product (\emph{string}): Level2 product name
+    \item Quality (\emph{?}): quality of observation and retrieval
+    \item ScanID (\emph{int}): satellite time word scan identifier
+    \item Temperature (\emph{array of doubles}): temperature profile [K]
+    \item VMR (\emph{array of doubles}): Volume mixing ratio or retrieved profile [-] 
 
 \end{itemize}
 
 \subsection{Auxiliary data}
-\subsection*{\url{rest_api/<version>/l2idata/<date>/<l2mode>/<scanID>}}
-\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
+%\subsection*{\url{rest_api/<version>/l2idata/<date>/<l2mode>/<scanID>}}
+%\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
 
 The L2I object is a scalar structure and contains the following keys:
 \dots\todo{need some help from Patrick to decsribe the keys}\
 
 \begin{itemize}
-  \item BlineOffset (\emph{2-D array of doubles}):
-  \item ChannelsID (\emph{array of doubles}):
-  \item FitSpectrum (\emph{2-D array of doubles}):
-  \item FreqMode (\emph{int}):
-  \item FreqOffset (\emph{double}):
-  \item InvMode (\emph{string}):
-  \item LOFreq (\emph{array of doubles}):
-  \item MinLmFactor (\emph{double}):
-  \item PointOffset (\emph{double}):
-  \item Residual (\emph{double}):
-  \item STW (\emph{array of doubles}):
-  \item ScanID (\emph{int}):
+  \item BlineOffset (\emph{2-D array of doubles}): ?
+  \item ChannelsID (\emph{array of doubles}): channel identifier that describes
+  which channels that were used in the retrieval [-]. More exactly it
+  describes the location of the sorted channels in the original unsorted spectra
+  \item FitSpectrum (\emph{2-D array of doubles}): Fitted spectrum [K]
+  \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
+  \item FreqOffset (\emph{double}): retrieved frequency offset of the LO frequency [Hz]
+  \item InvMode (\emph{string}): inversion mode
+  \item LOFreq (\emph{array of doubles}): LOfrequency of each each spectrum of the scan [Hz]
+  \item MinLmFactor (\emph{double}): minimum Levenberg - Marquardt factor [-]
+  \item PointOffset (\emph{double}):retrieved pointing offset [m]
+  \item Residual (\emph{double}): ? 
+  \item STW (\emph{array of doubles}): satellite time word of each spectrum of the scan
+  \item ScanID (\emph{int}): satellite time word scan identifier
 \end{itemize}
 
 
