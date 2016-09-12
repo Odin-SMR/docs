@@ -18,3 +18,11 @@ The processing system consists of three parts:
   \caption{The Level2 processing system.}
   \label{fig:processing}
 \end{figure}
+
+The inter-component communication is realised by exchanging JSON objects
+through a authenticated REST API over \emph{https} (Sect.~\ref{api}). This
+implies that the involved pool of workers do not need to be in the same
+network, neither as each other, nor as the server. This makes the processing
+system flexible and easily scalable and re-scalable on demand, as the needs for
+processing power changes. The main bottle neck is the access to the database,
+which is therefore located on a dedicated server.
