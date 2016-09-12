@@ -1,0 +1,38 @@
+\begin{itemize}
+
+    \item AVK (\emph{2-D array of doubles}): Averaging kernel matrix. For
+      gas species the averaging kernels for relative changes is given
+      ([\%/\%]). For temperature the unit is [K/K].
+    \item Altitude (\emph{array of doubles}): Altitude of retrived values [m]
+    \item Apriori (\emph{array of doubles}): \textit{A priori} profile used in
+      inversion ([-] or [K])
+    \item ErrorNoise (\emph{array of doubles}): Error due to measurement
+      thermal noise (square root of the diagonal elements of the corresponding
+      error matrix) ([-] or [K])
+    \item ErrorTotal (\emph{array of doubles}): Total retrieval error, the
+      error due to thermal noise and all interfering smoothing errors (square
+      root of the diagonal elements of the corresponding error matrix) ([-]
+      or [K])
+    \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
+    \item InvMode (\emph{string}): Inversion mode
+    \item Lat1D (\emph{double}): A scalar representative latitude of the retrieval
+    \item Latitude  (\emph{array of doubles}): Approximate latitude of each
+      retrieved value
+    \item Lon1D (\emph{double}): A scalar representative longitude of the retrieval
+    \item Longitude  (\emph{array of doubles}): Approximate longitude of each
+      retrieved value
+    \item MJD (\emph{double}): Mean modified julian date of the observations
+      used in the retrievela
+    \item MeasResponse (\emph{array of doubles}): The measurement response, defined
+      as the row sum of the averaging kernel matrix [-]
+    \item Pressure (\emph{array of doubles}): Pressure grid of the retrieved species [Pa]
+    \item Product (\emph{string}): Level2 product name
+    \item ScanID (\emph{int}): Satellite time word scan identifier
+    \item Temperature (\emph{array of doubles}): Best estimate of temperature
+      profile [K] (either retrieved or represents the input zpt data)
+    \item VMR (\emph{array of doubles}): Volume mixing ratio or retrieved
+      profile [-]. Left empty if the L2 object describes a temperature profile
+      retrieval.
+
+\end{itemize}
+

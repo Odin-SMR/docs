@@ -50,15 +50,19 @@ dynamic (or semi-dynamic) and static input data,
     the OEM implementation needs a starting estimate for each profile
     to be retrieved. The climatology covers vertical, seasonal,
     and latitudinal variations of each species and is based on data
-    from \dots\todo{? Do we have any reference here.}\
+    from the "Bourdeaux" climatlogy. %\dots\todo{? Do we have any reference here.}\
 
     \item \emph{ZPT data}:
     The Level2 processor requires external ZPT data,
     (altitude, pressure, and temperature).
     The ZPT data is extracted from the ERA-Interim dataset for the geolocation
     of the scan. ERA-Interim is a global atmospheric reanalysis from 1979, and
-    data is available throughout the Odin mission.\dots\todo{YOu can add what
-      resolution and time steps we use.}
+    data is available throughout the Odin mission. The ERA-Interim data used
+    has a 0.75\(^\circ\)\ resolution in latitude and longitude and 6\,\(h\)
+    in time.
+    
+    
+
   \end{itemize}
   \item static input data:
   \begin{itemize}
@@ -260,10 +264,9 @@ with the following attributes (See \citet{atbdl1b} for more details):
      \item ChannelsID \emph{(Array of integers)}: Channel identifier describes the location
                        of the sorted channels in the original unsorted spectra
   \end{itemize} 
-  \item ZeroLagVar \emph{(2-D Array of doubles)}: Zerolag variation of the surrounding reference measurements for all sub-bands.
+  \item ZeroLagVar \emph{(2-D Array of doubles)}: Zerolag variation (\([\%]\)) of the surrounding reference measurements for all sub-bands.
                        \begin{verbatim}ZeroLagVar =
-abs(diff(ZeroLag))/mean(ZeroLag)\end{verbatim} \([\%]\)\todo{If this is the
-unit, place it above. Here very confusing.} 
+abs(diff(ZeroLag))/mean(ZeroLag)\end{verbatim} 
                         ZeroLag is the measured coefficient of the first channel of the auto-correlator,
                         and is proportional to the total power of the band
 \end{itemize}
@@ -417,7 +420,7 @@ is better than 19 dB across the image band, but the actual in-flight sideband
 leakage is not perfectly known. The sideband leakage has been estimated to vary
 between the frequency modes. The sideband leakage assumed in the retrieval
 caclulation is controlled by the configuration parameter
-\emp{SIDEBAND\_LEAKAGE}, which describes the relative contribution of the
+\emph{SIDEBAND\_LEAKAGE}, which describes the relative contribution of the
 sideband. So far the sideband leakage is assumed to be flat over each frequency
 band.
 
@@ -494,43 +497,7 @@ keys listed below. Each L2 object describes a single VMR or temperature
 profile. For details on how averaging kernel matrix, measurement response and
 errors are calculated, see \citep{atbdl2}.
 
-\begin{itemize}
-
-    \item AVK (\emph{2-D array of doubles}): Averaging kernel matrix. For
-      gas species the averaging kernels for relative changes is given
-      ([\%/\%]). For temperature the unit is [K/K]. 
-    \item Altitude (\emph{array of doubles}): Altitude of retrived values [m]
-    \item Apriori (\emph{array of doubles}): \textit{A priori} profile used in
-      inversion ([-] or [K])
-    \item ErrorNoise (\emph{array of doubles}): Error due to measurement
-      thermal noise (square root of the diagonal elements of the corresponding
-      error matrix) ([-] or [K])
-    \item ErrorTotal (\emph{array of doubles}): Total retrieval error, the
-      error due to thermal noise and all interfering smoothing errors (square
-      root of the diagonal elements of the corresponding error matrix) ([-]
-      or [K])
-    \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
-    \item InvMode (\emph{string}): Inversion mode 
-    \item Lat1D (\emph{double}): A scalar representative latitude of the retrieval
-    \item Latitude  (\emph{array of doubles}): Approximate latitude of each
-      retrieved value
-    \item Lon1D (\emph{double}): A scalar representative longitude of the retrieval
-    \item Longitude  (\emph{array of doubles}): Approximate longitude of each
-      retrieved value
-    \item MJD (\emph{double}): Mean modified julian date of the observations
-      used in the retrievela
-    \item MeasResponse (\emph{array of doubles}): The measurement response, defined 
-      as the row sum of the averaging kernel matrix [-]
-    \item Pressure (\emph{array of doubles}): Pressure grid of the retrieved species [Pa] 
-    \item Product (\emph{string}): Level2 product name
-    \item ScanID (\emph{int}): Satellite time word scan identifier
-    \item Temperature (\emph{array of doubles}): Best estimate of temperature
-      profile [K] (either retrieved or represents the input zpt data) 
-    \item VMR (\emph{array of doubles}): Volume mixing ratio or retrieved
-      profile [-]. Left empty if the L2 object describes a temperature profile
-      retrieval.
-
-\end{itemize}
+\input{../L2_ATBD/l2_format}
 
 \subsection{Auxiliary data}
 %\subsection*{\url{rest_api/<version>/l2idata/<date>/<l2mode>/<scanID>}}
@@ -539,29 +506,5 @@ errors are calculated, see \citep{atbdl2}.
 The L2I object is a scalar structure (i.e.\ valid for a several L2 objects)
 and contains the following keys:
 
-\begin{itemize}
-  \item BlineOffset (\emph{2-D array of doubles}): Retrieved ``baseline''
-    offsets, that differ for each used spectrum and each autocorrelate sub-module
-  \item ChannelsID (\emph{array of doubles}): Channel identifier that describes
-    which channels that were used in the retrieval [-]. More exactly it
-    describes the location of the sorted channels in the original unsorted
-    spectra
-  \item FitSpectrum (\emph{2-D array of doubles}): Fitted spectrum [K]
-  \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
-  \item FreqOffset (\emph{double}): Retrieved frequency offset of the LO frequency [Hz]
-  \item InvMode (\emph{string}): Inversion mode
-  \item L1bQuality (\emph{int}): Quality of L1b data used
-  \item LOFreq (\emph{array of doubles}): LO frequency of each each spectrum of
-    the scan [Hz]
-  \item MinLmFactor (\emph{double}): The minimum value of the Levenberg -
-    Marquardt factor during the OEM iterations [-]
-  \item PointOffset (\emph{double}): Retrieved pointing offset in degrees
-  \item Residual (\emph{double}): The difference between the spectra matching
-    retrieved state and used measurement spectra ([K]) 
-  \item STW (\emph{array of doubles}): Satellite time word of each spectrum
-    used in the retrieval
-  \item ScanID (\emph{int}): Satellite time word scan identifier
-\end{itemize}
-
-
+\input{../L2_ATBD/l2i_format}
 
