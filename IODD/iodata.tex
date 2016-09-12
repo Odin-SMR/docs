@@ -48,7 +48,7 @@ dynamic (or semi-dynamic) and static input data,
     \item \emph{Climatological \textit{apriori} data}:
     climatology data, covering all species of interest is required, as
     the OEM implementation needs a starting estimate for each profile
-    to be retrieved. The climatology cover vertical, seasonal,
+    to be retrieved. The climatology covers vertical, seasonal,
     and latitudinal variations of each species and is based on data
     from \dots\todo{? Do we have any reference here.}\
 
@@ -57,7 +57,8 @@ dynamic (or semi-dynamic) and static input data,
     (altitude, pressure, and temperature).
     The ZPT data is extracted from the ERA-Interim dataset for the geolocation
     of the scan. ERA-Interim is a global atmospheric reanalysis from 1979, and
-    data is available throughout the Odin mission.
+    data is available throughout the Odin mission.\dots\todo{YOu can add what
+      resolution and time steps we use.}
   \end{itemize}
   \item static input data:
   \begin{itemize}
@@ -154,13 +155,13 @@ with the following attributes:
 \begin{itemize}
     \item Info:
 
-        A list of objects that describes each scans
+        A list of objects that describes each scan
         with some log data.  
         Each object contains the following keys:
 
         \begin{itemize}
             \item AltEnd \emph{(float)}: Tangent point altitude ([\,m\,]) for last spectrum in scan
-            \item AltStart \emph{(float)}:Tangent point altitude for first spectrum in scan
+            \item AltStart \emph{(float)}: Tangent point altitude for first spectrum in scan
             \item DateTime \emph{(str)}: Mean UTC datetime (datetime(first) + datetime(last))/2 of scan
             \item FreqMode \emph{(Int)}: Deployed frequency mode
             \item LatEnd \emph{(float)}: Latitude of tangent point for last spectrum in scan
@@ -199,7 +200,7 @@ with the following attributes (See \citet{atbdl1b} for more details):
   \item Quality \emph{(Array of integers)}: Quality indicator of scan/spectrum
   \item STW \emph{(Array of integers)}: Satellite time word
   \item MJD \emph{(Array of doubles)}: Modified julian date of observation
-  \item Orbit \emph{(Array of doubles)}: Number of orbit plus fraction
+  \item Orbit \emph{(Array of doubles)}: Orbit number, including fractional part
   \item Spectrum \emph{(2-D Array of doubles)}: Frequency sorted and intensity calibrated spectra
                        in Rayleigh Jeans temperature in Kelvin
   \item TrecSpectrum \emph{(Array of doubles)}: Frequency sorted receiver noise temperature spectrum
@@ -237,7 +238,8 @@ with the following attributes (See \citet{atbdl1b} for more details):
   \item FreqMode \emph{(Array of integers)}: Frequency mode applied
   \item TSpill \emph{(Array of doubles)}: Estimated Tspill in Kelvin
   \item ScanID \emph{(Array of integers)}: satellite time word scan identifier
-  \item Apodization \emph{(Array of integers)}: The "channel response" filtering technique applied. 1\,=\,Hanning smoothing  
+  \item Apodization \emph{(Array of integers)}: Filter used when converting
+    auto-correlations to power spectrum. 1\,=\,no filter, 1\,=\,Hanning 
   \item Frequency \emph{(Object)}: an object that contains information that can be used to create frequency grids for the spectra
                        and consists of following keys: 
   \begin{itemize}             
@@ -259,7 +261,9 @@ with the following attributes (See \citet{atbdl1b} for more details):
                        of the sorted channels in the original unsorted spectra
   \end{itemize} 
   \item ZeroLagVar \emph{(2-D Array of doubles)}: Zerolag variation of the surrounding reference measurements for all sub-bands.
-                       \begin{verbatim}ZeroLagVar = abs(diff(ZeroLag))/mean(ZeroLag)\end{verbatim} \([\%]\)
+                       \begin{verbatim}ZeroLagVar =
+abs(diff(ZeroLag))/mean(ZeroLag)\end{verbatim} \([\%]\)\todo{If this is the
+unit, place it above. Here very confusing.} 
                         ZeroLag is the measured coefficient of the first channel of the auto-correlator,
                         and is proportional to the total power of the band
 \end{itemize}
@@ -352,8 +356,6 @@ are observation mode specific.
 %\end{tabular}
 %\end{table}
 
-The antenna angular response data used by the Level2 processor
-is based on actual measurements of the antenna \dots\todo{?.}\
 A number of data files describing the antenna pattern
 are contained by the Level2 processor.
 A given file is valid for a specific frequency mode and integration
@@ -410,28 +412,24 @@ An example is given below:
 \subsubsection*{Sideband filtering}
 
 
-\smr\ operates as a single sideband receiver. 
-The nominal sideband suppression is better than 19 dB across the image band,
-but the actual sideband leakage is not perfectly known.
-The sideband leakage varies between frequency modes, and the
-assumed sideband leakage by the Level2 processor has been determined
-from residual simulation studies \dots\todo{? is this correct or understandable ?}\
-The sideband leakage assumed in the retrieval caclulation
-is controlled by the configuration parameter \emp{SIDEBAND\_LEAKAGE},
-which describes the relative contribution of the sideband. So far the sideband 
-leakage is assumed to be flat over each frequency band.
+\smr\ operates as a single sideband receiver. The nominal sideband suppression
+is better than 19 dB across the image band, but the actual in-flight sideband
+leakage is not perfectly known. The sideband leakage has been estimated to vary
+between the frequency modes. The sideband leakage assumed in the retrieval
+caclulation is controlled by the configuration parameter
+\emp{SIDEBAND\_LEAKAGE}, which describes the relative contribution of the
+sideband. So far the sideband leakage is assumed to be flat over each frequency
+band.
 
 \subsubsection*{Frequency response of each spectrometer channel}
 
-The frequency response function of each spectrometer channel
-is contained by the file
-\url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml}
-of the Level2 processor.
-The response function by itself is determined from
-the algorithm that is applied to calibrate \smr\ spectra,
-i.e. a Hanning smoothing is applied.
-The file format is ARTS xml GriddedField1 (see ARTS user guide ~\citep{artsug}),
-where the grid is \emph{Frequency}, and an example is given below:
+The frequency response function of each spectrometer channel is contained by
+the file \url{qsmr/DataFiles/Backend/backend\_df1000kHz\_withHan.xml} of the
+Level2 processor. The response function by itself is determined from the
+algorithm that is applied to calibrate \smr\ spectra, i.e. if a Hanning
+smoothing is applied or not. The file format is ARTS xml GriddedField1 (see
+ARTS user guide ~\citep{artsug}), where the grid is \emph{Frequency}, and an
+example is given below:
 
 \lstset{language=XML}
 \begin{lstlisting}
@@ -491,36 +489,46 @@ The L2 and L2I objects are described in the following sections.
 %\subsection*{\url{rest_api/<version>/level2}}
 
 %The L2 object is "struct array" and contains the following fields (for each retrieved species):
-The L2 object is a list of objects (struct array) and each
-object contains the following keys (for each retrieved species):
-\dots\todo{need some help from Patrick to decsribe the keys}\
+The L2 object is a list of objects (struct array) and each object contains the
+keys listed below. Each L2 object describes a single VMR or temperature
+profile. For details on how averaging kernel matrix, measurement response and
+errors are calculated, see \citep{atbdl2}.
 
 \begin{itemize}
 
-    \item AVK (\emph{2-D array of doubles}): averaging kernel matrix 
-    \item Altitude (\emph{array of doubles}): altitude of retrived species [m]
-    \item Apriori (\emph{array of doubles}): \textit{a priori} profile used in inversion 
-    (volume mixing ratio, [-]) 
-    \item ErrorNoise (\emph{array of doubles}):  error due to measurement thermal noise
-    (square root of the diagonal elements of the corresponding error matrix) 
-    \item ErrorTotal (\emph{array of doubles}): total retrieval error,
-    the error due to thermal noise and all interfering smoothing errors
-    (square root of the diagonal elements of the corresponding error matrix)
+    \item AVK (\emph{2-D array of doubles}): Averaging kernel matrix. For
+      gas species the averaging kernels for relative changes is given
+      ([\%/\%]). For temperature the unit is [K/K]. 
+    \item Altitude (\emph{array of doubles}): Altitude of retrived values [m]
+    \item Apriori (\emph{array of doubles}): \textit{A priori} profile used in
+      inversion ([-] or [K])
+    \item ErrorNoise (\emph{array of doubles}): Error due to measurement
+      thermal noise (square root of the diagonal elements of the corresponding
+      error matrix) ([-] or [K])
+    \item ErrorTotal (\emph{array of doubles}): Total retrieval error, the
+      error due to thermal noise and all interfering smoothing errors (square
+      root of the diagonal elements of the corresponding error matrix) ([-]
+      or [K])
     \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
-    \item InvMode (\emph{string}): inversion mode 
-    \item Lat1D (\emph{double}): a scalar representative latitude of the retrieval
-    \item Latitude  (\emph{array of doubles}): latitude of retrieval 
-    \item Lon1D (\emph{double}): a scalar representative longitude of the retrieval
-    \item Longitude  (\emph{array of doubles}): longitude of retrieval
-    \item MJD (\emph{double}): mean modified julian date of the observation
-    \item MeasResponse (\emph{array of doubles}): The measurement response is defined 
-    as the row sum of the averaging kernel matrix [-]
+    \item InvMode (\emph{string}): Inversion mode 
+    \item Lat1D (\emph{double}): A scalar representative latitude of the retrieval
+    \item Latitude  (\emph{array of doubles}): Approximate latitude of each
+      retrieved value
+    \item Lon1D (\emph{double}): A scalar representative longitude of the retrieval
+    \item Longitude  (\emph{array of doubles}): Approximate longitude of each
+      retrieved value
+    \item MJD (\emph{double}): Mean modified julian date of the observations
+      used in the retrievela
+    \item MeasResponse (\emph{array of doubles}): The measurement response, defined 
+      as the row sum of the averaging kernel matrix [-]
     \item Pressure (\emph{array of doubles}): Pressure grid of the retrieved species [Pa] 
     \item Product (\emph{string}): Level2 product name
-    \item Quality (\emph{?}): quality of observation and retrieval
-    \item ScanID (\emph{int}): satellite time word scan identifier
-    \item Temperature (\emph{array of doubles}): temperature profile [K]
-    \item VMR (\emph{array of doubles}): Volume mixing ratio or retrieved profile [-] 
+    \item ScanID (\emph{int}): Satellite time word scan identifier
+    \item Temperature (\emph{array of doubles}): Best estimate of temperature
+      profile [K] (either retrieved or represents the input zpt data) 
+    \item VMR (\emph{array of doubles}): Volume mixing ratio or retrieved
+      profile [-]. Left empty if the L2 object describes a temperature profile
+      retrieval.
 
 \end{itemize}
 
@@ -528,24 +536,31 @@ object contains the following keys (for each retrieved species):
 %\subsection*{\url{rest_api/<version>/l2idata/<date>/<l2mode>/<scanID>}}
 %\dots\todo{this URL does not exist, but we should add the correct one when it exist}\
 
-The L2I object is a scalar structure and contains the following keys:
-\dots\todo{need some help from Patrick to decsribe the keys}\
+The L2I object is a scalar structure (i.e.\ valid for a several L2 objects)
+and contains the following keys:
 
 \begin{itemize}
-  \item BlineOffset (\emph{2-D array of doubles}): ?
-  \item ChannelsID (\emph{array of doubles}): channel identifier that describes
-  which channels that were used in the retrieval [-]. More exactly it
-  describes the location of the sorted channels in the original unsorted spectra
+  \item BlineOffset (\emph{2-D array of doubles}): Retrieved ``baseline''
+    offsets, that differ for each used spectrum and each autocorrelate sub-module
+  \item ChannelsID (\emph{array of doubles}): Channel identifier that describes
+    which channels that were used in the retrieval [-]. More exactly it
+    describes the location of the sorted channels in the original unsorted
+    spectra
   \item FitSpectrum (\emph{2-D array of doubles}): Fitted spectrum [K]
   \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
-  \item FreqOffset (\emph{double}): retrieved frequency offset of the LO frequency [Hz]
-  \item InvMode (\emph{string}): inversion mode
-  \item LOFreq (\emph{array of doubles}): LOfrequency of each each spectrum of the scan [Hz]
-  \item MinLmFactor (\emph{double}): minimum Levenberg - Marquardt factor [-]
-  \item PointOffset (\emph{double}):retrieved pointing offset [m]
-  \item Residual (\emph{double}): ? 
-  \item STW (\emph{array of doubles}): satellite time word of each spectrum of the scan
-  \item ScanID (\emph{int}): satellite time word scan identifier
+  \item FreqOffset (\emph{double}): Retrieved frequency offset of the LO frequency [Hz]
+  \item InvMode (\emph{string}): Inversion mode
+  \item L1bQuality (\emph{int}): Quality of L1b data used
+  \item LOFreq (\emph{array of doubles}): LO frequency of each each spectrum of
+    the scan [Hz]
+  \item MinLmFactor (\emph{double}): The minimum value of the Levenberg -
+    Marquardt factor during the OEM iterations [-]
+  \item PointOffset (\emph{double}): Retrieved pointing offset in degrees
+  \item Residual (\emph{double}): The difference between the spectra matching
+    retrieved state and used measurement spectra ([K]) 
+  \item STW (\emph{array of doubles}): Satellite time word of each spectrum
+    used in the retrieval
+  \item ScanID (\emph{int}): Satellite time word scan identifier
 \end{itemize}
 
 
