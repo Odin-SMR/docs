@@ -401,9 +401,9 @@ than it is likely that data from this band has a large broadband offset.
   \hline
   \textbf{Test} & \textbf{Description} & \textbf{Value} \\
   \hline
-  check of Tspill   & outside of valid range (3--12\,K) & 0x0001 \\
+  check of Tspill   & outside of valid range (2--16\,K) & 0x0001 \\
   \hline
-  check of Trec     & outside of valid range (2000--4000\,K) & 0x0002  \\
+  check of Trec     & outside of valid range (2000--8000\,K) & 0x0002  \\
   \hline
   check of Noise    & outside of valid range. Valid range is 0.5--6\,K & 0x0004  \\
   \hline
@@ -421,6 +421,9 @@ than it is likely that data from this band has a large broadband offset.
   check of References 2 & surrounding references have different & 0x0100\\
                         & integration times                     & \\ 
   \hline check of Moon hit   & the moon is in the main beam          & 0x0200 \\
+  \hline check of Frequency    & frequency correction for \chem{CO} mode 
+  (see Appendix ~\ref{chapter:freqCorrCO})
+  could not be applied, and the frequency is therefore unreliable & 0x0400 \\
 
 \hline
 \end{longtable}
