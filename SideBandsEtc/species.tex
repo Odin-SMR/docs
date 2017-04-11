@@ -1,0 +1,203 @@
+
+\chapter{Observation modes}
+
+\begin{table}
+\centering
+\caption{\smr\ operational modes in aeronomy  for AC1 and AC2 and the sub-mm
+    frontends (FM = frequency mode)}
+\label{table:config2}
+\begin{tabular}{lllll}
+  \toprule
+    \textbf{Backend} & \textbf{Frontend} & \textbf{LO freq [GHz]} & \textbf{Source mode} & \textbf{FM} \\
+  \midrule
+  AC1                & 495 A2            &  492.750               & Transport            & 23 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 499.698                & Transport            & 25 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     & 549 A1            & 548.502                & Stratospheric         & 02 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 553.050                & Water isotope         & 19 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 547.752                & Water isotope         & 21 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 553.302                & Transport             & 23 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     & 555 B2            & 553.298                & Summer mesosphere     & 13 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     & 572 B1            & 572.762                & Transport             & 24 \\
+  \midrule
+  AC2                & 495 A2            & 497.880                & Stratospheric         & 01 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 492.750                & Water isoptope        & 08 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 494.750                & Water isotope         & 17 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 499.698                & Transport             & 25 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     & 572 B1            & 572.762                & Summer mesosphere     & 14 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                     &                   & 572.964                & Transport             & 22 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{\smr\ frontend and backend frequency specification for modes that are
+    measured during part of the summer (when only backend AC2 is used, which is
+    the case for 2013 and onwards).
+    These modes are normally measured by backend AC1 (e.g. FM~102 and FM~2,
+    FM~119 and FM~19, FM~121 and FM~21, and FM~113 and 13, are all identical
+    except the Backend used).
+}
+\label{table:config3}
+\begin{tabular}{lllll}
+  \toprule
+  \textbf{Backend} & \textbf{Frontend} & \textbf{LO freq [GHz]} & \textbf{Source mode} & \textbf{FM} \\
+  \midrule
+  AC2              & 549 A1            & 548.502                & Stratospheric        & 102 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                   &                   & 553.050                & Water isotope        & 119 \\
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                   &                   & 547.752                & Water isotope        & 121 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{5-5}
+                   & 555 B2            & 553.298                & Summer mesosphere    & 113 \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{\smr\ frontend and backend frequency specification}
+\label{table:config4}
+\begin{tabular}{llllll}
+  \toprule
+  \textbf{FM} & \textbf{SMR mode} & \textbf{LO Freq.} & \textbf{Freq. Range} & \textbf{Species}                    & \textbf{Name / ID} \\
+              &                   & [GHz]             & [GHz]                &                                     &                    \\
+  \midrule
+  01          & s1a or sc1a       & 497.880           & 501.180--501.580     & \chem{ClO}, \chem{O_3}, \chem{N_2O} & SM-AC2a / 01 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+              &                   &                   & 501.980--502.380     &                                     & SM-AC2b / 02 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+             &                    &                   &                      &                                                    & SM-AC2ab / 29 \\
+  \midrule
+  02         & s1a                & 548.502           & 544.102--544.902     & \chem{HNO_3}, \chem{O_3}                           & SM-AC1e / 03 \\
+  \midrule
+  08         & w3a or w5a         & 492.750           & 488.950--489.350     & \chem{H_{2}^{18}O}, \chem{O_3},\chem{H_{2}^{16}O}  & IM-AC2a / 13 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+             &                    &                   & 488.350--488.750     &                                                    & IM-AC2b / 14 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+            &                     &                   &                      &                                            & IM-AC2ab / 30 \\
+  \midrule
+  17        & w4a or w5b          & 494.250           & 489.950--490.750     & \chem{HDO}, \chem{{18}^O_3}                & IM-AC2c / 21 \\
+  \midrule
+  19        & w3a or w4a          & 553.050           & 556.550--557.350     & \chem{H_2O}, \chem{O_3}                    & IM-AC1c / 22 \\
+  \midrule
+  21        & w5a or w5b          & 547.752           & 551.152--551.552     & \chem{NO}, \chem{O_3}, \chem{H_{2}^{17}O}  & IM-AC1de / 31 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+            &                     &                   & 551.752--552.152     &                                                       &  \\
+  \midrule
+  13        & sm1a                & 553.298           & 556.598--557.398     & \chem{H_{2}^{16}O}, \chem{O_3}                        & HM-AC1c / 19 \\
+  \midrule
+  14        & sm1a                & 572.762           & 576.062--576.862     & \chem{CO}, \chem{O_3}                                 & HM-AC2c /20 \\
+  \midrule
+  22        & co1a                & 572.964           & 576.254--576.654     & \chem{CO}, \chem{O_3}, \chem{HO_2},\chem{^{18}O_3}    & HM-AC2ab / 32 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+            &                     &                   & 577.069--577.469     &                                      &  \\
+  \midrule
+  23        & co1a                & 492.750           & 488.350--488.750     & \chem{H_{2}^{16}0}, \chem{O_3}       & HM-AC1d / 33 \\
+  \cline{2-2}
+  \cline{3-3}
+  \cline{4-4}
+  \cline{6-6}
+            &                     & 553.302           & 556.702--557.102     &                                      & HM-AC1e / 34 \\
+  \midrule
+  24        & sc1a                & 572.762           & 576.062--576.862     & \chem{CO}, \chem{O_3}                & HM-AC1e / 35 \\
+  \midrule
+  25        & ut1a                & 499.698           & 502.998--504.198     & \chem{H_{2}^{16}O}, \chem{O_3}       & TM-ACs1 / 36 \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+  \centering
+  \caption{Order of sub-bands from lowest frequency range to highest for some
+    of the most common frequency modes. Sub-bands that are in bad condition
+    have been \emph{emphasised}, broken bands are in \emph{\textbf{bold}.}
+    }\label{table:subbandorder}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{FM} & \textbf{Freq. Range [GHz]} & \textbf{Sub-band order} \\
+    \midrule
+    01          & 501.180--501.585           & 2 1 5 6 \\
+                & 501.980--502.380           & 4 \emph{\textbf{3} 7} 8 \\
+    \midrule
+    02          & 544.102--544.902           & \emph{\textbf{1} 2} 6 5 8 7 3 4 \\
+    \midrule
+    08          & 488.950--489.350           & 8 \emph{7 \textbf{3}} 4 6 5 1 2 \\
+    \midrule
+    17          & 489.950--490.750           & 8 \emph{7 \textbf{3}} 4 6 5 1 2 \\
+    \midrule
+    19          & 556.550--557.350           & 4 3 7 8 \emph{2 \textbf{1}} 5 6 \\
+    \midrule
+    21          & 551.152--551.552           & 4 3 7 8 \\
+                & 551.752--552.152           & \emph{2 \textbf{1}} 5 6 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
