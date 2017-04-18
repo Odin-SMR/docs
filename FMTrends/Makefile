@@ -1,4 +1,4 @@
-sidebands.pdf: sidebands.tex Makefile *.tex ../Common/*.tex ../Common/*.bib
+fmtrends.pdf: fmtrends.tex Makefile *.tex ../Common/*.tex ../Common/*.bib
 	pdflatex $(@:%.pdf=%)
 	bibtex $(@:%.pdf=%)
 	pdflatex $(@:%.pdf=%)
@@ -9,5 +9,5 @@ clean:
 	rm -f *.log *.blg *.bbl *.aux *.dvi *.out *.toc
 
 clean-all: clean
-	rm -f sidebands.pdf
+	rm -f fmtrends.pdf
 
