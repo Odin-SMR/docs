@@ -1,4 +1,4 @@
-fmtrends.pdf: fmtrends.tex Makefile *.tex ../Common/*.tex ../Common/*.bib figures/*.pdf
+fmtrends.pdf: fmtrends.tex Makefile *.tex ../Common/*.tex ../Common/*.bib figures/**/*.pdf
 	pdflatex $(@:%.pdf=%)
 	bibtex $(@:%.pdf=%)
 	pdflatex $(@:%.pdf=%)
