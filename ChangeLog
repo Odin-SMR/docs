@@ -1,0 +1,14 @@
+2017-08-17  Patrick Eriksson  <patrick.eriksson@chalmers.se>
+
+	* L2_data: Started this document/folder. 
+
+	* L2_ATBD/L2_ATBD.tex: Removed appendix aimied for L2 format.
+
+	* IODD/IODD.tex: Adopted to changes position of files below.
+
+	* IODD/l2i_format.tex:
+	* IODD/l2_format.tex: New folder placement of these files.
+
+	* coverpage.tex:
+	* preamble.tex: Changed to new name of dept.
+
