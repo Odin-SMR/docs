@@ -1,0 +1,69 @@
+\chapter{Level 2 Data Product Structure}
+\label{chapter:L2_structure}
+
+\textit{Text describing the filename convention, the storage format of the data products, etc. (to be added).} \\
+
+Each L2 product is associated with a single scan of the atmosphere by the \smr\ instrument. In other words, it describes a single VMR or temperature profile. It contains the objects described bellow. \\
+
+% Question, to be discussed: is it better to provide the different fields in alphabetical order or to decide another logical order? (In any case, I think that the order of the description items below should be the same as the one of the L2 structure fields.)
+
+\textbf{Altitude} (array of doubles): Altitude of retrieved values (m) \\
+
+\textbf{Apriori} (array of doubles): \textit{A priori} profile used in the inversion algorithm ([-] or [K]). \\
+
+\textbf{AVK} (2-D array of doubles): Averaging kernel matrix. For gas species, the averaging kernel for relative changes is given ([\%/\%]). For temperature, the unit is [K/K]. \\
+
+\textbf{ErrorNoise} (array of doubles): Error due to measurement thermal noise (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
+
+\textbf{ErrorTotal} (array of doubles): Total retrieval error, corresponding to the error due to thermal noise and all interfering smoothing errors (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
+
+\textbf{FreqMode} (int): Odin/SMR observation frequency mode. \\ % Refer to a table giving all frequency modes with the corresponding frequency ranges and measured products. 
+
+\textbf{Freq} (double): Center of the frequency band [GHz]. \\ % In order to be user-friendly, this should be always the same for one given frenquency mode, regardless of the spectral range actually used in the retrieval process. 
+
+\textbf{Instrument} (string): Instrument name. \\ % Useful? To be discussed. 
+
+\textbf{InvMode} (string): Inversion mode. \\ % ??
+
+\textbf{Lat1D} (double): A scalar representative latitude of the retrieval [degrees north]. \\ % Say how it has been calculated (mean of 'Latitude'?)
+
+\textbf{Latitude} (array of doubles): Approximate latitude of each retrieval value [degrees north]. \\
+
+\textbf{Lon1D} (double): A scalar representative longitude of the retrieval [degrees east] \\ % Same comment as for 'Lat1D'.
+
+\textbf{Longitude} (array of doubles): Approximate longitude of each retrieval value [degrees east]. \\
+
+\textbf{LST} (double): Mean local solar time for the scan [hours]. \\ % Was not included in the previous version. Could make the data more user friendly. 
+
+\textbf{MJD} (double): Mean modified julian date of the observations used in the retrieval process [days]. \\
+
+\textbf{MeasResponse} (array of doubles): Measurement response, defined as the row sum of the averaging kernel matrix [-]. \\ % Refer to a document giving recommandations on how it should be used to filter the data.
+
+\textbf{OrbitNum} (int): Odin/SMR orbit number. \\ % Useful? To be discussed.
+
+\textbf{Pressure} (array of doubles): Pressure grid of the retrieved profile [Pa]. \\
+
+\textbf{Product} (string): Level 2 product name. \\
+
+\textbf{Profile} (array of doubles): Retrieved volume mixing ratio [-] or temperature [K] profile  \\ % I think this field should be called 'Profile' instead of 'VMR', in order to be consistent in the case of temperature profile retrieval.
+
+\textbf{Quality} (int): Quality flag. \\ % To be discussed and defined. Give the definition of the flags in this document, and explain how they should be used to filter the data. 
+
+\textbf{ScanID} (int): Satellite time word scan identifier. \\
+
+\textbf{SZA1D} (double): Mean solar zenith angle of the observations used in the retrieval process [degrees]. \\
+
+\textbf{SZA} (array of doubles): Approximate solar zenith angle corresponding to each retrieval value [degrees]. \\ % Should be provided? To be discussed. 
+
+\textbf{Temperature} (array of doubles): Estimate of the temperature profile [K] (corresponding to the ZPT input data). \\ % Contrary to what is done in the internal L2 data, I think we should clearly distinguish the retrieved temperature profiles from the ones from the ZPT input. Only the zpt input should be given in this field. When a temperature profile is retrieved, it should be given in the 'Profile' field. Moreover, the source for the ZPT data should be clearly mentioned (either here, or add a reference to a document where the users can find this information).
+
+\textbf{Theta} (array of doubles): Estimate of the potential temperature profile [K]. \\
+
+\textbf{Time} (string): Mean time of the scan, given as 'YYYY-MM-DD-hh-mm-ss' \\ % Not necessary, as the information is already given in the MJD, but I think it can make the data more user friendly to give the time as a string, in addition to the MJD. 
+
+\textbf{VersionL1b} (string): Version number of the Level 1b processing chain that was used to create the Level 1b data, in turn used as an input to the Level 2 processor. \\
+
+\textbf{VersionL2} (string): Version number of the Level 2 processing chain that was used to create the Level 2 file. \\
+
+
+
