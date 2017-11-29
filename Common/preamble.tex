@@ -30,6 +30,17 @@ Space, Earth and Environment}
 \usepackage{titlesec}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\chapterhead\ \thechapter\hsp\textcolor{gray50}{|}\hsp}{0pt}{\Huge\bfseries}
 
+
+% There was a bug in the titlesec package. Ubuntu 16.04 has the buggy version,
+% and these lines fixes the bug: 
+%
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+
+
 % ToC
 \usepackage[titletoc]{appendix}
 \setcounter{tocdepth}{2}   % Include just down to \subsubsection

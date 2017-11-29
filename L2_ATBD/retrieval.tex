@@ -62,8 +62,7 @@ part of \MsrVct. The altitude limits are defined using geometrical tangent
 altitudes (that is, refraction neglected) as those are the tangent altitudes
 found in the L1b data. A minimum scan range is defined in the same manner; no
 retrieval is made if a limb scan does not cover this minimum range. The tangent
-altitude masks for each frequency band are found ???\todo{This
-  document does not yet exist}.
+altitude masks for each frequency band are found in \citet{atbdl2data}.
 
 
 
@@ -114,14 +113,20 @@ having a known VMR, has to be considered for this frequency band.
 
 A species or temperature ``profile'' is a set of values describing the vertical
 variation, at a set of specified pressures, that is, the retrieval grid (see
-also Sec.~\ref{sec:arts:aspects}). Such retrieval grids are discussed further
-in Sec.~\ref{sec:b:pgrid}, together with the basic pressure grid of the forward
-model. Atmospheric temperatures are in Kelvin. Gas species are reported as the
-\VMR\ in the L2 data, but inside the retrieval process the unit applied for gas
-species is \dots.
-\\
-\lcomment{PE}{Do we go for log-retrievals for species? Discuss basic aspects of
-  the log conversion here.}
+also Sec.~\ref{sec:arts:aspects}). Retrieval grids are discussed further in
+Sec.~\ref{sec:b:pgrid}. Atmospheric temperatures are in Kelvin. Gas species are
+reported as \VMR, but the actual retrieval is internally performed using one of
+the two following units:
+\begin{itemize}
+\item Default is to operate with the relative value with respect to a priori.
+  In this ``relative unit'' a priori matches a value of 1.
+\item A constrain of ensuring positive VMR values is achived by instead
+  retrievaing the natural logarithm of the unit above. Using this unit, the a
+  priori state corresponds to a vector of zeros.
+\end{itemize}
+Proper rescalings of the state vector and the weighting function matrix are
+performed, following the retrieval unit applied.
+
 
 As discussed in Sec.~\ref{sec:smr:errors}, there is not a perfect compensation
 for gain variations, causing an off-set in brightness temperatures. This
@@ -169,28 +174,23 @@ if found necessary. The retrieved frequency of channel $i$ is
   \label{eq:retr:freq}
   \hat{\nu_j} = \nu_j + \Delta\nu,  
 \end{equation}
-where $\nu_j$ is the frequency found given by L1b data.\\
-\\
-\lcomment{PE}{The plan is to activate winds for frequency bands containing
-  strong mesospheric lines, but no tests have yet performed. Describe the wind
-  retrieval here, if activated. Otherwise revise text, we have then always
-  the same set of variables in \SttVct?}
+where $\nu_j$ is the frequency found given by L1b data.
 
 
-\section{The a priori vector, \aSttVct{a}}
-\label{sec:xa}
+%\section{The a priori vector, \aSttVct{a}}
+%\label{sec:xa}
 %
-\lcomment{PE}{Write later. For species we need to decide if we go for the old
-  a priori database, originally from Bordeaux. Or can we get a better, and much
-  newer, alternative? The MIPAS climatology, or from any of all ongoing
-  projects?}
-\lcomment{PE}{For temperature we need to decide if ECMWF-operational or
-  ERA-Interim shall be used as source. And how exactly the transition to MSIS
-  is made.}
+%\lcomment{PE}{Write later. For species we need to decide if we go for the old
+%  a priori database, originally from Bordeaux. Or can we get a better, and much
+%  newer, alternative? The MIPAS climatology, or from any of all ongoing
+%  projects?}
+%\lcomment{PE}{For temperature we need to decide if ECMWF-operational or
+%  ERA-Interim shall be used as source. And how exactly the transition to MSIS
+%  is made.}
 
-All sensor correction terms are assumed to have an average of zero. Accordingly, the
-a priori value of $\Delta\VctStl{o}$, $\Delta\theta$ and $\Delta\nu$ is
-throughout set to zero.
+%All sensor correction terms are assumed to have an average of zero. Accordingly, the
+%a priori value of $\Delta\VctStl{o}$, $\Delta\theta$ and $\Delta\nu$ is
+%throughout set to zero.
 
 
 \section{A priori uncertainty covariance matrix, \aCvrMtr{a}}

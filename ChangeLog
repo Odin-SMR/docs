@@ -1,9 +1,23 @@
+2017-11-29  Patrick Eriksson  <patrick.eriksson@chalmers.se>
+
+	* L2_ATBD/retrieval.tex: Started revising the chapter.
+
+	* L2_ATBD/oem.tex:
+	* L2_ATBD/arts.tex:
+	* L2_ATBD/overview.tex:
+	* L2_ATBD/introduction.tex: Only minor changes/fixes.
+
+	* Common/references.bib: Updated info about the Odin/SMR documents.
+
+	* L2_ATBD/L2_ATBD.tex: Moved to version 0.8 (to reflect the actual status).
+
+	* Common/preamble.tex: Added a fix for bug in titlesec package.
+
 2017-09-06  Kristell Pérot  <kristell.perot@chalmers.se>
 
-	* L2_data: Created the version 1.0 of the document. 
+	* L2_data: Created the version 1.0 of the document.
 
-	* Common/references.bib: Added IODD. 
-
+	* Common/references.bib: Added IODD.
 
 2017-08-17  Patrick Eriksson  <patrick.eriksson@chalmers.se>
 

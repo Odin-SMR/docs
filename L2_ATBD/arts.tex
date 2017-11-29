@@ -8,17 +8,17 @@
 \subsection{Main features}
 %
 \ARTS, the Atmospheric radiative transfer simulator, is a publicly available
-software that is both developed and maintained as a \FOSSlong\ project. The
-software was initiated 1999, and the first official version was released some
-years later \citep{buehler:artst:05}. The main novelty of this initial version was the
-fact that \ARTS\ behaves more or less as a scripting language, in contrast to
-most (or all?) other forward models that are controlled by a fixed set of
-keywords. The control file was introduced to meet the design goal of high
-modularity. When defining an \ARTS\ control file, the user can select between a
-large number of workspace methods and variables. Regarding physical mechanisms
-covered, \ARTS~v1 did not stand out in any way, but despite this the software
-found a number of applications, including operational \SMR\ processing
-(Sec.~\ref{sec:setup:forward}).
+software that is both developed and maintained as a free open-source software
+project. The software was initiated 1999, and the first official version was
+released some years later \citep{buehler:artst:05}. The main novelty of this
+initial version was the fact that \ARTS\ behaves more or less as a scripting
+language, in contrast to most (or all?) other forward models that are
+controlled by a fixed set of keywords. The control file was introduced to meet
+the design goal of high modularity. When defining an \ARTS\ control file, the
+user can select between a large number of workspace methods and variables.
+Regarding physical mechanisms covered, \ARTS~v1 did not stand out in any way,
+but despite this the software found a number of applications, including
+operational \SMR\ processing (Sec.~\ref{sec:setup:forward}).
 
 Already before the first version was released, a development branch was started
 with the aim of adding more advanced features to \ARTS. At the time, treatment
@@ -44,10 +44,7 @@ context, the most important features of \ARTS\ are:
 \item Refraction can be considered.
 \item There is extensive support to incorporate sensor characteristics.
 \item The Jacobian can be obtained for a high number of atmospheric and sensor
-  variables, in general with limited additional calculation time (but only
-  for non-scattering calculations).
-\item Scattering can be incorporated by two different algorithms, denoted as DOIT
-  \citep{emde:apoli:04} and MC \citep{davisetal:04}.
+  variables, in general with limited additional calculation time.
 \end{itemize}
 
 
@@ -99,16 +96,13 @@ simulation results have not changed beyond some specified tolerance.
 \subsection{\ARTS\ version and compilation options}
 %
 The processing chain contains a check that a specific version of \ARTS\ is
-used. The version used presently is ARTS 2.3.?\todo{Add number later.}. \ARTS\
+used. The version used presently is ARTS 2.3.564. \ARTS\
 is written in C++, and a compilation for each platform architecture is needed. The
 \texttt{cmake} build system is used to set up the compilation of \ARTS. A
 minimal version of \ARTS\ is created using the following options:
 \begin{verbatim}
   cmake -DCMAKE_BUILD_TYPE=Release -DNO_DOCSERVER=1 ..
 \end{verbatim}
-\lcomment{PE}{During the development phase we should
-just use latest version of the development branch. Later we should select a
-specific version and add check in the code that exactly this version is used.}
 
 
 \subsection{Basic settings}
