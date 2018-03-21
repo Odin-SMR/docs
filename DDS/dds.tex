@@ -1,0 +1,82 @@
+\documentclass[a4paper,11pt,twoside]{report}
+
+\usepackage[
+    singlelinecheck=false % <-- important
+]{caption}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{footmisc}
+
+% Define cover page
+\def\CoverTitle{SOMETHING Dataset: Technical Note}
+\def\FooterDocTitle{SOMETHING Dataset}
+\def\Authors{Andreas Skyman}
+\def\Contact{Andreas Skyman <andreas.skyman@molflow.com>}
+\def\Version{0.1.0}
+\def\ReleaseDate{2018-UV-XY}
+
+% Page numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+% Switch to arabic numbering is made inside introduction.tex
+
+% Common preamble settings
+\input{../Common/preamble}
+\setlength{\headheight}{14pt}
+\newcommand{\TODO}[1]{\todo[inline]{#1}}
+
+% Import math symbol commands
+\input{../Common/symbol_defs}
+
+
+% Import acronyms
+\input{../Common/acronyms_all}
+
+% Set graphics path
+\graphicspath{{./figures/}}
+
+
+\begin{document}
+
+\input{../Common/coverpage}
+
+\tableofcontents
+\addcontentsline{toc}{chapter}{Contents}
+
+\input{introduction}
+
+
+\input{conclusions}
+
+\chapter*{}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+%\bibliography{../Common/references}
+
+
+\newpage
+
+\begin{appendices}
+
+  \renewcommand{\chapterhead}{Appendix}
+
+  \input{appendices}
+  \clearpage{}
+
+  \input{species}
+  \clearpage{}
+
+  \input{changes}
+  \clearpage{}
+
+  \listoftodos{}
+  \TODO{Remove todo list when done!}
+
+\end{appendices}
+
+
+
+\end{document}
