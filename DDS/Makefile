@@ -1,4 +1,4 @@
-dds.pdf: dds.tex Makefile *.tex ../Common/*.tex ../Common/*.bib
+DDS.pdf: DDS.tex Makefile *.tex ../Common/*.tex ../Common/*.bib
 	pdflatex $(@:%.pdf=%)
 	bibtex $(@:%.pdf=%)
 	pdflatex $(@:%.pdf=%)
@@ -9,5 +9,5 @@ clean:
 	rm -f *.log *.blg *.bbl *.aux *.dvi *.out *.toc
 
 clean-all: clean
-	rm -f dds.pdf
+	rm -f DDS.pdf
 
