@@ -46,20 +46,31 @@
 \tableofcontents
 \addcontentsline{toc}{chapter}{Contents}
 
+% Front matter:
 \input{introduction}
 \input{l2definition}
 
+% Main body of text:
+\input{comparisons}
+\input{01}
+\input{02}
+\input{08}
+\input{17}
+\input{19}
+\input{21}
 
+% Back matter:
 \input{conclusions}
 
+% Bibliography:
 \chapter*{}
 \addcontentsline{toc}{chapter}{References}
 \bibliography{references}
 %\bibliography{../Common/references}
 
-
 \newpage
 
+% Appendices:
 \begin{appendices}
 
   \renewcommand{\chapterhead}{Appendix}
