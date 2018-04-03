@@ -1,56 +1,137 @@
 \section{Frequency mode 02}
-\label{sec:fm02}
+\label{sec:fm01}
 
 \subsection{Overview}
 \label{sec:fm02:overview}
+Frequency mode~02 monitors the band $544.102$--$544.902\,\mathrm{GHz}$. Its
+main use is retrievals of \chem{O_3} and \chem{HNO_3}.
 
-\subsection{Comparison of species profiles}
-\label{sec:fm02:comparison:species}
+\TODO{General text about FM02}
+\TODO{Show spectra?}
 
-\subsubsection{Odin/OSIRIS}
-\label{sec:fm02:comparison:species:osiris}
-
-\subsubsection{Aura/MLS}
-\label{sec:fm02:comparison:species:mls}
-
-\subsubsection{ENVISAT/MIPAS}
-\label{sec:fm02:comparison:species:mipas}
-
-\subsubsection{ISS/JEM/SMILES}
-\label{sec:fm02:comparison:species:smiles}
-
-\subsubsection{Meteor3M/SAGEIII}
-\label{sec:fm02:comparison:species:sage3}
+\subsection{Comparison of retrieved profiles}
+\label{sec:fm02:comparison}
 
 
-\subsection{Comparison of temperature profiles}
+%%%%%%
+% O3 %
+%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm02:O3:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm02:O3:profiles:MLS}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_perdiff_osiris}
+        \caption{average difference to OSIRIS}
+        \label{fig:fm02:O3:profiles:OSIRIS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_perdiff_sage}
+        \caption{average difference to SAGE~III}
+        \label{fig:fm02:O3:profiles:SAGEIII}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{O_3}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes. (Retrievals yielding concentrations
+    $\leq 0.1\,\mathrm{ppm}$ have been filtered out.)}
+
+    \label{fig:fm02:O3:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm02:O3:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_O3_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm02:O3:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{O_3} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm02:O3:scatter}
+\end{figure}
+
+\subsubsection{\chem{O_3}}
+\label{sec:fm02:comparison:O3}
+The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS,
+OSIRIS and SAGE~III instruments. Annual average differences to these
+instruments are shown in Figure~\ref{fig:fm02:O3:profiles}. In
+Figure~\ref{fig:fm02:O3:scatter} individual retrievals for the instruments for
+the entire period are plotted agains the retrievals from the new and old
+versions of the \smr\ processing chain. The results show a considerable
+improvement with the updated version of the processing comapred to all
+considered instruments. The largest improvement is compared to
+
+
+
+%%%%%%%%%%%%%%%
+% Temperature %
+%%%%%%%%%%%%%%%
+
+\subsubsection{\chem{Temperature}}
 \label{sec:fm02:comparison:temperature}
-
-\subsubsection{Odin/OSIRIS}
-\label{sec:fm02:comparison:temperature:osiris}
-
-\subsubsection{Aura/MLS}
-\label{sec:fm02:comparison:temperature:mls}
-
-\subsubsection{ENVISAT/MIPAS}
-\label{sec:fm02:comparison:temperature:mipas}
-
-\subsubsection{ISS/JEM/SMILES}
-\label{sec:fm02:comparison:temperature:smiles}
-
-\subsubsection{Meteor3M/SAGEIII}
-\label{sec:fm02:comparison:temperature:sage3}
+\TODO{Compare ??}
 
 
 \subsection{Discussion}
 \label{sec:fm02:discussion}
+The Pearson correlation between the \smr\ retrievals and the other instruments
+was calculated for the entire period for both versions of the processing chain.
+The results are summarised in Table~\ref{tab:fm02:stats}, and show that the
+new algorithm is a improvement compared to all the instruments for all species
+used in this investigation. The improvement is considerable for the \chem{O_3},
 
-\subsubsection{Trends over time}
-\label{sec:fm02:discussion:time}
 
-\subsubsection{Instrument temperature dependence}
-\label{sec:fm02:discussion:temperature}
-
+\begin{table}[hbt]
+\centering
+\caption{Pearson correlation and fit parameters of the old and new \smr\
+retrievals for frequency mode~02, compared with collocated data from other
+instruments for the period 2003--2008.
+}
+\label{tab:fm02:stats}
+\begin{tabular}{lllrrrr}
+    \toprule
+    \textbf{Species} & \textbf{Instrument} & \textbf{SMR vers.} & \textbf{corr.} & \textbf{slope} & \textbf{bias [ppm]} & \textbf{$\left|\left<\right.\right.$res.$\left.\left.\right>\right|$ [ppm]} \\
+    \midrule
+    \chem{O3}   & MIPAS     & v3    & 0.975 & 0.934 & -0.088    & 0.692 \\
+                &           & v2.x  & 0.922 & 0.822 & -0.382    & 1.458 \\
+    \cline{2-7}
+                & MLS       & v3    & 0.973 & 0.946 & 0.028     & 0.626 \\
+                &           & v2.x  & 0.903 & 0.846 & -0.347    & 1.396 \\
+    \cline{2-7}
+                & OSIRIS    & v3    & 0.973 & 0.947 & 0.047     & 0.521 \\
+                &           & v2.x  & 0.900 & 0.810 & -0.171    & 1.404 \\
+    \cline{2-7}
+                & SAGE III  & v3    & 0.927 & 1.064 & -0.109    & 0.393 \\
+                &           & v2.x  & 0.757 & 0.835 & -0.229    & 0.790 \\
+    \midrule
+    \chem{HNO_3}    & MIPAS     & v3    & 0.987 & 0.988 & 0.003     & 0.014 \\
+                    &           & v2.x  & 0.973 & 0.976 & 0.003     & 0.021 \\
+    \cline{2-7}
+                    & MLS       & v3    & 0.978 & 0.968 & 0.002     & 0.019 \\
+                    &           & v2.x  & 0.962 & 0.950 & 0.003     & 0.025 \\
+    \bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Conclusions}
 \label{sec:fm02:conclusions}
+\TODO{Recommended usage: which species, which periods}
+Based on the discussion above, retrievals based on frequency mode~1 can be used
