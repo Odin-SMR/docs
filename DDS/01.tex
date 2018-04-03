@@ -3,38 +3,236 @@
 
 \subsection{Overview}
 \label{sec:fm01:overview}
+Frequency mode 1 monitors two bands, $501.180$--$501.580\,\mathrm{GHz}$ and
+$501.980$--$502.380\,\mathrm{GHz}$. Its main use is retrievals of \chem{O_3},
+\chem{ClO} and \chem{N_2O}.
 \TODO{General text about FM01}
+\TODO{Show spectra?}
 
 \subsection{Comparison of retrieved profiles}
 \label{sec:fm01:comparison}
 
+
+%%%%%%
+% O3 %
+%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_O3_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm1:O3:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_O3_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm1:O3:profiles:MLS}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_O3_perdiff_osiris}
+        \caption{average difference to MLS}
+        \label{fig:fm1:O3:profiles:OSIRIS}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{O_3}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes.}
+    \label{fig:fm1:O3:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_O3_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm1:O3:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_O3_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm1:O3:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{O_3} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm1:O3:scatter}
+\end{figure}
+
 \subsubsection{\chem{O_3}}
 \label{sec:fm01:comparison:O3}
-\TODO{Compare SMILES, MLS, MIPAS, SAGEIII, OSIRIS}
+The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS
+and OSIRIS instruments. Annual average differences to these instruments are
+shown in Figure~\ref{fig:fm1:O3:profiles}. In Figure~\ref{fig:fm1:O3:scatter}
+individual retrievals for the instruments for the entire period are plotted
+agains the retrievals from the new and old versions of the \smr\ processing
+chain. The results show a considerable improvement with the updated version of
+the processing.
 
-\subsubsection{\chem{ClO}}
-\label{sec:fm01:comparison:ClO}
-\TODO{Compare SMILES, MLS}
+
+%%%%%%%
+% N2O %
+%%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_N2O_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm1:N2O:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_N2O_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm1:N2O:profiles:MLS}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{N_2O}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes. (Retrievals yielding concentrations
+    $\leq 0.03\,\mathrm{ppm}$ have been filtered out.)}
+    \label{fig:fm1:N2O:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_N2O_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm1:N2O:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_N2O_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm1:N2O:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{N_2O} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm1:N2O:scatter}
+\end{figure}
 
 \subsubsection{\chem{N_2O}}
 \label{sec:fm01:comparison:N2O}
-\TODO{Compare MLS, MIPAS}
+The retrievals for \chem{N_2O} have been compared with data from the MIPAS and
+MLS instruments. Annual average differences to these instruments are shown in
+Figure~\ref{fig:fm1:N2O:profiles}. In Figure~\ref{fig:fm1:N2O:scatter}
+individual retrievals for the instruments for the entire period are plotted
+agains the retrievals from the new and old versions of the \smr\ processing
+chain. Only a small improvement is seen with the updated version of the
+processing.
+
+
+%%%%%%%
+% ClO %
+%%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_ClO_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm1:ClO:profiles:MLS}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{N_2O}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes. (Retrievals yielding concentrations
+    $\leq 0.3\,\mathrm{ppb}$ have been filtered out.)}
+    \label{fig:fm1:ClO:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_ClO_scatter_v2}
+        \caption{correlation of collcated MLS measurements with \smr~v2.X}
+        \label{fig:fm1:ClO:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm1_ClO_scatter_v3}
+        \caption{correlation of collcated MLS measurements with \smr~v3}
+        \label{fig:fm1:ClO:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{N_2O} using \smr\
+    versions~2.X and~3 and collocated measurements MLS.}
+    \label{fig:fm1:ClO:scatter}
+\end{figure}
+
+\subsubsection{\chem{ClO}}
+\label{sec:fm01:comparison:ClO}
+The retrievals for \chem{ClO} have been compared with data from the MLS
+instrument. Annual average differences to MLS are shown in
+Figure~\ref{fig:fm1:ClO:profiles}. In Figure~\ref{fig:fm1:ClO:scatter}
+individual retrievals from MLS for the entire period are plotted agains the
+retrievals from the new and old versions of the \smr\ processing chain. No
+sizeable improvement is seen for the new version of the \smr\ processing chain
+compared to MLS, and the correlation between the two remains poor, however,
+Figure~\ref{fig:fm1:ClO:scatter} suggests that this is due to poor quality of
+the MLS rtrievals, which show a very large spread -- sometimes even large
+negative concentrations -- for the retrievals where both \smr\ versions yield
+low \chem{ClO} concentrations.
+
+
+%%%%%%%%%%%%%%%
+% Temperature %
+%%%%%%%%%%%%%%%
 
 \subsubsection{\chem{Temperature}}
 \label{sec:fm01:comparison:temperature}
 \TODO{Compare ??}
 
+
 \subsection{Discussion}
 \label{sec:fm01:discussion}
+The Pearson correlation between the \smr\ retrievals and the other instruments
+was calculated for the entire period for both versions of the processing chain.
+The results are summarised in Table~\ref{tab:fm1:stats}, and show that the
+new algorithm is a improvement compared to all the instruments for all species
+used in this investigation. The improvement is considerable for the \chem{O_3},
+but only slight for \chem{N_2O} and~\chem{ClO}, with the latter still showing
+very poor correlation with the collocated MLS data. This correlations and fits
+were also calculated for the individual years in the period, but no trends of
+note were seen.
 
-\subsubsection{Trends over time}
-\label{sec:fm01:discussion:time}
-\TODO{correlation parameters over time, \chem{O_3} only perhaps?}
 
-\subsubsection{Instrument temperature dependence}
-\label{sec:fm01:discussion:temperature}
-\TODO{Maybe skip for now..?}
+\begin{table}[hbt]
+\centering
+\caption{Pearson correlation and fit parameters of the old and new \smr\
+retrievals for frequency mode 1, compared with collocated data from other
+instruments for the period 2003--2008.
+}
+\label{tab:fm1:stats}
+\begin{tabular}{lllrrrr}
+    \toprule
+    \textbf{Species} & \textbf{Instrument} & \textbf{SMR vers.} & \textbf{corr.} & \textbf{slope} & \textbf{bias [ppm]} & \textbf{$\left|\left<\right.\right.$res.$\left.\left.\right>\right|$ [ppm]} \\
+    \midrule
+    \chem{O3}   & MIPAS     & v3    & 0.925 & 0.949 & 0.200     & 0.814 \\
+                &           & v2.x  & 0.802 & 0.905 & -0.032    & 1.485 \\
+    \cline{2-7}
+                & MLS       & v3    & 0.914 & 0.963 & 0.328     & 0.833 \\
+                &           & v2.x  & 0.782 & 0.915 & 0.075     & 1.430 \\
+    \cline{2-7}
+                & OSIRIS    & v3    & 0.912 & 0.984 & 0.158     & 0.792 \\
+                &           & v2.x  & 0.765 & 0.948 & -0.100    & 1.438 \\
+    \midrule
+    \chem{N_2O} & MIPAS     & v3    & 0.987 & 0.988 & 0.003     & 0.014 \\
+                &           & v2.x  & 0.973 & 0.976 & 0.003     & 0.021 \\
+    \cline{2-7}
+                & MLS       & v3    & 0.978 & 0.968 & 0.002     & 0.019 \\
+                &           & v2.x  & 0.962 & 0.950 & 0.003     & 0.025 \\
+    \midrule
+    \chem{ClO}  & MLS       & v3    & 0.275 & 0.110 & 0.000     & 0.000 \\
+                &           & v2.x  & 0.256 & 0.125 & 0.000     & 0.000 \\
+    \bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Conclusions}
 \label{sec:fm01:conclusions}
 \TODO{Recommended usage: which species, which periods}
+Based on the discussion above, retrievals based on frequency mode~1 can be used
+with confidence for the species~\chem{O_3} and~\chem{N_2O} for the investigated
+period. Retrievals of \chem{ClO} based on this frequency mode should be used
+with some caution.
