@@ -1,5 +1,5 @@
 \section{Frequency mode 02}
-\label{sec:fm01}
+\label{sec:fm02}
 
 \subsection{Overview}
 \label{sec:fm02:overview}
@@ -77,13 +77,64 @@ Figure~\ref{fig:fm02:O3:scatter} individual retrievals for the instruments for
 the entire period are plotted agains the retrievals from the new and old
 versions of the \smr\ processing chain. The results show a considerable
 improvement with the updated version of the processing comapred to all
-considered instruments. The largest improvement is compared to
+considered instruments. The largest improvement is compared to SAGE~III,
+though, as seen in Figure~\ref{fig:fm02:O3:profiles:SAGEIII}, there are still
+large systematic differences depending on the altitude.
 
 
+%%%%%%
+% HNO3 %
+%%%%%%
 
-%%%%%%%%%%%%%%%
-% Temperature %
-%%%%%%%%%%%%%%%
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_HNO3_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm02:HNO3:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_HNO3_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm02:HNO3:profiles:MLS}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{HNO_3}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes. (Retrievals yielding concentrations
+    $\leq 0.5\,\mathrm{ppb}$ have been filtered out.)}
+
+    \label{fig:fm02:HNO3:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_HNO3_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm02:HNO3:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm2_HNO3_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm02:HNO3:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{HNO_3} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm02:HNO3:scatter}
+\end{figure}
+
+\subsubsection{\chem{HNO_3}}
+\label{sec:fm02:comparison:HNO3} The retrievals for \chem{O_3} have been
+compared with data from the MIPAS and MLS instruments. Annual average
+differences to these instruments are shown in
+Figure~\ref{fig:fm02:HNO3:profiles}. In Figure~\ref{fig:fm02:HNO3:scatter}
+individual retrievals for the instruments for the entire period are plotted
+agains the retrievals from the new and old versions of the \smr\ processing
+chain. The results show a considerable improvement with the updated version of
+the processing comapred to both considered instruments, though there are still
+large systematic differences depending on the altitude.
 
 \subsubsection{\chem{Temperature}}
 \label{sec:fm02:comparison:temperature}
@@ -96,7 +147,8 @@ The Pearson correlation between the \smr\ retrievals and the other instruments
 was calculated for the entire period for both versions of the processing chain.
 The results are summarised in Table~\ref{tab:fm02:stats}, and show that the
 new algorithm is a improvement compared to all the instruments for all species
-used in this investigation. The improvement is considerable for the \chem{O_3},
+used in this investigation. The improvement is considerable for both \chem{O_3}
+and \chem{HNO_3}.
 
 
 \begin{table}[hbt]
@@ -122,11 +174,11 @@ instruments for the period 2003--2008.
                 & SAGE III  & v3    & 0.927 & 1.064 & -0.109    & 0.393 \\
                 &           & v2.x  & 0.757 & 0.835 & -0.229    & 0.790 \\
     \midrule
-    \chem{HNO_3}    & MIPAS     & v3    & 0.987 & 0.988 & 0.003     & 0.014 \\
-                    &           & v2.x  & 0.973 & 0.976 & 0.003     & 0.021 \\
+    \chem{HNO_3}    & MIPAS     & v3    & 0.967 & 0.989 & 0.000     & 0.001 \\
+                    &           & v2.x  & 0.810 & 1.051 & 0.000     & 0.002 \\
     \cline{2-7}
-                    & MLS       & v3    & 0.978 & 0.968 & 0.002     & 0.019 \\
-                    &           & v2.x  & 0.962 & 0.950 & 0.003     & 0.025 \\
+                    & MLS       & v3    & 0.932 & 0.995 & 0.000     & 0.001 \\
+                    &           & v2.x  & 0.794 & 1.052 & 0.000     & 0.003 \\
     \bottomrule
 \end{tabular}
 \end{table}
@@ -134,4 +186,4 @@ instruments for the period 2003--2008.
 \subsection{Conclusions}
 \label{sec:fm02:conclusions}
 \TODO{Recommended usage: which species, which periods}
-Based on the discussion above, retrievals based on frequency mode~1 can be used
+Based on the discussion above, retrievals based on frequency mode~02 can be used
