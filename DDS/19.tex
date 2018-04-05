@@ -75,7 +75,7 @@ The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS,
 OSIRIS and SAGE~III instruments. Annual average differences to these
 instruments are shown in Figure~\ref{fig:fm19:O3:profiles}. In
 Figure~\ref{fig:fm19:O3:scatter} individual retrievals for the instruments for
-the entire period are plotted agains the retrievals from the new and old
+the entire period are plotted against the retrievals from the new and old
 versions of the \smr\ processing chain. The results show a better over-all
 correlation with the updated version of the processing compared to SAGE~III and
 OSIRIS, but worse correlation with MIPAS and MLS, and a systematic under
@@ -132,7 +132,7 @@ The retrievals for \chem{H_2O} have been compared with data from the MIPAS and
 MLS instruments.  Annual average differences to these instruments are shown in
 Figure~\ref{fig:fm19:H2O:profiles}. In Figure~\ref{fig:fm19:H2O:scatter}
 individual retrievals for the instruments for the entire period are plotted
-agains the retrievals from the new and old versions of the \smr\ processing
+against the retrievals from the new and old versions of the \smr\ processing
 chain. The results show a lightly improved over-all correlation with the
 updated version of the processing compared to both considered instruments, but
 a systematic under estimation of the concentrations has been introduced, and
@@ -142,9 +142,51 @@ The SAGE~III instrument also measures \chem{H_2O}, but the there are too few
 collocated measurements wit frequency mode~19 for a relevant analysis.
 
 
+%%%%%%%%%%%%%%%
+% Temperature %
+%%%%%%%%%%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm19_T_absdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm19:T:profiles:MLS}
+    \end{subfigure}
+    \caption{Average difference in K between retrievals of temperature from
+    \smr~v3 and collocated measurements from MLS at different altitudes.}
+    \label{fig:fm19:T:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm19_T_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm19:T:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm19_T_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm19:T:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of temperature using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm19:T:scatter}
+\end{figure}
+
 \subsubsection{\chem{Temperature}}
 \label{sec:fm19:comparison:temperature}
-\TODO{Compare ??}
+The retrievals for temperature have been compared with data from the MLS
+instrument. Annual average differences to this instruments are shown in
+Figure~\ref{fig:fm19:T:profiles}. In Figure~\ref{fig:fm13:T:scatter} individual
+retrievals from MLS for the entire period are plotted against the retrievals
+from the new and old versions of the \smr\ processing chain. The results show a
+little or no improvement with the updated version of the processing. Whereas
+with the previous version of the system, the temperature was under estimated
+for lower temperatures and over estimated for higher, and a small systematic
+under estimation of the temperature is now seen.
 
 
 \subsection{Discussion}
@@ -196,4 +238,5 @@ instruments for the period 2003--2008.
 \label{sec:fm19:conclusions}
 \TODO{Recommended usage: which species, which periods}
 Based on the discussion above, retrievals based on frequency mode~19 should be
-used with caution for both \chem{O_3} and \chem{H_2O}.
+used with caution for both \chem{O_3} and \chem{H_2O}, but can be used with
+confidence for temperature retrievals.

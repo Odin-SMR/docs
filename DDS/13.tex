@@ -69,7 +69,7 @@ The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS
 and OSIRIS instruments. Annual average differences to these instruments are
 shown in Figure~\ref{fig:fm13:O3:profiles}. In Figure~\ref{fig:fm13:O3:scatter}
 individual retrievals for the instruments for the entire period are plotted
-agains the retrievals from the new and old versions of the \smr\ processing
+against the retrievals from the new and old versions of the \smr\ processing
 chain. The results show a better over-all correlation with the updated version
 of the processing compared to all considered instruments, but a systematic
 under estimation of the concentrations has been introduced.
@@ -124,17 +124,57 @@ The retrievals for \chem{H_2O} have been compared with data from the MIPAS and
 MLS instruments. Annual average differences to these instruments are shown in
 Figure~\ref{fig:fm13:H2O:profiles}. In Figure~\ref{fig:fm13:H2O:scatter}
 individual retrievals for the instruments for the entire period are plotted
-agains the retrievals from the new and old versions of the \smr\ processing
+against the retrievals from the new and old versions of the \smr\ processing
 chain. The results show a better over-all correlation with the updated version
 of the processing compared to both considered instruments, but a systematic
 under estimation of the concentrations has been introduced, and the correlation
 with MIPAS remains poor.
 
 
+%%%%%%%%%%%%%%%
+% Temperature %
+%%%%%%%%%%%%%%%
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm13_T_absdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm13:T:profiles:MLS}
+    \end{subfigure}
+    \caption{Average difference in K between retrievals of temperature from
+    \smr~v3 and collocated measurements from MLS at different altitudes.}
+    \label{fig:fm13:T:profiles}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm13_T_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm13:T:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm13_T_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm13:T:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of temperature using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments.}
+    \label{fig:fm13:T:scatter}
+\end{figure}
 
 \subsubsection{\chem{Temperature}}
 \label{sec:fm13:comparison:temperature}
-\TODO{Compare ??}
+The retrievals for temperature have been compared with data from the MLS
+instrument. Annual average differences to this instruments are shown in
+Figure~\ref{fig:fm13:T:profiles}. In Figure~\ref{fig:fm13:T:scatter} individual
+retrievals from MLS for the entire period are plotted against the retrievals
+from the new and old versions of the \smr\ processing chain. The results show
+little or no improvement with the updated version of the processing. Whereas
+with the previous version of the system, the temperature was systematically
+over estimated, a small under estimation of the temperature is now seen.
 
 
 \subsection{Discussion}
