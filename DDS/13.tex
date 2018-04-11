@@ -24,7 +24,7 @@ and OSIRIS instruments. Annual average differences to these instruments are
 shown in Figure~\ref{fig:fm13:O3:profiles}. In Figure~\ref{fig:fm13:O3:scatter}
 individual retrievals for the instruments for the entire period are plotted
 against the retrievals from the new and old versions of the \smr\ processing
-chain. The results show a better over-all correlation with the updated version
+chain. The results show a better over-all consistency with the updated version
 of the processing compared to all considered instruments, but a systematic
 under estimation of the concentrations has been introduced.
 \TODO{reference Fig.~\ref{fig:fm13:O3:mr_avk} in text!}
@@ -105,10 +105,10 @@ MLS instruments. Annual average differences to these instruments are shown in
 Figure~\ref{fig:fm13:H2O:profiles}. In Figure~\ref{fig:fm13:H2O:scatter}
 individual retrievals for the instruments for the entire period are plotted
 against the retrievals from the new and old versions of the \smr\ processing
-chain. The results show a better over-all correlation with the updated version
-of the processing compared to both considered instruments, but a systematic
-under estimation of the concentrations has been introduced, and the correlation
-with MIPAS remains poor.
+chain. The results show a slightly improved over-all consistency with the
+updated version of the processing compared to both considered instruments, but
+a systematic under estimation of the concentrations has been introduced, and
+the correlation with MIPAS remains poor.
 \TODO{reference Fig.~\ref{fig:fm13:H2O:mr_avk} in text!}
 
 \begin{figure}[htpb]
@@ -241,39 +241,38 @@ over estimated, a small under estimation of the temperature is now seen.
 The Pearson correlation between the \smr\ retrievals and the other instruments
 was calculated for the entire period for both versions of the processing chain.
 The results are summarised in Table~\ref{tab:fm13:stats}, and show that the
-new algorithm is a improvement compared to all the instruments for all species
-used in this investigation. The improvement is considerable for both \chem{O_3}
-and \chem{H_2O}.
+new algorithm shows little or no improvement compared to all the instruments
+for the species used in this investigation.
 
 
 \begin{table}[hbt]
 \centering
 \caption{Pearson correlation and fit parameters of the old and new \smr\
 retrievals for frequency mode~13, compared with collocated data from other
-instruments for the period 2003--2008.
+instruments for the period 2003--2014.
 }
 \label{tab:fm13:stats}
 \begin{tabular}{lllrrrr}
     \toprule
     \textbf{Species} & \textbf{Instrument} & \textbf{SMR} & \textbf{corr.} & \textbf{slope} & \textbf{intercept} & \textbf{$\left|\left<\right.\right.$res.$\left.\left.\right>\right|$} \\
     \midrule
-    \chem{O3}   & MIPAS     & v3    & 0.808 & 0.763 & 0.026\,ppm    & 0.577\,ppm \\
-                &           & v2.x  & 0.732 & 0.762 & 0.456\,ppm    & 0.471\,ppm \\
+    \chem{O3}   & MIPAS     & v3    & 0.795 & 0.757 & 0.026\,ppm    & 0.596\,ppm \\
+                &           & v2.x  & 0.687 & 0.827 & 0.185\,ppm    & 0.558\,ppm \\
     \cline{2-7}
-                & MLS       & v3    & 0.727 & 0.605 & 0.334\,ppm    & 0.663\,ppm \\
-                &           & v2.x  & 0.717 & 0.683 & 0.650\,ppm    & 0.491\,ppm \\
+                & MLS       & v3    & 0.738 & 0.625 & 0.509\,ppm    & 0.645\,ppm \\
+                &           & v2.x  & 0.782 & 0.900 & 0.097\,ppm    & 0.509\,ppm \\
     \cline{2-7}
-                & OSIRIS    & v3    & 0.883 & 0.897 & 0.001\,ppm    & 0.331\,ppm \\
-                &           & v2.x  & 0.786 & 0.886 & 0.197\,ppm    & 0.343\,ppm \\
+                & OSIRIS    & v3    & 0.773 & 0.829 & 0.083\,ppm    & 0.461\,ppm \\
+                &           & v2.x  & 0.779 & 0.916 & 0.083\,ppm    & 0.355\,ppm \\
     \midrule
-    \chem{H_2O} & MIPAS     & v3    & 0.500 & 0.704 & -0.208\,ppm   & 2.754\,ppm \\
-                &           & v2.x  & 0.464 & 0.857 & 0.134\,ppm    & 2.885\,ppm \\
+    \chem{H_2O} & MIPAS     & v3    & 0.471 & 0.673 & -0.154\,ppm   & 2.924\,ppm \\
+                &           & v2.x  & 0.411 & 0.710 & 0.758\,ppm    & 2.965\,ppm \\
     \cline{2-7}
-                & MLS       & v3    & 0.910 & 0.757 & -0.101\,ppm   & 1.706\,ppm \\
-                &           & v2.x  & 0.903 & 1.002 & -0.261\,ppm   & 1.371\,ppm \\
+                & MLS       & v3    & 0.890 & 0.776 & -0.134\,ppm   & 1.756\,ppm \\
+                &           & v2.x  & 0.877 & 0.940 & -0.224\,ppm   & 1.591\,ppm \\
     \midrule
-    Temp.       & MLS       & v3    & 0.963 & 0.973 & -0.161\,K     & 10.110\,K \\
-                &           & v2.x  & 0.965 & 1.023 & -4.452\,K     &  8.609\,K \\
+    Temp.       & MLS       & v3    & 0.959 & 0.986 & -0.250\,K     &  9.090\,K \\
+                &           & v2.x  & 0.972 & 1.032 & -4.156\,K     &  8.535\,K \\
     \bottomrule
 \end{tabular}
 \end{table}
@@ -282,4 +281,5 @@ instruments for the period 2003--2008.
 \label{sec:fm13:conclusions}
 \TODO{Recommended usage: which species, which periods}
 Based on the discussion above, retrievals based on frequency mode~13 should be
-used with caution for both \chem{O_3} and \chem{H_2O}.
+used with caution for both \chem{O_3} and \chem{H_2O}. The temperature
+retrievals, on the other hand, appear reliable.
