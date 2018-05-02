@@ -1,0 +1,389 @@
+\chapter{API decription}
+\label{chapter:api}
+This section describes the API calls used to get data from from the DDS.  The
+data is accessed through a hierarcical REST API where deeper URIs return more
+specific data.  All call URIs have a common root \url{rest_api/v5}, which
+has been omitted below for clarity.  All GET calls return JSON objects unless
+otherwise noted. Key/value pairs are listed as name of the key
+along with the type of the corresponding value within parantheses, followed
+by a brief description of the contents.  See the sections on the different
+data sources for specifications on the structure of their respective JSON
+objects. This description is only for the \smr~version~3 Level2 data. For
+details on how to access the collocated measurements from the VDS,
+see~\cite{VDS:2016}. For a more general description of the \smr~API, see
+\url{http://odin.rss.chalmers.se/apidocs/index.html}.
+
+\TODO{Fix listings fontsize and spacing}
+\TODO{Finish endpoints}
+\TODO{add example}
+\TODO{fix missing reference}
+
+
+\section{API calls}
+\subsection{\url{level2/DDS/}}
+Method: \emph{GET}
+
+Get project information.
+
+\paragraph{Parameters:} None.
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+ 	"Data": [
+    	{
+      		"FreqMode": <int>,
+			"URLS": {
+				"URL-comment": <string: URL for comments for scans>,
+				"URL-failed": <string: URL for failed scans>,
+				"URL-scans": <string: URL for scans>
+			}
+		}
+	],
+	"Count": <int: number of FreqModes in project>,
+	"Type": "level2_project_freqmode"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/area}}
+\label{apt:area}
+Method: \emph{GET}
+
+Get data in provided area.
+
+\paragraph{Parameters:}
+\begin{itemize}
+    \item product \emph{(array of strings)}: Return data only for these
+        products
+    \item min\_lat \emph{(float)}: Minimum latitude (-90 to 90)
+    \item max\_lat \emph{(float)}: Maximum latitude (-90 to 90)
+    \item min\_lon \emph{(float)}: Minimum longitude (0 to 360)
+    \item max\_lon \emph{(float)}: Maximum longitude (0 to 360)
+    \item min\_pressure \emph{(float)}: Minimum pressure (Pa)
+    \item max\_pressure \emph{(float)}: Maximum pressure (Pa)
+    \item min\_altitude \emph{(float)}: Minimum altitude (m)
+    \item max\_altitude \emph{(float)}: Maximum altitude (m)
+    \item start\_time \emph{(date)}: Return data after this date (inclusive)
+    \item end\_time \emph{(date)}: Return data before this date (exclusive)
+\end{itemize}
+
+Provide latitude and/or longitude limits to get data for a certain area of the
+earth. If no latitude or longitude limits are provided, data for the whole
+earth is returned. Choose between min/max altitude and min/max pressure.
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": <array of Level2 Data Structures as described below>,
+	"Count": <int: number of matching data>,
+	"Type": "L2"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/locations}}
+Method: \emph{GET}
+
+Get data close to provided location.
+
+\paragraph{Parameters:}
+\begin{itemize}
+    \item product \emph{(array of strings)}: Return data only for these
+        products
+	\item location \emph{(array of strings; required)}: Return data close to
+		these locations ('lat,lon').
+	\item radius \emph{(float; required)}: Return data within this radius from
+		the provided locations (km).
+    \item min\_pressure \emph{(float)}: Minimum pressure (Pa)
+    \item max\_pressure \emph{(float)}: Maximum pressure (Pa)
+    \item min\_altitude \emph{(float)}: Minimum altitude (m)
+    \item max\_altitude \emph{(float)}: Maximum altitude (m)
+    \item start\_time \emph{(date)}: Return data after this date (inclusive)
+    \item end\_time \emph{(date)}: Return data before this date (exclusive)
+\end{itemize}
+
+Provide one or more locations and a radius to get data within the resulting
+circles on the earth surface. Choose between min/max altitude and min/max
+pressure.
+
+\paragraph{Data structure:}
+Returns JSON object with the same structure as endpoint~\ref{api:area}.
+
+
+\subsection{\url{level2/DDS/products/}}
+\label{api:products}
+Method: \emph{GET}
+
+Get available products.
+
+\paragraph{Parameters:} None.
+
+\paragraph{Data structure:}
+\begin{lstlisting}
+{
+	"Data": <array of strings: product names>,
+  	"Count": <int: number of available products>,
+	"Type": "level2\_product\_name"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<string:date>/}}
+Method: \emph{GET}
+
+Get data for the provided date.
+
+\paragraph{Parameters:}
+\begin{itemize}
+    \item product \emph{(array of strings)}: Return data only for these
+        products
+    \item min\_pressure \emph{(float)}: Minimum pressure (Pa)
+    \item max\_pressure \emph{(float)}: Maximum pressure (Pa)
+    \item min\_altitude \emph{(float)}: Minimum altitude (m)
+    \item max\_altitude \emph{(float)}: Maximum altitude (m)
+    \item start\_time \emph{(date)}: Return data after this date (inclusive)
+    \item end\_time \emph{(date)}: Return data before this date (exclusive)
+\end{itemize}
+
+Choose between min/max altitude and min/max pressure.
+
+\paragraph{Data structure:}
+Returns JSON object with the same structure as endpoint~\ref{api:area}.
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/comments/}}
+Method: \emph{GET}
+
+Get list of comments for a freqmode.
+
+\paragraph{Parameters:}
+\begin{itemize}
+	\item offset \emph{(int)}: Skip scans before returning
+	\item limit \emph{(int; default: 1000)}: Number of scans to return
+\end{itemize}
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": [
+		{
+			"Comment": <string: comment from processing>,
+			"URLS": {
+				"URL-failed": <string: URL for failed scans with comment>,
+				"URL-scans": <string: URL for successful scans with comment>
+			}
+		}
+	],
+	"Count": <int: number of unique comments>,
+	"Type": "level2\_scan\_comment"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/failed/}}
+Method: \emph{GET}
+
+Get list of matching scans that failed the level2 processing.
+
+\paragraph{Parameters:}
+\begin{itemize}
+    \item start\_time \emph{(date)}: Return data after this date (inclusive)
+    \item end\_time \emph{(date)}: Return data before this date (exclusive)
+	\item comment \emph{(string)}: Return scans with this comment
+	\item offset \emph{(int)}: Skip scans before returning
+	\item limit \emph{(int; default: 1000)}: Number of scans to return
+\end{itemize}
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": [
+		{
+			"Date": <string: date>,
+			"Error": <string: error message>,
+			"ScanID": <int: scan number>,
+			"URLS": {
+				"URL-ancillary": <string: URL for Level2 ancillary data>,
+				"URL-level2": <string: URL for Level2 data>,
+				"URL-log": <string: URL for Level1 log data>,
+				"URL-spectra": <string: URL for Level1 spectra>
+			}
+		}
+	],
+	"Count": <int: number of matching scans>,
+	"Type": "level2\_failed\_scan\_info"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/products/}}
+Method: \emph{GET}
+
+Get available products for a given project and freqmode
+
+\paragraph{Parameters:} None.
+
+\paragraph{Data structure:}
+Returns JSON object with the same structure as endpoint~\ref{api:products}.
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/scans/}}
+Method: \emph{GET}
+
+Get list of matching scans.
+
+\paragraph{Parameters:}
+\begin{itemize}
+    \item start\_time \emph{(date)}: Return data after this date (inclusive)
+    \item end\_time \emph{(date)}: Return data before this date (exclusive)
+	\item comment \emph{(string)}: Return scans with this comment
+	\item offset \emph{(int)}: Skip scans before returning
+	\item limit \emph{(int; default: 1000)}: Number of scans to return
+\end{itemize}
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": [
+		{
+			"Date": <string: date>,
+			"ScanID": <int: scan number>,
+			"URLS": {
+				"URL-ancillary": <string: URL for Level2 ancillary data>,
+				"URL-level2": <string: URL for Level2 data>,
+				"URL-log": <string: URL for Level1 log data>,
+				"URL-spectra": <string: URL for Level1 spectra>
+			}
+		}
+	],
+	"Count": <int: number of matching scans>,
+	"Type": "level2\_scan\_info"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/}}
+Method: \emph{GET}
+
+Get level2 data, info, comments, and ancillary data for one scan and freqmode.
+
+\paragraph{Parameters:} None.
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": {
+		"L2": <Level2 Data Structure as described below>,
+		"L2anc": <Level2 Ancillary Data Structure as described below>,
+		"L2c": <Level2 Comments Data Structure as described below>,
+		"L2i": <Level2 Info Data Structure as described below>,
+	},
+	"Count": null,
+	"Type": "mixed"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<freqmode>/<scan number>/L2/}}
+Method: \emph{GET}
+
+Get level2 data for one scan and freqmode.
+
+\paragraph{Parameters}:
+\begin{itemize}
+    \item product \emph{(array of strings)}: Return data only for these
+        products
+\end{itemize}
+
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}
+{
+	"Data": [
+		{
+			"AVK": <array of arrays of floats: averaging kernels at altitudes>,
+			"Altitude": <array of floats: altitudes>,
+			"Apriori": <array of floats: apriori data at altitudes>,
+			"ErrorNoise": <array of floats: noise error at altitudes>,
+			"ErrorTotal": <array of floats: total error at altitudes>,
+			"FreqMode": <int: frequency mode>,
+			"InvMode": "string",
+			"Lat1D": <float: approximate latitude of retrieval>,
+			"Latitude": <array of floats: latitudes for retrieval at altitudes>,
+			"Lon1D": <float: approximate latitude of retrieval>,
+			"Longitude": <array of floats: longitude for retrieval at altitudes>,
+			"MJD": <float: Modified Julian Date for retrieval>,
+			"MeasResponse": <array of floats: measurement response at altitudes>,
+			"Pressure": <array of floats: pressure at altitudes>,
+			"Product": <string: product name>,
+			"Quality": <int: quality flag>,
+			"ScanID": <int: scan number>,
+			"Temperature": <array of float: retrieved temperature at altitudes>,
+			"VMR": <array of float: retrieved volumetric mixing ratio at altitudes>
+		}
+	],
+	"Count": null,
+	"Type": "L2"
+}
+\end{lstlisting}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2anc/}}
+Method: \emph{GET}
+
+Get ancillary data for one scan and freqmode.
+
+\paragraph{Parameters:} None.
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item FOO
+\end{itemize}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2c/}}
+Method: \emph{GET}
+
+Get level2 comments for one scan and freqmode.
+
+\paragraph{Parameters:} None.
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item FOO
+\end{itemize}
+
+
+\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2i/}}
+Method: \emph{GET}
+
+Get level2 info for one scan and freqmode.
+
+\paragraph{Parameters:} None.
+
+Returns object with the following attributes:
+\begin{itemize}
+    \item FOO
+\end{itemize}
+
+\section{Example usage}
+\label{sec:api_usage}
+This is a brief example of how to use the \smr~API to access the DDS in Python.
+The basic procedure for navigating the call hierarchy is the same in all major
+programming languages and browsers.
+
+%\lstinputlisting[language=Python, basicstyle=\footnotesize]{example.py}
