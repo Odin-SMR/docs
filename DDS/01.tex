@@ -5,8 +5,8 @@
 \label{sec:fm01:overview}
 Frequency mode~01 monitors two bands, $501.180$--$501.580\,\mathrm{GHz}$ and
 $501.980$--$502.380\,\mathrm{GHz}$. Its main use is retrievals of \chem{O_3},
-\chem{ClO} and \chem{N_2O}.
-\TODO{General text about FM01}
+\chem{ClO} and \chem{N_2O}.   This ozone product has previously been used as the main Odin Ozone product despite the weak line and theerby noisy profiles.  We hope that this reprocessing will make the fm-02 ozone the main  product.  
+
 \TODO{Show spectra?}
 
 \subsection{Comparison of retrieved profiles}
@@ -33,7 +33,10 @@ for \smr~v3. This may be attributed to the fact that the collocated measurments
 for SAGE~III are all from altitude range $40$--$50$~km, which is the upper
 range of altitudes for this frequency mode, and the lower range for the
 SAGE~III instrument, as seen in Figure~\ref{fig:fm01:O3:profiles:SAGEIII}.
-\TODO{reference Fig.~\ref{fig:fm01:O3:mr_avk} in text!}
+A clear drift in the results is seen after 2009  and data from 2010-2017 should be treated with extreme care. The reason for the  drift has now been identified as an instrument problem where an unstable oscillator has widened the instrument line-profile.  This may be possible to correct for in a later version of the data. 
+Data from 2018 and onward should be free of this problem thanks to a retuning  of some parameters on-board the satellite. 
+The useful range for the product and the vertical resolution is shown in Figure~\ref{fig:fm01:O3:mr_avk}.  The product is useful from about 23 km to 50 km with a resolution of around 5 km.   The resolution is slightly degraded compared to the version 2.x product due to increased vertical correlation  used to stabilise the retrievals.
+
 
 \begin{figure}[htpb]
     \centering
@@ -117,8 +120,8 @@ Figure~\ref{fig:fm01:N2O:profiles}. In Figure~\ref{fig:fm01:N2O:scatter}
 individual retrievals for the instruments for the entire period are plotted
 against the retrievals from the new and old versions of the \smr\ processing
 chain. Only a minor improvement is seen with the updated version of the
-processing.
-\TODO{reference Fig.~\ref{fig:fm01:N2O:mr_avk} in text!}
+processing. Figure~\ref{fig:fm01:N2O:mr_avk} suggests that the product is useful over the range 10-50 km with a vertical resolution of around 4 km.   
+
 
 \begin{figure}[htpb]
     \centering
@@ -195,11 +198,12 @@ compared to MLS, and the correlation and coherrency between the two remains
 poor, however, Figure~\ref{fig:fm01:ClO:scatter} suggests that this is due to
 noisy nature of the MLS retrievals, which show a very large spread -- sometimes
 even large negative concentrations -- for the retrievals where both \smr\
-versions yield low \chem{ClO} concentrations. An alternative explanation is
+versions yield low \chem{ClO} concentrations. An further  explanation is
 that, since \chem{ClO} concentrations have a diurnal cycle, collocation in time
 is very important for comparisons, and due to the orbits of the two
-instruments, this is only really satisfied near the poles.
-\TODO{reference Fig.~\ref{fig:fm01:ClO:mr_avk} in text!}
+instruments, this is only really satisfied near the poles. In this comparison we have not attempted to separate periods of chlorine activation from period with a normal vertical distribution. From previous experience we know that the dirunal effect can be very large in such comparisons.  
+Figure~\ref{fig:fm01:ClO:mr_avk} suggests that the product is useful in the range 20-50 km with a vertical resolution of around 5 km.
+
 
 \begin{figure}[htpb]
     \centering
@@ -263,9 +267,8 @@ used in this investigation. The improvement is considerable for the \chem{O_3},
 but only slight for \chem{N_2O} and~\chem{ClO}, with the latter still showing
 very poor correlation with the collocated MLS data. This correlations and fits
 were also calculated for the individual years in the period, but no trends of
-note were seen until 2009, when a temperature dependent fluctuation in
-the \todo{describe problem} was introduced, which renders retrievals from
-frequency mode~01 unreliable outside the arctic summer months.  The problem was
+note were seen until 2009, when a instrument problem occurred or possibly increased which renders retrievals from
+frequency mode~01 unreliable outside the arctic summer months.  The problem caused asymmetric broadening of the lines resulting in bad fits adn reduced species concentrations. It may be possible to compensate for the effect in a later reprocessing and rescue the data but this is not yet clear.   The problem was
 fixed late in 2017.
 
 
@@ -310,7 +313,7 @@ instruments for the period 2003--2008.
 Based on the discussion above, retrievals based on frequency mode~01 can be
 used with confidence for the species~\chem{O_3} and~\chem{N_2O} for the
 period 2003--2008. Retrievals of \chem{ClO} based on this frequency mode
-should be used with some caution.
+should be used with some caution taking account of  the local time  of the observations.
 
 For the period 2009--2017 the all retrievals from frequency mode~01 should be
 be caution if at all, due to the problem discussed
