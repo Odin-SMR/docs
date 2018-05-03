@@ -4,10 +4,16 @@
 \subsection{Overview}
 \label{sec:fm02:overview}
 Frequency mode~02 monitors the band $544.102$--$544.902\,\mathrm{GHz}$. Its
-main use is retrievals of \chem{O_3} and \chem{HNO_3}.  This mode was intended to be the main measurement of ozone in the stratosphere but in previous versions of the data products suffered with large systematic biases.  We believe that this was caused by an incorrect line broadening constant. This also resulted in an unrealistic pointing offset being derived for this band.  In this version of the product the coefficient was adjusted to remove the pointing offset and at the same time greatly improved the ozone values. 
- 
+main use is retrievals of \chem{O_3} and \chem{HNO_3}.  This mode was intended to be the main measurement of ozone in the stratosphere but in previous versions of the data products suffered with large systematic biases.  We believe that this was caused by an incorrect line broadening constant. This also resulted in an unrealistic pointing offset being derived for this band.  In this version of the product the coefficient was adjusted to remove the pointing offset and at the same time greatly improved the ozone values.
+Spectra from this observation mode are shown in Figure~\ref{fig:spectra:02}.
 
-\TODO{Show spectra?}
+\begin{figure}[ht]
+    \includegraphics[width=0.618\textwidth]{spectra/fm_02_spectra_winter}
+    \caption{Annual median spectra for FM~02 for altitude interval 35--45~km at
+        equatorial latitudes during the arctic winter.
+    }\label{fig:spectra:02}
+\end{figure}
+
 
 \subsection{Comparison of retrieved profiles}
 \label{sec:fm02:comparison}
@@ -30,7 +36,7 @@ over-all correlation and coherency, and most of the systematic under
 estimation having been removed compared to all the considered instruments. The
 largest improvement is compared to SAGE~III, though, as seen in
 Figure~\ref{fig:fm02:O3:profiles:SAGEIII}, there are still large systematic
-differences depending on the altitude.  This could be a result of the difference in local time at the measurement location. At these altitudes ozone starts to exhibit a dirunal variation. This speculation could be supported by the good agreement with SAGE since it is a occultation instrument it measures closest to Odin's local time.  Figure~\ref{fig:fm02:O3:mr_avk} suggests that the product is useful over the range 10-20 km with a vertical resolution of around 3 km. 
+differences depending on the altitude.  This could be a result of the difference in local time at the measurement location. At these altitudes ozone starts to exhibit a dirunal variation. This speculation could be supported by the good agreement with SAGE since it is a occultation instrument it measures closest to Odin's local time.  Figure~\ref{fig:fm02:O3:mr_avk} suggests that the product is useful over the range 10-20 km with a vertical resolution of around 3 km.
 
 
 \begin{figure}[htpb]
@@ -120,8 +126,8 @@ chain. The results show a considerable improvement with the updated version of
 the processing compared to both considered instruments with respect to the over-all
 correlation and coherency is much better, However a large
 altitude dependent difference seems to have been introduced, resulting in \smr\ over
-estimating the concentrations.  The reason for this has not been identified. 
-Figure~\ref{fig:fm02:HNO3:mr_avk} suggests that the product is useful over the range 10-50 km with a vertical resolution of around 4 km. 
+estimating the concentrations.  The reason for this has not been identified.
+Figure~\ref{fig:fm02:HNO3:mr_avk} suggests that the product is useful over the range 10-50 km with a vertical resolution of around 4 km.
 
 \begin{figure}[htpb]
     \centering
@@ -196,8 +202,8 @@ retrievals from the new and old versions of the \smr\ processing chain. The
 results show a considerable improvement with the updated version of the
 processing, with much better over-all correlation and coherrency, though a
 small systematic under estimation of the temperature remains, in particular at
-high altitudes.  
-Figure~\ref{fig:fm02:T:mr_avk} suggests that the product is useful over the range 10-50 km with a vertical resolution of around 4 km. 
+high altitudes.
+Figure~\ref{fig:fm02:T:mr_avk} suggests that the product is useful over the range 10-50 km with a vertical resolution of around 4 km.
 
 \begin{figure}[htpb]
     \centering
@@ -299,4 +305,4 @@ instruments for the period 2003--2014.
 
 Based on the discussion above, retrievals based on frequency mode~02 can be
 used with confidence for the species \chem{O_3} and \chem{HNO_3}, as well as
-for temperature.  
+for temperature.
