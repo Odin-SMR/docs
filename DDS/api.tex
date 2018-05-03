@@ -10,13 +10,9 @@ by a brief description of the contents.  See the sections on the different
 data sources for specifications on the structure of their respective JSON
 objects. This description is only for the \smr~version~3 Level2 data. For
 details on how to access the collocated measurements from the VDS,
-see~\cite{VDS:2016}. For a more general description of the \smr~API, see
-\url{http://odin.rss.chalmers.se/apidocs/index.html}.
-
-\TODO{Fix listings fontsize and spacing}
-\TODO{Finish endpoints}
-\TODO{add example}
-\TODO{fix missing reference}
+see~\cite{VDS:2016}, for more details on the Level2 data format
+see~\cite{iodd, atbdl2data}, and for a more general description of the \smr~API,
+see \url{http://odin.rss.chalmers.se/apidocs/index.html}.
 
 
 \section{API calls}
@@ -30,26 +26,27 @@ Get project information.
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
- 	"Data": [
-    	{
-      		"FreqMode": <int>,
-			"URLS": {
-				"URL-comment": <string: URL for comments for scans>,
-				"URL-failed": <string: URL for failed scans>,
-				"URL-scans": <string: URL for scans>
-			}
-		}
-	],
-	"Count": <int: number of FreqModes in project>,
-	"Type": "level2_project_freqmode"
+  "Data": [
+    {
+      "FreqMode": <int>,
+      "URLS": {
+        "URL-comment": <string: URL for comments for scans>,
+        "URL-failed": <string: URL for failed scans>,
+        "URL-scans": <string: URL for scans>
+      }
+    },
+    ...
+  ],
+  "Count": <int: number of FreqModes in project>,
+  "Type": "level2_project_freqmode"
 }
 \end{lstlisting}
 
 
 \subsection{\url{level2/DDS/area}}
-\label{apt:area}
+\label{api:area}
 Method: \emph{GET}
 
 Get data in provided area.
@@ -77,11 +74,11 @@ earth is returned. Choose between min/max altitude and min/max pressure.
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": <array of Level2 Data Structures as described below>,
-	"Count": <int: number of matching data>,
-	"Type": "L2"
+  "Data": <array of Level2 Data Structures as described below>,
+  "Count": <int: number of matching data>,
+  "Type": "L2"
 }
 \end{lstlisting}
 
@@ -95,10 +92,10 @@ Get data close to provided location.
 \begin{itemize}
     \item product \emph{(array of strings)}: Return data only for these
         products
-	\item location \emph{(array of strings; required)}: Return data close to
-		these locations ('lat,lon').
-	\item radius \emph{(float; required)}: Return data within this radius from
-		the provided locations (km).
+    \item location \emph{(array of strings; required)}: Return data close to
+        these locations ('lat,lon').
+    \item radius \emph{(float; required)}: Return data within this radius from
+        the provided locations (km).
     \item min\_pressure \emph{(float)}: Minimum pressure (Pa)
     \item max\_pressure \emph{(float)}: Maximum pressure (Pa)
     \item min\_altitude \emph{(float)}: Minimum altitude (m)
@@ -124,11 +121,13 @@ Get available products.
 \paragraph{Parameters:} None.
 
 \paragraph{Data structure:}
-\begin{lstlisting}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": <array of strings: product names>,
-  	"Count": <int: number of available products>,
-	"Type": "level2\_product\_name"
+  "Data": <array of strings: product names>,
+  "Count": <int: number of available products>,
+  "Type": "level2_product_name"
 }
 \end{lstlisting}
 
@@ -156,38 +155,39 @@ Choose between min/max altitude and min/max pressure.
 Returns JSON object with the same structure as endpoint~\ref{api:area}.
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/comments/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/comments/}}
 Method: \emph{GET}
 
-Get list of comments for a freqmode.
+Get list of comments for a frequency mode.
 
 \paragraph{Parameters:}
 \begin{itemize}
-	\item offset \emph{(int)}: Skip scans before returning
-	\item limit \emph{(int; default: 1000)}: Number of scans to return
+    \item offset \emph{(int)}: Skip scans before returning
+    \item limit \emph{(int; default: 1000)}: Number of scans to return
 \end{itemize}
 
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": [
-		{
-			"Comment": <string: comment from processing>,
-			"URLS": {
-				"URL-failed": <string: URL for failed scans with comment>,
-				"URL-scans": <string: URL for successful scans with comment>
-			}
-		}
-	],
-	"Count": <int: number of unique comments>,
-	"Type": "level2\_scan\_comment"
+  "Data": [
+    {
+      "Comment": <string: comment from processing>,
+      "URLS": {
+        "URL-failed": <string: URL for failed scans with comment>,
+        "URL-scans": <string: URL for successful scans with comment>
+      }
+    },
+    ...
+  ],
+  "Count": <int: number of unique comments>,
+  "Type": "level2_scan_comment"
 }
 \end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/failed/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/failed/}}
 Method: \emph{GET}
 
 Get list of matching scans that failed the level2 processing.
@@ -196,39 +196,40 @@ Get list of matching scans that failed the level2 processing.
 \begin{itemize}
     \item start\_time \emph{(date)}: Return data after this date (inclusive)
     \item end\_time \emph{(date)}: Return data before this date (exclusive)
-	\item comment \emph{(string)}: Return scans with this comment
-	\item offset \emph{(int)}: Skip scans before returning
-	\item limit \emph{(int; default: 1000)}: Number of scans to return
+    \item comment \emph{(string)}: Return scans with this comment
+    \item offset \emph{(int)}: Skip scans before returning
+    \item limit \emph{(int; default: 1000)}: Number of scans to return
 \end{itemize}
 
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": [
-		{
-			"Date": <string: date>,
-			"Error": <string: error message>,
-			"ScanID": <int: scan number>,
-			"URLS": {
-				"URL-ancillary": <string: URL for Level2 ancillary data>,
-				"URL-level2": <string: URL for Level2 data>,
-				"URL-log": <string: URL for Level1 log data>,
-				"URL-spectra": <string: URL for Level1 spectra>
-			}
-		}
-	],
-	"Count": <int: number of matching scans>,
-	"Type": "level2\_failed\_scan\_info"
+  "Data": [
+    {
+      "Date": <string: date>,
+      "Error": <string: error message>,
+      "ScanID": <int: scan number>,
+      "URLS": {
+        "URL-ancillary": <string: URL for Level2 ancillary data>,
+        "URL-level2": <string: URL for Level2 data>,
+        "URL-log": <string: URL for Level1 log data>,
+        "URL-spectra": <string: URL for Level1 spectra>
+      }
+    },
+    ...
+  ],
+  "Count": <int: number of matching scans>,
+  "Type": "level2_failed_scan_info"
 }
 \end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/products/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/products/}}
 Method: \emph{GET}
 
-Get available products for a given project and freqmode
+Get available products for a given project and frequency mode.
 
 \paragraph{Parameters:} None.
 
@@ -236,7 +237,7 @@ Get available products for a given project and freqmode
 Returns JSON object with the same structure as endpoint~\ref{api:products}.
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/scans/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/scans/}}
 Method: \emph{GET}
 
 Get list of matching scans.
@@ -245,62 +246,64 @@ Get list of matching scans.
 \begin{itemize}
     \item start\_time \emph{(date)}: Return data after this date (inclusive)
     \item end\_time \emph{(date)}: Return data before this date (exclusive)
-	\item comment \emph{(string)}: Return scans with this comment
-	\item offset \emph{(int)}: Skip scans before returning
-	\item limit \emph{(int; default: 1000)}: Number of scans to return
+    \item comment \emph{(string)}: Return scans with this comment
+    \item offset \emph{(int)}: Skip scans before returning
+    \item limit \emph{(int; default: 1000)}: Number of scans to return
 \end{itemize}
 
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": [
-		{
-			"Date": <string: date>,
-			"ScanID": <int: scan number>,
-			"URLS": {
-				"URL-ancillary": <string: URL for Level2 ancillary data>,
-				"URL-level2": <string: URL for Level2 data>,
-				"URL-log": <string: URL for Level1 log data>,
-				"URL-spectra": <string: URL for Level1 spectra>
-			}
-		}
-	],
-	"Count": <int: number of matching scans>,
-	"Type": "level2\_scan\_info"
+  "Data": [
+    {
+      "Date": <string: date>,
+      "ScanID": <int: scan number>,
+      "URLS": {
+        "URL-ancillary": <string: URL for Level2 ancillary data>,
+        "URL-level2": <string: URL for Level2 data>,
+        "URL-log": <string: URL for Level1 log data>,
+        "URL-spectra": <string: URL for Level1 spectra>
+      }
+    },
+    ...
+  ],
+  "Count": <int: number of matching scans>,
+  "Type": "level2_scan_info"
 }
 \end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/<int:scan number>/}}
 Method: \emph{GET}
 
-Get level2 data, info, comments, and ancillary data for one scan and freqmode.
+Get level2 data, info, comments, and ancillary data for one scan and frequency
+mode.
 
 \paragraph{Parameters:} None.
 
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": {
-		"L2": <Level2 Data Structure as described below>,
-		"L2anc": <Level2 Ancillary Data Structure as described below>,
-		"L2c": <Level2 Comments Data Structure as described below>,
-		"L2i": <Level2 Info Data Structure as described below>,
-	},
-	"Count": null,
-	"Type": "mixed"
+  "Data": {
+    "L2": <Level2 Data Structure as described below>,
+    "L2anc": <Level2 Ancillary Data Structure as described below>,
+    "L2c": <Level2 Comments Data Structure as described below>,
+    "L2i": <Level2 Info Data Structure as described below>,
+  },
+  "Count": null,
+  "Type": "mixed"
 }
 \end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<freqmode>/<scan number>/L2/}}
+\subsection{\url{level2/DDS/<frequency mode>/<scan number>/L2/}}
 Method: \emph{GET}
 
-Get level2 data for one scan and freqmode.
+Get level2 data for one scan and frequency mode.
 
 \paragraph{Parameters}:
 \begin{itemize}
@@ -311,74 +314,131 @@ Get level2 data for one scan and freqmode.
 \paragraph{Data structure:}
 Returns JSON object with the following structure:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\footnotesize]
 {
-	"Data": [
-		{
-			"AVK": <array of arrays of floats: averaging kernels at altitudes>,
-			"Altitude": <array of floats: altitudes>,
-			"Apriori": <array of floats: apriori data at altitudes>,
-			"ErrorNoise": <array of floats: noise error at altitudes>,
-			"ErrorTotal": <array of floats: total error at altitudes>,
-			"FreqMode": <int: frequency mode>,
-			"InvMode": "string",
-			"Lat1D": <float: approximate latitude of retrieval>,
-			"Latitude": <array of floats: latitudes for retrieval at altitudes>,
-			"Lon1D": <float: approximate latitude of retrieval>,
-			"Longitude": <array of floats: longitude for retrieval at altitudes>,
-			"MJD": <float: Modified Julian Date for retrieval>,
-			"MeasResponse": <array of floats: measurement response at altitudes>,
-			"Pressure": <array of floats: pressure at altitudes>,
-			"Product": <string: product name>,
-			"Quality": <int: quality flag>,
-			"ScanID": <int: scan number>,
-			"Temperature": <array of float: retrieved temperature at altitudes>,
-			"VMR": <array of float: retrieved volumetric mixing ratio at altitudes>
-		}
-	],
-	"Count": null,
-	"Type": "L2"
+  "Data": [
+    {
+      "AVK": <array of arrays of floats: averaging kernels at altitudes>,
+      "Altitude": <array of floats: altitudes>,
+      "Apriori": <array of floats: apriori data at altitudes>,
+      "ErrorNoise": <array of floats: noise error at altitudes>,
+      "ErrorTotal": <array of floats: total error at altitudes>,
+      "FreqMode": <int: frequency mode>,
+      "InvMode": "string",
+      "Lat1D": <float: approximate latitude of retrieval>,
+      "Latitude": <array of floats: latitudes for retrieval at altitudes>,
+      "Lon1D": <float: approximate latitude of retrieval>,
+      "Longitude": <array of floats: longitude for retrieval at altitudes>,
+      "MJD": <float: Modified Julian Date for retrieval>,
+      "MeasResponse": <array of floats: measurement response at altitudes>,
+      "Pressure": <array of floats: pressure at altitudes [Pa]>,
+      "Product": <string: product name>,
+      "Quality": <int: quality flag>,
+      "ScanID": <int: scan number>,
+      "Temperature": <array of float: retrieved temperature at altitudes [K]>,
+      "VMR": <array of float: retrieved volumetric mixing ratio at altitudes>
+    }
+  ],
+  "Count": null,
+  "Type": "L2"
 }
 \end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2anc/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/<int:scan number>/L2anc/}}
 Method: \emph{GET}
 
-Get ancillary data for one scan and freqmode.
+Get ancillary data for one scan and frequency mode.
 
 \paragraph{Parameters:} None.
 
-Returns object with the following attributes:
-\begin{itemize}
-    \item FOO
-\end{itemize}
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+{
+  "Data": [
+    {
+      "FreqMode": <int: freqcuency mode>,
+      "InvMode": <string: inversion mode used in retrieval>,
+      "LST": <float: local solar time>,
+      "Lat1D": <float: approximate latitude of retrieval>,
+      "Latitude": <array of floats: latitudes for retrieval at altitudes>,
+      "Lon1D": <float: approximate latitude of retrieval>,
+      "Longitude": <array of floats: longitude for retrieval at altitudes>,
+      "MJD": <float: Modified Julian Date for retrieval>,
+      "Orbit": <int: orbit number>,
+      "Pressure": <array of floats: pressure at altitudes [Pa]>,
+      "SZA": <array of floats: solar zenith angle for retrieval at altitudes>,
+      "SZA1D": <float: approximate solar zenith angle for retrieval>,
+      "ScanID": <int: scan number>,
+      "Theta": <array of floats: potential temperature>
+    }
+  ],
+  "Count": 1,
+  "Type": "string"
+}
+\end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2c/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/<int:scan number>/L2i/}}
 Method: \emph{GET}
 
-Get level2 comments for one scan and freqmode.
+Get level2 auxiliary data for one scan and frequency mode.
 
 \paragraph{Parameters:} None.
 
-Returns object with the following attributes:
-\begin{itemize}
-    \item FOO
-\end{itemize}
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+{
+  "Data": {
+    "BlineOffset": <array of arrays of floats: baseline offsets for spectra>,
+    "ChannelsID": <array of floats: channel identifier>,
+    "FitSpectrum": <array of arrays	 of floats: fitted spectra [K]>
+    "FreqMode": <int: frequency mode>,
+    "FreqOffset": <float: retrieved LO frequency offset [Hz]>,
+    "InvMode": <string: inversion mode used in retrieval>,
+    "LOFreq": <array of floats: LO frequency for each spectrum in scan [Hz]>,
+    "MinLmFactor": <float: minimum Levenberg-Marquard factor of OEM>,
+    "PointOffset": <float: retrieved pointing offset [degree],
+    "Residual": <float: residual of retrieved and measured spectra>,
+    "SBpath": <float: sideband path used for retrieving spectra [m]>,
+    "STW": <array of floats: satellite time words for spectra>,
+    "ScanID": <int: scan number>,
+    "Tsat": <float: satellite onboard temperature [K]>,
+    "URLS": {
+      "URL-ancillary": <string: URL for Level2 ancillary data>,
+      "URL-level2": <string: URL for Level2 data>,
+      "URL-log": <string: URL for Level1 log data>,
+      "URL-spectra": <string: URL for Level1 spectra>
+    }
+  },
+  "Count": null,
+  "Type": "L2i"
+}
+\end{lstlisting}
 
 
-\subsection{\url{level2/DDS/<int:freqmode>/<int:scan number>/L2i/}}
+\subsection{\url{level2/DDS/<int:frequency mode>/<int:scan number>/L2c/}}
 Method: \emph{GET}
 
-Get level2 info for one scan and freqmode.
+Get level2 comments for one scan and frequency mode.
 
 \paragraph{Parameters:} None.
 
-Returns object with the following attributes:
-\begin{itemize}
-    \item FOO
-\end{itemize}
+\paragraph{Data structure:}
+Returns JSON object with the following structure:
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+{
+  "Data": <array of strings: comments>
+  "Count": <int: number of comments for scan>,
+  "Type": L2c
+}
+\end{lstlisting}
+
 
 \section{Example usage}
 \label{sec:api_usage}
@@ -386,4 +446,4 @@ This is a brief example of how to use the \smr~API to access the DDS in Python.
 The basic procedure for navigating the call hierarchy is the same in all major
 programming languages and browsers.
 
-%\lstinputlisting[language=Python, basicstyle=\footnotesize]{example.py}
+\lstinputlisting[language=Python, basicstyle=\footnotesize]{example.py}
