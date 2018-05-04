@@ -1,4 +1,4 @@
-DDS.pdf: DDS.tex Makefile *.tex ../Common/*.tex ../Common/*.bib ./figures/*.pdf ./figures/spectra/*.pdf
+DDS.pdf: DDS.tex Makefile *.tex ../Common/*.tex ../Common/*.bib ./figures/*.pdf ./figures/spectra/*.pdf example.py
 	pdflatex $(@:%.pdf=%)
 	bibtex $(@:%.pdf=%)
 	pdflatex $(@:%.pdf=%)
