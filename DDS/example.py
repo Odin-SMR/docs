@@ -16,7 +16,7 @@ r1 = requests.get(FM2["URLS"]["URL-scans"])
 
 # Filter out data from 2012-03-11 and fetch the level2 data for the
 # first scan in the list:
-day = [x for x in r0.json()['Data'] if x['Date'] == '2012-03-11']
+day = [x for x in r1.json()['Data'] if x['Date'] == '2012-03-11']
 r2 = requests.get(day[0]['URLS']['URL-level2'])
 
 # The Level2 data available to us, along with the ancillary and
