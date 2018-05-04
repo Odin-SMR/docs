@@ -7,7 +7,7 @@ Table~\ref{table:level2:v3} shows an overview of the characteristics of the
 main data products from the updated \smr\ processing chain for the frequency
 modes investigated in Chapter~\ref{chapter:comparisons}. The vertical coverage
 has been defined as the altitude interval where the \emph{measurement response}
-for the retrievals is >0.8. The vertical resolution and precision are
+for the retrievals is $>0.8$. The vertical resolution and precision are
 calculated from the $\pm 2\sigma$ percentiles of the \emph{full widths at half
 maximum} of the averaging kernels and the \emph{total error} respectively.
 
@@ -15,7 +15,8 @@ The results presented in Table~\ref{table:level2:v3} should be compared with
 the results for the old processing chain, presented in
 Tables~\ref{table:level2} and~\ref{table:level2b}.
 
-\begin{table}
+\begin{table}[tbhp]
+    \centering
     \caption{Characteristics of \smr\ Level2 main data products.}
     \label{table:level2:v3}
     \scalebox{0.965}{%
@@ -24,46 +25,55 @@ Tables~\ref{table:level2} and~\ref{table:level2b}.
         \textbf{Product} & \textbf{Frequency} & \textbf{Vertical}   & \textbf{Vertical}     & \textbf{Precision} \\
                          & \textbf{{[}GHz{]}} & \textbf{coverage}   & \textbf{resolution}   &                    \\
         \midrule  % FM 01:
-        \chem{O_{3}}     & 501.5 (FM~01)      & \(\sim\)19--53\,km  & 5.3--5.5\,km          & 0.70--0.85\,ppmv \\
-        \chem{ClO}       & 501.3 (FM~01)      & \(\sim\)18--58\,km  & 5.3--5.6\,km          & 0.07--0.08\,ppbv \\
-        \chem{N_{2}O}    & 502.3 (FM~01)      & \(\sim\)15--62\,km  & 4.4--5.6\,km          & 5.00--6.10\,ppbv \\
+        \chem{O_{3}}     & 501.5 (FM~01)      & 19--53\,km          & 5.3--5.5\,km          & 0.70--0.85\,ppmv \\
+        \chem{ClO}       & 501.3 (FM~01)      & 18--58\,km          & 5.3--5.6\,km          & 0.07--0.08\,ppbv \\
+        \chem{N_{2}O}    & 502.3 (FM~01)      & 15--62\,km          & 4.4--5.6\,km          & 5.00--6.10\,ppbv \\
 
         \midrule  % FM 02:
-        \chem{O_{3}}     & 544.9 (FM~02)      & \(\sim\)17--77\,km  & 2.9--4.9\,km          & 0.18--0.26\,ppmv \\
-        \chem{HNO_{3}}   & 544.4 (FM~02)      & \(\sim\)20--61\,km  & 5.0--7.2\,km          & 0.24--0.28\,ppbv \\
-        Temperature      & 544.9 (FM~02)      & \(\sim\)21--64\,km  & 7.5--7.9\,km          & 1.13--2.18\,K \\
+        \chem{O_{3}}     & 544.9 (FM~02)      & 17--77\,km          & 2.9--4.9\,km          & 0.18--0.26\,ppmv \\
+        \chem{HNO_{3}}   & 544.4 (FM~02)      & 20--61\,km          & 5.0--7.2\,km          & 0.24--0.28\,ppbv \\
+        Temperature      & 544.9 (FM~02)      & 21--64\,km          & 7.5--7.9\,km          & 1.13--2.18\,K \\
 
         \midrule  % FM 08:
-        \chem{O_{3}}     & 489.2 (FM~08)      & \(\sim\)16--71\,km  & 4.1--6.0\,km          & 0.29--0.39\,ppmv \\
-        \chem{H_{2}O}    & 489.5 (FM~08)      & \(\sim\)19--78\,km  & 4.0--4.7\,km          & 0.32--0.55\,ppmv \\
+        \chem{O_{3}}     & 489.2 (FM~08)      & 16--71\,km          & 4.1--6.0\,km          & 0.29--0.39\,ppmv \\
+        \chem{H_{2}O}    & 489.5 (FM~08)      & 19--78\,km          & 4.0--4.7\,km          & 0.32--0.55\,ppmv \\
 
         \midrule  % FM 13:
-        \chem{O_{3}}     & 556.9 (FM~13)      & \(\sim\)44--80\,km  & 6.1--6.7\,km          & 0.19--0.24\,ppmv \\
-        \chem{H_{2}O}    & 556.7 (FM~13)      & \(\sim\)44--110\,km & 4.3--4.8\,km          & 0.06--0.33\,ppbv \\
-        Temperature      & 556.9 (FM~13)      & \(\sim\)44--95\,km  & 5.3--5.6\,km          & 1.85--2.73\,K \\
+        \chem{O_{3}}     & 556.9 (FM~13)      & 44--80\,km          & 6.1--6.7\,km          & 0.19--0.24\,ppmv \\
+        \chem{H_{2}O}    & 556.7 (FM~13)      & 44--110\,km         & 4.3--4.8\,km          & 0.06--0.33\,ppbv \\
+        Temperature      & 556.9 (FM~13)      & 44--95\,km          & 5.3--5.6\,km          & 1.85--2.73\,K \\
 
         \midrule  % FM 19:
-        \chem{O_{3}}     & 556.9 (FM~19)      & \(\sim\)43--81\,km  & 5.8--6.6\,km          & 0.19--0.24\,ppmv \\
-        \chem{H_{2}O}    & 556.7 (FM~19)      & \(\sim\)43--109\,km & 4.1--4.4\,km          & 0.13--0.26\,ppbv \\
-        Temperature      & 556.9 (FM~19)      & \(\sim\)43--93\,km  & 5.2--5.5\,km          & 1.72--2.65\,K \\
+        \chem{O_{3}}     & 556.9 (FM~19)      & 43--81\,km          & 5.8--6.6\,km          & 0.19--0.24\,ppmv \\
+        \chem{H_{2}O}    & 556.7 (FM~19)      & 43--109\,km         & 4.1--4.4\,km          & 0.13--0.26\,ppbv \\
+        Temperature      & 556.9 (FM~19)      & 43--93\,km          & 5.2--5.5\,km          & 1.72--2.65\,K \\
         \bottomrule
     \end{tabular}}
 \end{table}
 
 \section{Recomendations}
 \subsection{Ozone}
-The best ozone product for general use is that from FM2 .  The new product is in much better agreement with other instruments and does not seem to show any temporal drifts although a thorough analysis of drifts has not yet been attempted.   The other ozone products show some biases 
-but could be used in conjunction with simultaneously measured products if account is taken of this. 
+The best ozone product for general use is that from FM~02.  The new product is
+in much better agreement with other instruments and does not seem to show any
+temporal drifts although a thorough analysis of drifts has not yet been
+attempted.  The other ozone products show some biases but could be used in
+conjunction with simultaneously measured products if account is taken of this.
 
 \subsection{Chlorine Monoxide}
+The \chem{ClO} product should be reliable until 2009 and after January 2018.
+Unfortunately a gradually deteriorating instrument malfunction has disturbed
+the intervening period.  We will attempt to correct for this as soon as
+possible
 
- The ClO product should be reliable until 2009 and after jan 2018. Unfortunately a gradually deteriorating instrument malfunction has disturbed the intervening period.  We will attempt to correct for this at soon as possible
- 
- \subsection{Water vapour}
- Water vapour continues to be a difficult product. the FM08 product has improved and is stable over time although shows a 15 % low bias compared to MLS.  For the upper stratosphere and mesosphere FM13 appears to be the best product but alsoe shows a low bias of around 15% and som variability above 70 km that needs further investigation.
- \subsection{Temperature}
- 
- FM02 provides stratospheric temperatures with a possible increasing bias with altitude. There does not appear to be any systematic drift with tiime.  For higher altitudes FM13 can be used with knowledge of a possible cold bias of 3-5 K
- 
- 
+\subsection{Water vapour}
+Water vapour continues to be a difficult product. the FM~08 product has
+improved and is stable over time although shows a 15~\% low bias compared to
+MLS.  For the upper stratosphere and mesosphere FM~13 appears to be the best
+product, but also shows a small bias of around 15~\% and som variability above
+70~km that needs further investigation.
 
+\subsection{Temperature}
+FM~02 provides stratospheric temperatures with a possible increasing bias with
+altitude. There does not appear to be any systematic drift with time. For
+higher altitudes FM~13 can be used with knowledge of a possible cold bias of
+3--5~K
