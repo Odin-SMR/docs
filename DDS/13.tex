@@ -37,17 +37,18 @@ and OSIRIS instruments. Annual average differences to these instruments are
 shown in Figure~\ref{fig:fm13:O3:profiles}. In Figure~\ref{fig:fm13:O3:scatter}
 individual retrievals for the instruments for the entire period are plotted
 against the retrievals from the new and old versions of the \smr\ processing
-chain. The results show a better overall coherency with the updated version
-of the processing compared to all considered instruments, but a systematic
-under estimation of the concentrations has been introduced. The reason for this
-is that a previously introduced  (ver 2.1) empirical correction to the intensities has been remove since there
-was no physical basis for its inclusion. We suspect that some sort of
-non-linearity is causing the underestimation. Investigations of this band are continuing. 
-Above about 65 km diurnal variability in the ozone concentration introduce problems when comparing with instruments
-on different platforms.   We assume that this is the main reason for the differences at such altitudes. 
-Figure~\ref{fig:fm13:O3:mr_avk}
-suggests that the product is useful over the range 44--80~km with a vertical
-resolution of around 6~km.
+chain. The results show a better overall coherency with the updated version of
+the processing compared to all considered instruments, but a systematic under
+estimation of the concentrations has been introduced. The reason for this is
+that a previously introduced  (ver 2.1) empirical correction to the intensities
+has been remove since there was no physical basis for its inclusion. We suspect
+that some sort of non-linearity is causing the underestimation. Investigations
+of this band are continuing.  Above about 65 km diurnal variability in the
+ozone concentration introduce problems when comparing with instruments on
+different platforms.   We assume that this is the main reason for the
+differences at such altitudes.  Figure~\ref{fig:fm13:O3:mr_avk} suggests that
+the product is useful over the range 44--80~km with a vertical resolution of
+around 6~km.
 
 
 \begin{figure}[tbhp]
@@ -122,18 +123,19 @@ resolution of around 6~km.
 \subsubsection{\chem{H_2O}}
 \label{sec:fm13:comparison:H2O}
 The retrievals for \chem{H_2O} have been compared with data from the MIPAS and
-MLS instruments. SAGE does not provide reliable water vapour profiles above 33km (\cite{vds}) 
-Annual average differences to these instruments are shown in
-Figure~\ref{fig:fm13:H2O:profiles}. In Figure~\ref{fig:fm13:H2O:scatter}
-individual retrievals for the instruments for the entire period are plotted
-against the retrievals from the new and old versions of the \smr\ processing
-chain. The results show a slightly improved overall coherency with the
-updated version of the processing compared to both considered instruments, but
-a systematic under estimation of the concentrations has been introduced, and
-the correlation, in particular with MIPAS, remains poor.  This would suggest
-that the MIPAS values are  unreliable for this data product. (To be confirmed with KIT)
-Figure~\ref{fig:fm13:H2O:mr_avk} suggests that the product is useful over the
-range 44--110~km with a vertical resolution of around 4.5~km.
+MLS instruments. SAGE does not provide reliable water vapour profiles above
+33km~\cite{VDS:2016}. Annual average differences to these instruments are
+shown in Figure~\ref{fig:fm13:H2O:profiles}. In
+Figure~\ref{fig:fm13:H2O:scatter} individual retrievals for the instruments for
+the entire period are plotted against the retrievals from the new and old
+versions of the \smr\ processing chain. The results show a slightly improved
+overall coherency with the updated version of the processing compared to both
+considered instruments, but a systematic under estimation of the concentrations
+has been introduced, and the correlation, in particular with MIPAS, remains
+poor.  This would suggest that the MIPAS values are  unreliable for this data
+product. (To be confirmed with KIT) Figure~\ref{fig:fm13:H2O:mr_avk} suggests
+that the product is useful over the range 44--110~km with a vertical resolution
+of around 4.5~km.
 
 
 \begin{figure}[tbhp]
@@ -215,14 +217,11 @@ range 44--95~km with a vertical resolution of around 5.5~km.
 
 \begin{figure}[tbhp]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=\textwidth]{DDS_fm13_T_absdiff_mls}
-        \caption{average difference to MLS}
-        \label{fig:fm13:T:profiles:MLS}
-    \end{subfigure}
+    \includegraphics[width=0.666\textwidth]{DDS_fm13_T_absdiff_mls}
     \caption{Average difference in K between retrievals of temperature from
     \smr~v3 and collocated measurements from MLS at different altitudes.}
     \label{fig:fm13:T:profiles}
+        \label{fig:fm13:T:profiles:MLS}
 \end{figure}
 
 \begin{figure}[tbhp]

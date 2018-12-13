@@ -39,9 +39,9 @@ versions of the \smr\ processing chain. The results show a better over-all
 coherrency with the updated version of the processing compared to SAGE~III and
 OSIRIS, but worse correlation with MIPAS and MLS, and a systematic under
 estimation of the concentrations remains compared to all considered
-instruments.
-Above about 65 km diurnal variability in the ozone concentration introduce problems when comparing with instruments
-on different platforms.   We assume that this is the main reason for the differences at such altitudes. 
+instruments.  Above about 65~km diurnal variability in the ozone concentration
+introduces problems when comparing with instruments on different platforms. We
+assume that this is the main reason for the differences at such altitudes.
 Figure~\ref{fig:fm19:O3:mr_avk} suggests that the product is useful over the
 range 44--80~km with a vertical resolution of around 6~km.
 
@@ -219,14 +219,11 @@ range 44--95~km with a vertical resolution of around 5~km.
 
 \begin{figure}[tbhp]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=\textwidth]{DDS_fm19_T_absdiff_mls}
-        \caption{average difference to MLS}
-        \label{fig:fm19:T:profiles:MLS}
-    \end{subfigure}
+    \includegraphics[width=0.666\textwidth]{DDS_fm19_T_absdiff_mls}
     \caption{Average difference in K between retrievals of temperature from
     \smr~v3 and collocated measurements from MLS at different altitudes.}
     \label{fig:fm19:T:profiles}
+    \label{fig:fm19:T:profiles:MLS}
 \end{figure}
 
 \begin{figure}[tbhp]
@@ -272,11 +269,13 @@ range 44--95~km with a vertical resolution of around 5~km.
 The Pearson correlation between the \smr\ retrievals and the other instruments
 was calculated for the entire period for both versions of the processing chain.
 The results are summarised in Table~\ref{tab:fm19:stats}, and show that the
-new algorithm is a general improvement compared to all the instruments for all species
-used in this investigation. Specifically the improvement is largest for water vapour and temperature 
-while the secondary ozone product shows some variability. The agreement is best with OSIRIS over a limited height region.  This is to be expected since they are on the same platform. For MLS and MIPAS diurnal variability  biases the results.
-The improvement is considerable for both \chem{O_3}
-and \chem{H_2O}.
+new algorithm is a general improvement compared to all the instruments for all
+species used in this investigation. Specifically the improvement is largest for
+water vapour and temperature while the secondary ozone product shows some
+variability. The agreement is best with OSIRIS over a limited height region.
+This is to be expected since they are on the same platform. For MLS and MIPAS
+diurnal variability biases the results.  The improvement is considerable for
+both \chem{O_3} and \chem{H_2O}.
 
 
 \begin{table}[tbhp]
@@ -316,7 +315,6 @@ instruments for the period 2003--2014.
 
 \subsection{Conclusions}
 \label{sec:fm19:conclusions}
-
 Based on the discussion above, retrievals based on frequency mode~19 should be
 used with caution for both \chem{O_3} and \chem{H_2O}, but can be used with
 confidence for temperature retrievals.
