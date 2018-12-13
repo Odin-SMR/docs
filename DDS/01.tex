@@ -34,16 +34,17 @@ The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS,
 OSIRIS and SAGE~III instruments. Annual average differences to these
 instruments are shown in Figure~\ref{fig:fm01:O3:profiles}. In
 Figure~\ref{fig:fm01:O3:scatter} individual retrievals for the instruments for
-the 2003--2014 (depending on the instrument)  are plotted against the retrievals from the new and old
-versions of the \smr\ processing chain. The results show a considerable
-improvement with the updated version of the processing, with much better
-overall correlation and coherency, and most of the systematic under
-estimation having been removed compared to all instruments except for SAGE~III.
-Compared to SAGE~III, the results were bad for \smr~v2.X, but are even worse
-for \smr~v3. This may be attributed to the fact that the collocated measurements
-for SAGE~III are all from altitude range $40$--$50$~km, which is the upper
-range of altitudes for this frequency mode, and the lower range for the
-SAGE~III instrument, as seen in Figure~\ref{fig:fm01:O3:profiles:SAGEIII}.
+the 2003--2014 (depending on the instrument)  are plotted against the
+retrievals from the new and old versions of the \smr\ processing chain. The
+results show a considerable improvement with the updated version of the
+processing, with much better overall correlation and coherency, and most of the
+systematic under estimation having been removed compared to all instruments
+except for SAGE~III.  Compared to SAGE~III, the results were bad for \smr~v2.X,
+but are even worse for \smr~v3. This may be attributed to the fact that the
+collocated measurements for SAGE~III are all from altitude range $40$--$50$~km,
+which is the upper range of altitudes for this frequency mode, and the lower
+range for the SAGE~III instrument, as seen in
+Figure~\ref{fig:fm01:O3:profiles:SAGEIII}.
 
 A clear drift in the results is seen after 2009 and data from 2010--2017 should
 be treated with extreme care. The reason for the  drift has now been identified
@@ -52,7 +53,7 @@ instrument line-profile.  This may be possible to correct for in a later
 version of the data.  Data from 2018 and onward should be free of this problem
 thanks to a retuning  of some parameters on-board the satellite.  The useful
 range for the product and the vertical resolution is shown in
-Figure~\ref{fig:fm01:O3:mr_avk}.  Based on an analysis of the averaging kernels and 
+Figure~\ref{fig:fm01:O3:mr_avk}.  Based on an analysis of the averaging kernels and
 comparisons with the other instruments the product is useful for the range 19--50~km
 with a resolution of around 5~km. The resolution is slightly degraded compared
 to the version 2.x product due to increased vertical correlation used to
@@ -105,7 +106,7 @@ stabilise the retrievals.
     \end{subfigure}
     \caption{Correlation between retrievals of \chem{O_3} using \smr\
     versions~2.X and~3 and collocated measurements from various instruments
-    for frequency mode~01.} The period is restricted to 2003-2008 in order to avoid the errors caused by the LO from 2009 -2018. 
+    for frequency mode~01.} The period is restricted to 2003-2008 in order to avoid the errors caused by the LO from 2009 -2018.
     \label{fig:fm01:O3:scatter}
 \end{figure}
 
@@ -286,28 +287,31 @@ range 18--55~km with a vertical resolution of around 5~km.
 \subsection{Discussion}
 \label{sec:fm01:discussion}
 The Pearson correlation between the \smr\ retrievals and the other instruments
-was calculated for the overlap periods for both versions of the processing chain.
-The results are summarised in Table~\ref{tab:fm01:stats}, and show that the
-new algorithm is an improvement compared to all the instruments (with the exception of SAGE) for all species
-used in this investigation. The improvement is considerable for the \chem{O_3},
-but only slight for \chem{N_2O} and~\chem{ClO}, with the latter still showing
-very poor correlation with the collocated MLS data. Correlations and fits
-were also calculated for the individual years in the period (see appendix), but no trends of
-note were seen until 2009, when a instrument problem occurred or possibly
-increased which renders retrievals from frequency mode~01 unreliable outside
-the arctic summer months.  The problem caused asymmetric broadening of the
-lines resulting in bad fits and reduced species concentrations. It may be
+was calculated for the overlap periods for both versions of the processing
+chain.  The results are summarised in Table~\ref{tab:fm01:stats}, and show that
+the new algorithm is an improvement compared to all the instruments (with the
+exception of SAGE) for all species used in this investigation. The improvement
+is considerable for the \chem{O_3}, but only slight for \chem{N_2O}
+and~\chem{ClO}, with the latter still showing very poor correlation with the
+collocated MLS data. Correlations and fits were also calculated for the
+individual years in the period (see~Figure~\ref{fig:fm01:O3:corr}), but no
+trends of note were seen until 2009, when a instrument problem occurred or
+possibly increased which renders retrievals from frequency mode~01 unreliable
+outside the arctic summer months.  The problem caused asymmetric broadening of
+the lines resulting in bad fits and reduced species concentrations. It may be
 possible to compensate for the effect in a later reprocessing and rescue the
-data but this is not yet clear. The problem was fixed late in 2017 through retuning of driving circuits by the instrument scientist.
-Averaging of some weeks of spectra show that the distortions of the lines has been removed.
+data but this is not yet clear. The problem was fixed late in 2017 through
+retuning of driving circuits by the instrument scientist.  Averaging of some
+weeks of spectra show that the distortions of the lines has been removed.
 
 
 \begin{table}[tbhp]
 \centering
 \caption{Pearson correlation and fit parameters of the old and new \smr\
 retrievals for frequency mode~01, compared with collocated data from other
-instruments for the period 2003--2008. $\left|\left<\right.\right.$res.$\left.\left.\right>\right|$ is the mean residual.
-}
+instruments for the period 2003--2008.
+$\left|\left<\right.\right.$res.$\left.\left.\right>\right|$ is the mean
+residual.}
 \label{tab:fm01:stats}
 \begin{tabular}{lllrrrr}
     \toprule
@@ -337,6 +341,17 @@ instruments for the period 2003--2008. $\left|\left<\right.\right.$res.$\left.\l
 \end{tabular}
 \end{table}
 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.666\textwidth]{DDS_fm1_O3_corr}
+    \caption{Pearson correlation ($\rho$) of \smr~v3~(---) and~v2.X~(--~--)
+    retrievals of \chem{O_3} with collocated measurements. Note the decline in
+    $\rho$ after 2009.}
+    \label{fig:fm01:O3:corr}
+\end{figure}
+
+
 \subsection{Conclusions}
 \label{sec:fm01:conclusions}
 Based on the discussion above, retrievals based on frequency mode~01 can be
@@ -345,10 +360,11 @@ period 2003--2008. Retrievals of \chem{ClO} based on this frequency mode
 should be used with some caution taking account of the local time of the
 observations.
 
-For the period 2009--2017  all retrievals from frequency mode~01 should be
-used with  caution, if at all, due to the problem discussed
+For the period 2009--2017  all retrievals from frequency mode~01 should be used
+with  caution, if at all, due to the problem discussed
 in~Sec.~\ref{sec:fm01:discussion}. The only exceptions are retrievals from the
-middle of the arctic summer, which are not affected by this problem as a result of the
-satelite being colder during this period~\cite{postlaunch:2006}. The problem
-was fixed in late 2017, wherefore data from 2018 and onwards should have the
-same quality as that of 2003--2008. This will be checked when the full data set is processed.
+middle of the arctic summer, which are not affected by this problem as a result
+of the satelite being colder during this period~\cite{postlaunch:2006}. The
+problem was fixed in late 2017, wherefore data from 2018 and onwards should
+have the same quality as that of 2003--2008. This will be checked when the full
+data set is processed.
