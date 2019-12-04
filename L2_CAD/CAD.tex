@@ -1,0 +1,54 @@
+\documentclass[a4paper,11pt]{report}
+
+\usepackage[
+singlelinecheck=false % <-- important
+]{caption}
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{listings}
+
+% Define cover page
+\def\CoverTitle{Odin/SMR Level2 Completeness Analysis Document}
+\def\FooterDocTitle{Completeness Analysis Document}
+\def\Authors{Bengt Rydberg, Patrick Eriksson, Andreas Skyman,
+             and Donal Murtagh}
+\def\Contact{Bengt Rydberg <bengt.rydberg@molflow.com>}
+\def\Version{1.1}
+\def\ReleaseDate{2019-12-04}
+
+% Page numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+% Switch to arabic numbering is made inside introduction.tex
+
+% Common preamble settings
+\input{../Common/preamble}
+\newcommand{\TODO}[1]{\todo[inline]{#1}}
+
+% Import math symbol commands
+\input{../Common/symbol_defs}
+
+
+% Import acronyms
+\input{../Common/acronyms_all}
+
+
+\begin{document}
+
+\input{../Common/coverpage}
+
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+
+
+\input{introduction}
+\input{l2definition}
+
+\chapter*{}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+%\bibliography{../Common/references}
+
+
+
+\end{document}
