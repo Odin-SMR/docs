@@ -48,7 +48,7 @@ following attributes:
 \section{ENVISAT/MIPAS}
 The MIPAS data collocated with Odin/SMR is accessible through the Odin REST
 API, see section~\ref{sec:api}. The data is returned as a JSON object with the
-following attributes:
+following attributes for the \textbf{\emph{KIT}} data:
 \begin{itemize}
     \item MJD \emph{(Double)}: Time in MJD for the observation
     \item time \emph{(Double)}: Time of the observation in days since
@@ -85,6 +85,75 @@ following attributes:
     \item vr\_row \emph{(Array of doubles)}: Vertical resolution (FWHM of
         averaging kernel rows)
 \end{itemize}
+\clearpage
+\newpage
+and with the following attributes for the \textbf{\emph{ESA}} data (more detailed information can be found in
+\href{https://earth.esa.int/documents/700255/707722/Vol12_Mipas_5A.pdf/7596ef24-8dd3-4b7b-95c8-d72ddf6e046a}{ESA-documentation},
+but the most relevant attributes of the (species)\_retrieval\_mds are base\_alt and base\_vmr):
+\begin{itemize}
+    \item (species)\_retrieval\_mds \emph{(Object)}: Object containing the data under the
+        following keys:
+        \begin{itemize}
+            \item avg\_kernel \emph{(Two-dimensional array of doubles)}: averaging kernel matrix 
+            \item base\_alt \emph{(Array of doubles)}: altitude grid (km) for VMR base profile
+            \item base\_vmr \emph{(Array of doubles)}: VMR profile (ppm) consisting of retrieved VMR and
+                assumed values above and below (= base profile) 
+            \item conc\_alt \emph{(Array of ints)}: concentration (\(cm^{-3}\)) for each sweeps 
+            \item conc\_var\_cov \emph{(Array of doubles)}: concentration \((cm^{-3})^{2}\) variance data
+            \item cond\_param \emph{(double)}: conditionong parameter
+            \item conv\_id \emph{(int)}: ID of convergence condition terminating the iteration:
+                0 = maximum number of micro-iterations exceeded,
+                1 = maximum number of macro-iterations exceeded,
+                2 = convergence reached,
+                3 = maximum run-time exceeded,
+                4 = retreval failed  
+            \item dsr\_length \emph{(double)}: DSR length 
+            \item dsr\_time \emph{(double)}: Time of DSR ZPD time of sweep closest to scans mean time 
+            \item error\_p\_t\_prop\_flag \emph{(int)}: Flag indicating used approch for p,T error propagation
+            \item error\_p\_t\_vcm \emph{(Two-dimensional array of doubles)}: p,T error on VCM 
+            \item ig\_flag \emph{(int)}: Flag indicating source of used initial guess data bitvector:
+                0x01: MIP\_IG2\_AX data file used;
+                0x02: ECMWF data file used;
+                0x04: optimum estimate used;
+                0x08: retrieved p,T data used;
+                0x10: MIP\_FM2\_AX data file used.
+                0x20: Recursive loop for p,T retrieval and first VMR retrieval (usually H2O) entered.
+                 This bit is reported only for the p,T retrieval.  
+            \item last\_chi2 \emph{(double)}: Last \(\chi^2\) test value 
+            \item quality\_flag \emph{(int)}: Quality indicator (set to -1 if retrieval failed and them all
+                information in DSR is blank or zero. Set to 0 otherwise.)  
+            \item vert\_col \emph{(Array of ints)}: vertical column density (\(cm^{-2}\)) for each sweep 
+            \item vert\_col\_var\_cov \emph{(Array of doubles)}:  vertical column density \((cm^{-2})^{2}\) variance data
+            \item vmr \emph{(Array of doubles)}: VMR (ppm) profile
+            \item vmr\_var\_cov \emph{(Array of doubles)}:  VMR variance data
+       \end{itemize}
+    \item scan\_geolocation\_ads \emph{(Object)}: Object containing the data under the
+        following keys:
+        \begin{itemize}
+            \item attach\_flag \emph{(int)}: Attachment Flag (set to 1 if all MDSRs associated
+                with this ADSR are zero or missing. Set to zero otherwise.) 
+            \item dsr\_time \emph{(double)}: Time of DSR ZPD time of sweep closest to scans mean time 
+            \item first\_alt \emph{(double)}: Tangent altitude (km) of first scene LOS tangent point
+            \item last\_alt \emph{(double)}: Tangent altitude (km) of last scene LOS tangent point 
+            \item loc\_first\_latitude \emph{(double)}: Geolocation (latitude) of first scene LOS
+                tangent point WGS84 reference, refraction corrected 
+            \item loc\_first\_longitude \emph{(double)}: Geolocation (longitude) of first scene LOS
+                tangent point WGS84 reference, refraction corrected
+            \item loc\_last\_latitude \emph{(double)}: Geolocation (latitude) of last scene LOS
+                tangent point WGS84 reference, refraction corrected
+            \item loc\_last\_longitude \emph{(double)}: Geolocation (longitude) of last scene LOS
+                tangent point WGS84 reference, refraction corrected
+            \item loc\_mid\_latitude \emph{(double)}: Geolocation (latitude) of LOS tangent point
+                closest to scans mean time. WGS84reference, refraction corrected 
+            \item loc\_mid\_longitude \emph{(double)}: Geolocation (longitude) of LOS tangent point
+                closest to scans mean time. WGS84reference, refraction corrected
+            \item local\_solar\_time \emph{(double)}: True local solar time at target
+            \item sat\_target\_azi \emph{(double)}: Satellite to target azimuth 
+            \item target\_sun\_azi \emph{(double)}: Target to Sun azimuth 
+            \item target\_sun\_elev \emph{(double)}: Target to Sun elevation 
+         \end{itemize}
+\end{itemize}
+
 
 \section{ISS/JEM/SMILES}
 The SMILES data collocated with Odin/SMR is accessible through the Odin REST
