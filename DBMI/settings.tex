@@ -1,0 +1,386 @@
+\chapter{Level2 processing configuration}
+
+\section{Overview}
+The \smr\ Level2 processing is controlled by a tailored matlab software
+package. The retrieval settings for the various modes of \smr\
+are defined by two matlab functions:
+ 
+\begin{itemize}
+\item[{Q\_STND}]
+  handles frequency mode 1, 2, 8, and 17
+\item[{Q\_MESO}]
+  handles frequency mode 13, 14, 19, 21, 22, and 24.
+\end{itemize}
+
+A description of the configuration parameters are found
+in Sect.~\ref{sec:config}, and the actual values
+of the parameters for the standard and mesospheric modes
+are described in Sect.~\ref{sec:standard} and Sect.~\ref{sec:meso},
+respectively.
+
+\section{Configuration description}
+\label{sec:config}
+
+This section contains a brief description of the settings considered by the
+Qsmr retrieval system. These settings are packed into a structure denoted
+as Q. This structure must contain an exact set of fields; all fields must be
+present and no additional ones are allowed. The defined fields are described
+below, in alphabetical order.
+
+Qsmr operates also with two other structures. For the various
+pre-calculations a structure denoted as P is used. The fields of P are
+defined and are shortly described in the file p\_std.m. The structure R works
+as repository for internal variables and data. That is, no fields of R is
+set by the user.
+
+Most fields of Q are of simple types such scalar value, vector or string,
+but some fields are structures. This more complex type is only used for
+retrieval quantities, in order to allow simple communication with some
+functions copied from Qarts.
+
+All fields listed affect the inversions, either in the pre-calculation phase
+or when doing the actual inversion. The settings are applied by various
+functions and if you are using individual functions of Qsmr you need to
+figure out what settings that have an effect or not. For example, the fields
+TB\_SCALING\_FAC and TB\_CONTRAST\_FAC are not applied directly when loading the
+data, but are applied on the L1B data by a special function.
+
+\begin{changemargin}{2.5cm}{0.0cm} 
+
+\begin{itemize}
+\item[{ABS\_P\_INTERP\_ORDER}]
+An integer. The polynomial order to apply for pressure interpolation of the
+absorption look-up table. See further the ARTS workspace variable with the
+same name.
+
+\item[{ABS\_SPECIES}]
+An array of structures. Each array element provides settings for a gas
+species. The fields of the structure are as follows. TAG: Definition of the
+species following the ARTS format, e.g. O3-*-501e9-503e9. SOURCE: A string
+describing from where temperature a priori shall be taken. Handled options
+are 'WebApi' and 'Bdx'. RETRIEVE: A boolean, flagging if the species shall
+be retrieved or not. All fields below are ignored if RETRIEVE is false. L2: A
+boolean, flagging if the species is part of the L2 data of the frequency mode.
+GRID: Retrieval grid to use for the species. UNC\_REL and UNC\_ABS: Minimum
+relative and absolute uncertainty (1 std dev), respectively. The absolute
+and relative values are compared using the a priori profile and the largest
+of the two is selected (but not exceeding 1e3 in relative value). CORRLEN:
+Correlation length, in meter, to use when creating Sx. LOG\_ON: Set to true
+to impose a positive constrain for the species. L2NAME: A string. The name
+to give the retrieved product. ISOFAC: A scalar. The isotopologue fraction
+assumed in ARTS. If the complete species VMR is the
+output, this field shall be set to 1.
+
+Note that when creating L2 data the outermost points of GRID are removed.
+
+\item[{ABS\_T\_INTERP\_ORDER}]
+An integer. The polynomial order to apply for temperature interpolation of the
+absorption look-up table. See further the ARTS workspace variable with the
+same name.
+
+\item[{ARTS}]
+A string. Name or path of the ARTS executable to use.
+
+\item[{BACKEND\_NR}]
+An integer. Index of expected backend. Index coding described in L1B ATBD.
+
+\item[{BACKEND\_FILE}]
+Empty or a string. If empty, the name if file to read is generated
+automatically following the channel seperation. If you don't want to use
+these default files, you put the name of the alternative file in this field.
+
+\item[{BASELINE}]
+A structure. Definition of baseline off-set retrieval. The fields of the
+structure are as follows. RETRIEVE: A boolean, flagging if baseline off-set
+shall be retrieved or not. UNC: A priori uncertainty (1 std dev). MODEL:
+A string. If set to 'common' a single off-set is retrieved for each
+spectrum. If set to 'module' an off-set for each active AC module is
+retrieved, i.e. up to four off-set per spectrum are derived. If set to
+'adaptive' then all modules contributing with more than 125 channels are
+grouped and a common off-set for these modules is retrieved, while separate
+off-sets are retrieved for remaining modules (<= 125 channels).
+
+\item[{DZA\_GRID\_EDGES}]
+A vector. Complements DZA\_MAX\_IN\_CORE in the specification of the angular
+grid used for pencil beam calculations. The vector specifies the values to
+add outside the lower and upper boresight direction. These are relative angles
+(in degrees), where 0 shall not be included.
+
+\item[{DZA\_MAX\_IN\_CORE}]
+A scalar value. Determines the maximum spacing (in degrees) of the angular
+grid used for pencil beam calculations. This value sets the spacing between
+the lower and upper boresight direction.
+
+\item[{FOLDER\_ABSLOOKUP}] 
+A string. Full path to folder containing the different versions of absorption
+look-up tables. That is, this folder is expected to contain folders. The
+exact folder specification is a result of this field and ABSLOOKUP\_OPTION.
+
+\item[{FOLDER\_ANTENNA}] 
+A string. Full path to folder containing antenna pattern response files.
+
+\item[{FOLDER\_BACKEND}] 
+A string. Full path to folder containing backend channel response files.
+
+\item[{FOLDER\_BDX}] 
+A string. Full path to folder containing files of the Bordeaux a priori
+database. Files having .mat format are expected.
+
+\item[{FOLDER\_FGRID}] 
+A string. Full path to folder containing frequency grid files.
+
+\item[{FOLDER\_MSIS90}] 
+A string. Full path to folder holding the MSIS90 climatology (version taken
+from arts-xml-data). Only needed of temperature data taken from MSIS90,
+which is the case for some pre-calculations.
+
+\item[{FOLDER\_WORK}] 
+A string. Full path to a folder where temporary files and/or folders can
+be placed. If this field is set to '/tmp', a temporary folder is created and
+all files are placed in this folder, and the folder is removed when the
+calculations are done. Otherwise, temporary files are placed directly in the
+specified folder, and these are left when the calculations are done. This
+option is useful for debugging, but note that just a single Qsmr process can
+use a folder for debugging. If several Qsmr processes are given the same debugging
+folder, files will be overwritten and the calculations will crash or be incorrect.
+
+\item[{FREQMODE}] 
+An integer. The frequency mode. See L1B ATBD for definition of existing
+frequency modes.
+
+\item[{FREQUENCY}] 
+A structure. Definition of frequency off-set retrieval. The fields of the
+structure are as follows. RETRIEVE: A boolean, flagging if frequency off-set
+shall be retrieved or not. UNC: A priori uncertainty (1 std dev). NPOLY: The
+polynomial order to apply for frequency fit. For example, 0 means that a
+constant off-set is retrived and 1 means that the varies is assumed to vary
+linearly with zenith angle. The value -1 has a special meaning. With -1, an
+off-set for each tangent altitude is retrieved. The a priori uncertainty is
+set to following UNC for all polynomial coefficients, or for each off-set
+of NPOLY is -1.
+
+\item[{FRONTEND\_NR}] 
+An integer. Index of expected frontend. Index coding described in L1B ATBD.
+
+\item[{F\_RANGES}] 
+A matrix, having two columns. This matrix specifies the frequency ranges to
+include in the retrieval, where the first and second column give the lower
+and upper frequency limit, respectively. Each row specifies a new frequency
+range to include.
+
+\item[{F\_GRID\_NFILL}] 
+An integer. If set to > 0, the sensor response matrix will include a cubic
+frequency interpolation of the spectra, with F\_GRID\_NFILL points added
+between existing grid points. See further the ARTS workspace method
+sensor\_responseFillFgrid. If set to 0, no such interpolation is made.
+
+\item[{F\_LO\_NOMINAL}] 
+A scalar value. Nominal value of the LO frequency.
+
+\item[{GA\_FACTOR\_NOT\_OK}] 
+A scalar value. The factor with which the Marquardt-Levenberg factor is
+increased when not a lower cost value is obtained. This starts a new
+sub-iteration. This value must be > 1.
+
+\item[{GA\_FACTOR\_OK}] 
+A scalar value. The factor with which the Marquardt-Levenberg factor is
+decreased after a lower cost values has been reached. This value must be > 1.
+
+\item[{GA\_MAX}] 
+A scalar value. Maximum value for gamma factor for the Marquardt-Levenberg
+method. The inversion is halted and flagged as unsuccessful if this value is
+reached. This value must be > 0.
+
+\item[{GA\_START}] 
+A scalar value. Start value for gamma factor for the Marquardt-Levenberg
+method. See the L2 ATBD for a definition of the gamma factor. This value must
+be >= 0.
+
+\item[{INVEMODE}] 
+A string. A short string naming the inversion set-up used.
+
+\item[{LO\_COMMON}] 
+A boolean. If true, the initial value of LO frequencies are set to be
+constant over the scan. This value is set following LO\_ZREF. If false, the
+L1B value for each altitude is used.
+
+
+\item[{LO\_ZREF}] 
+A scalar value. Reference altitude for LO frequency. When performing
+frequency cropping, frequencies are taken from the spectra with the closest
+altitude. Further, if LO\_COMMON is set to true, the LO frequency is taken
+from the L1B data of the spectrum closest to this altitude.
+
+\item[{MIN\_N\_FREQS}] 
+A scalar value. The required number of frequencies (i.e. channels) of spectra
+to start an inversion. This number refers to the number of spectra after frequency
+cropping and quality filtering.
+
+\item[{MIN\_N\_SPECTRA}] 
+A scalar value. The required number of spectra of a scan to start an
+inversion. This number refers to the number of spectra after altitude
+cropping and quality filtering.
+
+\item[{NOISE\_CORRMODEL}] 
+A string. Model of correlations inside Se. Only correlation between adjacent
+channels of each spectrum is modelled. The options are as follows. 'none':
+this generates a pure diagonal Se. 'empi': Uses empirically derived values
+making Se a five-diagonal matrix. 'expo': Exponentially decreasing
+correlation, approximating the empirically derived values.
+
+\item[{POINTING}] 
+A structure. Definition of pointing off-set retrieval. The fields of the
+structure are as follows. RETRIEVE: A boolean, flagging if pointing off-set
+shall be retrieved or not. UNC: A priori uncertainty (1 std dev).
+
+\item[{PPATH\_LMAX}] 
+A scalar value. The maximum distance between points of the propagation path.
+See further the ARTS workspace variable with the same name.
+
+\item[{PPATH\_LRAYTRACE}] 
+A scalar value. The length to apply for ray tracing to consider the effect
+of refraction. See further the ARTS workspace variable with the same name.
+
+\item[{P\_GRID}] 
+A vector. The pressure grid to be used. See further the ARTS workspace
+variable with the same name. Note that this setting is also used when
+pre-calculating absorption lookup tables.
+
+\item[{QFILT\_FCORR}] 
+A logical. So far only used for CO modes. Set to true to remove data were
+the frequency correction failed or is uncertain.
+
+\item[{QFILT\_LAG0MAX}] 
+A logical. Sets the maximum allowed value of ZeroLagVar. This quality
+filtering operates on AC sub-bands.
+
+\item[{QFILT\_MOON}] 
+A logical. Determines if data shall be filtered based on the MOON quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_NOISE}] 
+A logical. Determines if data shall be filtered based on the NOISE quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_REF1}] 
+A logical. Determines if data shall be filtered based on the REF1 quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_REF2}] 
+A logical. Determines if data shall be filtered based on the REF2 quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_SCANNING}] 
+A logical. Determines if data shall be filtered based on the SCANNING quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_SPECTRA}] 
+A logical. Determines if data shall be filtered based on the SPECTRA quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_TBRANGE}] 
+A logical. Determines if data shall be filtered based on the TB range quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_TINT}] 
+A logical. Determines if data shall be filtered based on the TINT quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_TREC}] 
+A logical. Determines if data shall be filtered based on the TREC quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{QFILT\_TSPILL}] 
+A logical. Determines if data shall be filtered based on the TSPILL quality
+flag. This quality filtering operates on tangent altitudes.
+
+\item[{SIDEBAND\_LEAKAGE}] 
+A scalar or 'model'. If a scalar value, this is taken as the sideband
+leakage. This leakage is assumed to be flat over the (main) frequency band.
+If set to 'model', the sideband response is set according a model based on
+Tcal and SBPATH.
+
+\item[{STOP\_DX}] 
+OEM stop criterion. The iteration is halted when the change in x
+is < stop\_dx. Eq. 5.29 in the book by Rodgers is followed, but a
+normalisation with the length of x is applied. This means that STOP\_DX
+should in general be in the order of 0.01 (and not change with the
+length of the state vector).
+
+\item[{REFRACTION\_DO}] 
+A boolean. Determines if refraction is considered or not by the forward
+model. Set to true to include refraction.
+
+\item[{T}] 
+A structure. Definition of atmospheric temperature profile. The fields of
+the structure are as follows. SOURCE: A string describing from where
+temperature a priori shall be taken. Handled options are 'WebApi' and
+'MSIS90'. RETRIEVE: A boolean, flagging if temperature shall be retrieved or
+not. All fields below are ignored if RETRIEVE is false. L2: A boolean,
+flagging if temperature is part of L2 data of the frequency mode. GRID:
+Retrieval grid to use for temperature. UNC: A vector of length 5, with a
+priori uncertainty (1 std dev)  at 100, 10, 1, 0.1 and 0.01 hPa (roughly
+16, 32, 48, 64 and 80 km). CORRLEN: Correlation length, in meter, to use
+when creating Sx. LIMITS: A vector of length 2, specifying allowed limits
+for retrieved temperatures. The first and second value is the lower and
+upper limit, respectively. L2NAME: A string. Will be used as L2.Product.
+
+\item[{TB\_CONTRAST\_FAC}] 
+A scalar value. This factor modifies the contrast of each spectrum part.
+If this factor is denoted as c, the scaling is:
+Tb\_new = c * ( Tb -Tb\_min ) + Tb\_min,
+where Tb\_min as an estimate of the noise-free minimum value of each
+spectrum part. This scaling is applied after TB\_SCALING\_FAC. This contrast
+scaling is applied on each AC module separately. That is, the complete
+spectrum is divided into four individual parts when performing this scaling.
+To leave the data unchanged, set this field to {[}{]} or 1.
+
+\item[{TB\_SCALING\_FAC}] 
+A scalar value. The L1B brightness temperature data are scaled with this
+factor. If this factor is denoted as c, the scaling is Tb\_new = c * Tb.
+For example setting this field to 1.005 will convert an original  Tb-value
+of 200 K to 201 K. To leave the data unchanged, set this field to {[}{]} or 1.
+
+\item[{VERSION\_ARTS}] 
+A string. This string shall match the version string provided by the
+expected version of ARTS. For example: 'arts-2.3.562'
+
+\item[{VERSION\_QSMR}] 
+A string. This string shall match the version string found at the top of
+Qsmr's ChangeLOg file. The version is expcted to be placed on line 3 and be
+proceeded with a '*'.
+
+\item[{ZTAN\_LIMIT\_BOT}] 
+A vector of length 4. The lower limit for tangent altitudes to include in
+the inversion. That is, this setting determines the lower limit when
+cropping the scan range. The four values give the tangent altitude limit at
+0, +-30, +-60 and +-90 degrees in latitude. That is, the tangent altitude
+mask is assumed to be symmetric around the equator.
+
+\item[{ZTAN\_LIMIT\_TOP}] 
+A scalar value. The upper limit for tangent altitudes to include in the
+inversion. That is, this setting determines the upper limit when cropping
+the scan range.
+
+\item[{ZTAN\_MIN\_RANGE}] 
+A vector of length two. This field specifies the minimum altitude coverage of a
+scan to start an inversion. The order between lower and upper limit is free.
+The scan must have at least one tangent altude below and above the given
+limits. This check is done after applying ZTAN\_LIMIT\_BOT/TOP.
+
+\end{itemize}
+
+\end{changemargin}
+
+\clearpage
+\newpage
+\subsection{Q standard}
+\label{sec:standard}
+\verbinput{q_stnd.m}
+\clearpage
+\newpage
+
+\subsection{Q meso}
+\label{sec:meso}
+\verbinput{q_meso.m}
+

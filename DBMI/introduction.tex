@@ -1,0 +1,46 @@
+\chapter{Introduction}
+\label{chapter:introduction}
+
+
+% The page numbering must be reset here inside the file
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\section{Aim and scope of this document}
+\label{sec:aim}
+\smr\ performs passive limb measurements of the atmosphere,
+mainly at wavelengths and frequencies around 0.6\,mm and 500\,GHz,
+respectively.
+From these measurements, profiles of 
+\chem{O_3}, \chem{ClO}, \chem{N_{2}O}, \chem{HNO_{3}}, 
+\chem{H_{2}O}, \chem{CO}, and isotopologues of \chem{H_{2}O}, and \chem{O_{3}},
+that are species that are of interest for studying stratospheric and 
+mesospheric chemistry and dynamics, can be derived. 
+\smr\ has been in operation for approximately 18 years, and thus, the Level2
+dataset can potentially be applied for scientifically interesting trend analysis.
+
+A new \smr\ Level2 product dataset has been generated, and in~\cite{dds}
+thew new \smr\ Level2 products are compared to correlative measurements from other
+instruments, as well as with the Level2 data from the older 2.0/2.1 versions of
+the Odin/SMR processing chain. A general description
+of the \smr\ retrieval process is described in~\cite{atbdl2}. That is, 
+\cite{atbdl2} describes the basic configuration of the forward
+model deployed, the optimal estimation method implementation, and the retrieval
+variables for the \smr\ processing. In practise, the exact configuration
+of the \smr\ level2 processing is product or frequency mode specific,
+and all detailed settings are not reported in \cite{atbdl2}.
+
+The aim of this report is mainly to document the configuration of \smr\ Level2 processing
+in details. The information has been collected from the QSMR-Data repository
+(\url{https://phabricator.molflow.com/diffusion/QQD/}), that is actually used
+by the \smr\ Level2 processing system. 
+The information presented in this document is relevant for future validation studies,
+as it for example should allow for a reproduction of the results.
+ 
+
+\section{Document structure}
+
+Chapter 2 defines the configuration of the \smr\ Level2
+processing, and the actual setting deployed for the various
+frequency modes.  
