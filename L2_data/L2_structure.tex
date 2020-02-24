@@ -1,11 +1,45 @@
 \chapter{Level 2 Data Product Structure}
 \label{chapter:L2_structure}
 
-\textit{Text describing the filename convention, the storage format of the data products, etc. (to be added).} \\
 
-Each L2 product is associated with a single scan of the atmosphere by the \smr\ instrument. In other words, it describes a single VMR or temperature profile. It contains the objects described bellow. \\
+\section{Accesing Level 2 data}
 
-% Question, to be discussed: is it better to provide the different fields in alphabetical order or to decide another logical order? (In any case, I think that the order of the description items below should be the same as the one of the L2 structure fields.)
+L2 data can be obtained in two ways:
+
+\begin{enumerate}
+
+\item via a web-api that can be queried and used to get data from
+  specific scans. Documentation about the web-api is found here: 
+  \url{http://odin.rss.chalmers.se/apidocs/index.html}.
+
+\item or through downloading monthly L2 product files files over http
+  from a file archive (\url{http://odin.rss.chalmers.se/level2_download/}).
+  \textbf{THIS IS NOT YET TRUE, BURT FILES WILL SOON BE FOUND HERE.}
+  This option can preferable be used if all or a large part of the
+  Odin data is of interest.
+
+\end{enumerate}
+
+
+\section{File format/name convention}
+
+L2 product files are stored in netCDF format (\url{https://www.unidata.ucar.edu/software/netcdf/})
+and the file name convention of the monthly L2 files is: \\
+Odin-SMR\_L2\_\{\textbf{project}\}\_\{\textbf{product}\}\_\{\textbf{year}\}-\{\textbf{month}:02\}.nc, \\
+e.g.:\
+Odin-SMR\_L2\_ALL-Strat-v3.0.0\_O3-501-GHz-20-to-50-km\_2005-01.nc.\\
+where in this case:\\
+project = ALL-Strat-v3.0.0 and product = O3-501-GHz-20-to-50-km.
+See further in \cite{dds} for available projects and products.
+
+
+\section{Level2 data description}
+
+Each L2 product is associated with a single scan of the atmosphere by the \smr\ instrument. In other words,
+it describes a single VMR or temperature profile. It contains the objects described bellow: \\
+
+% Question, to be discussed: is it better to provide the different fields in alphabetical order or to decide another logical order?
+% (In any case, I think that the order of the description items below should be the same as the one of the L2 structure fields.)
 
 \textbf{Altitude} (array of doubles): Altitude of retrieved values (m) \\
 
@@ -66,4 +100,101 @@ Each L2 product is associated with a single scan of the atmosphere by the \smr\ 
 \textbf{VersionL2} (string): Version number of the Level 2 processing chain that was used to create the Level 2 file. \\
 
 
+\subsection{Level2 file description}
 
+A description of the L2 netCDF file is given below:
+
+\begin{verbatim}
+
+netcdf Odin-SMR_L2_ALL-Strat-v3.0.0_O3-501-GHz-20-to-50-km_2005-01 {
+dimensions:
+        time = 5 ;
+        level = 28 ;
+variables:
+        float GenerationTime(time) ;
+                GenerationTime:description = "Processing date." ;
+                GenerationTime:units = "days since 1858-11-17 00:00" ;
+        float Altitude(time, level) ;
+                Altitude:description = "Altitude of retrieved values." ;
+                Altitude:units = "m" ;
+        float Apriori(time, level) ;
+                Apriori:description = "A priori profile used in the
+                    inversion algorithm." ;
+                Apriori:units = "-" ;
+        float AVK(time, level, level) ;
+                AVK:description = "Averaging kernel matrix." ;
+                AVK:units = "%/%" ;
+        float ErrorNoise(time, level) ;
+                ErrorNoise:description = "Error due to measurement ...";
+                ErrorNoise:units = "-" ;
+        float ErrorTotal(time, level) ;
+                ErrorTotal:description = "Total retrieval error, ...";
+                ErrorTotal:units = "-" ;
+        float Lat1D(time) ;
+                Lat1D:description = "A scalar representative latitude ...";
+                Lat1D:units = "degrees north" ;
+        float Latitude(time, level) ;
+                Latitude:description = "Approximate latitude of each ...";
+                Latitude:units = "degrees north" ;
+        float Lon1D(time) ;
+                Lon1D:description = "A scalar representative longitude ..." ;
+                Lon1D:units = "degrees east" ;
+        float Longitude(time, level) ;
+                Longitude:description = "Approximate longitude of each ..." ;
+                Longitude:units = "degrees east" ;
+        float LST(time) ;
+                LST:description = "Mean local solar time for the scan." ;
+                LST:units = "hours" ;
+        float MeasResponse(time, level) ;
+                MeasResponse:description = "Measurement response, defined ..." ;
+                MeasResponse:units = "-" ;
+        float Orbit(time) ;
+                Orbit:description = "Odin/SMR orbit number." ;
+                Orbit:units = "-" ;
+        float Pressure(time, level) ;
+                Pressure:description = "Pressure grid of the retrieved ..." ;
+                Pressure:units = "Pa" ;
+        float Profile(time, level) ;
+                Profile:description = "Retrieved volume mixing ratio." ;
+                Profile:units = "-" ;
+        int Quality(time) ;
+                Quality:description = "Quality flag." ;
+                Quality:units = "-" ;
+        int64 ScanID(time) ;
+                ScanID:description = "Satellite time word scan identifier." ;
+                ScanID:units = "-" ;
+        float SZA1D(time) ;
+                SZA1D:description = "Mean solar zenith angle of the ..." ;
+                SZA1D:units = "degrees" ;
+        float SZA(time, level) ;
+                SZA:description = "Approximate solar zenith angle ..." ;
+                SZA:units = "degrees" ;
+        float Temperature(time, level) ;
+                Temperature:description = "Estimate of the temperature ..." ;
+                Temperature:units = "K" ;
+        float Theta(time, level) ;
+                Theta:description = "Estimate of the potential temperature ..." ;
+                Theta:units = "K" ;
+        float Time(time) ;
+                Time:description = "Mean time of the scan." ;
+                Time:units = "days since 1858-11-17 00:00" ;
+
+// global attributes:
+                :observation_frequency_mode = 1LL ;
+                :inversion_mode = "stnd" ;
+                :level2_product_name = "O3 / 501 GHz / 20 to 50 km" ;
+                :date_created = "2020-02-24 T08:31:04Z" ;
+                :time_coverage_start = "2005-01-01 T11:12:13Z" ;
+                :time_coverage_end = "2005-01-01 T11:30:58Z" ;
+                :creator_name = "Donal Murtagh" ;
+                :creator_url = "odin.rss.chalmers.se" ;
+                :creator_email = "donal.murtagh@chalmers.se" ;
+                :address = "412 96 Gothenburg, Sweden" ;
+                :institution = "Chalmers University of Technology" ;
+                :platform = "Odin" ;
+                :sensor = "SMR" ;
+                :version_l1b = "8" ;
+                :version_l2 = "3.0.0" ;
+
+}
+\end{verbatim}
