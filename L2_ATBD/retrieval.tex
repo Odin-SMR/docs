@@ -1,4 +1,4 @@
-\chapter{Retrieval variables}
+\chapter{Retrieval  variables}
 \label{chapter:retvars}
 
 This chapter reviews the variables that are part of the retrievals, either
@@ -61,8 +61,7 @@ altitude limit are defined, that determine which spectra of a scan that will be
 part of \MsrVct. The altitude limits are defined using geometrical tangent
 altitudes (that is, refraction neglected) as those are the tangent altitudes
 found in the L1b data. A minimum scan range is defined in the same manner; no
-retrieval is made if a limb scan does not cover this minimum range. The tangent
-altitude masks for each frequency band are found in \citet{atbdl2data}.
+retrieval is made if a limb scan does not cover this minimum range. 
 
 
 
@@ -113,14 +112,13 @@ having a known VMR, has to be considered for this frequency band.
 
 A species or temperature ``profile'' is a set of values describing the vertical
 variation, at a set of specified pressures, that is, the retrieval grid (see
-also Sec.~\ref{sec:arts:aspects}). Retrieval grids are discussed further in
-Sec.~\ref{sec:b:pgrid}. Atmospheric temperatures are in Kelvin. Gas species are
-reported as \VMR, but the actual retrieval is internally performed using one of
-the two following units:
+also Sec.~\ref{sec:arts:aspects}). Atmospheric temperatures are in Kelvin. Gas
+species are reported as \VMR, but the actual retrieval is internally performed
+using one of the two following units:
 \begin{itemize}
 \item Default is to operate with the relative value with respect to a priori.
   In this ``relative unit'' a priori matches a value of 1.
-\item A constrain of ensuring positive VMR values is achived by instead
+\item A constrain of ensuring positive VMR values is achieved by instead
   retrievaing the natural logarithm of the unit above. Using this unit, the a
   priori state corresponds to a vector of zeros.
 \end{itemize}
@@ -177,22 +175,6 @@ if found necessary. The retrieved frequency of channel $i$ is
 where $\nu_j$ is the frequency found given by L1b data.
 
 
-%\section{The a priori vector, \aSttVct{a}}
-%\label{sec:xa}
-%
-%\lcomment{PE}{Write later. For species we need to decide if we go for the old
-%  a priori database, originally from Bordeaux. Or can we get a better, and much
-%  newer, alternative? The MIPAS climatology, or from any of all ongoing
-%  projects?}
-%\lcomment{PE}{For temperature we need to decide if ECMWF-operational or
-%  ERA-Interim shall be used as source. And how exactly the transition to MSIS
-%  is made.}
-
-%All sensor correction terms are assumed to have an average of zero. Accordingly, the
-%a priori value of $\Delta\VctStl{o}$, $\Delta\theta$ and $\Delta\nu$ is
-%throughout set to zero.
-
-
 \section{A priori uncertainty covariance matrix, \aCvrMtr{a}}
 \label{sec:Sa}
 %
@@ -209,14 +191,6 @@ as long as \aCvrMtr{a}\ is given ``reasonable'' values
 \citep{eriksson:analy:00}. On the other hand, the uncertainties in the
 instrumental variables are known fairly well and the corresponding parts of
 \aCvrMtr{a}\ should be quite accurate.
-\\
-\lcomment{PE}{Species: Details here depends on retrieval unit selected, and
-  text must be written latter. But likely, we use a $\sim$50\% variability,
-  with a constrain of a minimum variability defined in \VMR\ (converted to
-  relative values).} \lcomment{PE}{Temperature: For altitudes up to about
-  45\,km, the standard deviation should be $\approx$2\,K. For higher
-  altitudes, use fixed values, or does CIRA or MSIS contain tables on natural
-  variability that can be used?}
 
 The atmosphere exhibits vertical correlation, see \citet{eriksson:stati:02} for
 examples on ozone and temperature correlations. In lack of direct measurements
@@ -234,17 +208,14 @@ or an exponential one,
 \end{equation}
 where $\rho(z_1,z_2)$ is the correlation coefficient between altitudes $z_1$
 and $z_2$. Note that the mean of the correlation length at $z_1$ and $z_2$ is
-used, that is,  $l_c(z_1)/2+l_c(z_2)/2$.\todo{Where do we report $l_c$ used?}
+used, that is,  $l_c(z_1)/2+l_c(z_2)/2$.
 
 The frequency and pointing off-sets are scalar values, and only a standard
-deviation ($\sigma$) for each quantity must be specified. These standard deviations
-are set to $\sigma_{\Delta\nu}=?$\,MHz and $\sigma_{\Delta\theta}=?^\circ$, respectively.
-The brightness temperature off-sets have been found to be uncorrelated between
-spectra, and the variation to have no variation with altitude. This results in
-that the covariance matrix for $\VctStl{\Delta\VctStl{o}}$ can be written as 
-$\sigma_{\VctStl{\Delta\VctStl{o}}}^2\IdnMtr$. The standard deviation of
-brightness temperature off-sets is throughout set to ?\,K\todo{Set value for
-  all $\sigma$.}.
+deviation ($\sigma$) for each quantity must be specified. The brightness
+temperature off-sets have been found to be uncorrelated between spectra, and
+the variation to have no variation with altitude. This results in that the
+covariance matrix for $\VctStl{\Delta\VctStl{o}}$ can be written as
+$\sigma_{\VctStl{\Delta\VctStl{o}}}^2\IdnMtr$.
 
 Any correlations between the different quantities in \SttVct\ are fully
 ignored. That is, the total covariance matrix becomes:
@@ -276,72 +247,6 @@ of \aCvrMtr{a}\ is calculated in the following manner:
   \end{bmatrix}.
 \end{equation}
 
-
-
-\section{Forward model parameters, \FrwMdlVct}
-\label{sec:b}
-%
-Please note that static forward model settings, which are common for all
-simulations, are presented already in Sec.~\ref{sec:arts:config}.
-\\
-\lcomment{PE}{A first version of everything below exists, but all details
-  should be revised/optimised further. Write each section below, when later
-  looking at each part.}
-
-
-\subsection{Pressure grids}
-\label{sec:b:pgrid}
-%
-\lcomment{PE}{Describe how pressure grids are set, including retrieval ones. We
-  operate with a fixed set of pressure where integer pressure decades always
-  are included (e.g.\ 100 and 1\,hPa). The spacing is given as number of points
-  per pressure decade, as also done for MLS. Retrieval grids always contain a
-  sub-set of the forward model pressure grid.}
-
-
-\subsection{Monochromatic frequency grids}
-\label{sec:b:fgrid}
-%
-\lcomment{PE}{Describe the role of these grids, and how they are handled inside
-  \ARTS, resulting in a need to have a more dense spacing around transitions.
-  Make an illustrative figure. Describe algorithm to set these grids. Test how
-  the calculation time scales with the number of frequencies. Is it close to
-  linear? If yes, then we should try to improve the existing algorithm to set
-  the grids. The most obvious choice if to use the Ffill option, but that
-  requires careful testing to check that there are no caveats.}
-
-
-\subsection{Spectroscopic data and absorption continua}
-\label{sec:b:absdata}
-%
-\lcomment{PE}{The bulk of the data are taken from latest HITRAN. A literature
-  review will be performed to hand-pick values for our most important
-  transitions. The hand-picked data will be put in tables, that can be used to
-  replace the corresponding value in HITRAN by \ARTS. The nitrogen and water
-  vapour continua should be set as done for the tropospheric retrievals. For
-  nitrogen this means the expression from MPM93 multiplied with 1.34
-  following some references in the literature. Details given later.}
-
-
-
-\subsection{Absorption look-up tables}
-\label{sec:b:abstable}
-%
-\lcomment{PE}{Describe how absorption tables are generated, basically just what
-  reference atmosphere that is used, and what pressure and temperature grids
-  that are used. And also state what interpolation orders that are applied.}
-
-
-
-\subsection{Radiative transfer}
-\label{sec:b:rt}
-%
-The propagation path used when evaluating Eq.~\ref{eq:rteq} is defined by a set
-of points. A point is added at each crossing of the path with a
-pressure level (that is, the pressures defining the vertical grid). Additional
-points are inserted to ensure that the distance along the path does not exceed
-an user defined threshold. This threshold is denoted $l_\mathrm{max}$ in the
-tables of ?\todo{Where?}.
 
 
 

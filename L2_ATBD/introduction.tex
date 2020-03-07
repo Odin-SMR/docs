@@ -9,18 +9,15 @@
 \section{Aim and scope of this document}
 \label{sec:aim}
 %
-\smr\ performs passive limb measurements of the atmosphere, mainly at wavelengths
-around 0.6\,mm. The basic output of \smr\ is spectra in different frequency
-bands. After calibration the spectra are denoted as L1b data, and are grouped
-into limb scans for further processing. The overall aim of this document is to
-describe the software and algorithms used in this L2 processing, that is, the
-step of extracting geophysical data from L1b data. The aim includes also to
-motivate the different decisions involved, such as what instrumental parameters
-that shall be retrieved in parallel to the geophysical data to provide best
-possible L2 data product. This document describes the retrieval process and
-related questions in a general manner, while details and information that
-vary between observation modes are found elsewhere (see
-Sec.~\ref{sec:reading}).
+\smr\ performs passive limb measurements of the atmosphere, mainly at
+wavelengths around 0.6\,mm. The basic output of \smr\ is spectra in different
+frequency bands. After calibration the spectra are denoted as L1b data, and are
+grouped into limb scans for further processing. The overall aim of this
+document is to describe the softwares and algorithms used in the L2 core
+processing, that is, the actual step of extracting geophysical data from L1b
+data. This document describes the retrieval process and related questions in a
+general manner, while details and information that vary between frequency
+modes are found elsewhere (see Sec.~\ref{sec:reading}).
 
 The document covers only the ``operational'' \smr\ L2 products. These products
 are based on measurements confined to tangent altitudes above the tropopause,
@@ -77,9 +74,10 @@ spacing of 1\,MHz, while the frequency resolution is only 1.2 or 2\,MHz
 (depending if a rectangular or Hanning window is applied or not in the
 conversion from autocorrelations to spectra). To cover all molecular
 transitions of interest, a number of ``observation modes'' have been defined.
-Each observation mode makes use of two or three frequency bands. Single
-sideband operation is obtained by tunable Martin--Pupplet interferometers. The
-nominal sideband suppression is better than 19\,dB across the image band.
+Each observation mode covers two or three frequency bands. The data from each
+band is denoted as a ``frequency mode''. Single sideband operation is obtained
+by tunable Martin--Pupplet interferometers. The nominal sideband suppression is
+better than 19\,dB across the image band.
 
 \smr\ also has a receiver chain around the 118\,GHz oxygen transition, that was
 heavily used during Odin's astronomy mission. For the atmospheric mission, this
@@ -145,13 +143,10 @@ for other situations.
 \label{sec:reading}
 %
 \citet{murtagh:anove:02} give an overview of the Odin aeronomy mission, as well
-as the general technical details of \smr. Some further technical information
-is found in \citet{eriksson:studi:02}, and a more detailed description of
-the observation modes is provided by \citet{merino:studi:02}.
-
-The input to this L2 processing is the L1b data described in \citet{atbdl1b}. The
-exact settings applied and the general characteristics of the L2 data, that
-both vary between observation modes, are described in \citet{atbdl2data}.
+as the general technical details of \smr. Some further technical information is
+found in \citet{eriksson:studi:02}, and a more detailed description of the
+observation modes is provided by \citet{merino:studi:02}. The input to this L2
+processing is the L1b data described in \citet{atbdl1b}.
 
 
 

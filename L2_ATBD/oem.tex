@@ -103,7 +103,7 @@ iterations to perform. The overall iteration scheme applied is:
 \end{itemize}
 The values of $\gamma_0$, $f_s$, $f_u$, $\gamma_\mathrm{min}$,
 $\gamma_\mathrm{max}$ and $i_\mathrm{max}$ vary between the retrieval of the
-different observation modes. Actual values are listed in \citet{atbdl2data}.
+different frequency modes. 
 
 
 \section{Convergence tests and values}
@@ -124,8 +124,8 @@ book section cited:
 \end{equation}
 where $n$ is the length of the vector \SttVct\ and
 $\Delta\SttVct_\mathrm{stop}$ is the variable controlling the wanted
-strictness. The value of $\Delta\SttVct_\mathrm{stop}=?$ varies between
-observation modes, see \citet{atbdl2data}.
+strictness. The value of $\Delta\SttVct_\mathrm{stop}$ varies between
+frequency modes.
 
 If Eq.~\ref{eq:stopcrit} becomes fulfilled, it is considered that basic
 convergence has been achieved. There are two exceptions, resulting in
@@ -140,7 +140,7 @@ For these \smr\ retrievals, the length of \MsrVct, $m$, is always much higher
 than $n$ (length of \SttVct). In this situation, the final cost value, defined
 according to Eq.~\ref{eq:costfun}, should be approximately $m$ at correct
 convergence. As $m$ can vary from retrieval to retrieval, even for a single
-observation mode, a normalised cost, $\CstFnc'$, is defined to make it simpler to
+frequency mode, a normalised cost, $\CstFnc'$, is defined to make it simpler to
 compare cost values from different retrievals. The normalised cost is
 defined as:
 \begin{eqnarray}
@@ -150,8 +150,6 @@ defined as:
   (\MsrVct-\FrwMdl(\SttVct,\FrwMdlVctHat))}{m},\\
   \CstFnc_x' &=& \frac{(\SttVct-\aSttVct{a})^T\aCvrMtr{a}^{-1}(\SttVct-\aSttVct{a})}{m}.\\
 \end{eqnarray}
-The L2 data contain $\CstFnc'$, as well as $\CstFnc_y'$ to provide information
-on how the final cost is distributed between the two penalty terms.
 
 
 \subsection{Correct convergence}
@@ -163,7 +161,7 @@ optimal solution a more advanced approach than \LM\ is required, but all
 such methods are computationally very demanding. A simplistic approach is to
 restart the iteration with other start conditions, where $\RtrVct_0$ and/or
 $\gamma=\gamma_0$ are/is given other initial value. Such tests have been
-performed on a number of cases for each observation mode, to validate the
+performed on a number of cases for each frequency mode, to validate the
 iteration settings, but are not performed on a regular basis.
 
 The final cost value can be used for rough testing of incorrect convergence,
@@ -185,16 +183,10 @@ contains features besides thermal noise. The so called baseline ripple is a comm
 cause for an excess size of the residual.
 
 For these reasons, a suitable upper limit on $\CstFnc_y'$ varies between the
-observation modes. Suggested limits for quality filtering for each mode are
-found in \citet{atbdl2data}.
-
-A high final cost can be caused by both bad input data and that the iteration
-procedure ended up at a local minimum. Without a detailed analysis it is
-impossible to say which of the two potential problems that is the cause behind
-a suspiciously high end value of $\CstFnc'$.
-%\\
-%\lcomment{PE}{Is there anything smart to say about $\CstFnc_y'$? Can this value
-%  help to disentangle things?}
+frequency modes. A high final cost can be caused by both bad input data and
+that the iteration procedure ended up at a local minimum. Without a detailed
+analysis it is impossible to say which of the two potential problems that is
+the cause behind a suspiciously high end value of $\CstFnc'$.
 
 
 \section{Some notes on matrix operations}

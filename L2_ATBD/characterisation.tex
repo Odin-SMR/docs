@@ -1,4 +1,4 @@
-\chapter{Retrieval characterisation}
+\chapter{Characterisation of the retrieval}
 \label{chapter:characterisation}
 %
 A full retrieval characterisation is only given for a set of representative
@@ -42,10 +42,10 @@ with the corresponding matrix used as part of \OEM, \aCvrMtr{a}, is not a
 viable option as it would give misleading results. The smoothing error should
 in general be over-estimated, considering how \aCvrMtr{\SttVct}\ is constructed
 (Sec.~\ref{sec:Sa}). A smoothing error is present when $\AvrKrnMtr\neq\IdnMtr$.
-The averaging kernel matrix deviates from the identity matrix due to the
-impact regularisation, that roughly can be separated into two main aspects:
-limited resolution (see Sec.~\ref{sec:vertres}) and non-perfect measurement
-response (see Sec.~\ref{sec:mresp}).
+The averaging kernel matrix deviates from the identity matrix due to the impact
+regularisation, that roughly can be separated into two main aspects: limited
+resolution and non-perfect measurement response. For definition of measurement
+response, see \citet{baron:studi:02}.
 
 If the smoothing error is not included in the retrieval error, how should then
 the two remaining error terms be interpreted? Some guidance to understand this
@@ -170,7 +170,7 @@ covariance matrix for this example becomes
     \AvrKrnMtr_{\VctStl{t},\VctStl{v}}\aCvrMtr{\VctStl{v}}\AvrKrnMtr_{\VctStl{t},\VctStl{v}}^T
   \end{bmatrix} 
 \end{displaymath}
-where $\dots$ indicates matrix elements left out, for brevity reasons. If we
+where $\dots$ indicates matrix elements left out, for brevity. If we
 focus on the upper left sub-matrix, covering the ozone profile smoothing error,
 the term $(\AvrKrnMtr_{\VctStl{v}}-\IdnMtr)\aCvrMtr{\VctStl{v}}
 (\AvrKrnMtr_{\VctStl{v}}-\IdnMtr)^T$ covers the smoothing error that is
@@ -226,45 +226,7 @@ guidelines).
 
 
 
-\section{Full characterisation}
-%
-\lcomment{PE}{How do we distribute the full characterisations? Take the text
-  below just as some brainstorming around how we shall do this.}
-
-
-\subsection{Approach and reference cases}
-\label{sec:fullchar:select}
-%
-The full characterisation does not involve any measurement data. Instead a
-linear analysis is performed for a set of atmospheres selected from the gas
-species a climatology. Temperature data are here taken solely from
-?\todo{MSIS?}. A standard limb scan sequence is assumed. The integration times
-?\todo{One, several, or mix?}. A retrieval is set-up according to the time and
-position of the hypothetical measurement, and the characterisation is made for
-\aWfnMtr{\SttVct}\ and \CtrFncMtr\ following Eq.~\ref{eq:lindy}. That is, a
-linear analysis around a priori is performed.
-\\
-\lcomment{PE}{How do we define the database of full characteristics?
-  Combinations of months (middle of every second?) and latitudes (-80 to 80 in
-  steps of 20\degree?). The database should cover all frequency bands. There
-  should also be a discussion on what database case should be selected to match
-  a particular measurement. Should we recommend scaling following the
-  measurement response, where possible?}
-
-
-\subsection{Averaging kernel matrix, \AvrKrnMtr}
-\label{sec:A}
-%
-The full characterisation reports the complete averaging kernel matrix,
-together with the positions inside the state vector each retrieval quantity
-occupies. Each sub-matrix of \AvrKrnMtr\ can be extracted if these positions
-are known. The a priori data for which the averaging kernel matrix are also
-stored \dots 
-\\
-\lcomment{PE}{Exemplify how these data can be used.}
-
-
-\subsection{Error covariance matrices}
+\section{Error covariance matrices}
 \label{sec:Sreterr}
 %
 According to the discussion above, the random retrieval error is defined as the
@@ -296,95 +258,31 @@ quantities. As any covariance matrix, \aCvrMtr{\RtrErr_r}\ is symmetric (which
 is not the case for \AvrKrnMtr!), and corresponding sub-matrices above and
 below the diagonal provide redundant information.
 
-For completeness, the covariance matrix of the retrieval error due to thermal
-noise is also given
+The covariance matrix of the retrieval error due to thermal
+noise is
 \begin{equation}
   \label{eq:Sdeltan}
   \aCvrMtr{\RtrErr_n} = \CtrFncMtr\aCvrMtr{\MsrErrVct_n}\CtrFncMtr^T.
 \end{equation}
-\\
-\lcomment{PE}{Do we make use of the symmetry and only
-  store the upper part of the matrices?}
 
-
-\subsection{Random errors}
-\label{sec:erand}
+%\subsection{Random errors}
+%\label{sec:erand}
 %
-These errors show how the different sources contribute to the total random
-error. That is, the error due to thermal noise and all interfering smoothing
-errors are reported individually. Only standard deviations $(\sigma)$ are
-given. The total error $\sigma_\mathrm{tot}$, is related to the individual
-error components as
-\begin{equation}
-  \label{eq:randerr:sigma}
-  \sigma_\mathrm{tot}^2 = \sigma_\mathrm{n}^2 + \sum_{i=1}^{q-1} \sigma_{i}^2
-\end{equation}
-where $\sigma_\mathrm{n}$ is the error due to thermal noise, and $\sigma_{i}$
-is an interference error. The matching value along the diagonal of
-$\aCvrMtr{\RtrErr_o}$ equals $\sigma_\mathrm{tot}^2$.
-
-
-\subsection{Systematic errors}
-\label{sec:esyst}
-%
-\lcomment{PE}{Write this section later as we hopefully can make use of some
-  ongoing \ARTS\ development here. The most important systematic errors should
-  be due to spectroscopic data, such as pressure broadening parameters. These
-  errors are normally determined by perturbing the spectroscopic data, but this
-  is slow and requires a rather intricate set-up. \ARTS\ is right now extended
-  to provide weighting functions
-  for spectroscopic variables, which makes this process both faster and simpler.\\
-  Any other systematic error source to consider?}
+%These errors show how the different sources contribute to the total random
+%error. That is, the error due to thermal noise and all interfering smoothing
+%errors are reported individually. Only standard deviations $(\sigma)$ are
+%given. The total error $\sigma_\mathrm{tot}$, is related to the individual
+%error components as
+%\begin{equation}
+%  \label{eq:randerr:sigma}
+%  \sigma_\mathrm{tot}^2 = \sigma_\mathrm{n}^2 + \sum_{i=1}^{q-1} \sigma_{i}^2
+%\end{equation}
+%where $\sigma_\mathrm{n}$ is the error due to thermal noise, and $\sigma_{i}$
+%is an interference error. The matching value along the diagonal of
+%$\aCvrMtr{\RtrErr_o}$ equals $\sigma_\mathrm{tot}^2$.
 
 
 
-\section{L2 data fields}
-%
-The L2 data contain only some key characteristics, but these are calculated
-specifically for each retrieval\todo{Polish section when L2 format set.}.
-\\
-\lcomment{PE}{How is \CtrFncMtr\ set? By pure linear expression, or can we get
-  an effective \CtrFncMtr\ out of \LM?} \lcomment{PE}{When things are clearer,
-  consider to add the diagonal sub-matrices of averaging kernel and error
-  covariance matrices. That should be very useful, but would use much more disk
-  space.}
-
-
-\subsection{Measurement response}
-\label{sec:mresp}
-%
-The averaging kernel matrix is in the L2 data summarised by three measures,
-where the measurement response is one. The measurement response is defined as
-the row sum of the averaging kernel matrix \citep{baron:studi:02}, but
-following the treatment of smoothing errors, the summing is here only made
-inside each sub-matrix along the diagonal. That is, only the measurement
-response inside each retrieval quantity is considered.
-
-
-\subsection{Vertical placement and resolution}
-\label{sec:vertres}
-%
-Also these measures is based on the diagonal sub-matrices, and not the
-complete \AvrKrnMtr. The vertical resolution is reported as the full width at
-half maximum (\FWHM) of the averaging kernels. An averaging kernel is not
-necessarily centred around the nominal retrieval altitude. The vertical
-placement of the averaging kernel is given as the mean of altitude:
-\begin{equation}
-  \label{eq:zmean}
-  z_m = \frac{\int z a(z_0,z)\, \DiffD z}{\int a(z)\,\DiffD z}
-\end{equation}
-where $z$ is altitude and $a(z)$ is the averaging kernel for the nominal
-altitude of $z_0$\todo{Or give $z_m-z_0$?}.
-\\
-\lcomment{PE}{\FWHM\ is a quite optimistic value, especially for averaging
-  kernels of the shape given by \OEM. Also include spread?}
-
-
-\subsection{Random retrieval error}
-\label{sec:reterr}
-%
-The total random error, $\sigma_\mathrm{tot}$, is given following
-Eq.~\ref{eq:randerr:sigma}.
 
 
 

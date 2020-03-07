@@ -1,4 +1,4 @@
-\chapter{The ARTS forward model}
+\chapter{The ARTS software}
 \label{chapter:arts}
 
 
@@ -26,9 +26,9 @@ of scattering and going beyond horizontally homogeneous atmospheres (1D) were
 the main aims. This development resulted in a second main version \ARTS\
 \citep{eriksson:arts2:11}, and further extensions have been made more recently.
 \ARTS\ can today handle several observation techniques, as well as simulations
-for other planets, but only aspects relevant for \smr\ are discussed below.
-\smr\ measures thermal emission in a limb sounding geometry and, in this
-context, the most important features of \ARTS\ are:
+for other planets \citep{buehler:artst:18}, but only aspects relevant for \smr\
+are discussed below. \smr\ measures thermal emission in a limb sounding
+geometry and, in this context, the most important features of \ARTS\ are:
 \begin{itemize}
 \item The full polarisation state of radiation can by described, using the Stokes
   formalism.
@@ -67,9 +67,7 @@ this chapter). However, the core documentation of \ARTS\ is the built-in
 description of workspace methods and variables. This is the main information
 source for more experienced users and this documentation for the present stable
 version can be browsed at: \url{www.radiativetransfer.org/docserver-stable}.
-Finally, the best way to get started with practical calculations is to copy and
-modify some of the test and demonstration control files distributed with the
-software. For further details and links to the ARTS user guide and other
+For further details and links to the ARTS user guide and other
 documents, see \url{www.radiativetransfer.org/docs}.
 
 
@@ -87,23 +85,11 @@ bugs and unexpected side-effects of code changes as early as possible. As
 of tests, but standard applications of \ARTS\ should be fairly well covered by
 the tests. Some of the tests include comparison to a stored set of reference
 values, in order to test that the code not only runs, but also that the actual
-simulation results have not changed beyond some specified tolerance.
+simulation results have not changed beyond specified tolerances.
 
 
 \section{Configuration used}
 \label{sec:arts:config}
-
-\subsection{\ARTS\ version and compilation options}
-%
-The processing chain contains a check that a specific version of \ARTS\ is
-used. The version used presently is ARTS 2.3.564. \ARTS\
-is written in C++, and a compilation for each platform architecture is needed. The
-\texttt{cmake} build system is used to set up the compilation of \ARTS. A
-minimal version of \ARTS\ is created using the following options:
-\begin{verbatim}
-  cmake -DCMAKE_BUILD_TYPE=Release -DNO_DOCSERVER=1 ..
-\end{verbatim}
-
 
 \subsection{Basic settings}
 %
@@ -112,8 +98,7 @@ function of pressure, and are implicitly treated as constant in the latitude
 and longitude dimensions. A 1D atmosphere implies further a spherical reference
 geoid, and the radius of the this geoid is set to 6371\,km. The upper limit of
 the model atmosphere is defined in \ARTS\ by the lowest value in the user
-defined pressure grid. The range of this grid varies, see
-Sec.~\ref{sec:b:pgrid}. The lower limit of the atmosphere is determined by the
+defined pressure grid.  The lower limit of the atmosphere is determined by the
 planet's surface, and \ARTS\ demands that a surface is always defined. The
 altitude of the surface is for these simulations set to 1\,km, and regarding
 radiative properties it is set to behave as a blackbody.
@@ -139,15 +124,14 @@ atmosphere are solely determined by the absorption coefficient. \ARTS\ has two
 main ways of calculating absorption, ``on-the-fly'' or by look-up tables, where
 the latter option is by far the most efficient for simulations of \smr. That
 is, molecular absorption cross-sections are pre-calculated and stored in
-tables. One table is created for each observation mode. The tables contain
+tables. One table is created for each frequency mode. The tables contain
 absorption cross-sections for combinations of pressure and temperature, and
 final values are obtained by interpolation. It is throughout assumed that the
 absorption cross-sections do not vary with the mixing ratio of the gas, and that
 there are no ``non-linear'' species in the absorption table (this option is
 required for water vapour in the lower troposphere).
 \ARTS' absorption look-up table system is described in detail by
-\citet{buehler:absor:11}. The spectroscopic data used to produce the look-up
-tables are discussed in Sec.~\ref{sec:b:absdata}).
+\citet{buehler:absor:11}. 
 
 
 \subsection{Radiative transfer}
@@ -159,10 +143,7 @@ are zero for assumed conditions).
 Solving equation Eq.~\ref{eq:rteq} requires two main steps, to determine the
 propagation path and to perform the integration along the found path.
 Refraction must be considered for \smr\ \citep{eriksson:studi:02}, which is
-achieved by a simple ray tracing scheme (see AUG). The maximum step length of
-the ray tracing is set to 20\,km, which is estimated to give a
-tangent point accuracy better than 5\,m for tangent altitudes
-above 18\,km.
+achieved by a simple ray tracing scheme (see AUG). 
 
 The radiance at the top of the atmosphere, $I_0$ is set to mimic cosmic
 background radiation. There is no attempt to model situations when the moon is
@@ -211,8 +192,7 @@ sensor responses vary linearly between the points were data are available.
 However, these exists an option to include a polynomial frequency interpolation
 of monochromatic data, to create a more dense grid before the sensor responses
 are applied. This option decreases the overall calculation time, but makes the
-selection of the monochromatic frequency grid more critical. The variables
-controlling \SnsMtr\ and \MpiVct\ are discussed in Sec.~\ref{sec:b}.
+selection of the monochromatic frequency grid more critical.
 
 The conversion of the \smr's L1b data to brightness temperatures ($T_b$, K)
 must also be mimicked by the forward model. The radiances ($I$,
@@ -224,22 +204,6 @@ converted to follow the Rayleigh--Jeans approximation of the Planck function:
 \end{equation}
 where $c$ is the speed of light and $k_B$ is the Boltzmann constant. This
 conversion is made before the sensor responses are applied.
-
-
-
-%\section{\ARTS\ and weighting functions}
-%\label{sec:arts:wfuns}
-%
-%\lcomment{PE}{The Jacobian probably deserves special attention, as it is the
-%  least well established part among forward models. Discuss how ARTS calculates
-%  weighting functions. First of all, this is done quite efficiently, less than
-%  doubling of the calculation time compared to a just calculating \MsrVct. This
-%  due to analytic expressions and \SnsMtr. With absorption look-up table, the
-%  derivative of absorption with respect to temperature is done by perturbation.
-%  And temperature Jacobian does not consider non-local effects due to
-%  refraction and hydrostatic equilibrium. The pointing Jacobian could be used
-%  to make a first order correction for these simplifications, but this not yet
-%  tested.}
 
 
 

@@ -2,10 +2,6 @@
 \label{chapter:summary}
 
 
-\lcomment{PE}{Keep text short. Mainly make a ``FAQ'', as sketched below.}
-
-\dots\\
-
 \noindent
 Some key issues that should be considered when examining or applying \smr\
 L2 data:
@@ -14,7 +10,7 @@ L2 data:
   atmosphere.
 \item The main atmospheric vertical coordinate is pressure, i.e.\ \VMR\ and
   temperatures are retrieved as a function of pressure. The L2 data also
-  contain an estimate of the geometrical altitudes\fixme{Correct?}\
+  contain an estimate of the geometrical altitudes
   matching the values of the profile, but this information shall be considered as
   secondary.
 \item Retrieved profiles shall be considered as running average estimates of
@@ -23,15 +19,13 @@ L2 data:
 \item Errors refer to the accuracy of running averages, and are only valid under
   the constraint of high measurement response. Using data with low measurement
   response requires consideration of smoothing effects.
-\item The retrievals are best estimates at each pressure level\fixme{Does L2
-    contain anything else than profiles?}. To obtain values at other
-  pressure levels, apply a linear interpolation using the logarithm of pressure
-  as independent variable.
-\item A single geographical position is assigned to the L2 data, that matches
-  \dots \lcomment{PE}{Geo-position set how?} However, the data are far from
-  point estimates in the horizontal direction, they represent averages of
-  several 100\,km along the viewing direction of \smr, and not even the
-  centre position of the averages is necessarily found at the stated
+\item Profile retrievals are best estimates at each pressure level. To obtain
+  values at other pressure levels, apply a linear interpolation using the
+  logarithm of pressure as independent variable.
+\item A single geographical position is assigned to the L2 data. However, the
+  data are far from point estimates in the horizontal direction, they represent
+  averages of several 100\,km along the viewing direction of \smr, and not even
+  the centre position of the averages is necessarily found at the stated
   position.
 \end{itemize}
 
