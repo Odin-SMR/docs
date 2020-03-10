@@ -1,6 +1,6 @@
 \chapter{Level2 processing configuration}
 
-\section{Overview}
+\section{Configuration by frequency mode}
 The \smr\ Level2 processing is controlled by a tailored matlab software
 package. The retrieval settings for the various modes of \smr\
 are defined by two matlab functions:
@@ -18,7 +18,7 @@ of the parameters for the standard and mesospheric modes
 are described in Sect.~\ref{sec:standard} and Sect.~\ref{sec:meso},
 respectively.
 
-\section{Configuration description}
+\subsection{Configuration description}
 \label{sec:config}
 
 This section contains a brief description of the settings considered by the
@@ -383,4 +383,26 @@ limits. This check is done after applying ZTAN\_LIMIT\_BOT/TOP.
 \subsection{Q meso}
 \label{sec:meso}
 \verbinput{q_meso.m}
+
+\clearpage
+\newpage
+\section{Spectroscopic data and absorption continua}
+\label{sec:spectroscopy}
+
+The bulk of the data are taken from the latest HITRAN database.
+For the most important transitions for \smr\ some hand-picked
+data are used to replace the corresponding value in HITRAN,
+and this is described in Sect.~\ref{sec:linedata}.
+Nitrogen and water vapour continua models applied
+are described in Sect.~\ref{sec:continua}.
+
+
+\subsection{Nitrogen and water vapour continua}
+\label{sec:continua}
+\verbinput{continua_std.arts}
+
+\subsection{\smr\ linedata}
+\verbinput{h2o_notes.txt}
+\label{sec:linedata}
+\verbinput{smr_linedata.notes}
 
