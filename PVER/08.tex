@@ -1,0 +1,253 @@
+\section{Frequency mode 08}
+\label{sec:fm08}
+
+\subsection{Overview}
+\label{sec:fm08:overview}
+Frequency mode~08 monitors two bands, $488.950$--$489.350\,\mathrm{GHz}$ and
+$488.350$--$488.750\,\mathrm{GHz}$. Its main use is retrievals of water vapour
+in the lower stratosphere. \chem{O_3} is also retrieved.  This mode showed
+considerable sideband leakage and served as the model for a new sideband
+correction that has been applied to all bands.  Spectra from this observation
+mode are shown in Figure~\ref{fig:spectra:08}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{spectra/fm_08_spectra_winter_97u}
+    \caption{Annual median spectra for FM~08 for altitude interval 40--50~km at
+        equatorial latitudes for the $97\,\mathrm{\mu m}$ sideband path during
+        the arctic winter.
+    }\label{fig:spectra:08}
+\end{figure}
+
+
+\subsection{Comparison of retrieved profiles}
+\label{sec:fm08:comparison}
+
+
+%%%%%%
+% O3 %
+%%%%%%
+
+\subsubsection{\chem{O_3}}
+\label{sec:fm08:comparison:O3}
+The retrievals for \chem{O_3} have been compared with data from the MIPAS, MLS,
+OSIRIS and SAGE~III instruments. Annual average differences to these
+instruments are shown in Figure~\ref{fig:fm08:O3:profiles}. In
+Figure~\ref{fig:fm08:O3:scatter} individual retrievals for the instruments for
+the entire period are plotted against the retrievals from the new and old
+versions of the \smr\ processing chain. The results show a considerable
+improvement with the updated version of the processing compared to all
+considered instruments. The over-all correlation and coherency is much better,
+though a systematic under estimation remains.
+Figure~\ref{fig:fm08:O3:mr_avk} suggests that the product is useful over the
+range 16--70~km with a vertical resolution of around 5~km.
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm08:O3:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm08:O3:profiles:MLS}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_perdiff_osiris}
+        \caption{average difference to OSIRIS}
+        \label{fig:fm08:O3:profiles:OSIRIS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_perdiff_sage}
+        \caption{average difference to SAGE~III}
+        \label{fig:fm08:O3:profiles:SAGEIII}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{O_3}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes for frequency mode~08.}
+
+    \label{fig:fm08:O3:profiles}
+\end{figure}
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm08:O3:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm08:O3:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{O_3} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments
+    for frequency mode~08.}
+    \label{fig:fm08:O3:scatter}
+\end{figure}
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_mr}
+        \caption{median measurement response with $1\sigma$ and $2\sigma$
+        percentiles}
+        \label{fig:fm08:O3:mr}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_O3_avk}
+        \caption{median averaging kernels\newline~}
+        \label{fig:fm08:O3:avk}
+    \end{subfigure}
+    \caption{Measurement response and averaging kernels for \chem{O_3}
+    retrievals for \smr~v3 at different altitudes for frequency mode~08.}
+    \label{fig:fm08:O3:mr_avk}
+\end{figure}
+
+
+%%%%%%%
+% H2O %
+%%%%%%%
+
+\subsubsection{\chem{H_2O}}
+\label{sec:fm08:comparison:H2O}
+The retrievals for \chem{H_2O} have been compared with data from the MIPAS,
+MLS and SAGE~III instruments. Annual average differences to these instruments
+are shown in Figure~\ref{fig:fm08:H2O:profiles}. In
+Figure~\ref{fig:fm08:H2O:scatter} individual retrievals for the instruments for
+the entire period are plotted against the retrievals from the new and old
+versions of the \smr\ processing chain. Though the results show a considerably
+improved coherency with the updated version of the processing compared to all
+considered instruments, the correlation is still poor, and the water content is
+still systematically underestimated, in particular for higher concentrations.
+Figure~\ref{fig:fm08:H2O:mr_avk} suggests that the product is useful over the
+range 19--78~km with a vertical resolution of around 4.5~km.
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_perdiff_mipas}
+        \caption{average difference to MIPAS}
+        \label{fig:fm08:H2O:profiles:MIPAS}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_perdiff_mls}
+        \caption{average difference to MLS}
+        \label{fig:fm08:H2O:profiles:MLS}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_perdiff_sage}
+        \caption{average difference to SAGE~III}
+        \label{fig:fm08:H2O:profiles:SAGEIII}
+    \end{subfigure}
+    \caption{Average difference in percent between retrievals of \chem{H_2O}
+    from \smr~v3 and collocated measurements from various instruments at
+    different altitudes for frequency mode~08.}
+
+    \label{fig:fm08:H2O:profiles}
+\end{figure}
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_scatter_v2}
+        \caption{correlation of collcated instruments with \smr~v2.X}
+        \label{fig:fm08:H2O:scatter:v2}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_scatter_v3}
+        \caption{correlation of collcated instruments with \smr~v3}
+        \label{fig:fm08:H2O:scatter:v3}
+    \end{subfigure}
+    \caption{Correlation between retrievals of \chem{H_2O} using \smr\
+    versions~2.X and~3 and collocated measurements from various instruments
+    for frequency mode~08.}
+    \label{fig:fm08:H2O:scatter}
+\end{figure}
+
+\begin{figure}[tbhp]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_mr}
+        \caption{median measurement response with $1\sigma$ and $2\sigma$
+        percentiles}
+        \label{fig:fm08:H2O:mr}
+    \end{subfigure}
+    \,
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{DDS_fm8_H2O_avk}
+        \caption{median averaging kernels\newline~}
+        \label{fig:fm08:H2O:avk}
+    \end{subfigure}
+    \caption{Measurement response and averaging kernels for \chem{H_2O}
+    retrievals for \smr~v3 at different altitudes for frequency mode~08.}
+    \label{fig:fm08:H2O:mr_avk}
+\end{figure}
+
+
+\subsection{Discussion}
+\label{sec:fm08:discussion}
+The Pearson correlation between the \smr\ retrievals and the other instruments
+was calculated for the entire period for both versions of the processing chain.
+The results are summarised in Table~\ref{tab:fm08:stats}, and show that the
+new algorithm is a improvement compared to all the instruments for all species
+used in this investigation. The improvement is considerable for both \chem{O_3}
+and \chem{H_2O}. However there still seems to be a systematic underestimation
+of both products. It is unclear if this is due to spectroscopic problems or
+some sort of underestimation of the intensity.  Spectroscopic data are taken
+from the HITRAN~12 database updated with the latest laboratory results;
+see~\cite{atbdl2}.
+
+
+
+\begin{table}[tbhp]
+\centering
+\caption{Pearson correlation and fit parameters of the old and new \smr\
+retrievals for frequency mode~08, compared with collocated data from other
+instruments for the period 2003--2014.}
+\label{tab:fm08:stats}
+\begin{tabular}{lllrrrr}
+    \toprule
+    \textbf{Species} & \textbf{Instrument} & \textbf{SMR} & \textbf{corr.} & \textbf{slope} & \textbf{intercept} & \textbf{$\left|\left<\right.\right.$res.$\left.\left.\right>\right|$} \\
+    \midrule
+    \chem{O3}   & MIPAS     & v3    & 0.977 & 0.905 & 0.056\,ppm    & 0.656\,ppm \\
+                &           & v2.x  & 0.922 & 0.897 & -0.274\,ppm   & 1.239\,ppm \\
+    \cline{2-7}
+                & MLS       & v3    & 0.979 & 0.933 & 0.066\,ppm    & 0.540\,ppm \\
+                &           & v2.x  & 0.911 & 0.916 & -0.173\,ppm   & 1.129\,ppm \\
+    \cline{2-7}
+                & OSIRIS    & v3    & 0.973 & 0.923 & 0.057\,ppm    & 0.609\,ppm \\
+                &           & v2.x  & 0.916 & 0.925 & -0.283\,ppm   & 1.127\,ppm \\
+    \cline{2-7}
+                & SAGE III  & v3    & 0.884 & 0.956 & 0.134\,ppm    & 0.357\,ppm \\
+                &           & v2.x  & 0.658 & 0.804 & -0.026\,ppm   & 0.752\,ppm \\
+    \midrule
+    \chem{H_2O} & MIPAS     & v3    & 0.701 & 0.567 & 1.843\,ppm    & 1.229\,ppm \\
+                &           & v2.x  & 0.468 & 0.370 & 2.769\,ppm    & 1.616\,ppm \\
+    \cline{2-7}
+                & MLS       & v3    & 0.811 & 0.690 & 0.894\,ppm    & 1.314\,ppm \\
+                &           & v2.x  & 0.473 & 0.422 & 2.424\,ppm    & 1.749\,ppm \\
+    \cline{2-7}
+                & SAGE III  & v3    & 0.528 & 0.317 & 3.061\,ppm    & 1.593\,ppm \\
+                &           & v2.x  & 0.242 & 0.128 & 4.353\,ppm    & 1.657\,ppm \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Conclusions}
+\label{sec:fm08:conclusions}
+Based on the discussion above, retrievals based on frequency mode~08 can be
+used with confidence for the species \chem{O_3} while noting that the values
+may be underestimated by 5--10~\%.  The data  should be used with some caution
+for \chem{H_2O} but this requires more investigation.

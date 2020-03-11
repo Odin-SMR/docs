@@ -1,0 +1,105 @@
+\documentclass[a4paper,11pt,twoside]{report}
+
+\usepackage[
+    singlelinecheck=false % <-- important
+]{caption}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{footmisc}
+
+% Define cover page
+\def\CoverTitle{Odin/SMR Product Validation and Evolution Report}
+\def\FooterDocTitle{Odin/SMR Product Validationt}
+\def\Authors{Donal Murtagh, Andreas Skyman, Bengt Rydberg, and
+             Patrick Eriksson}
+\def\Contact{Donal Murtagh <donal.murtagh@chalmers.se>}
+\def\Version{0.2.0}
+\def\ReleaseDate{2020-03-15}
+
+% Page numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+% Switch to arabic numbering is made inside introduction.tex
+
+% Common preamble settings
+\input{../Common/preamble}
+\setlength{\headheight}{14pt}
+\newcommand{\TODO}[1]{\todo[inline]{#1}}
+
+% Import math symbol commands
+\input{../Common/symbol_defs}
+
+
+% Import acronyms
+\input{../Common/acronyms_all}
+
+% Set graphics path
+\graphicspath{{./figures/}}
+
+
+\begin{document}
+
+\input{../Common/coverpage}
+
+\tableofcontents
+\addcontentsline{toc}{chapter}{Contents}
+
+% Front matter:
+\input{introduction}
+\input{l2definition}
+
+% Main body of text:
+\input{comparisons}
+\cleardoublepage
+\input{01}
+\cleardoublepage
+\input{02}
+\cleardoublepage
+\input{08}
+\cleardoublepage
+\input{13}
+%\cleardoublepage
+%\input{17}
+\cleardoublepage
+\input{19}
+%\cleardoublepage
+%\input{21}
+
+% Back matter:
+\input{conclusions}
+
+% Bibliography:
+\chapter*{}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+%\bibliography{../Common/references}
+
+\cleardoublepage
+
+% Appendices:
+\begin{appendices}
+
+  \renewcommand{\chapterhead}{Appendix}
+
+  \input{api}
+  \cleardoublepage
+
+  % \input{appendices}
+  % \cleardoublepage
+
+  \input{species}
+  \cleardoublepage
+
+  % \input{changes}
+  % \cleardoublepage
+
+  %\listoftodos{}
+  %\TODO{Remove todo list when done!}
+
+\end{appendices}
+
+
+\end{document}
