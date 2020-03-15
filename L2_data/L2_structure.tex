@@ -1,7 +1,6 @@
 \chapter{Level 2 Data Product Structure}
 \label{chapter:L2_structure}
 
-
 \section{Accesing Level 2 data}
 
 L2 data can be obtained in two ways:
@@ -9,19 +8,32 @@ L2 data can be obtained in two ways:
 \begin{enumerate}
 
 \item via a web-api that can be queried and used to get data from
-  specific scans. Documentation about the web-api is found here: 
-  \url{http://odin.rss.chalmers.se/apidocs/index.html}.
+  a specified area and time interval or from specific scans etc.
+  Documentation about the web-api is found here: 
+  \url{http://odin.rss.chalmers.se/apidocs/index.html} and
+  \url{http://odin.rss.chalmers.se/dataaccess}
 
 \item or through downloading monthly L2 product files files over http
   from a file archive (\url{http://odin.rss.chalmers.se/level2_download/}).
-  \textbf{THIS IS NOT YET TRUE, BURT FILES WILL SOON BE FOUND HERE.}
+  \textbf{THIS IS NOT YET TRUE, BUT FILES WILL SOON BE FOUND HERE.}
   This option can preferable be used if all or a large part of the
   Odin data is of interest.
 
 \end{enumerate}
 
 
-\section{File format/name convention}
+\section{Available Level2 products}
+
+A number of \smr\ Level2 products are available (\cite{dds}) and
+a recommendadtion about what products to use is available
+at \url{http://odin.rss.chalmers.se/dataaccess}.
+
+
+\section{Level2 data description}
+
+\subsection{Level2 file}
+
+\subsubsection{File name convention}
 
 L2 product files are stored in netCDF format (\url{https://www.unidata.ucar.edu/software/netcdf/})
 and the file name convention of the monthly L2 files is: \\
@@ -33,7 +45,7 @@ project = ALL-Strat-v3.0.0 and product = O3-501-GHz-20-to-50-km.
 See further in \cite{dds} for available projects and products.
 
 
-\section{Level2 data description}
+\subsubsection{File content description}
 
 Each L2 product is associated with a single scan of the atmosphere by the \smr\ instrument. In other words,
 it describes a single VMR or temperature profile. It contains the objects described bellow: \\
@@ -100,7 +112,7 @@ it describes a single VMR or temperature profile. It contains the objects descri
 \textbf{VersionL2} (string): Version number of the Level 2 processing chain that was used to create the Level 2 file. \\
 
 
-\subsection{Level2 file description}
+\subsubsection{File format description}
 
 A description of the L2 netCDF file is given below:
 
@@ -198,3 +210,45 @@ variables:
 
 }
 \end{verbatim}
+
+
+\subsection{Odin web-api}
+
+The Level2 part of the Odin web-api contains a number of endpoints
+(\url{http://odin.rss.chalmers.se/apidocs/index.html#/level2}),
+that provides three different Level2 data objects denoted as
+L2, L2i, and L2anc. The content of these three objects are described below.
+
+\subsubsection{L2}
+\input{../IODD/l2_format}
+\subsubsection{L2i}
+\input{../IODD/l2i_format}
+\subsubsection{L2anc}
+
+\begin{itemize}
+
+    \item FreqMode (\emph{int}): \smr\ frequency mode of the observation
+    \item InvMode (\emph{string}): Inversion mode
+    \item LST (\emph{double}): Mean local solar time for the scan [hours].
+    \item Lat1D (\emph{double}): A scalar representative latitude of
+      the retrieval
+    \item Latitude (\emph{array of doubles}): Approximate latitude of each
+      retrieved value
+    \item Lon1D (\emph{double}): A scalar representative longitude of
+      the retrieval
+    \item Longitude (\emph{array of doubles}): Approximate longitude of each
+      retrieved value
+    \item MJD (\emph{double}): Mean modified julian date of the observations
+      used in the retrievel
+    \item Orbit (\emph{double}): Orbit number
+    \item Pressure (\emph{array of doubles}): Pressure grid of the retrieved
+      species [Pa]
+    \item SZA  (\emph{double}): Mean solar zenith angle of the observations
+      used in the retrieval process [degrees]
+    \item SZA1D (\emph{double}): Mean solar zenith angle of the observations
+      used in the retrieval process [degrees]
+    \item ScanID (\emph{int}): Satellite time word scan identifier
+    \item Theta (\emph{array of doubles}): Estimate of the potential temperature
+      profile [K]
+
+\end{itemize}
