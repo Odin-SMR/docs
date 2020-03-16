@@ -8,7 +8,9 @@ $488.350$--$488.750\,\mathrm{GHz}$. Its main use is retrievals of water vapour
 in the lower stratosphere. \chem{O_3} is also retrieved.  This mode showed
 considerable sideband leakage and served as the model for a new sideband
 correction that has been applied to all bands.  Spectra from this observation
-mode are shown in Figure~\ref{fig:spectra:08}.
+mode are shown in Figure~\ref{fig:spectra:08}.  Due to some miscommunication two different
+command macros were utilised for this mode resulting is slight different frequency coverage and 
+different settings for the sideband filter.
 
 \begin{figure}[ht]
     \centering
@@ -37,7 +39,9 @@ Figure~\ref{fig:fm08:O3:scatter} individual retrievals for the instruments for
 the entire period are plotted against the retrievals from the new and old
 versions of the \smr\ processing chain. The results show a considerable
 improvement with the updated version of the processing compared to all
-considered instruments. The over-all correlation and coherency is much better,
+considered instruments. However there are indications of a change in the last three years 
+that requires further investigation. 
+The over-all correlation and coherency is much better,
 though a systematic under estimation remains.
 Figure~\ref{fig:fm08:O3:mr_avk} suggests that the product is useful over the
 range 16--70~km with a vertical resolution of around 5~km.
@@ -127,7 +131,8 @@ the entire period are plotted against the retrievals from the new and old
 versions of the \smr\ processing chain. Though the results show a considerably
 improved coherency with the updated version of the processing compared to all
 considered instruments, the correlation is still poor, and the water content is
-still systematically underestimated, in particular for higher concentrations.
+still systematically underestimated, in particular for higher concentrations. Again there
+appears to have been a change in performance in the last few years.
 Figure~\ref{fig:fm08:H2O:mr_avk} suggests that the product is useful over the
 range 19--78~km with a vertical resolution of around 4.5~km.
 
@@ -153,6 +158,11 @@ range 19--78~km with a vertical resolution of around 4.5~km.
     \caption{Average difference in percent between retrievals of \chem{H_2O}
     from \smr~v3 and collocated measurements from various instruments at
     different altitudes for frequency mode~08.}
+       \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{ALL-Strat-v3_0_0_fm8_H2O_perdiff_mipas_esa}
+        \caption{average difference to MIPAS - ESA}
+        \label{fig:fm08:H2O:profiles:MIPAS-ESA}
+    \end{subfigure}
 
     \label{fig:fm08:H2O:profiles}
 \end{figure}
