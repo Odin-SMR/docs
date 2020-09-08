@@ -52,7 +52,7 @@ See further in \cite{dds} for available projects and products.
 Each L2 product file contains retrieved VMR or temperature profiles,
 where a single profile is associated with a single scan of the atmosphere
 by the \smr\ instrument.
-The L2 product files covers one month of data, but not all retrieved data 
+The L2 product files covers one month of data, but all retrieved data 
 for this month is not necessarily included, as the data is filtered,
 and this is further described in ~\ref{sec:data_filtering}.
 
@@ -182,9 +182,6 @@ variables:
         float Profile(time, level) ;
                 Profile:description = "Retrieved volume mixing ratio." ;
                 Profile:units = "-" ;
-        int Quality(time) ;
-                Quality:description = "Quality flag." ;
-                Quality:units = "-" ;
         int64 ScanID(time) ;
                 ScanID:description = "Satellite time word scan identifier." ;
                 ScanID:units = "-" ;
