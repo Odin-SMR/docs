@@ -30,7 +30,7 @@ below, in alphabetical order.
 Qsmr operates also with two other structures. For the various
 pre-calculations a structure denoted as P is used. The fields of P are
 defined and are shortly described in the file p\_std.m. The structure R works
-as repository for internal variables and data. That is, no fields of R is
+as repository for internal variables and data. That is, no fields of R are
 set by the user.
 
 Most fields of Q are of simple types such scalar value, vector or string,
@@ -85,7 +85,7 @@ A string. Name or path of the ARTS executable to use.
 An integer. Index of expected backend. Index coding described in L1B ATBD.
 
 \item[{BACKEND\_FILE}]
-Empty or a string. If empty, the name if file to read is generated
+Empty or a string. If empty, the name of file to read is generated
 automatically following the channel seperation. If you don't want to use
 these default files, you put the name of the alternative file in this field.
 
@@ -389,7 +389,9 @@ limits. This check is done after applying ZTAN\_LIMIT\_BOT/TOP.
 \section{Spectroscopic data and absorption continua}
 \label{sec:spectroscopy}
 
-The bulk of the data are taken from the latest HITRAN database.
+The bulk of the data are taken from the latest HITRAN 
+(high-resolution transmission molecular absorption)
+database (HITRAN2016).
 For the most important transitions for \smr\ some hand-picked
 data are used to replace the corresponding value in HITRAN,
 and this is described in Sect.~\ref{sec:linedata}.
