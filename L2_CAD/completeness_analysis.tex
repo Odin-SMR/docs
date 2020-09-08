@@ -3,7 +3,7 @@
 
 
 \begin{table}
-\caption{ \textbf{To be updated.} \smr\ Level1B and Level2 data count by frequency mode.
+\caption{\smr\ Level1B and Level2 data count by frequency mode.
 Level2 data are further categorized into two classes: "All-Level2" and "Ok-Level2",
 where "Ok-Level2" means that the Level2 processing produced a result with a valid
 quality.
@@ -45,35 +45,44 @@ Table~\ref{table:count} and Figure~\ref{fig:l2cad-fm1} to
 Figure~\ref{fig:l2cad-fm24} show the amount af available Level1B
 data and succesfully processed Level2 data for the considered
 FreqModes by month, from the start of the mission until the
-end of 2019. 
+end of 2019 (\smr\ is to date still in operation and the
+end of 2019 is hence not the end of the mission).  
 
 The amount of available Level1B data varies during mission,
 and there are a number of reasons for this.
 During the first six years of the mission \smr\ was operated
 both in aeronomy and astronomy mode, and hence less
 aeronomy observations are available for these years
-compared to after 2008.  
+compared to after 2008. 
+\smr\ is powered by solar energy, and by batteries during 
+during the solar eclipse season.
 During the most recent years \smr\ has both partly and completely
-been turned off during the summer months.
+been turned off during the summer months or solar eclipse season.
 \smr\ is a flexible instrument, as described in Sect.~\ref{sec:odin}
 but, in prinicipal, only two frequency modes (FreqModes)
 can be applied at a given time. The observation program, or how
 often the various FreqModes are used, has been varied during the
 mission.
 
-No Level2 data are available after 2019-08-31, as 
-ERA-Interim reanalysis data (Level2 processor source for
-required altitude, pressure, and temperature data)
-were stopped being produced by then.
+% This is not yet true 
+%
+% No Level2 data are available after 2019-08-31, as 
+% ERA-Interim reanalysis data (Level2 processor source for
+% required altitude, pressure, and temperature data)
+% were stopped being produced by then.
 
 FreqMode 1 and 2 are the most frequently applied modes, and
-about 5000-10000 scans have been observed each month. Level2 processing
+about 5000-10000 scans have been observed each month
+(see Figure~\ref{fig:l2cad-fm1} and \ref{fig:l2cad-fm2}). Level2 processing
 generated in a result for the majority (89 and 81\,\%, respectively) of
 the available Level1B data. One of the main reason for the
 Level2 processing to not generate in a result
 is here that some scans do not cover a required
 altitude range, or that to few spectra are available within this range,
-i.e. not enough spread of the tangent altitude of individual spectra. 
+i.e. not enough spread of the tangent altitude of individual spectra
+in a given scan. This can typically happen when the scanning pattern
+is switched.
+ 
 The majority of FreqMode 2 Level2 data have a valid quality.
 A valid quality means here that the 
 \begin{itemize}
@@ -89,7 +98,10 @@ This is also true for FreqMode 1, except for data after summer
 of 2014 where a large fraction of the produced Level2 data
 have an unsatisfactory quality. Instrumental problems
 with this mode for the later part of the mission is discussed
-in \cite{dds}.
+in \cite{pver}. 
+Recommendations for Level2 data users are also found in
+\cite{pver}.
+
 
 Level2 processing generated in a result for about 84\,\%
 of the FreqMode 8 observations. The fraction of valid Level2
@@ -98,7 +110,7 @@ One reason for this high fraction of valid Level2 data
 is that the quality criteria is less strict for FreqMode 8,
 compared to most other modes (except 13 and 19).
 These mode showed considerable sideband leakage, and a correction
-has been applied ~\cite{dds}. 
+has been applied ~\cite{pver}. 
 
 
 % 
@@ -114,7 +126,7 @@ about 82\,\% of the scans. The fraction of Level2
 data with a valid quality is 92 and 71 \,\% for FreqMode
 13 and 19, respectively.
 Issues with FreqMode 13 and 19 observations are discussed
-in \cite{dds}.
+in \cite{pver}.
  
 Level2 processing of the FreqMode 21 (\chem{NO} mode)
 generated in a result for about 87\,\% of the scans.
@@ -122,7 +134,8 @@ Most of this data (92\,\%) have a satisfactory quality.
 
 FreqMode 14, 22, 24 are deployed for \chem{CO} observations.
 The frontend used for these observations have been unstable
-(drifting in frequency), and that can result in that the 
+(drifting in frequency, see further in~\citet{grieco:recov:20}),
+and that can result in that the 
 \chem{CO} signature is not covered in observed spectra 
 of some of the scans. This gives that the fraction of
 level2 data produced is lower for those modes.

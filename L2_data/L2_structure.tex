@@ -1,4 +1,4 @@
-\chapter{Level 2 Data Product Structure}
+\chapter{L2 Data Product Structure}
 \label{chapter:L2_structure}
 
 \section{Accesing Level 2 data}
@@ -15,27 +15,29 @@ L2 data can be obtained in two ways:
 
 \item or through downloading monthly L2 product files files over http
   from a file archive (\url{http://odin.rss.chalmers.se/level2_download/}).
-  \textbf{THIS IS NOT YET TRUE, BUT FILES WILL SOON BE FOUND HERE.}
-  This option can preferable be used if all or a large part of the
+  This option can preferably be used if all or a large part of the
   Odin data is of interest.
 
 \end{enumerate}
 
+The web-api provide the L2 data in json format, whereas the
+monthly L2 product files have a netCDF format.
 
 \section{Available Level2 products}
 
-A number of \smr\ Level2 products are available (\cite{dds}) and
-a recommendadtion about what products to use is available
+A number of \smr\ L2 products are available (\cite{dds}) and
+a recommendation about what products to use is available
 at \url{http://odin.rss.chalmers.se/dataaccess}.
 
+\section{Monthly L2 product file description}
 
-\section{Level2 data description}
+\subsection{L2 version}
+The current L2 data version is v3.0.0.
 
-\subsection{Level2 file}
+\subsection{File name convention}
 
-\subsubsection{File name convention}
-
-L2 product files are stored in netCDF format (\url{https://www.unidata.ucar.edu/software/netcdf/})
+L2 product files are stored in netCDF format
+(\url{https://www.unidata.ucar.edu/software/netcdf/}),
 and the file name convention of the monthly L2 files is: \\
 Odin-SMR\_L2\_\{\textbf{project}\}\_\{\textbf{product}\}\_\{\textbf{year}\}-\{\textbf{month}:02\}.nc, \\
 e.g.:\
@@ -45,74 +47,85 @@ project = ALL-Strat-v3.0.0 and product = O3-501-GHz-20-to-50-km.
 See further in \cite{dds} for available projects and products.
 
 
-\subsubsection{File content description}
+\subsection{File content description}
 
-Each L2 product is associated with a single scan of the atmosphere by the \smr\ instrument. In other words,
-it describes a single VMR or temperature profile. It contains the objects described bellow: \\
+Each L2 product file contains retrieved VMR or temperature profiles,
+where a single profile is associated with a single scan of the atmosphere
+by the \smr\ instrument.
+The L2 product files covers one month of data, but not all retrieved data 
+for this month is not necessarily included, as the data is filtered,
+and this is further described in ~\ref{sec:data_filtering}.
 
-% Question, to be discussed: is it better to provide the different fields in alphabetical order or to decide another logical order?
-% (In any case, I think that the order of the description items below should be the same as the one of the L2 structure fields.)
+\subsection*{Variables}
 
-\textbf{Altitude} (array of doubles): Altitude of retrieved values (m) \\
+The L2 file contains the variables described below for each retrieved profile: \\
 
-\textbf{Apriori} (array of doubles): \textit{A priori} profile used in the inversion algorithm ([-] or [K]). \\
+\textbf{Altitude} (array of floats): Altitude of retrieved values (m) \\
 
-\textbf{AVK} (2-D array of doubles): Averaging kernel matrix. For gas species, the averaging kernel for relative changes is given ([\%/\%]). For temperature, the unit is [K/K]. \\
+\textbf{Apriori} (array of floats): \textit{A priori} profile used in the inversion algorithm ([-] or [K]). \\
 
-\textbf{ErrorNoise} (array of doubles): Error due to measurement thermal noise (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
+\textbf{AVK} (2-D array of floats): Averaging kernel matrix. For gas species, the averaging kernel for relative changes is given ([\%/\%]). For temperature, the unit is [K/K]. \\
 
-\textbf{ErrorTotal} (array of doubles): Total retrieval error, corresponding to the error due to thermal noise and all interfering smoothing errors (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
+\textbf{ErrorNoise} (array of floats): Error due to measurement thermal noise (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
 
-\textbf{FreqMode} (int): Odin/SMR observation frequency mode. \\ % Refer to a table giving all frequency modes with the corresponding frequency ranges and measured products. 
+\textbf{ErrorTotal} (array of floats): Total retrieval error, corresponding to the error due to thermal noise and all interfering smoothing errors (square root of the diagonal elements of the corresponding error matrix) ([-] or [K]). \\
 
-\textbf{Freq} (double): Center of the frequency band [GHz]. \\ % In order to be user-friendly, this should be always the same for one given frenquency mode, regardless of the spectral range actually used in the retrieval process. 
+\textbf{GenerationTime} (float): Processing date, given as 'days since 1858-11-17 00:00'. \\ 
 
-\textbf{Instrument} (string): Instrument name. \\ % Useful? To be discussed. 
+\textbf{Lat1D} (float): A scalar representative latitude of the profile [degrees north]. \\ % Say how it has been calculated (mean of 'Latitude'?)
 
-\textbf{InvMode} (string): Inversion mode. \\ % ??
+\textbf{Latitude} (array of floats): Approximate latitude of each retrieval value [degrees north]. \\
 
-\textbf{Lat1D} (double): A scalar representative latitude of the retrieval [degrees north]. \\ % Say how it has been calculated (mean of 'Latitude'?)
+\textbf{Lon1D} (float): A scalar representative longitude of the profile [degrees east] \\ % Same comment as for 'Lat1D'.
 
-\textbf{Latitude} (array of doubles): Approximate latitude of each retrieval value [degrees north]. \\
+\textbf{Longitude} (array of floats): Approximate longitude of each retrieval value [degrees east]. \\
 
-\textbf{Lon1D} (double): A scalar representative longitude of the retrieval [degrees east] \\ % Same comment as for 'Lat1D'.
+\textbf{LST} (float): Mean local solar time for the scan [hours]. \\ % Was not included in the previous version. Could make the data more user friendly. 
 
-\textbf{Longitude} (array of doubles): Approximate longitude of each retrieval value [degrees east]. \\
-
-\textbf{LST} (double): Mean local solar time for the scan [hours]. \\ % Was not included in the previous version. Could make the data more user friendly. 
-
-\textbf{MJD} (double): Mean modified julian date of the observations used in the retrieval process [days]. \\
-
-\textbf{MeasResponse} (array of doubles): Measurement response, defined as the row sum of the averaging kernel matrix [-]. \\ % Refer to a document giving recommandations on how it should be used to filter the data.
+\textbf{MeasResponse} (array of floats): Measurement response, defined as the row sum of the averaging kernel matrix [-]. \\ % Refer to a document giving recommandations on how it should be used to filter the data.
 
 \textbf{OrbitNum} (int): Odin/SMR orbit number. \\ % Useful? To be discussed.
 
-\textbf{Pressure} (array of doubles): Pressure grid of the retrieved profile [Pa]. \\
+\textbf{Pressure} (array of floats): Pressure grid of the retrieved profile [Pa]. \\
 
-\textbf{Product} (string): Level 2 product name. \\
+\textbf{Profile} (array of floats): Retrieved volume mixing ratio [-] or temperature [K] profile  \\ % I think this field should be called 'Profile' instead of 'VMR', in order to be consistent in the case of temperature profile retrieval.
 
-\textbf{Profile} (array of doubles): Retrieved volume mixing ratio [-] or temperature [K] profile  \\ % I think this field should be called 'Profile' instead of 'VMR', in order to be consistent in the case of temperature profile retrieval.
+\textbf{ScanID} (int): Unique scan identifier. \\
 
-\textbf{Quality} (int): Quality flag. \\ % To be discussed and defined. Give the definition of the flags in this document, and explain how they should be used to filter the data. 
+\textbf{SZA1D} (float): Mean solar zenith angle of the observations used in the retrieval process [degrees]. \\
 
-\textbf{ScanID} (int): Satellite time word scan identifier. \\
+\textbf{SZA} (array of floats): Approximate solar zenith angle corresponding to each retrieval value [degrees]. \\ % Should be provided? To be discussed. 
 
-\textbf{SZA1D} (double): Mean solar zenith angle of the observations used in the retrieval process [degrees]. \\
+\textbf{Temperature} (array of doubles): Estimate of the temperature profile [K] (based on input data from ERA-Interim). \\ % Contrary to what is done in the internal L2 data, I think we should clearly distinguish the retrieved temperature profiles from the ones from the ZPT input. Only the zpt input should be given in this field. When a temperature profile is retrieved, it should be given in the 'Profile' field. Moreover, the source for the ZPT data should be clearly mentioned (either here, or add a reference to a document where the users can find this information).
 
-\textbf{SZA} (array of doubles): Approximate solar zenith angle corresponding to each retrieval value [degrees]. \\ % Should be provided? To be discussed. 
+\textbf{Theta} (array of floats): Estimate of the potential temperature profile [K]. \\
 
-\textbf{Temperature} (array of doubles): Estimate of the temperature profile [K] (corresponding to the ZPT input data). \\ % Contrary to what is done in the internal L2 data, I think we should clearly distinguish the retrieved temperature profiles from the ones from the ZPT input. Only the zpt input should be given in this field. When a temperature profile is retrieved, it should be given in the 'Profile' field. Moreover, the source for the ZPT data should be clearly mentioned (either here, or add a reference to a document where the users can find this information).
+\textbf{Time} (double): Mean time of the scan, given as 'days since 1858-11-17 00:00'. \\ % Not necessary, as the information is already given in the MJD, but I think it can make the data more user friendly to give the time as a string, in addition to the MJD. 
 
-\textbf{Theta} (array of doubles): Estimate of the potential temperature profile [K]. \\
+\subsection*{Attributes}
 
-\textbf{Time} (string): Mean time of the scan, given as 'YYYY-MM-DD-hh-mm-ss' \\ % Not necessary, as the information is already given in the MJD, but I think it can make the data more user friendly to give the time as a string, in addition to the MJD. 
+The L2 file contains the following attributes:\\
 
-\textbf{VersionL1b} (string): Version number of the Level 1b processing chain that was used to create the Level 1b data, in turn used as an input to the Level 2 processor. \\
+\textbf{observatiom\_frequency\_mode} (string): Odin/SMR observation frequency mode. \\ % Refer to a table giving all frequency modes with the corresponding frequency ranges and measured products.
 
-\textbf{VersionL2} (string): Version number of the Level 2 processing chain that was used to create the Level 2 file. \\
+\textbf{platform} (string): Instrument name (Odin). \\
+
+\textbf{sensor} (string): Sensor name (SMR). \\
+
+\textbf{inversion\_mode} (string): Inversion mode. \\ % ??
+
+\textbf{level2\_product\_name} (string): L2 product name. \\
+
+\textbf{version\_l1b} (string): Version number of the Level 1b processing chain that was used to create the Level 1b data, in turn used as an input to the Level 2 processor. \\
+
+\textbf{version\_l2} (string): Version number of the Level 2 processing chain that was used to create the Level 2 file. \\
+
+\textbf{time\_coverage\_start} (string):, Mean time of the first scan in the file, given as 'YYYY-MM-DD-hh-mm-ssZ'. \\
+                
+\textbf{time\_coverage\_end} (string):, Mean time of the last scan in the file, given as 'YYYY-MM-DD-hh-mm-ssZ'. \\
 
 
-\subsubsection{File format description}
+\subsection{File format description}
 
 A description of the L2 netCDF file is given below:
 
@@ -192,7 +205,7 @@ variables:
                 Time:units = "days since 1858-11-17 00:00" ;
 
 // global attributes:
-                :observation_frequency_mode = 1LL ;
+                :observation_frequency_mode = "1" ;
                 :inversion_mode = "stnd" ;
                 :level2_product_name = "O3 / 501 GHz / 20 to 50 km" ;
                 :date_created = "2020-02-24 T08:31:04Z" ;
@@ -212,18 +225,41 @@ variables:
 \end{verbatim}
 
 
-\subsection{Odin web-api}
+\subsection{Data filtering}
+\label{sec:data_filtering}
 
-The Level2 part of the Odin web-api contains a number of endpoints
+The montlhy L2 product files are quality filtered, and contain only "valid" data. A retrieved profile
+is considered to be valid if 
+\begin{itemize}
+
+  \item MinLmFactor \([-]\): The minimum value of the Levenberg - Marquardt factor during the OEM iterations
+  is below 2 (for Frequency mode 1 and 2) and 10 (for Frequency mode 8, 13, and 19), and
+
+  \item Residual \([K]\):  The difference between the spectra matching retrieved state and
+   used measurement spectra is below 1.5\,K.
+
+Information about the amount of excluded data is found in ~\cite{cadl2data}.
+\end{itemize}
+
+
+
+\section{Odin web-api}
+
+The L2 part of the Odin web-api contains a number of endpoints
 (\url{http://odin.rss.chalmers.se/apidocs/index.html#/level2}),
-that provides three different Level2 data objects denoted as
-L2, L2i, and L2anc. The content of these three objects are described below.
+that provides three different L2 data objects denoted as
+L2, L2i, and L2anc. The L2 object contains the main result of
+the retrieval calculation (e.g. retrieved profile and averaging kernels), 
+the L2i object contains obtained offsets and residual etc. from the
+retrieval calculation, and the L2anc object contains ancillary data.
+The endpoints provide the L2 data in JSON format
+and the content of these three objects are described below.
 
-\subsubsection{L2}
+\subsection{L2}
 \input{../IODD/l2_format}
-\subsubsection{L2i}
+\subsection{L2i}
 \input{../IODD/l2i_format}
-\subsubsection{L2anc}
+\subsection{L2anc}
 
 \begin{itemize}
 
