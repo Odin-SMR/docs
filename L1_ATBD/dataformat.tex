@@ -8,165 +8,25 @@
 in a calibration database at the Dept. of Earth and Space
 Sciences at Chalmers University of Technology (Chalmers) in Gothenburg.
 There are several ways to access the data but the recommendation is to access
-data through the \smr\ web-page \url{http://malachite.rss.chalmers.se}. 
-On the \smr\ web-page Level1b and auxiliary data are basically displayed in three different
-views (frequency mode view, scan info view, and scan data view) with different levels
-of information details, as explained below:
-\begin{enumerate}
+data through a hierarcical REST API. An online API documentation can be found at:
+\url{http://odin.rss.chalmers.se/apidocs/index.html#/}.
+All GET calls return JSON objects, and the ones that provides Level1B
+related data are the "Log" and "L1b" endpoints:
 
-\item Frequency mode view: displays which frequency modes that were deployed for a
- given date in Json format. For exmple, the URL
- \url{http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/} 
- displays this information for 2015-01-03 and the content is given as: 
- \begin{scriptsize}
- \begin{verbatim}
- {
-  "Date": "2015-01-03", 
-  "Info": [
-    {
-      "Backend": "AC1", 
-      "FreqMode": 2, 
-      "NumScan": 481, 
-      "URL": "http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC1/2"
-    }, 
-    {
-      "Backend": "AC1", 
-      "FreqMode": 21, 
-      "NumScan": 241, 
-      "URL": "http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC1/21"
-    }, 
-    {
-      "Backend": "AC2", 
-      "FreqMode": 1, 
-      "NumScan": 481, 
-      "URL": "http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC2/1"
-    }, 
-    {
-      "Backend": "AC2", 
-      "FreqMode": 8, 
-      "NumScan": 125, 
-      "URL": "http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC2/8"
-    }, 
-    {
-      "Backend": "AC2", 
-      "FreqMode": 17, 
-      "NumScan": 122, 
-      "URL": "http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC2/17"
-    }
-  ]
-}
- \end{verbatim}
-\end{scriptsize}
-For this date it can be seen that five different frequency modes (FreqMode) were deployed.
-For each frequency mode an URL is given where more detailed information of
-the scans (NumScan=number of scans) from this date can be obtained, as explained below.
- 
-
-\item scan info view: displays log data in Json format for each scan from a given date and frequency mode. 
-  As example, the URL \url{http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC1/2/}
-  displays scan info data for all frequency mode 2 scans from 2015-01-03, 
-  and the data for the first scan is shown below (the fields are 
-   described in Table~\ref{table:logdataformat}):
-\begin{tiny}
- \begin{verbatim}
- {
-  "Info": [
-     {
-      "AltEnd": 3450.29, 
-      "AltStart": 66787.300000000003, 
-      "DateTime": "2015-01-03T11:42:32.184000", 
-      "FreqMode": 2, 
-      "LatEnd": -6.4216600000000001, 
-      "LatStart": -13.2338, 
-      "LonEnd": 100.09699999999999, 
-      "LonStart": 100.711, 
-      "MJDEnd": 57025.488372699998, 
-      "MJDStart": 57025.487372299998, 
-      "NumSpec": 33, 
-      "ScanID": 7003000326, 
-      "SunZD": 90.695250000000001, 
-      "URLS": {
-        "URL-apriori-BrO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/BrO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-C2H2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/C2H2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-C2H6": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/C2H6/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-CH3CN": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/CH3CN/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-CH3Cl": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/CH3Cl/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-CH4": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/CH4/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-CO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/CO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-CO2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/CO2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-COF2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/COF2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-Cl2O2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/Cl2O2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-ClO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/ClO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-ClONO2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/ClONO2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-ClOOCl": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/ClOOCl/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-H2CO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/H2CO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-H2O": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/H2O/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-H2O2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/H2O2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-H2S": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/H2S/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HBr": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HBr/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HCN": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HCN/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HCOOH": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HCOOH/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HCl": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HCl/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HF": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HF/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HI": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HI/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HNO3": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HNO3/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HO2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HO2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HOBr": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HOBr/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-HOCl": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/HOCl/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-N2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/N2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-N2O": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/N2O/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-NH3": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/NH3/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-NO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/NO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-NO2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/NO2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-O2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/O2/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-O3": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/O3/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-OBrO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/OBrO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-OCS": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/OCS/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-OClO": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/OClO/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-OH": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/OH/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-SF6": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/SF6/2015-01-03/AC1/2/7003000326", 
-        "URL-apriori-SO2": "http://malachite.rss.chalmers.se/rest_api/v4/apriori/SO2/2015-01-03/AC1/2/7003000326", 
-        "URL-ptz": "http://malachite.rss.chalmers.se/rest_api/v4/ptz/2015-01-03/AC1/2/7003000326", 
-        "URL-spectra": "http://malachite.rss.chalmers.se/rest_api/v4/scan/AC1/2/7003000326"
-      }
-    },
- .
- . # in this example only data from one scan is displayed
- . 
- }  
-\end{verbatim}
-\end{tiny}
-As can be seen, the data structure contains a number of URLs. These URLs displays more detailed
-data (Level1B and auxiliary data) as described below.
-
-
-\item scan data view: displays Level1B and auxiliary data in Json format for a scan.
-Three different views are available, and example URLS are give below: 
 \begin{itemize}
-\item for Level1B \url{http://malachite.rss.chalmers.se/rest_api/v4/scan/AC1/2/7002887494/},
-     Table~\ref{table:dataformat} gives a description of the data fields.
-
-\item for PTZ data (pressure,temperature, and altitude data) 
-\url{http://malachite.rss.chalmers.se/rest_api/v4/ptz/2015-01-03/AC1/2/7002887494}
- Table~\ref{table:ptzdataformat} gives a description of the data fields.
-
-\item for \textit{a priori} \chem{O_{3}} data 
-\url{http://malachite.rss.chalmers.se/rest_api/v4/apriori/O3/2015-01-03/AC1/2/7002887494/},
-(see the scan info view above for other available \textit{a priori} data).
- Table~\ref{table:aprioridataformat} gives a description of the data fields.
- 
+    \item \url{/rest_api/<version>/level1/<freqmode>/<scanno>/Log/}: Get log info for a scan
+    \item \url{/rest_api/<version>/level1/<freqmode>/<scanno>/L1b/}: Get level1 data for a scan
 \end{itemize}
-	
 
-\end{enumerate}
-
-\clearpage
-\newpage
+The content of the JSON objects returned by these endpoints are described in
+Table~\ref{table:logdataformat} and Table~\ref{table:dataformat}.
 
 \begin{table}
-\caption{ Odin scan log data format. Latitudes and longitudes are given as geodetic
-coordinates using WGS84 reference ellipsoid. Example URL
-\url{http://malachite.rss.chalmers.se/rest_api/v4/freqmode_info/2015-01-03/AC1/2/}}
+\caption{Content description of Level1 log data of a scan as returned from GET calls to
+\url{/rest_api/<version>/level1/<freqmode>/<scanno>/Log/}.
+Latitudes and longitudes are given as geodetic
+coordinates using WGS84 reference ellipsoid.
+}
 \label{table:logdataformat}
 \begin{longtable}{| p{.20\textwidth} | p{.70\textwidth} |}
 \hline
@@ -183,6 +43,7 @@ coordinates using WGS84 reference ellipsoid. Example URL
     MJDEnd                & \emph{(Double)}: Modified julian date for last spectrum in scan. \\ \hline
     MJDStart              & \emph{(Double)}: Modified julian date for first spectrum in scan. \\ \hline
     NumSpec               & \emph{(Integer)}: Number of atmospheric spectra in scan. \\ \hline
+    Quality               & \emph{(Integer)}: Quality estimate of the scan (see Table~\ref{table:quality}). \\ \hline
     ScanID                & \emph{(Integer)}: Satellite time word identifier of scan.\\ \hline
     SunZD                 & \emph{(Double)}: Mean solar zenith angle  (SunZD(first) + SunZD(last))/2 for scan.\\ \hline
     URLS                  & URLs to more detailed information of scan. 
@@ -204,17 +65,13 @@ coordinates using WGS84 reference ellipsoid. Example URL
 \addtocounter{table}{-1}
   
 
-%A description of how to access the data
-%is given on the Odin web-page. Table~\ref{table:dataformat} gives a description 
-%of the \smr\ Level1B v8 scan data format.
-% \lcomment{BR}{fill in descriptions and remove unnecessary data}
-
 \clearpage
 \newpage
 
 \begin{table}
-\caption{ \smr\ scan data format.
-Example URL: \url{http://malachite.rss.chalmers.se/rest_api/v4/scan/AC1/2/7003000326}}
+\caption{ Content description of \smr\ Level1B data of a scan as returned from GET calls to
+(\url{/rest_api/<version>/level1/<freqmode>/<scanno>/L1b/}).
+}
 \label{table:dataformat}
 \end{table}
 \addtocounter{table}{-1}
@@ -317,47 +174,6 @@ Example URL: \url{http://malachite.rss.chalmers.se/rest_api/v4/scan/AC1/2/700300
                         and is proportional to the total power of the band. \\ \hline
 \hline
 \end{longtable}
-
-\clearpage
-\newpage
-
-\begin{table}
-\caption{ \smr\ PTZ data format. 
-Example URL: \url{http://malachite.rss.chalmers.se/rest_api/v4/ptz/2015-01-03/AC1/2/7002887494}}
-\label{table:ptzdataformat}
-\begin{longtable}{| p{.20\textwidth} | p{.70\textwidth} |}
-\hline
-  \textbf{Variable} & \textbf{Description} \\
-  \hline
-    Pressure        & \emph{(Array of doubles)}: Pressure vector ([\,Pa\,]).  \\ \hline
-    Temperature     & \emph{(Array of doubles)}: Temperature vector([\,K\,]). \\ \hline
-    Altitude        & \emph{(Array of doubles)}: Altitude vector([\,m\,]).    \\ \hline
-    Latitude        & \emph{Double}: Latitude of PTZ data.                    \\ \hline
-    Longitude       & \emph{Double}: Longitude of PTZ data.                   \\ \hline
-    MJD             & \emph{Double}: Modified Julian Date of PTZ data.        \\ \hline 
-\hline
-\end{longtable}
-\end{table}
-\addtocounter{table}{-1}
-
-
-\begin{table}
-\caption{ \smr\ \textit{a priori} data format. 
-Example URL: \url{http://malachite.rss.chalmers.se/rest_api/v4/apriori/O3/2015-01-03/AC1/2/7002887494/} }
-\label{table:aprioridataformat}
-\begin{longtable}{| p{.20\textwidth} | p{.70\textwidth} |}
-\hline
-  \textbf{Variable} & \textbf{Description} \\ \hline
-    Pressure        & \emph{(Array of doubles)}: Pressure vector([\,Pa\,]).            \\ \hline
-    VMR             & \emph{(Array of doubles)}: Climatology volume mixing ratio vector [\,--\,] of the species.  \\ \hline
-    Species         & \emph{(String)}: description of species, i.e. one of 'BrO', 'Cl2O2', 'CO', 'HCl', 'HO2', 'NO2',
-                      'OCS', 'C2H2', 'ClO', 'H2CO', 'HCN', 'HOBr', 'NO', 'OH', 'C2H6', 'ClONO2', 'H2O2',
-                      'HCOOH', 'HOCl', 'O2', 'SF6', 'CH3Cl', 'ClOOCl', 'H2O', 'HF', 'N2', 'O3', 'SO2',
-                      'CH3CN', 'CO2', 'H2S', 'HI', 'N2O', 'OBrO', 'CH4', 'COF2', 'HBr', 'HNO3', 'NH3', or 'OClO'.\\ \hline
-\hline
-\end{longtable}
-\end{table}
-\addtocounter{table}{-1}
 
 
 \section{Quality flags}

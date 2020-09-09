@@ -1,18 +1,5 @@
-       
- 
- 
 \chapter{Calibration procedure}
 \label{chapter:calibration}
-
-%\section{Review of level0 data}
-%The thermal and electrical environment of a satellite may cause
-%receiver instabilities, which must be compensated. Whereas ground
-%based systems may have relatively stable gain but changing system
-%temperature due to unstable weather conditions, the Odin satellite
-%shows the opposite behaviour: stable noise figures in spite of cyclic
-%gain variations during one orbit.
-
-%\section{Measurement sequence and radiance calibration process}
 
 
 \section{Processing pipeline}
@@ -31,42 +18,6 @@ Dedicated algorithms to process and combine new Level0 to Level1B
 data are executed on a regular basis and are described in this
 chapter. Level1B data are stored in tables of the Odin calibration database.  
 Chapter 3 describes its format and how to access the Level1B data.
-%\lcomment{BR}{should this be included?}
-
-
-
-%\section{Important aspects for calibration}%
-%
-%\lcomment{BR}{skip this section}
-%
-%The definition of a scan (in calibration version 8) is based
-%on the measurement sequence. A scan consists of all type of signals and data that
-%where recorded from the first 'load signal' (when such are collected) until the
-%next sequence of 'load signals'. In practise, this is equivalent to all 
-%measurements collected between the lower turning point and upper turning point
-%(or vice versa) of the limb-scanning motion.
-%
-%An important aspect for the calibration is to take into account
-%that the main beam signal is always at a higher level than the cold sky signal,
-%due to thermal emission from a baffle, that only affect the main beam signal.
-%
-%It has also turned out out that a slight imbalance between signal and 
-%reference phase introduces instabilities seen as low-level ripple 
-%in calibrated atmospheric spectra, if not taken into account. %
-%
-%frequency calibration%
-%
-%pointing?
-%the spectrometer passbands. This ripple is stable in the IF band,
-%and can be measured towards a blank region of the sky and subsequently
-%be subtracted from target spectra.
-%A scan is then defined as all measurements collected between two hot
-%load signals, which in practise is equivalent to all measurements
-%collected between the lower turning point and upper turning point
-%(or vice versa) of the limb-scanning motion. Table 2
-%lists the scanning range of the three main scanning modes used.
-
-
 
 
 \section{Radiometric calibration algorithm}
@@ -303,9 +254,6 @@ Small perturbations of the sky and load signals will
 result in undesired features in calibrated
 spectra (which we denote as ``ripple'') 
 if not taken into account (see Fig.~\ref{fig:ripple1}).
-%This section describes how 
-%ripple on those signals
-%can be taking into account in the calibration process.
 The sensitivity of calibrated \(T_{a,i}\) 
 to small perturbations on \(T_{s,i}\) and \(T_{l,i}\) are:
 \begin{equation}
@@ -456,7 +404,6 @@ from measurements at tangent altitudes above 80 km for a range of hot load
 temperatures ([277--278~K, 278--279~K, ..., 289--290~K]) 
 for each observation mode, and import the spectra
 into the ac\underline{ }level1b\underline{ }average table
-%(Table~\ref{table:ac1c1})
 \item Estimate a fit to the median spectrum for each mode by
 \begin{enumerate}
 \item applying a filter that removes channels which are contaminated by 
@@ -471,16 +418,12 @@ The fitting is performed in such a way that \(c\) is forced
 to be equal for all of the four modules. 
 Import the fit into the ac\underline{ }cal\underline{ }level1c
 table
-%(Table~\ref{table:ac1b2})
 \end{enumerate}
 \item Apply the correction.\\
 Equation~\ref{correction} is applied to correct a given calibrated 
 spectrum (from part~1), where the fit of the median spectrum
 with matching hot load temperature range is used as the \(s_{0}\)
 spectrum. 
-%This is done within the program/functions, described in
-%Sect.~\ref{sec:officialexport}, used to export the official
-%level1b-product.  
 \end{itemize}
 
 
@@ -620,37 +563,19 @@ In Table~\ref{table:config5} typical \(T_{rec}\) values and radiometric noise le
 of the main frequency modes of \smr\ are listed.
 
 
-%The noise on an individual channel, \(\Delta T\) , is commonly represented by
-%\begin{equation}
-%\Delta T = T_{sys}\sqrt{ \frac{1}{B\tau} + \left( \frac{\Delta g}{g} \right)^2 }
-%\label{eq:prec}
-%\end{equation}
-%where \(T_{sys}\) is the combination of receiver system temperature (\(T_{rec}\)) and
-%scene radiance (\(T_{a}\)), \(B\) is the channel bandwidth,
-%\(\tau\) is the integration time of each measurement, and \(\frac{\Delta g}{g}\)
-%is a gain variation term. The \(\frac{1}{B\tau}\) component is commonly referred to as
-%radiometer noise, and is uncorrelated between channels.
-%The gain variation term is more likely to be correlated between channels.
-%quation~\ref{eq:prec} is not complete for \smr\ as it ignores the noise
-%coming from noise on interpolated reference measurements.
-%We here derive a more complete expression:
-
 As a starting point to derive Eq.~\ref{eq:raderror} we take the derivative of \(T_{a,i}\) 
 with respect to \(c_{a,i}\), \(c_{s,i}\), and \(g_{i}\):
 
 \begin{equation}
 \frac{\partial T_{a,i}}{\partial c_{a,i}} \approx \frac{1}{g_i}, 
-%\implies \Delta T_{a,i}^{2}=\frac{\Delta c_{a,i}^{2}}{g_{i}^2}
 \end{equation}
 
 \begin{equation}
 \frac{\partial T_{a,i}}{\partial c_{s,i}} \approx \frac{1}{g_i}, 
-%\implies \Delta T_{a,i}^{2}=\frac{\Delta c_{s,i}^{2}}{g_{i}^2}
 \end{equation}
 
 \begin{equation}
 \frac{\partial T_{a,i}}{\partial g_{i}} \approx -\frac{c_{a,i}-c_{s,i}}{g_{i}^{2}} \approx \frac{T_{a,i}}{g_i}, 
-%\implies \Delta T_{a,i}^{2}=T_{a,i}^{2}\frac{\Delta g_{i}^{2}}{g_{i}^2}
 \end{equation}
 which implies:
 
@@ -666,10 +591,6 @@ The radiometer noise contribution induced noise variance in calibrated \(T_{a,i}
 \begin{equation}
 \frac{\Delta c_{a,i}^{2}}{g_{i}^2} = \frac{T_{sys}^{2}}{B\tau}.
 \end{equation}
-
-%It should be noted that this noise is not uncorrelated between neighbouring channels
-%in \smr\ spectra, as a Hanning smoothing is applied in the calibration process
-%(noise is effectively reduced as this can be seen as an increase in bandwidth).    
 
 
 \subsection*{Precision: interpolated reference noise contribution}
@@ -726,13 +647,11 @@ Thus, we have
 \begin{equation}
  \frac{\partial g_{i}}{\partial c_{l,i}} = \frac{\partial g_{i}}{\partial T_{rec,i}}\frac{\partial T_{rec_{i}}}{\partial c_{l,i}}=
 \frac{1}{T_{l,i}-T_{s,i}} 
-%\implies \Delta g_{i}^{2} =  \frac{\Delta c_{l,i}^{2}}{(T_{l,i}-T_{s,i})^2}
 \end{equation}
 
 \begin{equation}
  \frac{\partial g_{i}}{\partial c_{s,i}} = \frac{\partial g_{i}}{\partial T_{rec,i}}\frac{\partial T_{rec_{i}}}{\partial c_{s,i}} =
 \frac{-1}{T_{l,i}-T_{s,i}} 
-%\implies \Delta g_{i}^{2} =  \frac{\Delta c_{s,i}^{2}}{(T_{l,i}-T_{s,i})^2}
 \end{equation}
 which implies:
 
@@ -753,42 +672,9 @@ or, if we take into account that \(T_{rec}\) spectrum is an average from \(n\) m
 \end{equation}
 
 
-%\begin{equation}
-%\frac{\partial c_{s,i}}{\partial g_{i}}\approx T_{rec}
-%\end{equation}
-
-%\begin{equation}
-%\frac{\partial c_{s,i}}{\partial T_{rec,i}} = g
-%\end{equation}
-
-%\begin{equation}
-% \Delta c_{s,i}^{2} = (T_{rec,i}\Delta g_{i})^{2}+(g_{i}\Delta T_{rec,i})^{2}
-%\end{equation}
-
 \subsection{Uncertainties related to rapid gain fluctuations}
 \label{sec:gainvar}
 In the preceding section we derived an error for reference noise contribution.
-%\begin{equation}
-%\Delta T_{a,i}^{2} =  \frac{1}{B\tau} \left( (T_{rec,i}+T_{a,i})^2 + \frac{T_{rec,i}^2}{2} +
-%   \frac{T_{a,i}^{2}}{n} \left( \left( \frac{T_{rec,i} + T_{l,i}}{T_{l,i}} \right)^2 + \left( \frac{T_{rec,i} }{T_{l,i}} \right)^2 \right) \right)
-%   + T_{rec}^{2}\left(\frac{\Delta g'}{g}\right)^{2},
-%\end{equation%}
-%
-%\begin{equation}
-%\Delta T_{a,i} =  T_{rec,i}\sqrt{\frac{3}{2}\frac{1}{B\tau} + \left(\frac{\Delta g'}{g}\right)^{2} },
-%\end{equation}
-%In the \smr\ calibration scheme, and for the nominal situation, the sky beam interpolated
-%reference signal can be written
-%\begin{equation}
-%\hat{c}_{s,i}(t_{j+1}) = \frac{1}{2}c_{s,i}(t_{j}) + \frac{1}{2}c_{s,i}(t_{j+2}),
-%\end{equation}
-%where \(t_{j}\) represent the time.
-%If the gain fluctuations are small, or follows a linear variation during the
-%observation sequence, the noise in \(\hat{c}_{s,i}(t_{j+1})\) is only due to radiometric
-%noise, and induced noise variance in calibrated \(T_{a,i}\) is
-%\begin{equation}
-%\Delta T_{i}^2 = \frac{T_{rec}^{2}}{2B\tau}.
-%\end{equation}%
 Gain fluctuations on a small time scale (between reference-target-reference
 observation sequence) not captured by the interpolation of reference signals
 give rise to errors.
@@ -808,12 +694,6 @@ This error can be described as
 
 For a given \smr\ spectrum \(\Delta T_{i}\)\(\approx\)2\,K due to this effect,
 but when averaging many spectra this effect goes to 0.
-
-
-%Two sequantial \smr\ spectrum have one reference spectrum in common, thus the noise
-%of the two spectra is correlated ...
-%\lcomment{BR}{expand on this}
-
 
 
 \subsection{Other uncertainties}
@@ -854,32 +734,13 @@ Thus, error in estimated main beam effciency is sensitive to errors in both assu
 \label{eq:tanaerr}
 \end{equation}
 
-
-% \begin{equation}
-% \frac{\partial n_{a}}{\partial T_{amb}}=\frac{T_{sp}}{T_{amb}^{2}}
-% \end{equation}
-%  \begin{equation}
-% \frac{\partial n_{a}}{\partial T_{sp}}=-\frac{1}{T_{amb}}
-% \end{equation}
-
-%\begin{equation}
-%  \Delta n_{a} \approx \frac{T_{sp}}{T_{amb}}\Delta{T_{amb}}.
-% \end{equation}
-%  which gives that
-% \begin{equation}
-%  \Delta T_{a} = \frac{T_{sp}}{T_{amb}}\left(\frac{\Delta T_{amb}}{T_{amb}-T_{sp}}\right)T_{a}
-% \end{equation}
- For the moment we assume that \(\Delta T_{sp}\)=0 (see Sect.~\ref{sec:trends} for further
- analysis), and focus on the \(\Delta T_{amb}\) term.
- There is no temperature sensor on \smr\ that measure the baffle temperature, and a constant
- value of 300\,K is used in calibration process.
- Anyhow, for  observations against a blank backgrund the error
- is close to 0, while if \(T_{a}\)=200\,K, \(T_{amb}\)=300\,K, \(T_{sp}\)=8\,K,
- and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
-
-
-%\item standing waves: 0.3 K ?
-%\lcomment{BR}{is this correct? how derived/estimated?}
+For the moment we assume that \(\Delta T_{sp}\)=0 (see Sect.~\ref{sec:trends} for further
+analysis), and focus on the \(\Delta T_{amb}\) term.
+There is no temperature sensor on \smr\ that measure the baffle temperature, and a constant
+value of 300\,K is used in calibration process.
+Anyhow, for  observations against a blank backgrund the error
+is close to 0, while if \(T_{a}\)=200\,K, \(T_{amb}\)=300\,K, \(T_{sp}\)=8\,K,
+and \(\Delta T_{amb}\)=10\,K, than \(\Delta T_{a}\)\(\approx\)\,0.18 K.
 
 
 \end{itemize}
@@ -895,11 +756,6 @@ The main beam efficiency is determined based on an estimated
 \(T_{sp}\) value (see Eq.~\ref{eq:eta}).
 The estimation of \(T_{sp}\) (see Eq.~\ref{eq:tspill2}) 
 is done under the assumption that reference signals are ``clean''.
-%by itself
-%is likely to be sound and in principle unquestionable.
-%However, it is a possibility that our interpretation 
-%of this \(T_{sp}\) is not correct, that will lead to an error
-%in the main beam efficiency.
 It has been noted that there is a slight mismatch between
 main beam and reference signals (see Sect.~\ref{sec:ripples}).
 If we assume that the reference signal contains a time varying
@@ -912,23 +768,10 @@ thus, \(T_{sp}\) is made up of two contributions and the error
 in ``true'' \(T_{sp}\) is \(\Delta T_{off}(t)\).
 Equation~\ref{eq:tanaerr} then tells us how this related
 error introduces an error in estimated \(T_{a}\) within the calibration algorithm.
-%A possible problem error is introduced when this \(T_{sp}\) value
-%is used to estimate main beam efficiency, since we then have (see Eq.~\ref{eq:eta})
-%that  
-%\begin{equation}
-%\hat{\eta}_{a}=1-\frac{(1-\eta_{a})T_{amb}-\Delta T_{off}(t)}{T_{amb}} = \eta_{a} + \frac{\Delta T_{off}(t)}{T_{amb}}. 
-%\end{equation}
-%Calibrated spectrum is proportional to the inverse of the main beam efficiency,
-%thus the error \(\Delta T_{err,off}\)  is proportional to
-%\begin{equation}
-% \Delta T_{err,off} \sim \frac{1}{\eta_{a}+\frac{\Delta T_{off}(t)}{T_{amb}}}-\frac{1}{\eta_{a}}\approx
-% -\frac{\Delta T_{off}(t)}{T_{amb}\eta_{a}^{2}}
-%\end{equation}
 Since main beam efficiency error is proportional to \(T_{a}\) it has low impact
 on weak signals. However, if \(\Delta T_{off}(t)\) has changed by 1.5\,K
 during the mission, one would see an artificial change in strong 
 signals (around 200\,K) of about 1\,K. 
-
 
 
 
@@ -943,16 +786,15 @@ Noise on calibrated \smr\ has correlations of the following type/reason:
 neighboring channels of a given spectrum (due to Hanning smoothing).
 
 \item The gain variation term (Eq.~\ref{eq:gainvar}) has been found to be correlated 
-between channels for \smr\.
+between channels for \smr.
 This gain variation has been estimated to give rise to a constant
 shift in the brightness temperature across the band (that is, it can 
 be seen as a flat baseline ripple), where the shift
 has a standard deviation of about 2 K and is uncorrelated
 between tangent altitudes and front-ends.
-\lcomment{BR}{Add reference or show figure}
 
 \item Noise of two neighboring spectra is correlated due to
-the fact that they share (1) cold sky reference measurements. 
+the fact that they share one cold sky reference measurements. 
 The noise linear correlation coefficient from a given channel
 from two neighboring spectra should be \(\sim\)\,0.17 due to this
 fact. This value was derived from simulations for an ideal
