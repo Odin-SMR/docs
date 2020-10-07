@@ -7,8 +7,7 @@ modes investigated in Chapter~\ref{chapter:comparisons}. The vertical coverage
 has been defined as the altitude interval where the \emph{measurement response}
 for the retrievals is $>0.8$. The vertical resolution and precision are
 calculated from the $\pm 2\sigma$ percentiles of the \emph{full widths at half
-maximum} of the averaging kernels and the \emph{total error} as defined
-in~\cite{atbdl2} respectively.
+maximum} of the averaging kernels and the comparison with the other datasets respectively.
 
 The results presented in Table~\ref{table:level2:v3} should be compared with
 the results for the old processing chain, presented in
@@ -16,7 +15,7 @@ Tables~\ref{table:level2} and~\ref{table:level2b}.
 
 \begin{table}[tbhp]
     \centering
-    \caption{Characteristics of \smr\ Level2 main data products.}
+    \caption{Characteristics of \smr\ Level2 main  Version 3.0 data products.}
     \label{table:level2:v3}
     \scalebox{0.965}{%
     \begin{tabular}{lrrrr}
@@ -61,19 +60,29 @@ conjunction with simultaneously measured products if account is taken of this.
 \subsection{Chlorine Monoxide}
 The \chem{ClO} product should be reliable until 2009 and after January 2018.
 Unfortunately a gradually deteriorating instrument malfunction has disturbed
-the intervening period.  We will attempt to correct for this as soon as
-possible. This will require some effort and will probably not be possible
-within the scope of the project.
+the intervening period.  It may be possible to correct for this effect by simulating the effects of the deterioration on the spectra but this has not been attempted in version 3.0 of the data.
 
 \subsection{Water vapour}
 Water vapour continues to be a difficult product. the FM~08 product has
 improved and is stable over time although shows a 15~\% low bias compared to
 MLS.  For the upper stratosphere and mesosphere FM~13 appears to be the best
 product, but also shows a small bias of around 15~\% and some variability above
-70~km that needs further investigation.
+70~km that needs further investigation.  A much more detailed analysis of the new mesospheric water vapour product is available in \cite(grieco2020)
 
 \subsection{Temperature}
 FM~02 provides stratospheric temperatures with a possible increasing bias with
 altitude. There does not appear to be any systematic drift with time. For
 higher altitudes FM~13 can be used with knowledge of a possible cold bias of
 3--5~K
+
+\section{Remaining work}
+While a substantial effort has been made in this project there are always things that show up and are worthy of attention in a future reprocessing. This is an attempt to summarise these.
+
+\begin{enumerate}
+\item The unfortunate degradation in the FM-01 performance over a long period is well worth an attempt to correct the data and retrieve the  ClO measurements between 2009 and 2018.  
+\item Although great efforts have been made to understand the altitude dependent bias in the nitric acid profiles in FM-02, it must be worth a future attempt to resolve the problem.
+\item Remaining biases in many of the ozone products are often of the same magnitude and direction indicating an underlying  cause that has yet to be identified.
+\item The current validation study has not permitted the investigation of long term drifts.  Indictions from the level 1 data indicate that some such drifts may exist and the effect of these on the level2 products and any mitigation strategies should be investigated.
+\item  
+\end{enumerate}
+ 
