@@ -126,7 +126,7 @@ range 16--70~km with a vertical resolution of around 5~km.
 %%%%%%%
 % H2O %
 %%%%%%%
-
+\newpage
 \subsubsection{\chem{H_2O}}
 \label{sec:fm08:comparison:H2O}
 The retrievals for \chem{H_2O} have been compared with data from the MIPAS,
@@ -151,11 +151,17 @@ range 19--78~km with a vertical resolution of around 4.5~km.
     \end{subfigure}
     \,
     \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{ALL-Strat-v3_0_0_fm8_H2O_perdiff_mipas_esa}
+        \caption{average difference to MIPAS - ESA}
+        \label{fig:fm08:H2O:profiles:MIPAS-ESA}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{ALL-Strat-v3_0_0_fm8_H2O_perdiff_mls}
         \caption{average difference to MLS}
         \label{fig:fm08:H2O:profiles:MLS}
     \end{subfigure}
-
+    \,
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{ALL-Strat-v3_0_0_fm8_H2O_perdiff_sage}
         \caption{average difference to SAGE~III}
@@ -164,11 +170,6 @@ range 19--78~km with a vertical resolution of around 4.5~km.
     \caption{Average difference in percent between retrievals of \chem{H_2O}
     from \smr~v3 and collocated measurements from various instruments at
     different altitudes for frequency mode~08.}
-       \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=\textwidth]{ALL-Strat-v3_0_0_fm8_H2O_perdiff_mipas_esa}
-        \caption{average difference to MIPAS - ESA}
-        \label{fig:fm08:H2O:profiles:MIPAS-ESA}
-    \end{subfigure}
 
     \label{fig:fm08:H2O:profiles}
 \end{figure}
@@ -211,7 +212,7 @@ range 19--78~km with a vertical resolution of around 4.5~km.
     \label{fig:fm08:H2O:mr_avk}
 \end{figure}
 
-
+\newpage
 \subsection{Discussion}
 \label{sec:fm08:discussion}
 The Pearson correlation between the \smr\ retrievals and the other instruments
@@ -224,7 +225,6 @@ of both products. It is unclear if this is due to spectroscopic problems or
 some sort of underestimation of the intensity.  Spectroscopic data are taken
 from the HITRAN~12 database updated with the latest laboratory results;
 see~\cite{atbdl2}.
-
 
 
 \begin{table}[tbhp]
