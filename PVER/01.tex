@@ -6,7 +6,7 @@
 Frequency mode~01 monitors two bands, $501.180$--$501.580\,\mathrm{GHz}$ and
 $501.980$--$502.380\,\mathrm{GHz}$. Its main use is retrievals of \chem{O_3},
 \chem{ClO} and \chem{N_2O}. This ozone product has previously been used as
-the main Odin'/SMR ozone product despite the weak line and thereby noisy profiles.
+the main \smr\ ozone product despite the weak line and thereby noisy profiles.
 Spectra from this observation mode are shown in Figure~\ref{fig:spectra:01}.
 We hope that this reprocessing will make the FM~02 ozone the main product.
 
@@ -46,20 +46,19 @@ which is the upper range of altitudes for this frequency mode, and the lower
 range for the SAGE~III instrument, as seen in
 Figure~\ref{fig:fm01:O3:profiles:SAGEIII}.
 
-A clear drift in the results is seen after 2009 and data from 2010--2017 should
-be treated with extreme care. The reason for the  drift has now been identified
-as an instrument problem where an unstable oscillator has widened the
-instrument line-profile.  This may be possible to correct for in a later
-version of the data but will require an in depth study of the problem and possible corrections strategies.  
-Data from 2018 and onward seems to  be free of this problem
-thanks to a retuning  of some parameters on-board the satellite.  The useful
-range for the product and the vertical resolution is shown in
-Figure~\ref{fig:fm01:O3:mr_avk}.  Based on an analysis of the averaging kernels and
-comparisons with the other instruments the product is useful for the range 19--50~km
-with a resolution of around 5~km. The resolution is slightly degraded compared
-to the version 2.x product due to increased vertical correlation used to
-stabilise the retrievals.
-
+A clear drift in the results is seen after 2009 and data from 2010--2017
+should be treated with extreme care. The reason for the drift has now been
+identified as an instrument problem where an unstable oscillator has widened
+the instrument line-profile. This may be possible to correct for in a later
+version of the data but will require an in depth study of the problem and
+possible corrections strategies. Data from 2018 and onward seems to be free
+of this problem thanks to a retuning of some parameters on-board the
+satellite. The useful range for the product and the vertical resolution is
+shown in Figure~\ref{fig:fm01:O3:mr_avk}. Based on an analysis of the
+averaging kernels and comparisons with the other instruments the product is
+useful for the range 19--50~km with a resolution of around 5~km. The
+resolution is slightly degraded compared to the version 2.x product due to
+increased vertical correlation used to stabilise the retrievals.
 
 \begin{figure}[tbhp]
     \centering
@@ -134,7 +133,7 @@ stabilise the retrievals.
 %%%%%%%
 % N2O %
 %%%%%%%
-
+\newpage
 \subsubsection{\chem{N_2O}}
 \label{sec:fm01:comparison:N2O}
 The retrievals for \chem{N_2O} have been compared with data from the MIPAS and
@@ -209,7 +208,7 @@ useful over the range 15--50~km with a vertical resolution of around 5~km.
 %%%%%%%
 % ClO %
 %%%%%%%
-
+\newpage
 \subsubsection{\chem{ClO}}
 \label{sec:fm01:comparison:ClO}
 The retrievals for \chem{ClO} have been compared with data from the MLS
@@ -235,7 +234,7 @@ range 18--55~km with a vertical resolution of around 5~km.
 
 \begin{figure}[tbhp]
     \centering
-    \includegraphics[width=0.666\textwidth]{ALL-Strat-v3_0_0_fm1_ClO_perdiff_mls}
+    \includegraphics[width=0.618\textwidth]{ALL-Strat-v3_0_0_fm1_ClO_perdiff_mls}
     \caption{Average difference in percent between retrievals of \chem{ClO}
     from \smr~v3 and collocated measurements from MLS at
     different altitudes for frequency mode~01. (Retrievals yielding
@@ -281,7 +280,7 @@ range 18--55~km with a vertical resolution of around 5~km.
     \label{fig:fm01:ClO:mr_avk}
 \end{figure}
 
-
+\newpage
 \subsection{Discussion}
 \label{sec:fm01:discussion}
 The Pearson correlation between the \smr\ retrievals and the other instruments
@@ -345,16 +344,14 @@ residual.}
 \end{tabular}
 \end{table}
 
-
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.666\textwidth]{../DDS/figures/DDS_fm1_O3_corr}
+    \includegraphics[width=0.618\textwidth]{../DDS/figures/DDS_fm1_O3_corr}
     \caption{Pearson correlation ($\rho$) of \smr~v3~(---) and~v2.X~(--~--)
     retrievals of \chem{O_3} with collocated measurements. Note the decline in
     $\rho$ after 2009.}
     \label{fig:fm01:O3:corr}
 \end{figure}
-
 
 \subsection{Conclusions}
 \label{sec:fm01:conclusions}
